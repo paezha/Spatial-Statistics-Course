@@ -1,0 +1,394 @@
+---
+title: "17 Spatially Continuous Data III"
+output: html_notebook
+---
+
+#Introduction
+
+NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+In the previous practice you were introduced to the concept of fields/spatially continuous data.
+
+For this practice you will need the following:
+
+* This R markdown notebook.
+* A file called "Walker_Lake.RData"
+
+The file contains a dataframe with geocoded observations of a series of variables. The dataframe is in tidy format, that is, each observation is a row with its corresponding variables (coordinates, variables).
+
+The Walker Lake dataset originally was used for teaching geostatistics in Isaaks and Srivastava's [An Introduction to Geostatistics](https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA).
+
+The dataset contains a set of false coordinates `X` and `Y`, two quantitative variables `V`, `U`, and a factor variable `T`. The variables are generic, but you can think of them as measurements of pollutants.
+
+In addition, the file includes two custom functions as follows:
+
+1. point2voronoi(sp)
+
+This is a function to obtain Voronoi polygons based on a set of points. It takes an argument `sp` (a `SpatialPointsDataFrame`) and calculates a set of Voronoi polygons. The value (output) of the function is a `SpatialPolygonsDataFrame` with the polygons.
+
+2. kpointmeans(source_xy, z, target_xy, k, latlong)
+
+This is a function to calculate k-point means. It takes a set of source coordinates (`source_xy`), that is, the coordinates of observations to be used for interpolation; a variable `z` to interpolate; a set of target coordinates (`target_xy`), the points to interpolate `z`; the number of nearest neighbors `k`; and a logical value to indicate whether the coordinates are latitude-longitude (the default is `FALSE`).
+
+#Learning objectives
+
+In this practice, you will learn:
+
+1. About the implications of residual spatial pattern for predictions.
+2. The measurement of spatial dependence in fields.
+3. Variographic analysis.
+
+#Suggested reading
+
+O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapters 8 and 9. John Wiley & Sons: New Jersey.
+
+#Preliminaries
+
+As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity:
+```{r}
+library(tidyverse)
+library(spdep)
+library(plotly)
+library(gstat)
+```
+
+Begin by loading the data file:
+```{r}
+load("Walker_Lake.RData")
+```
+
+You can verify the contents of the dataframe:
+```{r}
+summary(Walker_Lake.t)
+```
+
+You can also check that the two functions have been loaded to your workspace.
+
+# Residual spatial pattern
+
+In the previous practice/activity, you used trend surface analysis for spatial interpolation. Trend surface analysis improves on methods such as Voronoi polygons, IDW, and k-point means, by providing a built-in mechanism for estimating the uncertainty in the predictions. Lets quickly revisit this idea.
+
+The objective of interpolation is to provide the following estimates:
+$$
+\hat{z}_p + \hat{\epsilon}_p
+$$
+
+Trend surface analysis provides interpolated values by generating a trend surface as follows:
+$$
+\hat{z} = f(x, y)
+$$
+from which estimates of $\hat{z}_p$ can be obtained by using suitable prediction coordinates $(x_p, y_p)$.
+
+Next, although trend surface analysis does not provide an estimate of the prediction error $\hat{\epsilon}_p$ (since we do _not_ know the true value of the field at $p$), it provides confidence intervals for the prediction. In this way we can at the very least bound the prediction error as follows:
+$$
+CI_{z_p} = [z_{p_{lwr}}, z_{p_{upr}}].
+$$
+
+As previously seen, however, use of trend surface analysis does not guarantee that the residuals of the model will be independent.
+
+Lets revisit the model for Walker Lake.
+
+As before, we first calculate the polynomial terms of the coordinates:
+```{r}
+Walker_Lake.t <- mutate(Walker_Lake.t,
+                        X3 = X^3, X2Y = X^2 * Y, X2 = X^2, 
+                        XY = X * Y,
+                        Y2 = Y^2, XY2 = X * Y^2, Y3 = Y^3)
+```
+
+And proceed to estimate the following cubic trend surface model, which provided the best fit to the data:
+```{r}
+WL.trend3 <- lm(formula = V ~ X3 + X2Y + X2 + X + XY + Y + Y2 + XY2 + Y3, 
+                data = Walker_Lake.t)
+summary(WL.trend3)
+```
+
+To examine the residuals, first we label them as "positive" or "negative":
+```{r}
+Walker_Lake.t$residual3 <- ifelse(WL.trend3$residuals > 0, "Positive", "Negative")
+```
+
+So that they can be plotted as follows:
+```{r}
+ggplot(data = Walker_Lake.t, 
+       aes(x = X, y = Y, color = residual3)) +
+  geom_point() +
+  coord_equal()
+```
+
+As seen before, there is considerable spatial autocorrelation as confirmed by Moran's I coefficient:
+```{r}
+WL.listw <- nb2listw(knn2nb(knearneigh(as.matrix(Walker_Lake.t[,2:3]), k = 5)))
+moran.test(x = WL.trend3$residuals, listw = WL.listw)
+```
+
+The fact that the residuals are not independent has important implications for prediction. Consider the following thought experiment.
+
+Imagine that you are asked to guess whether the residual was positive or negative at the following locations for interpolation (indicated with triangles):
+```{r}
+ggplot(data = Walker_Lake.t, 
+       aes(x = X, y = Y)) +
+  geom_point(aes(color = residual3)) +
+  geom_point(data = data.frame(x = c(55, 25, 210, 227), y = c(200, 90, 90, 230)), 
+             aes(x = x, y = y), shape = 17, size = 3) +
+  coord_equal()
+```
+
+What would your guess be, and why?
+
+Now imagine that you are asked to guess whether the residual was positive or negative at the following locations for interpolation (indicated with triangles):
+```{r}
+ggplot(data = Walker_Lake.t, 
+       aes(x = X, y = Y)) +
+  geom_point(aes(color = residual3)) +
+  geom_point(data = data.frame(x = c(160, 240, 12, 120), y = c(38, 280, 240, 180)), 
+             aes(x = x, y = y), shape = 15, size = 3) +
+  coord_equal()
+```
+
+Again, what would your guess be, and why? Would you be able to guess this way if the residuals were random?
+
+The fact that you can guess and be fairly sure about the quality of your guess is that there is residual pattern! If the residuals were random, there is no information left to use. However, when there is pattern, the residual information can be used to enhance the quality of your guesses about the residuals, in other words, of the $\hat{\epsilon}_p$ terms, at the very least by guessing whether they are positive or negative (therefore reducing their confidence intervals), and even more, as will be seen later.
+
+Before learning how to do this, however, we need to revisit the way in which we measure spatial pattern in spatially continuous data.
+
+# Measuring spatial dependence in spatially continuous data
+
+In the preceding sections we used Moran's I coefficient to measure spatial pattern. Moran's I is, by design, a single-scale statistic, not unlike the case of nearest neighbor analysis in point patterns. The reason for this is that Moran's I is limited to detecting pattern at the scale at which the spatial weights are defined: for instance, at the level of adjacency, contiguity, or k-nearest neighbors. 
+
+While this makes sense (mostly) in the case of area data, since the areas inherently introduce spatial discontinuities, it makes less sense in the case of fields, where the underlying process is typically smooth. In fact, we would be interested in discovering about the characteristics of the pattern over the field, not just the nearest neighbors.
+
+One way of doing this is by means of a correlogram, which is simply a sequence of Moran's I coefficients computed over different scales.
+
+Consider for example the following sequence of coefficients, computed for k=10 neighbors to k=30 neighbors. Notice how the `for` loop calculates spatial weights using the designated number of neighbors, before calculating Moran's I.
+```{r}
+k <- c(10:30)
+moranI <- numeric(length = length(k))
+correlogram <- data.frame(k, moranI)
+for(i in 1:length(k)){
+  listwk <- nb2listw(knn2nb(knearneigh(as.matrix(Walker_Lake.t[,2:3]), k = k[i])))
+  m <- moran.test(x = WL.trend3$residuals, listw = listwk)
+  correlogram$moranI[i] <- m$estimate[1]
+}
+```
+
+Given the values of Moran's I at different scales, the correlogram can be plotted as:
+```{r}
+ggplot(data = correlogram, aes(x = k, y = moranI)) + 
+  geom_point()
+```
+
+As can be seen in the plot, spatial autocorrelation tends to decline as the scale of the test increases. This is a common occurrence: when autocorrelation is present, observations tend to be more similar to their neighbors than to more distant observations. 
+
+The use of k-neares neighbors points to a problem, however. The scale of the process does not depend on distance, which would be a more natural metric for a continuous process. In this case, k-nearest neighbors were used to ensure that each sum in the coefficient had the same number of observations. However, this means that "neighborhoods" will be geographically smaller where the observations are more dense, and larger where they are sparse.
+
+While this issue is not insurmountable (for instance, instead of k-neares neighbors we could have used the neighbors found at a certain distance), it points out to the fact that Moran's I is not by design well suited for the analysis of spatially continuous data.
+
+A different approach, known as variographic analysis, is introduced next.
+
+# Variographic analyisis
+
+Lets recall the definition of the covariance between two variables, say $X$ and $Y$:
+$$
+C(X,Y) = E[{(X_i^2 - \bar{X})(Y_i^2 - \bar{Y})}]
+$$
+Where $\bar{X}$ and $\bar{Y}$ are the means of $X$ and $Y$ respectively.
+
+The expectation operator $E[]$ turns out to be the mean:
+$$
+C(X,Y) = \frac{1}{n}\sum_{i=1}^{n}{(X_i^2 - \bar{X})(Y_j^2 - \bar{Y})}
+$$
+
+The observations $X_i$ and $Y_i$ in the covariance formula can be seen as a points in a scatterplot, with the axes shifted to the means of $X$ and $Y$, as shown in Figure 1.
+![Figure 1. Observations of the covariance as a scatterplot](17 Practice - Figure 1.jpg)
+
+The autocovariance of variable $z$ can be defined in a similar way, the difference being that instead of two variables, it is the covariance of a variable with _itself_ but at a different location (i.e., between locations $i$ and $j$):
+$$
+C(z_i,z_j) = E[{(z_i^2 - \bar{z})(z_j^2 - \bar{z})}]
+$$
+
+To implement the spatial autocovariance we need some criterion to explicitly define the spatial relationship between locations $i$ and $j$. A useful criterion in this case is as follows:
+$$
+w_{ij}(h)=\bigg\{\begin{array}{l l}
+1\text{ if } d_{ij} = h\\
+0\text{ otherwise}\\
+\end{array}
+$$
+In other words, $i$ and $j$ are considered to be spatially related for the purposes of calculating the autocovariance, if the distance between the two locations is equal to some predefined spatial lag $h$.
+
+The above criterion carries implicit the assumption that the autocovariance is a function of the separation $h$ between two observations, and not of other factors, such as the angle between the two observations. This assumption is called _isotropy_.
+
+Further, if we assume that the variance of $z$ is constant, and the correlation between observations does not depend on location (an assumption called _intrinsic stationarity_), we can _pool_ observations from accross the map to create a scatterplot to form the basis of the autocovariance calculations.
+
+Consider the (regular) arrangement of observations spaced at $h$ in Figure 2. Each observation generally has four neighbors, with the exception of those in the edges, which have fewer neighbors at spatial lag $h$. This means that most observations will contribute four points to the scatterplot ($z_i$ and $z_j$, $z_k$, $z_l$, and $z_m$), and others will contribute three or at least two (those in the corners).  
+
+![Figure 2. Finding spatial pairs for the calculation of the autocovariance](17 Practice - Figure 2.jpg)
+
+Given those pairs of observations, the autocovariance at lag $h$ can be calculated as:
+$$
+C_{z}(h) = \frac{\sum_{i=1}^{n}{w_{ij}(h)(z_i^2 - \bar{z})(z_j^2 - \bar{z})}}{\sum_{i=1}^n{w_{ij}(h)}}
+$$
+
+Changing the spatial lag $h$ allows us to calculate the autocovariance at different scales. The plot of the autocovariance at different scales is called a _covariogram_.
+
+A related quantity that is, for historical reasons, more commonly used is the _semivariance_.
+
+The semivariance is defined as follows:
+$$
+\hat{\gamma}_{z}(h) = \frac{\sum_{i=1}^{n}{w_{ij}(h)(z_i - z_j)^2}}{2\sum_{i=1}^n{w_{ij}(h)}}
+$$
+The plot of the semivariance at different lags $h$ is called a _semivariogram_.
+
+The covariogram and semivariogram are related by the following formula:
+$$
+C_{z}(h) =\sigma^2 - \hat{\gamma}_{z}(h)
+$$
+where $\sigma^2$ is the sample variance.
+
+The condition that $d_{ij} = h$ is, with the exception of gridded data, too strict, and is often relaxed in the following way:
+$$
+w_{ij}(\tilde{h})=\bigg\{\begin{array}{l l}
+1\text{ if } h - \Delta h < d_{ij} < h + \Delta h\\
+0\text{ otherwise}\\
+\end{array}
+$$
+Instead of forming pairs with observations at exactly $h$ (which would lead in many cases to too few pairs), pairs of are formed with observations at approximately lag $h$ (or $\tilde{h}$), with a tolerance given by $\Delta h$.
+
+Analysis based on the semivariogram (called _variographic analysis_) is implemented in R in the `gstat` package.
+
+Lets illustrate a semivariogram using the Walker Lake data. The package `gstat` accepts `SpatialPointsDataFrame` objects of the `sp` package, so we convert our tidy dataframe `Walker_Lake.t` into such an object by adding the `coordinates`:
+```{r}
+Walker_Lake <- Walker_Lake.t
+coordinates(Walker_Lake) <- ~ X + Y
+class(Walker_Lake)
+```
+
+The empirical variogram is calculated by means of the `gstat::variogram` function, as follows:
+```{r}
+variogram_z <- variogram(V ~ 1, data = Walker_Lake)
+ggplot(data = variogram_z, aes(x = dist, y = gamma)) +
+  geom_point() + 
+  geom_text(aes(label = np), nudge_y = -1500) +
+  xlab("Distance") + ylab("Semivariance")
+```
+The numbers indicate the number of pairs of observations used to calculate the semivariance at the corresponding lag.
+
+Since the sample variance is: 
+```{r}
+s2 <- var(Walker_Lake.t$V)
+```
+
+It follows that the covariogram in this case is:
+```{r}
+ggplot(data = variogram_z, aes(x = dist, y = s2 - gamma)) +
+  geom_point() + 
+  geom_text(aes(label = np), nudge_y = -1500) +
+  xlab("Distance") + ylab("Autocovariance")
+```
+
+As expected, the autocovariance (and hence, the autocorrelation) is stronger at short spatial lags, and declines at larger spatial lags.
+
+The above plots are the _empirical_ semivariogram and covariogram. These plots are used to model a theoretical semivariogram, a function that can be used to estimate spatial dependence at any lag within the domain of the data.
+
+Since the semivariogram is the expectation of the square, the function selected for modeling the theoretical semivariogram must be non-negative. Several functions satisfy this condition, a list of which are available in `gstat` as shown below:
+```{r}
+vgm()
+```
+
+The anatomy of a semivariogram includes a range, a sill, and possibly a nugget. These elements are shown in Figure 3.
+
+![Figure 3. Elements of a semivariogram model](17 Practice - Figure 3.jpg)
+
+Since the semivariogram is calculated based on the square of the differences $z_i - z_j$, the smaller the semivariance is, the more similar observations tend to be. In principle, the semivariogram begins at zero, because at distance zero an observation is identical to itself (i.e., $z_i - z_i$). The range is the distance at which the sill is reached. The sill, on the other hand, is the point at which the semivariance becomes simply the variance, meaning that there is no more or less similarity beween observations than would be implied by the variance of the sample.
+
+An additional element is the nugget. While the semivariogram in principle begins at zero, sometime discontinuities near the origin can be observed. The terminology is from mining, and reflects the fact that a nugget could be very different from surrounding material, hence the jump in the semivariogram.
+
+Some theoretical functions are shown next.
+
+Exponential semivariogram:
+```{r}
+plot(variogramLine(vgm(1, "Exp", 1), 10), type = 'l')
+```
+
+Spherical semivariogram:
+```{r}
+plot(variogramLine(vgm(1, "Sph", 1), 10), type = 'l')
+```
+
+Gaussian semivariogram:
+```{r}
+plot(variogramLine(vgm(1, "Gau", 1), 10), type = 'l')
+```
+
+These plots illustrate some differences in the behavior of the models. For indentical parameters, the Gaussian model provides smoother changes near the origin. The spherical model reaches the sill more rapidly than the other models.
+
+To fit a theoretical semivariogram to the empirical one, the function `fit.variogram` is used:
+```{r}
+variogram_z.t <- fit.variogram(variogram_z, model = vgm("Exp"))
+```
+
+The results of which can be plotted after passing the model the the function `variogramLine`:
+```{r}
+gamma.t <- variogramLine(variogram_z.t, maxdist = 130)
+ggplot(data = variogram_z, aes(x = dist, y = gamma)) +
+  geom_point(size = 3) + 
+  geom_line(data = gamma.t, aes(x = dist, y = gamma)) +
+  xlab("Distance") + ylab("Semivariance")
+```
+
+A set of models can be passed as an argument to `fit.variogram`, in which case the value (output) of the function is the model that provides the best fit to the empirical semivariogram:
+```{r}
+variogram_z.t <- fit.variogram(variogram_z, model = vgm("Exp", "Sph", "Gau"))
+variogram_z.t
+```
+
+In this case, it can be seen that the best fitting model is the exponential, as follows:
+```{r}
+gamma.t <- variogramLine(variogram_z.t, maxdist = 130)
+ggplot(data = variogram_z, aes(x = dist, y = gamma)) +
+  geom_point(size = 3) + 
+  geom_line(data = gamma.t, aes(x = dist, y = gamma)) +
+  xlab("Distance") + ylab("Semivariance")
+```
+
+For comparison, lets do the variographic analsysis of a simulated random dataset.
+
+Generate coordinates for observations and expand on a grid:
+```{r}
+x <- seq(from = 0, to = 250, by = 10)
+y <- seq(from = 0, to = 290, by = 10)
+df <- expand.grid(x = x, y = y)
+```
+
+Then, create a random variable for this coordinates:
+```{r}
+set.seed(100)
+df$z <- rnorm(n = 780, mean = 500, sd = 300)
+```
+
+Finally, convert to a `SpatialPointsDataFrame` object:
+```{r}
+coordinates(df) <- ~x+y
+```
+
+
+The empirical variogram is:
+```{r}
+variogram_df <- variogram(z ~ 1, data = df)
+ggplot(data = variogram_df, aes(x = dist, y = gamma)) +
+  geom_point() + 
+  geom_text(aes(label = np), nudge_y = -1500) +
+  ylim(c(0, 98100)) +
+  xlab("Distance") + ylab("Semivariance")
+```
+
+The range of the semivariogram appears to be zero, or alternatively, there seems to be a pure nugget effect. This is as expected. Since the data are spatially random, they are not more similar at shorter distance than they would be at longer distances.
+
+This concludes Practice 17.

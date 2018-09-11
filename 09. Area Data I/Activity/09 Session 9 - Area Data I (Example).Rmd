@@ -1,0 +1,249 @@
+---
+title: "04 Session 4: Point Pattern Analysis I"
+output: html_notebook
+---
+
+#Practice questions
+
+Answer the following questions:
+
+1. What is a key difference between area data and point data?
+2. What is a choropleth map?
+3. What is a cartogram?
+4. What are the advantages and disadvantages of these mapping techniques?
+
+#Learning objectives
+
+In this activity, you will:
+
+1. Use the concept of quadrats to analyze a real dataset.
+2. Learn about a quadrat-based test for randomness in point patterns.
+3. Learn how to use the p-value of a statistical test to make a decision.
+4. Think about the distribution of events in a null landscape.
+5. Think about ways to decide whether a landscape is random.
+
+#Suggested reading
+
+O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 7. John Wiley & Sons: New Jersey.
+
+#Preliminaries
+
+For this activity you will need the following:
+
+* This R markdown notebook.
+* A dataset called `Toronto Business Points.RData`.
+
+It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity. In addition to `tidyverse`, you will need `spatstat`, a package designed for the analysis of point patterns (you can learn about `spatstat` [here](https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf) and [here](http://spatstat.org/resources/spatstatJSSpaper.pdf)):
+```{r}
+library(tidyverse)
+library(rgdal)
+library(broom)
+library(cartogram)
+library(plotly)
+```
+
+In the practice that preceded this activity, you learned about the area data and visualization techniques for area data.
+
+Begin by loading the data that you will use in this activity:
+```{r}
+Hamilton_CT <- readOGR(".", layer = "Hamilton CMA CT", integer64 = "allow.loss")
+```
+
+You can obtain new (calculated) variables as follows. For instance, to obtain the proportion of residents who are between 20 and 34 years old, and between 35 and 49:
+```{r}
+Hamilton_CT@data <- dplyr::transmute(Hamilton_CT@data, AREA = AREA, TRACT = TRACT,
+                                     POPULATION = POPULATION,
+                                     POP20to34 = (AGE_20_TO_ + AGE_25_TO_ + AGE_30_TO_),
+                                     Prop20to34 = POP20to34/POPULATION, 
+                                     POP35to49 = (AGE_35_TO_ + AGE_40_TO_ + AGE_45_TO_),
+                                     Prop35to49 = POP35to49/POPULATION, 
+                                     POP50to64 = (AGE_50_TO_ + AGE_55_TO_ + AGE_60_TO_),
+                                     Prop50to64 = POP50to64/POPULATION,
+                                     POP65Plus = (AGE_65_TO_ + AGE_70_TO_ + AGE_75_TO_ + AGE_80_TO_ + AGE_85),
+                                     Prop65Plus = POP65Plus/POPULATION)
+```
+
+This is a `SpatialPolygonDataFrame`. Convert to a dataframe ("tidy" it) for plotting using `ggplot2`:
+```{r}
+Hamilton_CT.t <- tidy(Hamilton_CT, region = "TRACT")
+Hamilton_CT.t <- rename(Hamilton_CT.t, TRACT = id)
+```
+
+Rejoin the data:
+```{r}
+Hamilton_CT.t <- left_join(Hamilton_CT.t, Hamilton_CT@data, by = "TRACT")
+```
+
+#Activity
+
+1. Create choropleth maps for the proportion of the population who are 20 to 34 years old, 35 to 49 years old, 50 to 65 years old, and 65 and older. 
+
+```{r}
+ggplot() + 
+  geom_polygon(data = Hamilton_CT.t, aes(x = long, y = lat, group = group, fill = cut_number(Prop20to34, 5)), color = "white") + 
+  coord_fixed() +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "Prop Age 20 to 34")
+
+```
+
+```{r}
+ggplot() + 
+  geom_polygon(data = Hamilton_CT.t, aes(x = long, y = lat, group = group, fill = cut_number(Prop35to49, 5)), color = "white") + 
+  coord_fixed() +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "Prop Age 35 to 49")
+
+```
+
+```{r}
+ggplot() + 
+  geom_polygon(data = Hamilton_CT.t, aes(x = long, y = lat, group = group, fill = cut_number(Prop50to64, 5)), color = "white") + 
+  coord_fixed() +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "Prop Age 50 to 64")
+
+```
+
+```{r}
+ggplot() + 
+  geom_polygon(data = Hamilton_CT.t, aes(x = long, y = lat, group = group, fill = cut_number(Prop65Plus, 5)), color = "white") + 
+  coord_fixed() +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "Prop Age 65+")
+
+```
+
+2. Show your maps to a fellow student. What patterns do you notice in the distribution of age in Hamilton?
+
+3. Devise a rule to decide whether the pattern observed in a choropleth map is random.
+
+# Bonus
+
+Create cartograms of the same variables above. Since the cartograms are created based on the `SpatialPolygonsDataFrame`:
+```{r}
+Prop20to34.cartogram <- cartogram(shp = Hamilton_CT, weight = "POPULATION")
+Prop35to49.cartogram <- cartogram(shp = Hamilton_CT, weight = "POPULATION")
+Prop50to64.cartogram <- cartogram(shp = Hamilton_CT, weight = "POPULATION")
+Prop65Plus.cartogram <- cartogram(shp = Hamilton_CT, weight = "POPULATION")
+```
+
+Tidy and restore the data:
+```{r}
+Prop20to34.cartogram.t <- tidy(Prop20to34.cartogram, region = "TRACT")
+Prop20to34.cartogram.t <- rename(Prop20to34.cartogram.t, TRACT = id)
+Prop20to34.cartogram.t <- left_join(Prop20to34.cartogram.t, select(Prop20to34.cartogram@data, TRACT, Prop20to34), by = "TRACT")
+Prop20to34.cartogram.t <- rename(Prop20to34.cartogram.t, Proportion = Prop20to34)
+
+Prop35to49.cartogram.t <- tidy(Prop35to49.cartogram, region = "TRACT")
+Prop35to49.cartogram.t <- rename(Prop35to49.cartogram.t, TRACT = id)
+Prop35to49.cartogram.t <- left_join(Prop35to49.cartogram.t, select(Prop35to49.cartogram@data, TRACT, Prop35to49), by = "TRACT")
+Prop35to49.cartogram.t <- rename(Prop35to49.cartogram.t, Proportion = Prop35to49)
+
+Prop50to64.cartogram.t <- tidy(Prop50to64.cartogram, region = "TRACT")
+Prop50to64.cartogram.t <- rename(Prop50to64.cartogram.t, TRACT = id)
+Prop50to64.cartogram.t <- left_join(Prop50to64.cartogram.t, select(Prop50to64.cartogram@data, TRACT, Prop50to64), by = "TRACT")
+Prop50to64.cartogram.t <- rename(Prop50to64.cartogram.t, Proportion = Prop50to64)
+
+Prop65Plus.cartogram.t <- tidy(Prop65Plus.cartogram, region = "TRACT")
+Prop65Plus.cartogram.t <- rename(Prop65Plus.cartogram.t, TRACT = id)
+Prop65Plus.cartogram.t <- left_join(Prop65Plus.cartogram.t, select(Prop65Plus.cartogram@data, TRACT, Prop65Plus), by = "TRACT")
+Prop65Plus.cartogram.t <- rename(Prop65Plus.cartogram.t, Proportion = Prop65Plus)
+```
+
+Stack all cartograms into a single dataframe, add factor for frames:
+```{r}
+Cartograms <- rbind(data.frame(Prop20to34.cartogram.t, factor = "Age 20 to 34"),
+                    data.frame(Prop35to49.cartogram.t, factor = "Age 35 to 49"),
+                    data.frame(Prop50to64.cartogram.t, factor = "Age 50 to 64"),
+                    data.frame(Prop65Plus.cartogram.t, factor = "Age 65+"))
+```
+
+Create plot with frames:
+```{r}
+Cartograms.plot <- ggplot(Cartograms, aes(x= long, y = lat, group = group, fill = cut_number(Proportion, 5))) + 
+  geom_polygon(aes(frame = factor), color = "white") +
+  scale_fill_brewer(palette = "YlOrRd") +
+  coord_fixed() +
+  theme(legend.position = "bottom") +
+  labs(fill = "Proportion")
+```
+
+Plot:
+```{r}
+ggplotly(Cartograms.plot)
+```
+
+Try rectangular cartograms:
+```{r}
+library(recmap)
+```
+
+Rectangular algorithms require the centroids of the zones, which can be obtained by means of `sp::coordinates`
+```{r}
+xy_centroids <- coordinates(Hamilton_CT)
+```
+
+Create a frame for the rectangular cartograms:
+```{r}
+rec_frame <- data.frame(x = xy_centroids[,1], 
+           y = xy_centroids[,2],
+           dx = sqrt(Hamilton_CT$AREA) / 2 / (0.7 * 60 * cos(xy_centroids[,2] * pi / 180)),
+           dy = sqrt(Hamilton_CT$AREA) / 2 / (0.7 * 60)) 
+```
+
+Generate the input for the `recmap` function. This is the frame for the cartograms `rec_frame` and a variable z:
+```{r}
+POP.rec <- data.frame(rec_frame, z = Hamilton_CT$POPULATION + 1, name = Hamilton_CT$TRACT)
+head(POP.rec)
+```
+
+```{r}
+POP.rec.cartogram <- recmap(POP.rec)
+```
+
+```{r}
+plot(POP.rec.cartogram)
+```
+
+```{r}
+ggplot(data = POP.rec.cartogram) + geom_rect(aes(xmin = x - dx, xmax = x + dx, ymin = y - dy, ymax = y + dy)) + coord_fixed()
+```
+
+```{r}
+Cartograms.rec <- rbind(data.frame(POP.rec.cartogram,
+                                   Proportion = Hamilton_CT$Prop20to34,
+                                   factor = "Age 20 to 34"),
+                        data.frame(POP.rec.cartogram,
+                                   Proportion = Hamilton_CT$Prop35to49,
+                                   factor = "Age 35 to 49"),
+                        data.frame(POP.rec.cartogram,
+                                   Proportion = Hamilton_CT$Prop50to64,
+                                   factor = "Age 50 to 64"),
+                        data.frame(POP.rec.cartogram,
+                                   Proportion = Hamilton_CT$Prop65Plus,
+                                   factor = "Age 65+"))
+```
+
+Create plot with frames:
+```{r}
+Cartograms.rec.plot <- ggplot(Cartograms.rec, aes(xmin = x - dx, xmax = x + dx, ymin = y - dy, ymax = y + dy, fill = cut_number(Proportion, 5))) + 
+  geom_rect(aes(frame = factor)) +
+  scale_fill_brewer(palette = "YlOrRd") +
+  coord_fixed() +
+  theme(legend.position = "bottom") +
+  labs(fill = "Proportion")
+```
+
+Plot:
+```{r}
+plot <- Cartograms.rec.plot %>% animation_opts(frame = 1000, transition = 1000, easing = "elastic")
+ggplotly(plot)
+```

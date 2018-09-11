@@ -1,0 +1,89 @@
+---
+title: "10 Session 10: Area Data II"
+output: html_notebook
+---
+
+#Practice questions
+
+Answer the following questions:
+
+1. List and describe two criteria to define proximity in area data analysis.
+2. What is a spatial weights matrix?
+3. Why do spatial weight matrices have zeros in the main diagonal?
+4. How is a spatials weights matrix row-standardized?
+4. Write the spatial weights matrices for the sample systems in Figures 1 and 2. Explain the criteria used to do so.
+
+![Figure 1. Sample areal system 1](Area Data II Activity Figure 1.jpg)
+
+![Figure 2. Sample areal system 2](Area Data II Activity Figure 2.jpg)
+
+#Learning objectives
+
+In this activity, you will:
+
+1. Create spatial weights matrices.
+2. Calculate the spatial moving average of a variable.
+2. Create scatterplots of a variable and its spatial moving average.
+3. Think about ways to decide whether a landscape is random when working with area data.
+
+#Suggested reading
+
+O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 7. John Wiley & Sons: New Jersey.
+
+#Preliminaries
+
+For this activity you will need the following:
+
+* This R markdown notebook.
+* A shape file called `Hamilton CMA CT`.
+
+It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity. In addition to `tidyverse`, you will need `spatstat`, a package designed for the analysis of point patterns (you can learn about `spatstat` [here](https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf) and [here](http://spatstat.org/resources/spatstatJSSpaper.pdf)):
+```{r}
+library(tidyverse)
+library(rgdal)
+library(broom)
+library(spdep)
+library(plotly)
+```
+
+In the practice that preceded this activity, you learned about the area data and visualization techniques for area data.
+
+Begin by loading the data that you will use in this activity:
+```{r}
+Hamilton_CT <- readOGR(".", layer = "Hamilton CMA CT", integer64 = "allow.loss")
+```
+
+You can obtain new (calculated) variables as follows. For instance, to obtain the proportion of residents who are between 20 and 34 years old, and between 35 and 49:
+```{r}
+Hamilton_CT@data <- mutate(Hamilton_CT@data, Prop20to34 = (AGE_20_TO_ + AGE_25_TO_ + AGE_30_TO_)/POPULATION, Prop35to49 = (AGE_35_TO_ + AGE_40_TO_ + AGE_45_TO_)/POPULATION)
+```
+
+This is a `SpatialPolygonDataFrame`. Convert to a dataframe ("tidy" it) for plotting using `ggplot2`:
+```{r}
+Hamilton_CT.t <- tidy(Hamilton_CT, region = "TRACT")
+Hamilton_CT.t <- rename(Hamilton_CT.t, TRACT = id)
+```
+
+Rejoin the data:
+```{r}
+Hamilton_CT.t <- left_join(Hamilton_CT.t, Hamilton_CT@data, by = "TRACT")
+```
+
+#Activity
+
+1. Create a spatial weights matrix for the census tracts in the Hamilton CMA.
+
+2. Calculate the proportion of spatial moving average for the proportion of the population who are 20 to 34 years old, 35 to 49 years old, 50 to 65 years old, and 65 and older.
+
+3. Append the spatial moving averages to your dataframe.
+
+4. Choose one age group and create a scatterplot of the proportion of population in that group versus its spatial moving average. (Hint: if creating the scatterplot in `ggplot2` you can add the 45 degree line by using `geom_abline(slope = 1, intercept = 0)`).
+
+5. What would you expect the scatterplots of the variables and their spatial moving averages to look like if the variable was spatially random? Discuss.

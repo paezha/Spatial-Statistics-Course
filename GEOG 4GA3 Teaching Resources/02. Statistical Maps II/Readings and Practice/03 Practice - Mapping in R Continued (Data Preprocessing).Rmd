@@ -1,0 +1,231 @@
+---
+title: "Data Preprocessing: Statistical Maps II"
+output: html_notebook
+---
+
+#Introduction
+
+For this activity, I want students to think about spatial process. I plan to show them several maps and then ask them to try to "guess" the most likely value of a piece of information that is missing.
+
+Load libraries:
+```{r}
+library(tidyverse)
+library(spdep)
+library(adespatial)
+```
+
+For this, I will create a set of random coordinates in the unit square:
+```{r}
+x <- runif(60)
+y <- runif(60)
+coords <- data.frame(x,y)
+```
+
+Plot coordinates:
+```{r}
+ggplot(data = coords, aes(x, y)) + geom_point(shape = 17, size = 2) + coord_fixed()
+```
+
+Now, to add some variables, I will use Moran Eigenvectors Maps. Begin by creating a list of nearest neighbors:
+```{r}
+nn5 <- knn2nb(knearneigh(as.matrix(coords), k = 5))
+```
+
+Based on the list of nearest neighbors I can create a W matrix (in list form):
+```{r}
+w5 <- nb2listw(nn5)
+```
+
+From which the MEM maps are obtained using the `adespatial::mem` function:
+```{r}
+EV <- mem(w5)
+```
+
+Scale the values of the EV:
+```{r}
+maxs <- apply(EV, 2, max)
+mins <- apply(EV, 2, min)
+EV <- 1000  * as.data.frame(scale(EV, center = mins, scale = maxs - mins)) + 50
+```
+
+Append selected EV to the coordinates:
+```{r}
+data <- coords
+data$VAR1 <- EV$MEM12
+```
+
+Plot:
+```{r}
+ggplot(data = data, aes(x, y)) +
+  geom_point(aes(color = VAR1), shape = 17, size = 2) +
+  geom_point(color = "black", shape = 2, size = 2) + 
+  scale_color_distiller(type = "div", palette = "RdBu") +
+  coord_fixed()
+```
+
+Append selected EV to the coordinates:
+```{r}
+data$VAR2 <- EV$MEM1
+```
+
+Plot:
+```{r}
+ggplot(data = Data, aes(x, y)) + 
+  geom_point(aes(color = VAR1), shape = 17, size = 3) + 
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+```
+
+Append selected EV to the coordinates:
+```{r}
+data$VAR3 <- EV$MEM30
+```
+
+Plot:
+```{r}
+ggplot(data = data, aes(x, y)) +
+  geom_point(aes(color = VAR3), shape = 17, size = 2) + 
+  geom_point(color = "black", shape = 2, size = 2) + 
+  scale_color_distiller(type = "div", palette = "RdBu") +
+  coord_fixed()
+```
+
+Add coordinates for "guessing":
+```{r}
+coords2 <- data.frame(matrix(c(0.34, 0.29, 0.13, 0.62, 0.88, 0.83, 0.52, 0.32, 0.1, 0.85), nrow=5, ncol=2) )
+coords2 <- rename(coords2, x = X1, y = X2)
+```
+
+Add these coordinates to the plot:
+```{r}
+ggplot() + 
+  geom_point(data = data, aes(x = x, y = y, color = VAR3), shape = 17, size = 3) + 
+  geom_point(data = data, aes(x = x, y = y), color = "black", shape = 2, size = 3) + 
+  geom_point(data = coords2, aes (x = x, y = y), shape = 17, size = 4) +
+  scale_color_distiller(type = "div", palette = "RdBu") +
+  coord_fixed()
+```
+
+Recreate the dataset, including the locations of the "missing" observations:
+```{r}
+data_all <- rbind(coords, coords2)
+nn5_all <- knn2nb(knearneigh(as.matrix(data_all), k = 5))
+w5_all <- nb2listw(nn5_all)
+EV_all <- mem(w5_all)
+maxs <- apply(EV_all, 2, max)
+mins <- apply(EV_all, 2, min)
+EV_all <- 1000  * as.data.frame(scale(EV_all, center = mins, scale = maxs - mins)) + 50
+data_all$VAR1 <- EV_all$MEM12
+data_all$VAR2 <- EV_all$MEM1
+data_all$VAR3 <- EV_all$MEM30
+```
+
+These are the actual values of the "missing" observations:
+```{r}
+Actual <- data_all[61:65,]
+```
+
+These are the observations:
+```{r}
+Observations <- data_all[1:60,]
+```
+
+These are the missing observations:
+```{r}
+Missing <- data_all[61:65,1:2]
+```
+
+Save data:
+```{r}
+save(Observations, Missing, file = "Data1.RData")
+save(Actual, file = "Data1-Actual-Values.RData")
+```
+
+For the second part of the activity, I want students to think in terms of point patterns, and try to guess where the next event might occur. For this, I will generate two patterns, one with clustering and one completely random.
+
+Random coordinates:
+```{r}
+x <- runif(60)
+y <- runif(60)
+coords <- data.frame(x,y)
+```
+
+```{r}
+PointPattern1 <- coords
+```
+
+Plot coordinates:
+```{r}
+ggplot(data = PointPattern1, aes(x, y)) + geom_point(shape = 17, size = 2) + coord_fixed()
+```
+
+Clustered coordinates 1:
+```{r}
+x <- 0.20 + 0.10 * runif(10)
+y <- 0.20 + 0.10 * runif(10)
+PointPattern2 <- data.frame(x,y)
+```
+
+```{r}
+x <- 0.70 + 0.10 * runif(10)
+y <- 0.70 + 0.10 * runif(10)
+junk <- data.frame(x,y)
+PointPattern2 <- rbind(PointPattern2,junk)
+```
+
+```{r}
+x <- 0.15 + 0.10 * runif(10)
+y <- 0.75 + 0.10 * runif(10)
+junk <- data.frame(x,y)
+PointPattern2 <- rbind(PointPattern2,junk)
+```
+
+```{r}
+x <- runif(30)
+y <- runif(30)
+junk <- data.frame(x,y)
+PointPattern2 <- rbind(PointPattern2,junk)
+```
+
+Plot coordinates:
+```{r}
+ggplot(data = PointPattern2, aes(x, y)) + geom_point(shape = 17, size = 2) + coord_fixed()
+```
+
+Clustered coordinates 2:
+```{r}
+x <- 0.30 + 0.25 * runif(10)
+y <- 0.30 + 0.25 * runif(10)
+PointPattern3 <- data.frame(x,y)
+```
+
+```{r}
+x <- 0.70 + 0.25 * runif(10)
+y <- 0.70 + 0.25 * runif(10)
+junk <- data.frame(x,y)
+PointPattern3 <- rbind(PointPattern3,junk)
+```
+
+```{r}
+x <- 0.30 + 0.25 * runif(10)
+y <- 0.75 + 0.25 * runif(10)
+junk <- data.frame(x,y)
+PointPattern3 <- rbind(PointPattern3,junk)
+```
+
+```{r}
+x <- runif(30)
+y <- runif(30)
+junk <- data.frame(x,y)
+PointPattern3 <- rbind(PointPattern3,junk)
+```
+
+Plot coordinates:
+```{r}
+ggplot(data = PointPattern3, aes(x, y)) + geom_point(shape = 17, size = 2) + coord_fixed()
+```
+
+Save:
+```{r}
+save(PointPattern1, PointPattern2, PointPattern3, file = "Data2.RData")
+```

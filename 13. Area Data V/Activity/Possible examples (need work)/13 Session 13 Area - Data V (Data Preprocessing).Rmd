@@ -1,0 +1,37 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Obtain network distance, travel time for activity:
+
+```{r}
+xy_cbd <- geocode("Jackson Square, Hamilton, Ontario")
+```
+
+```{r}
+xy_ct <- coordinates(Hamilton_CT)
+```
+
+```{r}
+dist2cbd.sl <- distGeo(xy_ct, xy_cbd)
+```
+
+```{r}
+# dist2cbd.net[1,] <- mapdist(from = xy_ct[1,], to = as.numeric(xy_cbd), mode = "driving", output = "simple")
+# for(i in 188:188){
+#   dist2cbd.net[i,] <- mapdist(from = xy_ct[i,], to = as.numeric(xy_cbd), mode = "driving", output = "simple")
+# }
+```  
+  
+```{r}
+Hamilton_CT@data$dist.sl <- dist2cbd.sl
+```
+
+```{r}
+Hamilton_CT@data$dist.net <- dist2cbd.net$km
+```
+
+```{r}
+Hamilton_CT@data$time.net <- dist2cbd.net$minutes
+```

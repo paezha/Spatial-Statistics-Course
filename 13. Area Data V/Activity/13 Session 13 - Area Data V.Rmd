@@ -1,0 +1,106 @@
+---
+title: "13 Session 13: Area Data V"
+output: html_notebook
+---
+
+#Practice questions
+
+Answer the following questions:
+
+1. Explain the main assumptions for linear regression models.
+2. How is Moran's I used as a diagnostic in regression analysis?
+3. Residual spatial autocorrelation is symptomatic of what issues in regression analysis?
+4. What does it mean for a model to be linear in the coefficients?
+5. What is the purpose of transforming variables for regression analysis?
+
+#Learning objectives
+
+In this activity, you will:
+
+1. Explore a spatial dataset.
+2. Conduct linear regression analysis.
+3. Conduct diagnostics for residual spatial autocorrelation.
+4. Propose ways to improve your analysis.
+
+#Suggested reading
+
+O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 7. John Wiley & Sons: New Jersey. 
+
+#Preliminaries
+
+For this activity you will need the following:
+
+* This R Notebook.
+* A shape file called `Hamilton CMA TTS06.shp` with the Trafic Analysis Zones (TAZ) for Hamilton CMA, according to the Transportation Tomorrow Survey of 2011.
+* An Excel file called `Hamilton CMA Trips by Mode.xlsx` with the number of trips by mode of transportation by TAZ, and other useful information from the 2011 census for Hamilton CMA.
+* An Excel file called `travel_time_car.xlsx` with the travel distance/time from TAZ centroids to Jackson Square in downtown Hamilton.
+
+The data for this activity were retrieved from the 2011 Transportation Tomorrow Survey [TTS](http://www.transportationtomorrow.on.ca/), the periodic travel survey of the Greater Toronto and Hamilton Area, as well as data from the 2011 Canadian Census [Census Program](http://www12.statcan.gc.ca/census-recensement/index-eng.cfm).
+
+It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity. In addition to `tidyverse`, you will need `spdep`, a package designed for the analysis of spatial data (you can learn about `spdep` [here](https://cran.r-project.org/web/packages/spdep/index.html) and [here](http://2014.ogrs-community.org/2014_workshops/R_Spatial_Bivand/ogrs_140612.pdf)):
+```{r}
+library(tidyverse)
+library(spdep)
+library(rgdal)
+library(readxl)
+library(broom)
+```
+
+Begin by loading the shape file:
+```{r}
+Hamilton_TAZ <- readOGR(".", layer = "Hamilton CMA tts06")
+```
+
+The shape file includes the geometry of the zones only. The unique identifier used to link tables is "GTA06".
+
+Now load the data in the two Excel files:
+```{r}
+travel_data <- read_excel("Hamilton CMA Trips by Mode.xlsx")
+travel_time <- read_excel("travel_time_car.xlsx")
+```
+
+Attach this file to the `SpatialPolygonsDataFrame`. Note that to complete the join, the identifier (in this case `GTA06`) must be in the same format in both data frames:
+```{r}
+# Travel data
+Hamilton_TAZ@data <- left_join(Hamilton_TAZ@data, travel_data)
+# Travel time information
+travel_time$GTA06 <- as.character(travel_time$GTA06)
+Hamilton_TAZ@data <- left_join(Hamilton_TAZ@data, travel_time)
+```
+
+The analysis will be on travel by car in the Hamilton CMA. Calculate the proportion of trips by car by TAZ:
+```{r}
+Hamilton_TAZ@data <- mutate(Hamilton_TAZ@data, Auto_driver.prop = Auto_driver / (Auto_driver + Cycle + Walk))
+```
+
+Note that the proportion of people who travelled by car as passengers are not included in the denominator of the proportion! This is because every trip as a passenger is already included in trips with one driver.
+
+Hamilton_TAZ is a `SpatialPolygonDataFrame`. Convert to a dataframe ("tidy" it) for plotting using `ggplot2`:
+```{r}
+Hamilton_TAZ.t <- tidy(Hamilton_TAZ, region = "GTA06")
+Hamilton_TAZ.t <- rename(Hamilton_TAZ.t, GTA06 = id)
+```
+
+Rejoin the data:
+```{r}
+Hamilton_TAZ.t <- left_join(Hamilton_TAZ.t, Hamilton_TAZ@data, by = "GTA06")
+```
+
+#Activity
+
+1. Examine your dataframe. What variables are included? Are there any missing values?
+
+2. Map the variable `Auto_driver.prop`, and use Moran's I to test for spatial autocorrelation. What do you find? Is autocorrelation in this variable a sign that autocorrelation will be an issue in regression analysis?
+
+3. Estimate regression model using the variables `Pop_Density` and travel time in `minutes`. Discuss this model.
+
+4. Examine residuals of the model. Are they spatially independent?
+
+5. Propose ways to improve your model.

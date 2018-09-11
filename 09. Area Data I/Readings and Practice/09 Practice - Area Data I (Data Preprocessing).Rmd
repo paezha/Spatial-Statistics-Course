@@ -1,0 +1,122 @@
+---
+title: "Data Preprocessing"
+output: html_notebook
+---
+
+#Introduction
+
+Here I document the data preprocessing for this activity. Essentially what I want is a set of files that can be used to produce maps in a relatively simple way (at this point I don't want to discuss the conversion of `Spatial*` and `Spatial*DataFrame` dataframes into the type of dataframes used by `ggmap`).
+
+Therefore, I will convert the shape file into dataframes that students can readily use.
+
+For this I will begin with the set of files (shape) called `Hamilton CMA tts06`
+
+#Data preprocessing
+
+Begin by loading the libraries needed to do this:
+```{r}
+library(rgdal)
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(tmap)
+library(ggmap)
+library(broom)
+library(readr)
+library(leaflet)
+```
+
+```{r}
+library(cartogram)
+library(gridExtra)
+```
+
+I can now proceed to see read the geospatial file. 
+
+For this example, I will use an ESRI shape file that contains the DAs for the Hamilton Census Metropolitan Area (CMA). The command used for this is `rgdal::readOGR` (note that `package::function` indicates a function in the name package):
+```{r}
+taz <- readOGR(".", layer = "Hamilton CMA tts06")
+```
+
+This creates a `SpatialPolygonsDataFrame`, an R object used to store geographical information (in this example spatial polygons; other types of spatial data are points, lines, or pixels; more generally `Spatial*DataFrames`).
+
+Now that I have a `SpatialPolygonDataFrame` object, I need to create a "tidy" version of it; in the present case this means the SpatialPolygonDataFrame `taz`. This is done by means of the `tidy` function of the `broom` package. We will call it `taz.t` for "tidy" (note that `tidy` needs to know the id that will be used to create the regions, that is, the spatial polygons; since this will be renamed `id` by `tidy`, we need to rename it to "GTA06" to keep it consistent with table data):
+```{r}
+taz.t <- tidy(taz, region = "GTA06")
+#Rename id column
+taz.t <- rename(taz.t, GTA06 = "id")
+```
+
+I have now a data frame that can be plotted in `ggmap`.
+
+Import data:
+```{r}
+data <- read_csv("TTS Equivalent CTs.csv")
+data$GTA06 <- as.factor(data$GTA06)
+```
+
+Add variables to the tidied dataframe:
+```{r}
+taz.t <- left_join(taz.t, data, by = "GTA06")
+```
+
+Add variables to the spatial dataframe:
+```{r}
+taz@data <- left_join(taz@data, data, by = "GTA06")
+```
+
+Create maps!
+```{r}
+leaflet(data = taz) %>% addPolygons() %>% addTiles()
+```
+
+```{r}
+cart_pop <- cartogram(shp = taz, weight = "Population")
+```
+
+```{r}
+cart_pop.t <- tidy(cart_pop, region = "GTA06")
+cart_pop.t <- rename(cart_pop.t, GTA06 = "id")
+```
+
+Add variables to the tidied dataframe:
+```{r}
+cart_pop.t <- left_join(cart_pop.t, data, by = "GTA06")
+```
+
+```{r}
+cart_pop.map <- ggplot(data = cart_pop.t, aes(x = long, y = lat, group = group, fill = cut_number(Population, 5))) + geom_polygon(color = "white") + coord_fixed() + theme(legend.position = "bottom")
+```
+
+```{r}
+pop.map <- ggplot(data = taz.t, aes(x = long, y = lat, group = group, fill = cut_number(Population, 5))) + geom_polygon(color = "white") + coord_fixed()  + theme(legend.position = "bottom")
+```
+
+```{r}
+grid.arrange(pop.map, cart_pop.map, nrow = 1)
+```
+
+
+Obtain a base map. For this, the argument must specify the location for the capture. The outcome can be saved as an object that can later be used for mapping:
+```{r}
+hamilton <- get_map("Hamilton, Ontario")
+```
+
+The function `ggmap` allows you to create a base map to which other geometric objects (or geoms, in the terminology of `ggplot2`) can be added as layers. For instance, plot the traffic analysis zones on your base map:
+```{r}
+ggmap(hamilton) + 
+  geom_polygon(data = taz.t, aes(x = long, y = lat, group = group), colour = 'black', alpha = .3, size = .3)
+```
+
+Thematic maps can also be created. The next chunk of code plots the traffic analysis zones on the map and adds some interesting info (notice the use of the `fill` argument, and the use of the variable Work):
+```{r}
+ggmap(hamilton, extent = "panel") + 
+  geom_polygon(data = taz.t, aes(x = long, y = lat, group = group, fill = cut_number(`Avg Median Age`, 5)), colour = 'black', alpha = 1, size = .3) +
+  scale_fill_brewer(palette = "Reds")
+```
+
+Save the dataset for use in the activity:
+```{r}
+HamiltonDAs <- taz.t
+save(HamiltonDAs, file = "HamiltonDAs.RData")
+```

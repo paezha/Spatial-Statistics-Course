@@ -1,0 +1,48 @@
+---
+title: 01 More Data Types and Structures in R
+output: html_notebook
+---
+
+#Introduction
+
+NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+In a previous practice, you learned about data classes. Data classes are important in R, because they allow you to store different types of information, such as quantities, qualities, text, dates, and so on.
+
+As well, you learned about different data structures. In particular, there are variables that can contain a single value, a vector, or a matrix. When storing data in this form, all values stored in the variable need to be of the same class (for instance, you cannot have a matrix that contains numbers and characters).
+
+Another important data structure is the dataframe. A dataframe is a rectangular table that organizes data in rows and columns. Whereas all rows in a column must be of the same class, different columns in a dataframe can be of different classes. In this way, you could have a column that stores dates, another that stores quantities, another that stores text, and so on.
+
+In this practice you will learn more about _factors_, a class of data that is used for qualitative data. For instance, a parcel may be developed or not, a plot of land may be zoned for commercial, residential, or industrial use. These are not quantities but rather reflect a quality of the entity that is being described.
+
+Also, you will learn more about indexing.
+
+For this practice you will need:
+
+* This notebook.
+
+* A data file called `Fast_Food.RData`
+
+#Preliminaries
+
+Begin by clearing your workspace.
+```{r}
+rm(list = ls())
+```
+
+Load the data file:
+```{r}
+load("Fast_Food.RData")
+```
+
+The dataset includes fast food locations in the Toronto region. You can examine the contents of the dataframe you just imported by means of the function `summary`. This function gives a predefined set of descriptive statistics:
+```{r}
+summary(Fast_Food)
+```
+
+As you can see, the dataframe includes four variables: a unique ID (numeric), `BUSNAME`, the name of the business (character), `Class`, a _factor_, that is a variable that describes the main type of food served at the location, and the coordinates (numeric).
+
+You can see from the summary, that there are 119 restaurants that specialize in chicken, 352 that specialize in hamburgers, 258 that specialize in pizza, and 256 that specialize in sub sandwiches.
+
+Package `sp` introduces a series of data structure that specialize in geographical information. These objects are more specialized than dataframes, because they include additional information that is relevant. For instance, when using `ggmap` we don't need to worry about geographical projections, for instance, because they are automatically set up by the base map. In other cases (or when using other packages), that information might be important.
+

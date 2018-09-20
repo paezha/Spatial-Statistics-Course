@@ -17,6 +17,7 @@ This RMarkdown is all about playing around with the data and how visual maps can
 
 **Session 2: Statistical Maps II**\
 Threshold Concept: Random vs. Non-Random\
+Question 4. in the acitivty is key: by guessing where the next event would emerge based on the 4 maps made, students can better udnerstand what makes a map random vs. non-random - random = cannot guess where the next event will take place, non-random = can guess where the next event will take place 
 
 ## Brainstorming ##
 1. Take some time to explain code used in the Reading and Practice during class to help students better understand what they are reading at home 
@@ -30,4 +31,4 @@ Threshold Concept: Random vs. Non-Random\
 * They use the same data and arrive to the same conclusion - ggplot2 to plot points, ggmap to enhance look and kernel denisty 
 
 4. Convert RMarkdowns to Shiny Applications for each lecture and tutorial
-https://shiny.rstudio.com/gallery/
+https://shiny.rstudio.com/gallery/ - link to examples of different applications that use shiny. Once one template has been designed and we are happy with how the data is presented, that same template can be used for all other letures. 

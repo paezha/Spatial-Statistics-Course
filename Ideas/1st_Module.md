@@ -32,3 +32,5 @@ Question 4. in the acitivty is key: by guessing where the next event would emerg
 
 4. Convert RMarkdowns to Shiny Applications for each lecture and tutorial
 https://shiny.rstudio.com/gallery/ - link to examples of different applications that use shiny. Once one template has been designed and we are happy with how the data is presented, that same template can be used for all other letures. RMarkdown can be downloaded from the application made by Shiny. 
+
+Email sent on September 20th, 2018 to discuss brainstorming. 

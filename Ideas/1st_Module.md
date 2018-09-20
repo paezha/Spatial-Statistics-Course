@@ -3,20 +3,20 @@
 * Powerpoint slides - Simple, however not explanatory (adding photos would suffice) 
 
 ## Threshold Conepts ##
-Introduction to Mapping in R (Readings and Practice)\
+**Introduction to Mapping in R (Readings and Practice)**\
 Introduction to R and how it can be used to manipulate data to convey information using ggplot2 to render points for death and pumps, ggmap to enhance the look of the map and kernel density for an quick showing of spatial analysis - *Good introduction that draws students into the course and how spatial statistics can be used to manipulate data*
 
-Session 1: Statistical Maps I (Activity)\
+**Session 1: Statistical Maps I (Activity)**\
 Threshold Concept: Random vs. Non-Random\
 Question 2. in the activity is key: By asking students *"rank the top five maps from most to least interesting"* most students are now thinking about the data being random vs. non-random and which one is more interesting 
 * Good way to visualize and present the data 
 
-Mapping in R Continued (Reading and Practice)\ 
+**Mapping in R Continued (Reading and Practice)**\ 
 Highlight ways of working with the data in R - more programming heavy (summarzing datasets, subsetting data, nesting fucntions) opposed to discussing themes and topics in the course.
 This RMarkdown is all about playing around with the data and how visual maps can be manipulated according to code in R 
 
-Session 2: Statistical Maps II\ 
-Threshold Concept: Random vs. Non-Random 
+**Session 2: Statistical Maps II**\ 
+Threshold Concept: Random vs. Non-Random\
 
 ## Brainstorming ##
 1. Take some time to explain code used in the Reading and Practice during class to help students better understand what they are reading at home 

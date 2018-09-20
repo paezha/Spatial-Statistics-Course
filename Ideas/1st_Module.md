@@ -15,7 +15,7 @@ Question 2. in the activity is key: By asking students *"rank the top five maps 
 Highlight ways of working with the data in R - more programming heavy (summarzing datasets, subsetting data, nesting fucntions) opposed to discussing themes and topics in the course.
 This RMarkdown is all about playing around with the data and how visual maps can be manipulated according to code in R 
 
-**Session 2: Statistical Maps II**\ 
+**Session 2: Statistical Maps II**\
 Threshold Concept: Random vs. Non-Random\
 
 ## Brainstorming ##

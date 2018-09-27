@@ -1,0 +1,94 @@
+---
+title: "Session 5: Point Pattern Analysis II Data Preprocessing"
+output: html_notebook
+---
+
+For this activity I would like to explore the possibility of using the Scandinavian Bear Project dataset `bear` from the `adehabitatLT` package.
+
+Load the packages needed:
+```{r}
+library(tidyverse)
+library(spatstat)
+library(adehabitatLT)
+library(lubridate)
+```
+
+Load the bear dataset:
+```{r}
+data(bear)
+```
+
+Retrieve the coordinates and dates and place in a dataframe:
+```{r}
+bear.df <- data.frame(x = bear[[1]]$x, y = bear[[1]]$y, date = bear[[1]]$date)
+summary(bear.df)
+```
+
+As seen, there are several NA values. Remove incomplete cases:
+```{r}
+bear.df <- bear.df[complete.cases(bear.df),]
+summary(bear.df)
+```
+
+Select diurnal and nocturnal observations:
+```{r}
+bear.df$Time[hour(bear.df$date) <= 7 | hour(bear.df$date) >= 17] <- "Night Time"
+bear.df$Time[hour(bear.df$date) >= 7 & hour(bear.df$date) <= 17] <- "Day Time"
+```
+
+Convert to factor:
+```{r}
+bear.df$Time <- as.factor(bear.df$Time)
+```
+
+Create a window before converting to `ppp`:
+```{r}
+W <- owin(c(min(bear.df$x), max(bear.df$x)), c(min(bear.df$y), max(bear.df$y)))
+```
+
+Convert to `ppp`:
+```{r}
+bear.ppp <- as.ppp(X = bear.df, W = W)
+summary(bear.ppp)
+```
+
+```{r}
+plot(split(bear.ppp), which.marks = "Time")
+```
+
+Create a new window using `clickpoly()`
+
+Replace window in `ppp` object:
+```{r}
+junk <- dplyr::select(bear.df, x, y, Time)
+junk <- mutate(junk, x = x + runif(nrow(junk), min = 1, max = 2), y = y + runif(nrow(junk), min = 1, max = 2))
+bear.ppp <- as.ppp(X = junk, W = Wdw)
+summary(bear.ppp)
+```
+
+Plot point patterns:
+```{r}
+plot(split(bear.ppp))
+```
+
+Do quadrat analysis:
+```{r}
+plot(quadratcount(split(bear.ppp), nx = 5, ny = 10))
+```
+
+Quadrat test:
+```{r}
+plot(quadrat.test(split(bear.ppp)$"Night Time", nx = 5, ny = 10))
+```
+
+
+```{r}
+kernel_den <- density(split(bear.ppp), sigma = 1000)
+plot(kernel_den)
+```
+
+Save dataset:
+```{r}
+save(bear.ppp, file = "Scandinavian Bear Project Example.RData")
+```
+

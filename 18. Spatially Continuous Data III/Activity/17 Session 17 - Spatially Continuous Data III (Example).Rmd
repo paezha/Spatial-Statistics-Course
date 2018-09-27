@@ -1,0 +1,125 @@
+---
+title: "17 Session 17: Spatially Continuous Data III"
+output: html_notebook
+---
+
+#Practice questions
+
+Answer the following questions:
+
+1. What is a correlogram?
+2. What is the relationship between the autocovariance and the semivariance?
+3. Describe the elements of a semivariogram.
+4. Why is it important to consider the number of pairs used in the calculation of the semivariance?
+
+#Learning objectives
+
+In this activity, you will:
+
+1. Calculate and plot empirical semivariograms.
+2. Estimate and plot theoretical semivariograms.
+3. Discuss the results of variographic analysis.
+
+#Suggested reading
+
+O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapters 8 and 9. John Wiley & Sons: New Jersey.
+
+#Preliminaries
+
+For this activity you will need the following:
+
+* This R markdown notebook.
+
+* A file called "Wolfcamp Aquifer.RData"
+
+The data is a set of piezometric head (watertable pressure) observations of the Wolfcamp Aquifer in Texas (https://en.wikipedia.org/wiki/Hydraulic_head). Measures of pressure can be used to infer the flow of underground water, since water flows from high to low pressure areas.
+
+These data were collected to evaluate potential flow of contamination related to a high level toxic waste repository in Texas. The Deaf Smith county site in Texas was one of three potential sites proposed for this repository. Beneath the site is a deep brine aquifer known as the Wolfcamp aquifer that may serve as a conduit of contamination leaking from the repository.
+
+The data set consists of 85 georeferenced measurements of piezometric head. Possible applications of interpolation are to determine sites at risk and to quantify uncertainty of the interpolated surface, to evaluate the best locations for monitoring stations.
+
+It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity (load other packages as appropriate). 
+```{r}
+library(tidyverse)
+library(gstat)
+library(spdep)
+```
+
+Load dataset:
+```{r}
+load("Wolfcamp Aquifer.RData")
+```
+
+Convert to a `SpatialPointsDataFrame`:
+```{r}
+aquifer.sp <- aquifer
+coordinates(aquifer.sp) <- ~X+Y
+```
+
+#Activity
+
+1. Obtain and plot the empirical semivariogram for the head in the Walker Lake dataset. How would you interpret this semivariogram?
+
+Calculate and plot the varigoram:
+```{r}
+variogram_h <- variogram(H ~ 1, data = aquifer.sp)
+ggplot(data = variogram_h, aes(x = dist, y = gamma)) +
+  geom_point() + 
+  geom_text(aes(label = np), nudge_y = -10000) +
+  xlab("Distance") + ylab("Semivariance")
+```
+
+2. Estimate trend surface of your choice, and obtain and plot an empirical semivariogram using the residuals. How would you interpret this semivariogram?
+
+Add polynomial terms:
+```{r}
+aquifer <- mutate(aquifer, X3 = X^3, X2Y = X^2 * Y, X2 = X^2,
+                  XY = X * Y,
+                  Y2 = Y^2, XY2 = X * Y^2, Y3 = Y^3)
+```
+
+Cubic:
+```{r}
+trend3 <- lm(formula = H ~ X^3 + X2Y + X2 + X + XY + Y + Y2 + XY2 + Y3, data = aquifer)
+summary(trend3)
+```
+
+Join the residuals with the `SpatialPointsDataFrame`:
+```{r}
+aquifer.sp@data$residuals <- trend3$residuals
+```
+
+Calculate and plot the semivarigoram:
+```{r}
+variogram_e <- variogram(residuals ~ 1, data = aquifer.sp)
+ggplot(data = variogram_e, aes(x = dist, y = gamma)) +
+  geom_point() + 
+  geom_text(aes(label = np), nudge_y = -1500) +
+  xlab("Distance") + ylab("Semivariance")
+```
+
+3. Estimate and plot a theoretical semivariogram model for the residual variogram. 
+
+Estimate theoretical semivariogram:
+```{r}
+variogram_e.t <- fit.variogram(variogram_e, model = vgm("Exp", "Sph", "Gau"))
+variogram_e.t
+```
+
+Plot:
+```{r}
+gamma.t <- variogramLine(variogram_e.t, maxdist = 105)
+ggplot(data = variogram_e, aes(x = dist, y = gamma)) +
+  geom_point(size = 3) + 
+  geom_line(data = gamma.t, aes(x = dist, y = gamma)) +
+  xlab("Distance") + ylab("Semivariance")
+```
+
+4. How would you use the information provided by the variographic analysis above to improve your predictions of the field?

@@ -1,0 +1,86 @@
+---
+title: "02 Session 2: Statistical Maps I"
+output: html_notebook
+---
+
+#Housekeeping Questions
+
+Answer the following questions:
+
+1. What are the office hours of A. Paez this term?
+
+2. How are assignments graded?
+
+3. What is the policy for late assignments in this course?
+
+#Learning Objectives
+
+1. Discuss statistical maps and what makes them interesting.
+
+#Preliminaries
+
+In the practice that preceded this activity, you used `ggmap` to create a proportional symbol map, a mapping technique used in spatial statistics for visualization of geocoded event information. As well, you implemented a simple technique called kernel analysis to the map to explore the distribution of events in the case of the cholera outbreak of Soho in London in 1854. Geocoded events are often called _point patterns_, so with the cholera data you were working with a point pattern.
+
+In this activity, we will map another type of spatial data, called _areal data_. Areas are often administrative or political jurisdictions.
+
+For this activity you will need the following:
+
+* This R markdown notebook.
+
+* A dataset called `HamiltonDAs.RData`
+
+It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity:
+```{r}
+library(tidyverse)
+library(ggmap)
+```
+
+Now that your workspace is clear, you can proceed to load a sample dataset. It is very important that R knows where to look for it. This means that the path to the file is explicit, or alternatively that you set the working directory to the directory where the file is.
+```{r}
+load("HamiltonDAs.RData")
+```
+
+The dataframe you just loaded is of _Dissemination Areas_ or DAs, a type of geography used by the Census of Canada.
+
+We will first use the `ggmap::get_map` function (this is read `get_map` function from the `ggmap` package). This function is used to obtain a base map. For this, the argument must specify the location for the capture, which can be a string of text. The outcome can be saved as an object that can later be used for mapping:
+```{r}
+hamilton <- get_map("Hamilton, Ontario")
+```
+
+Since `ggmap` is built on top of `ggplot2`, all functions of that package are available, including other geoms. Previously you mapped points. Now, the geom for polygons can be used for areas.
+
+To create such a map, we layer other geoms objects as layers on top of the base map. For instance, to plot the DAs on your base map:
+```{r}
+head(HamiltonDAs)
+ggmap(hamilton) + 
+  geom_polygon(data = HamiltonDAs, aes(x = long, y = lat, group = group), color = 'black', alpha = .3, size = .3)
+```
+
+We selected color "black" for the polygons, with a transparency alpha = 0.3 (alpha = 0 is completely transparent, alpha = 1 is completely opaque, try it!), and line size 0.3.
+
+This map only shows the DAs, which is nice. However, if you examine the dataframe, you will notice that it includes, in additional to the geometric information, other variables (called VAR1, VAR2,...):
+```{r}
+head(HamiltonDAs)
+```
+
+Thematic maps can also be created with those variables. The next chunk of code plots the DAs and adds info. The `fill` argument is used to select a variable to color the polygons. The function `cut_number` is used to classify the values of the variable in 5 groups of equal size (notice that the lines of the polygons are still black). The `scale_fill_brewer` function can be used to select different _palettes_ or coloring schemes):
+```{r}
+ggmap(hamilton) +
+  geom_polygon(data = HamiltonDAs, aes(x = long, y = lat, group = group, fill = cut_number(VAR5, 7)), colour = 'black', alpha = 1, size = .3) +
+  scale_fill_brewer(palette = "Reds")
+```
+
+#Activity
+
+Now you know how to create a thematic map with polygons (areal data).
+
+1. Create thematic maps for variables VAR1 through VAR5 in the dataframe `HamiltonDAs`. Remember that you can introduce new chunks of code.
+
+2. Imagine that these maps were found, and for some reason the variables were not labeled. They may represent income, or population density, or something else. Which of the five maps you just created is more interesting? Rank the five maps from most to least interesting. Explain the reasons for your ranking.

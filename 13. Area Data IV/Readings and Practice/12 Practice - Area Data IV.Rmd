@@ -1,0 +1,468 @@
+---
+title: "12 Area Data IV"
+output: html_notebook
+---
+
+#Introduction
+
+NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+In last previous practice/session, you learned about different ways to define _proximity_ for area data, about spatial weights matrices, and how spatial weights matrices could be used to calculate spatial moving averages. 
+
+For this practice you will need the following:
+
+* This R markdown notebook.
+* A shape file called "Hamilton CMA CT"
+* A dataset called `Data6.RData`
+
+The shape file includes the spatial information for the census tracts in the Hamilton Census Metropolitan Area (as polygons), and a host of demographic variables from the census of Canada, including population and languages.
+
+Two dataframes in `Data6.RData` are simulated landscapes, one random, one with a strong systematic pattern.
+
+#Learning objectives
+
+In this practice, you will learn about:
+
+1. Decomposing Moran's I. 
+2. Local Moran's I and mapping.
+3. A concentration approach for local analysis of spatial association.
+4. A short note on hypothesis testing.
+5. Detection of hot and cold spots.
+
+#Suggested reading
+
+O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 7. John Wiley & Sons: New Jersey.
+
+#Preliminaries
+
+As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity:
+```{r}
+library(tidyverse)
+library(rgdal)
+library(broom)
+library(plotly)
+library(spdep)
+library(reshape2)
+#library(gridExtra)
+```
+
+Load the datasets, first the .RData and then the shape file.
+```{r}
+load(file = "Data6.RData")
+```
+
+This file contains two dataframes with measurements of a variable on a landscape:
+```{r}
+summary(df1)
+summary(df2)
+```
+
+Note that the descriptive statistics of both variables are identical.
+
+Next, read the shape file as an object of class `SpatialPolygonDataFrame`. The function used to read Esri shape files is `rgdal::readOGR`. Setting `integer64` to "allow.loss" keeps the data as integers as opposed to changing to factors or strings:
+```{r}
+Hamilton_CT <- readOGR(".", layer = "Hamilton CMA CT", integer64 = "allow.loss")
+```
+
+Clear the dataframe, retain only `ID`, `TRACT`, and `POP_DENSIT`:
+```{r}
+Hamilton_CT@data <- transmute(Hamilton_CT@data, AreaID = 1:188, TRACT = TRACT, POP_DENSIT = POP_DENSIT)
+```
+
+To use the plotting functions of `ggplot2`, the `SpatialPolygonDataFrame` needs to be "tidied" by means of the `tidy` function of the `broom` package:
+```{r}
+Hamilton_CT.t <- tidy(Hamilton_CT, region = "TRACT")
+Hamilton_CT.t <- dplyr::rename(Hamilton_CT.t, TRACT = id)
+```
+
+Tidying the spatial dataframe strips it from the non-spatial information, but we can add all the data by means of the `left_join` function:
+```{r}
+Hamilton_CT.t <- left_join(Hamilton_CT.t, Hamilton_CT@data, by = "TRACT")
+```
+
+Now the tidy dataframe `Hamilton_DA.t` contains the spatial information and the data.
+
+You can quickly verify the contents of the dataframe by means of `summary`:
+```{r}
+summary(Hamilton_CT.t)
+```
+
+# Decomposing Moran's I
+
+Recall from the previous practice/session that Moran's I coefficient of spatial autocorrelation was derived based on the idea of aggregating the products of a (mean-centered) variable by its spatial moving average, and then dividing by the variance:
+$$
+I = \frac{\sum_{i=1}^n{z_i\sum_{j=1}^n{w_{ij}^{st}z_j}}}{\sum_{i=1}^{n}{z_i^2}}
+$$
+
+Also, you will have seen that when plotting Moran's scatterplot some observations are highlighted. This is because said observations make a particularly large contribution to I.
+
+It turns out that those contributions are informative in and of themselves, and their analysis can provide more focused information about the spatial pattern.
+
+Consider again the variable POP_DENSIT, population density in the Hamilton CMA. Lets create spatial weights for the census tracts in this system:
+```{r}
+Hamilton_CT.w <- nb2listw(poly2nb(pl = Hamilton_CT))
+```
+
+Although Moran's scatterplot can be obtained easily with the function`moran.plot`, here we will create the scatterplot manually to have better control of its aspect.
+
+First, create a dataframe with the mean-centered variable and scaled variable $z_i=(x_i-\overline{x})/\sum z_i^2$, and its spatial moving average. Notice that this includes as well a factor variable `Type` to identify the type of spatial relationship (Low & Low, if both $z_i$ and its spatial moving average are negative, High & High, if both $z_i$ and its spatial moving average are positive, and Low & High/High & Low otherwise). This is information is useful for mapping the results:
+```{r}
+df_msc <- transmute(Hamilton_CT@data, 
+                    AreaID = 1:188,
+                    TRACT = TRACT,
+                    Z = (POP_DENSIT-mean(POP_DENSIT)) / var(POP_DENSIT), 
+                    SMA = lag.listw(Hamilton_CT.w, Z),
+                    Type = factor(ifelse(Z < 0 & SMA < 0, "LL", 
+                                         ifelse(Z > 0 & SMA > 0, "HH", "HL/LH"))))
+
+```
+
+Next, create the scatterplot and a choropleth map of the population density (the package `plotly` is used to create interactive plots):
+```{r}
+msc <- ggplot(data = df_msc, 
+              aes(x = Z, y = SMA, size = Z * SMA, color = Z * SMA, AreaID = AreaID)) +
+  geom_point() + 
+  scale_color_distiller(palette = "YlOrRd", trans = "reverse", guide = FALSE) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  coord_equal()
+p1 <- ggplotly(msc, tooltip = c("size", "AreaID"))
+
+map <- ggplot(data = Hamilton_CT.t, 
+              aes(x = long, y = lat, group = group, 
+                  fill = round(POP_DENSIT), AreaID = AreaID)) +
+  geom_polygon() + 
+  scale_fill_distiller(palette = "YlOrRd", trans = "reverse", guide = FALSE) +
+  coord_equal()
+p2 <- ggplotly(map, showlegend = FALSE)
+
+subplot(p1, p2, nrows = 1, margin = 0.05, titleX = TRUE, titleY = TRUE)
+```
+
+The darker colors/larger dots in the scatterplot are the zones with the largest contributions to Moran's I. The darker colors in the choropleth map are higher population densities. Can you identify in the map the zones that most contribute to Moran's I?
+
+The direct relationship between the dots in the scatterplot and the values of the variable in the map suggest the following decomposition of Moran's I.
+
+# Local Moran's I and mapping
+
+A possible decomposition of Moran's I into local components is as follows (see [Anselin, 1995](http://onlinelibrary.wiley.com/doi/10.1111/j.1538-4632.1995.tb00338.x/abstract)):
+$$
+I_i = \frac{z_i}{m_2}\sum_{j=1}^n{w_{ij}^{st}z_j}
+$$
+where $z_i$ is a mean-centered variable, and:
+$$
+m_2 = \sum_{i=1}^n{z_i^2}
+$$
+is its variance.
+
+It is straightforward to see that:
+$$
+I = \sum_{i=1}^n{I_i}
+$$
+
+The above shows how the local Moran's I coefficients can be aggregated to the global coefficient.
+
+An advantage of the local decomposition described here is that it allows the analyst to map the statistic to better understand the spatial pattern.
+
+The local version of Moran's I is implemented in `spdep` as `localmoran`, and can be called with a variable and a set of spatial weights as arguments:
+```{r}
+POP_DENSIT.lm <- localmoran(Hamilton_CT$POP_DENSIT, Hamilton_CT.w)
+```
+
+The value (output) of the function is a matrix with local Moran's I coefficients, and their corresponding expected values and variances (used for hypothesis testing; more on this next). You can check the summary to verify the contents:
+```{r}
+summary(POP_DENSIT.lm)
+```
+
+Similar to the global version of Moran's I, hypothesis testing can be conducted by comparing the empirical statistic to its distribution under the null hypothesis of spatial independence. The function `localmoran` reports p-values to this end.
+
+For further exploration, append the local statistics to your dataframe:
+```{r}
+Hamilton_CT.t <- left_join(Hamilton_CT.t, 
+                           data.frame(TRACT = Hamilton_CT$TRACT, POP_DENSIT.lm))
+Hamilton_CT.t <- rename(Hamilton_CT.t, p.val = Pr.z...0.)
+```
+
+For mapping it is also convenient to append the values that were used to create the scatterplot, and we are particularly interested in the factor for the type of relationship (i.e., HH, LL, HL/LH):
+```{r}
+Hamilton_CT.t <- left_join(Hamilton_CT.t, 
+                           df_msc)
+```
+
+Now it is possible to map the local statistics:
+```{r}
+map <- ggplot(data = Hamilton_CT.t, 
+                 aes(x = long, y = lat, group = group, 
+                     p.val = p.val, POP_DENSIT = round(POP_DENSIT))) +
+  geom_polygon(aes(fill = Type, color = p.val < 0.05)) +
+  scale_fill_brewer(palette = "RdBu") +
+  scale_color_manual(values = c(NA, "Black") ) +
+  labs(color = "Prob < 0.05") +
+  coord_equal() +
+  theme(legend.title = element_blank())
+ggplotly(map, tooltip = c("p.val", "POP_DENSIT")) #%>% layout(legend = list(x = 0.9, y = 0.0))
+```
+
+The map above shows whether population density in a zone is high, surrounded by other zones with high population densities (HH), or low, surrounded by zones that also have low population density (LL). Other zones have either low population densities and are surrounded by zones with high population density, or viceversa (HL/LH).
+
+A black border around the zone indicates that the local statistic is significant at p<0.05 or better.
+
+This map allows you to identify what we could call the downtown core (from the perspective of population density), and the most suburban-rural census tracts in the Hamilton CMA.
+
+While mapping $I_i$ or their corresponding p-values is straightforward, I personally find it more useful to map whether the zones are of type HH, LH, or HL/LH. Since such maps are not (to the best of my knowledge) the output of an existing function in an R package, we'll create one here.
+```{r}
+localmoran.map <- function(spat_pol = spat_pol, listw = listw, VAR = VAR, ID = ID){
+  require(tidyverse)
+  require(broom)
+  require(spdep)
+  require(plotly)
+  
+  spat_pol@data <- data.frame(ID = ID, VAR = VAR)
+  spat_pol.t <- broom::tidy(spat_pol, region = "ID")
+  spat_pol.t <- dplyr::rename(spat_pol.t, ID = id)
+  spat_pol.t <- dplyr::left_join(spat_pol.t, spat_pol@data, by = "ID")
+  
+  df_msc <- transmute(spat_pol@data, 
+                      ID = ID,
+                      Z = (VAR-mean(VAR)) / var(VAR), 
+                      SMA = lag.listw(listw, Z),
+                      Type = factor(ifelse(Z < 0 & SMA < 0, "LL", 
+                                           ifelse(Z > 0 & SMA > 0, "HH", "HL/LH"))))
+  
+  local_I <- localmoran(spat_pol$VAR, listw)
+  
+  spat_pol.t <- left_join(spat_pol.t, 
+                             data.frame(ID = spat_pol$ID, local_I))
+  spat_pol.t <- rename(spat_pol.t, p.val = Pr.z...0.)
+  spat_pol.t <- left_join(spat_pol.t, 
+                             df_msc)
+  
+  map <- ggplot(data = spat_pol.t, 
+                aes(x = long, y = lat, group = group, 
+                    p.val = p.val, VAR = round(VAR))) +
+    geom_polygon(aes(fill = Type, color = p.val < 0.05)) +
+    scale_fill_brewer(palette = "RdBu") +
+    scale_color_manual(values = c(NA, "Black") ) +
+    labs(color = "Prob < 0.05") +
+    coord_equal() +
+    theme(legend.title = element_blank())
+  ggplotly(map, tooltip = c("p.val", "VAR"))
+}
+```
+
+Notice how this function simply replicates the steps that we followed earlier to create the map with the results of the local Moran's Is.
+
+To use this function you need as inputs a `SpatialPolygonDataFrame`, a `listw` object with spatial weights, and to define the variable of interest and a unique identifier for the areas (such as their tract identifiers). For example:
+```{r}
+localmoran.map(Hamilton_CT, Hamilton_CT.w, Hamilton_CT$POP_DENSIT, Hamilton_CT$TRACT)
+```
+
+There, the function creates the map as desired.
+
+## A quick note on functions
+
+Once that you know the steps needed to complete a task, if the task needs to be repeated many times possibly using different inputs, a function is a way of packing those instructions in a convenient way. That is all.
+
+# A concentration approach for local analysis of spatial association
+
+The local version of Moran's I is one of the most widely used tools of a family of measures called _Local Statistics of Spatial Association_ or LISA. It is not the only one, however.
+
+In this section, we will see an alternative way of exploring spatial patterns locally, by means of a concentration approach.
+
+Imagine a landscape with a variable that can be measured in a ratio scale with a true zero point (say, population, income, a contaminant, or property values, variables that do not take negative values and the value of zero indicates complete absence).
+
+Imagine that you stand at a given location on that landscape and survey your surroundings. If your surroundings look very similar to you (i.e., if their elevation is similar, relative to the rest of the landscape), you would take that as evidence of a spatial pattern, at least locally. This is the idea behind spatial autocorrelation analysis.
+
+As an alternative, imagine for instance that the variable of interest is, say, personal income. You might ask "how much of the regional wealth can be found in my neighborhood?" (or, if you prefer, imagine that the variable is a contaminant, and your question would be, how much of it is around here?)
+
+Imagine now that personal income is spatially random. What would you expect the share of the wealth to be in your neighborhood? Would that share change if you moved to any other location?
+
+Lets elaborate this thought experiment. Take the `df1` dataframe. The total sum of this variable in the region is 12,034.34. See:
+```{r}
+sum(df1$z)
+```
+
+The following is an interactive plot of variable `z` in the sample dataframe `df1`. This variable is spatially random:
+```{r}
+plot_ly(df1, x = ~x, y = ~y, z = ~z,
+        marker = list(color = ~z, colorscale = c('#FFE1A1', '#683531'), showscale = TRUE)) %>%
+  add_markers()
+```
+
+Imagine that you stand at coordinates x = 53 and y = 34 (lets call this the focal point), and you survey the landscape within a radius r of 10 (units of distance) of this location. How much wealth is concentrated in the neighborhood of the focal point? Lets see:
+```{r}
+xy0 <- c(53, 34)
+r <- 10
+df1_xy0 <- subset(df1, sqrt((x - xy0[1])^2 + (y - xy0[2])^2) < r)
+sum(df1_xy0$z)
+```
+
+Recall that the total of the variable for the region is 12,034.34.
+
+If you change the radius r to a very large number, the concentration of the variable will simply become the total sum for the region. Essentially, the whole region is the "neighborhood" of the focal point. Try it.
+
+Now, for a fixed radius, change the focal point, and see how much the concentration of the variable changes for its neighborhood. How does the concentration of the variable by focal point?
+
+Lets repeat the thought experiment but now with the landscape shown in the following figure:
+```{r}
+plot_ly(df2, x = ~x, y = ~y, z = ~z,
+        marker = list(color = ~z, colorscale = c('#FFE1A1', '#683531'), showscale = TRUE)) %>%
+  add_markers()
+```
+
+Imagine that you stand at the focal point with coordinates x = 53 and y = 34. Can you identify the point in the plot? If you surveyed the neighborhood, what would be the concentration of wealth there? How would that change as you visited different focal points? Lets see (again, recall that the total of the variable for the whole region is 12,034.34):
+```{r}
+xy0 <- c(71, 10)
+r <- 10
+df2_xy0 <- subset(df2, sqrt((x - xy0[1])^2 + (y - xy0[2])^2) < r)
+sum(df2_xy0$z)
+```
+
+Change the focal point. How does the concentration of the variable change?
+
+
+Lets define the following measure of local concentration (see [Getis and Ord, 1992](http://onlinelibrary.wiley.com/doi/10.1111/j.1538-4632.1992.tb00261.x/pdf)):
+$$
+G_i*(d)=\frac{\sum_{j=1}^n{w_{ij}x_j}}{\sum_{i=i}^{n}x_{i}}
+$$
+
+Notice that the spatial weights are **not** row-standardized, and in fact must be a binary variable as follows:
+$$
+w_{ij}=\bigg\{\begin{array}{l l}
+1\text{ if } d_{ij}\leq d\\
+0\text{ otherwise}\\
+\end{array}
+$$
+
+This is because in this measure of concentration, we do not calculate the spatial moving average for the neighborhood, but the total of the variable in the neighborhood.
+
+A variant of this statistic removes from the sum the value of the variable at i:
+$$
+G_i^(d)=\frac{\sum_{j\neq i}^n{w_{ij}x_j}}{\sum_{i=i}^{n}x_{i}}
+$$
+
+I do not find this definition to be particularly useful. I suspect it was defined to resemble Moran's I where an area is not it's own neighbor - which makes sense in an autocorrelation sense (an area is perfectly autocorrelated with itself). In a concentration approach, not using the value at $i$ is less appealing.
+
+As with the local version of Moran's I, it is possible to map the statistic to better understand the spatial pattern.
+
+The $G_i(d)$ statistic is implemented in `spdep` as `localG`, and can be called with a variable and a set of spatial weights as arguments.
+
+Lets calculate this statistic for the two datasets in the example above. This requires that we create binary spatial weights. 
+
+Begin by creating neighbors by distance:
+```{r}
+xy_coord <- cbind(df1$x, df1$y)
+dn10 <- dnearneigh(xy_coord, 0, 10)
+```
+
+Two differences with the procedure that you used before to create spatial weights is that we wish to include the observation at $i$ as well (so `include.self()`, and the style of the matrix is "B" (for binary):
+```{r}
+wb10 <- nb2listw(include.self(dn10), style = "B")
+```
+
+The local statistics can be obtained as follows:
+```{r}
+df1.lg <- localG(df1$z, wb10)
+```
+
+The value (output) of the function is a 'vector `localG` object with normalized local statistics. Normalized means that the mean under the null hypothesis has been substracted and the result has been divided by the variance under the null. Normalized statistics can be compared to the standard normal distribution for hypothesis testing. You can check the summary to verify the contents:
+```{r}
+summary(df1.lg)
+```
+
+Lets add p-values to this:
+```{r}
+df1.lg <- as.numeric(df1.lg)
+df1.lg <- data.frame(Gstar = df1.lg, p.val = 2 * pnorm(abs(df1.lg), lower.tail = FALSE))
+```
+
+How many of the p-values are less than the conventional decision cutoff of 0.05?
+
+Now the second example:
+```{r}
+df2.lg <- localG(df2$z, wb10)
+summary(df2.lg)
+```
+
+Adding p-values:
+```{r}
+df2.lg <- as.numeric(df2.lg)
+df2.lg <- data.frame(Gstar = df2.lg, p.val = 2 * pnorm(abs(df2.lg), lower.tail = FALSE))
+```
+
+If we append the results of the analysis to the dataframe, we can plot the results for further exploration. We will classify the results by their type, in this case high and low concentrations:
+```{r}
+df2 <- cbind(df2[,1:3],df2.lg)
+df2 <- mutate(df2, 
+              Type = factor(ifelse(Gstar < 0 & p.val <= 0.05, "Low Concentration",
+                                   ifelse(Gstar > 0 & p.val <= 0.05, "High Concentration", "Not Signicant"))))
+```
+
+And then the plot:
+```{r}
+plot_ly(df2, x = ~x, y = ~y, z = ~z, color = ~Type, colors = c("red", "blue", "gray"),
+        marker = list()) %>%
+  add_markers()
+```
+
+What kind of pattern do you observe?
+
+# A short note on hypothesis testing
+
+Local tests as introduced above are affected by an issue called _multiple testing_. Typically, when attempting to assess the significance of a statistic, a level of significance is adopted (conventionally 0.05, for instance). When working with local statistics, we typically conduct many tests of hypothesis simultaneously (in the example above, one for each observation).
+
+A risk when conducting a large number of tests is that some of them might appear significant _purely by chance!_ The more tests we conduct, the more likely that at least a few of them will be significant by chance. For instance, in the preceding example the variable in `df1` was spatially random, and yet a few observations had p-values smaller than 0.05.
+
+What this suggests is that some correction to the level of significance used is needed.
+
+A crude rule to make this adjustment in called _Bonferroni correction_. This correction is as follows:
+$$
+\alpha_B = \frac{\alpha_{nominal}}{m}
+$$
+where $\alpha_{nominal}$ is the nominal level of significance, $\alpha_B$ is the adjusted level of significance, and $m$ is the number of simultaneous tests. This correction requires that each test be evaluated at a lower level of significance $\alpha_B$ in order to to achieve a nominal level of significance of 0.05.
+
+If we apply this correction to the analysis above, we see that instead of 0.05, the p-value needed for significance is much lower:
+```{r}
+alpha_B <- 0.05/nrow(df1)
+alpha_B
+```
+
+You can verify now that no observations in `df1` show up as significant:
+```{r}
+sum(df1.lg$p.val <= alpha_B)
+```
+
+If we examine the variable in `df2`:
+```{r}
+df2 <- mutate(df2, 
+              Type = factor(ifelse(Gstar < 0 & p.val <= alpha_B, "Low Concentration",
+                                   ifelse(Gstar > 0 & p.val <= alpha_B, "High Concentration", "Not Signicant"))))
+plot_ly(df2, x = ~x, y = ~y, z = ~z, color = ~Type, colors = c("red", "blue", "gray"),
+        marker = list()) %>%
+  add_markers()
+```
+
+You will see that fewer observations are significant, but it is still possible to detect two regions of high concentration, and two of low concentration.
+
+Bonferroni correction is known to be overly strict, and sharper approaches exist to correct for multiple testing. Between the nominal level (no correction) and Bonferroni correction, it is still possible to assess the gravity of the issue of multiple comparisons. Observations that are flagged as significant with the Bonferroni correction, will also be significant under more refined corrections, so it provides a most conservative decision rule.
+
+# Detection of hot and cold spots
+
+As the examples above illustrate, local statistics can be very useful in detecting what might be termed "hot" and "cold" spots. A _hot spot_ is a group of observations that are significantly high, whereas a _cold spot_ is a group of observations that are significantly low.
+
+There are many different applications where hot/cold spot detection is important.
+
+For instance, in many studies of urban form, it is important to identify centers and subcenters - by population, by property values, by incidence of trips, and so on. In spatial criminology, detecting hot spots of crime can help with prevention and law enforcement efforts. In environmental studies, remediation efforts can be greatly assisted by identification of hot areas. And so on.
+
+# Bonus
+
+Check a cool app that illustrates the $G_i^*$ statistic [here](http://personal.tcu.edu/kylewalker/spatial-neighbors-in-r.html)
+
+This concludes Practice 12.

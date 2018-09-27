@@ -1,0 +1,54 @@
+---
+title: "Data Preprocessing: Practice Statistical Maps II"
+output: html_notebook
+---
+
+#Introduction
+
+For this activity, I want students to learn more about data types and structures. The plan is that they will use a dataset to create more maps, manipulate information, and see what a list is.
+
+Load libraries:
+```{r}
+library(tidyverse)
+library(ggmap)
+library(spdep)
+```
+
+First, I imported the dataset used in the social exclusion project of 2008, specifically fast food locations in Toronto.
+```{r}
+Fast_Food <- read_csv("C:/Antonio/Courses/GEOG 4GA3 - Applied Spatial Analysis/Course Material EXPERIMENTAL/02. Statistical Maps II/Readings and Practice/Fast Food.csv",
+                      col_types = cols(Class = col_factor(levels = c("Chicken", "Hamburger", "Pizza", "Sub"))))
+
+```
+
+I can map this using ggmap. First, retrieve base map:
+```{r}
+Toronto_bm <- get_map("Bloor and Yonge, Toronto", zoom = 10) 
+```
+
+Check the base map
+```{r}
+ggmap(Toronto_bm)
+```
+
+Map the fast food establishments:
+```{r}
+ggmap(Toronto_bm) + geom_point(data = Fast_Food, aes(x = LONGITUDE, y = LATITUDE, shape = Class))
+```
+
+Remove observations that are north of 44.00 and west of -80.00
+```{r}
+Fast_Food <- Fast_Food[Fast_Food$LONGITUDE >= -79.8,]
+Fast_Food <- Fast_Food[Fast_Food$LATITUDE <= 43.85,]
+```
+
+Redo the map  of the fast food establishments:
+```{r}
+ggmap(Toronto_bm) + geom_point(data = Fast_Food, aes(x = LONGITUDE, y = LATITUDE, shape = Class))
+```
+
+Then I saved to RData format.
+```{r}
+save(Fast_Food, file = "Fast_Food.RData")
+```
+

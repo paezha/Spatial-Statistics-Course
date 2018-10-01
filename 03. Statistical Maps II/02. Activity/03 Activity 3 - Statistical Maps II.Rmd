@@ -13,11 +13,11 @@ Answer the following questions:
 
 #Learning objectives
 
-1. The objective of this activity is to learn about patterns and processes, including random patterns.
+In this activity you will:
 
-2. You should understand the general approach to retrieve a process from a pattern.
-
-3. You should be able to discuss the importance of discriminating random patterns.
+1. Learn about patterns and processes, including random patterns.
+2. Understand the general approach to retrieve a process from a pattern.
+3. Discuss the importance of discriminating random patterns.
 
 #Suggested reading
 

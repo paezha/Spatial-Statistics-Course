@@ -1,0 +1,116 @@
+---
+title: "Data Preprocessing: Point Pattern Analysis I"
+output: html_notebook
+---
+
+#Introduction
+
+This activity will introduce more formally the concept of point patterns and analysis. 
+
+My initial idea is to implement 
+
+Clear workspace:
+```{r}
+rm(list = ls())
+```
+
+Load libraries:
+```{r}
+library(tidyverse)
+library(spdep)
+library(adespatial)
+```
+
+Load the point patterns that I created in Session 2:
+```{r}
+load("Data2.RData")
+```
+
+Select dataset to plot:
+```{r}
+data = PointPattern2
+```
+
+Plot (use `theme` to remove gridlines):
+```{r}
+ggplot() + 
+  geom_point(data = data, aes(x = x, y = y)) + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  coord_fixed()
+```
+
+Plot (use `theme` to remove gridlines):
+```{r}
+ggplot() + 
+  geom_point(data = data, aes(x = x, y = y)) + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  geom_vline(xintercept = seq(from = 0, to = 1, by = 1)) +
+  geom_hline(yintercept = seq(from = 0, to = 1, by = 1)) +
+  coord_fixed()
+```
+
+Note that `geom_bind2` can be used to produce _density maps_.
+```{r}
+ggplot() + 
+  geom_vline(xintercept = seq(from = 0, to = 1, by = 1)) +
+  geom_hline(yintercept = seq(from = 0, to = 1, by = 1)) +
+  geom_bin2d(data = data, aes(x = x, y = y), binwidth = c(1, 1)) +
+  geom_point(data = data, aes(x = x, y = y), color = "white", shape = 16, size = 2) + 
+  coord_fixed()
+```
+
+Note that `geom_bind2` can be used to produce _density maps_.
+```{r}
+q_size = 0.25
+ggplot() + 
+  geom_bin2d(data = data, aes(x = x, y = y), binwidth = c(q_size, q_size)) +
+  geom_vline(xintercept = seq(from = 0, to = 1, by = q_size)) +
+  geom_hline(yintercept = seq(from = 0, to = 1, by = q_size)) +
+  geom_point(data = data, aes(x = x, y = y), color = "white", shape = 16, size = 2) +
+  coord_fixed()
+```
+
+Explore the different patterns.
+```{r}
+data = PointPattern1
+q_size = 0.25
+ggplot() + 
+  geom_bin2d(data = data, aes(x = x, y = y), binwidth = c(q_size, q_size)) +
+  geom_vline(xintercept = seq(from = 0, to = 1, by = q_size)) +
+  geom_hline(yintercept = seq(from = 0, to = 1, by = q_size)) +
+  geom_point(data = data, aes(x = x, y = y), color = "white", shape = 16, size = 2) +
+  coord_fixed()
+```
+
+Put all patterns in a single dataframe:
+```{r}
+PointPatterns <- rbind(PointPattern1, PointPattern2, PointPattern3)
+```
+
+Add a regular pattern:
+```{r}
+junk <- expand.grid(x = seq(from = 0.075, to = 0.825, by = 0.15), 
+            y = seq(from = 0.05, to = 0.85, by = 0.20))
+junk2 <- expand.grid(x = seq(from = 0.15, to = 0.90, by = 0.15), 
+            y = seq(from = 0.15, to = 0.95, by = 0.20))
+PointPattern4 <- rbind(junk, junk2)
+ggplot() + geom_point(data = PointPattern4, aes(x = x, y = y)) + 
+  coord_fixed()
+```
+
+```{r}
+PointPatterns <- rbind(PointPatterns, PointPattern4)
+```
+
+Add factors to identify the patterns:
+```{r}
+PointPatterns$Pattern <- factor(rep(1:4, each = 60), 
+                                levels = c("1", "2", "3", "4"),
+                                labels = c("Pattern 1", "Pattern 2", "Pattern 3", "Pattern 4"))
+```
+
+Save:
+```{r}
+save(PointPatterns, file = "Data3.RData")
+```
+

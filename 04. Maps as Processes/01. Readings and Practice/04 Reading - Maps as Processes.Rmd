@@ -23,12 +23,13 @@ For this practice you will need the following:
 
 #Learning objectives
 
-In this practice, you will learn:
+In this reading, you will learn:
 
 1. How to generate random numbers with different properties.
 2. About Null Landscapes.
-3. How to create new columns in a dataframe using a formula.
-4. How to simulate a spatial process.
+3. About stochastic processes.
+4. How to create new columns in a dataframe using a formula.
+5. How to simulate a spatial process.
 
 #Suggested reading
 

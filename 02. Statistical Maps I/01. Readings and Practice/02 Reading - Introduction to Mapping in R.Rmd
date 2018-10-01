@@ -1,5 +1,5 @@
 ---
-title: "02 Reading - Introduction to Mapping in R"
+title: "02 Introduction to Mapping in R"
 output: html_notebook
 ---
 
@@ -29,10 +29,10 @@ In the previous reading/practice you created a simple proportional symbols map. 
 
 #Learning objectives
 
+In this reading, you will learn:
+
 1. How to read data into R and view the data structure.
-
 2. How to create a simple map using R.
-
 3. Think about how statistical maps help us understand patterns. 
 
 #Preliminaries

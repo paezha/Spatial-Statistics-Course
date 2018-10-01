@@ -1,5 +1,5 @@
 ---
-title: "02 Session 2: Statistical Maps I"
+title: "02 Activity 2: Statistical Maps I"
 output: html_notebook
 ---
 
@@ -7,13 +7,15 @@ output: html_notebook
 
 Answer the following questions:
 
-1. What are the office hours of A. Paez this term?
+1. What are the office hours of your instructor this term?
 
 2. How are assignments graded?
 
 3. What is the policy for late assignments in this course?
 
 #Learning Objectives
+
+In this activity you will:
 
 1. Discuss statistical maps and what makes them interesting.
 

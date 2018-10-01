@@ -1,5 +1,5 @@
 ---
-title: "03 Reading - Mapping in R Continued"
+title: "03 Mapping in R Continued"
 output: html_notebook
 ---
 
@@ -26,17 +26,18 @@ For this practice you will need the following:
    
 #Learning objectives
 
-1. In this practice you will learn to quickly summarize the descriptive statistics of a dataframe.
+In this reading, you will learn:
 
-2. You will learn more about _factors_.
+1. How to quickly summarize the descriptive statistics of a dataframe.
+2. More about _factors_.
 
 Factors are a class of data that is used for categorical data. For instance, a parcel may be categorizes as developed or undeveloped; a plot of land may be zoned for commercial, residential, or industrial use; a sample may be mineral x or y. These are not quantities but rather reflect a quality of the entity that is being described.
 
-3. You will learn how to subset a dataset.
+3. How to subset a dataset.
 
 Sometimes you want to work with only a subset of a dataset. This can be done using indexing with logical values, or using specialized functions.
 
-4. You will also learn how to use _pipe operators_.
+4. How to use _pipe operators_.
 
 A pipe operator allows you to pass the results of a function to another function. It makes writing instructions more intuitive and simple.
 

@@ -160,9 +160,53 @@ ggplot() +
 
 These are only two of many possible techniques to generate null landscapes. We will discuss other later in the course.
 
+#Stochastic processes
+
+Some processes are _random_, such as the ones used above to create _null landscapes_. These processes take values with some probability, but cannot be predicted with any certainty.
+
+Let's illustrate using again a unit square:
+```{r}
+coords <- expand.grid(x = seq(from = 0, to = 1, by = 0.05), y = seq(from = 0, to = 1, by = 0.05))
+```
+
+Here is an example of a random pattern of events:
+```{r}
+events <- rbinom(n = nrow(coords), size = 1, prob = 0.5)
+null_pattern <- data.frame(coords, events)
+ggplot() + 
+  geom_point(data = subset(null_pattern, events == 1), aes(x = x, y = y), shape = 15) +
+  coord_fixed()
+```
+
+A _systematic_ or _deterministic_ process is one that contains no elements of randomness, and can therefore be predicted with complete certainty. For instance (note the use of `xlim` to set the extent of x axis in the plot):
+```{r}
+deterministic_point_pattern <- coords
+deterministic_point_pattern <- mutate(deterministic_point_pattern, events = round(x))
+ggplot() + 
+  geom_point(data = subset(deterministic_point_pattern, events == 1), aes(x = x, y = y), shape = 15) +
+  xlim(0, 1) +
+  coord_fixed()
+```
+
+In the process above, I used the function `round()` and the coordinate `x`. The function gives a value of one for all points with x > 0.5, and a value of zero to all points with x <= 0.5. The pattern is fully deterministic: if I know the value of the x coordinate I can predict whether an event will be present.
+
+A _stochastic process_, on the other hand, is a process that is neither fully random or deterministic, but rather a combination of the two. Let's illustrate:
+```{r}
+stochastic_point_pattern <- coords
+stochastic_point_pattern <- 
+  mutate(stochastic_point_pattern, 
+         events = round(x) - round(x) * rbinom(n = nrow(coords), size = 1, prob = 0.5))
+ggplot() + 
+  geom_point(data = subset(stochastic_point_pattern, events == 1), aes(x = x, y = y), shape = 15) +
+  xlim(0, 1) +
+  coord_fixed()
+```
+
+The process above has a deterministic component (the probability of an event is zero if x <= 0.5), and a random component (the probability of a coordinate being an event is 0.5 when x > 0.5).
+
 #Simulating spatial processes
 
-Null landscapes are interesting as a benchmark. More interesting are landscapes that emerge as the output of a non-random process. Here we will see how to introduce a systematic element into a null landscape to simulate spatial processes.
+Null landscapes are interesting as a benchmark. More interesting are landscapes that emerge as the outcome of a non-random process- either a systematic/deterministic or stochastic process. Here we will see how to introduce a systematic element into a null landscape to simulate spatial processes.
 
 Let's begin with the point pattern, using the same landscape that we used above. We will first copy the coordinates of the landscape to a new dataframe, that we will call `pattern1`:
 ```{r}
@@ -243,4 +287,4 @@ As expected, shorter people are towards the "front" (bottom of the plot) and tal
 
 In the vast majority of cases, we do not know the process; that is precisely what we wish to infer. Understanding process generation in a statistical sense, as well as null landscapes, is a useful tool that can help to infer processes in applications with empirical (as opposed to simulated) data.
 
-This concludes Practice 3.
+Please visit [app](link) to explore different examples of spatial processes. How do 

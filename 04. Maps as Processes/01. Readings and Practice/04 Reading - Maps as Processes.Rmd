@@ -287,4 +287,4 @@ As expected, shorter people are towards the "front" (bottom of the plot) and tal
 
 In the vast majority of cases, we do not know the process; that is precisely what we wish to infer. Understanding process generation in a statistical sense, as well as null landscapes, is a useful tool that can help to infer processes in applications with empirical (as opposed to simulated) data.
 
-Please visit [app](link) to explore different examples of spatial processes. How do 
+Please visit [app](link) to explore different examples of spatial processes. Notice that some _look_ more random and some _look_ more systematic. At which point do you think it ceases being random?

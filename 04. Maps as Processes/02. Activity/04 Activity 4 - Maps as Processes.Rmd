@@ -15,10 +15,9 @@ Answer the following questions:
 
 In this activity, you will:
 
-1. Learn about stochastic processes.
-2. Simulate landscapes using various types of processes.
-3. Discuss the difference between random and non-random landscapes.
-4. Think about ways to decide whether a landscape is random.
+1. Simulate landscapes using various types of processes.
+2. Discuss the difference between random and non-random landscapes.
+3. Think about ways to decide whether a landscape is random.
 
 #Suggested reading
 

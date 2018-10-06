@@ -36,8 +36,7 @@ Thresold Concepts:
 3. Kernel Density - A kernel is a moving window that gives greater weight to events closer to the center of the window and less weight to events that are more distant from the center of the window. Kernel bandwidth controls how rapidly weight assigned to an event decays.
 
 **Session 5: Point Pattern Analysis II (Acctivity)**\
-Threshold Concepts: 
-Threshold Ceoncept: 
+Threshold Concept: 
 1. Use Quadrat Analysis and Kernel Density to determine if point pattern in random or non-random; able to determine which of the two methods is better for certain situations by the end of the activity
 
 ## Brainstorming ##

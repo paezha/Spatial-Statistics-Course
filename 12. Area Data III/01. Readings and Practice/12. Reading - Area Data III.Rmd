@@ -337,7 +337,6 @@ ggplot(data = df_mean_center_scatterplot,
   annotate("text", label = "Q2: Negative", x= -2000, y = 2500) +
   annotate("text", label = "Q3: Positive", x= -2000, y = -2500) +
   coord_equal()
-
 ```
 
 Lets say that we add all such products:

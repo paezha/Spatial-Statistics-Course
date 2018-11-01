@@ -2,7 +2,7 @@
 #'
 #' @name geog4ga3
 #' @docType package
-#' @import dplyr broom spdep plotly
+#' @import dplyr broom spdep plotly tidyverse
 NULL
 
 #' Snow cholera deaths
@@ -44,3 +44,106 @@ NULL
 #' @format A data frame with 5 rows and 4 variables
 #' @source \url{http://blog.rtwilson.com/?s=snow}
 NULL
+
+#' HamiltonDAs
+#'
+#' A dataset containing Hamilton Dissemination Areas.  
+#'  The variables are as follows: 
+#'
+#' \itemize{
+#'    \item long. longitude of address (-\-79.86997--\-79.51301)
+#'    \item lat. latitude of adress (43.29277--43.18924)
+#'    \item order. Unique identifier of address 
+#'    \item hole. 
+#'    \item price. 
+#'    \item group. 
+#'    \item GTA06. 
+#'    \item VAR 1. Varible used to create a thematic map (0.3788377--0.3482670)
+#'    \iteam VAR 2. Varible used to create a thematic map (0.3418337--0.4953046)
+#'    \item VAR 3. Varible used to create a thematic map (0.3450731--0.2735642)
+#'    \item VAR 4. Varible used to create a thematic map (0.3057122--0.4634048)
+#'    \item VAR 5. Varible used to create a thematic map (0.3622016--0.4760264)
+#' }
+#'
+#' @docType data 
+#' @keywords datasets 
+#' @name HamiltonDAs 
+#' @usage data(HameilonDAs)
+#' @format A data frame with 11792 rows and 12 variables 
+#' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
+NULL
+
+#' Data1
+#'
+#' A dataset contianing point data.  
+#'  The variables are as follows: 
+#' 
+#' \itemize{
+#'    \item x. coordinates of x points based on a false origin and normalized to the unit-square  (0.87289164--0.88000000)
+#'    \item y. coordinates of 7 points based on a false origin and normalized to the unit-square  (0.13177294--0.85000000)
+#'    \item VAR1. Variable assocaited with location used to adjust plot (388.55666--NA)
+#'    \item VAR2. Variable associated with location used to adjust plot (571.07806--NA)
+#'    \item VAR3. Variable assocaited with location used to adjust plot (634.7831--NA)
+#'  Feel free to think of each variable if they were housing prices or concentrations in ppb of some contaminant. 
+#'    \item observed. Variable states whether it was measured at that location (TRUE--FALSE) 
+#' }
+#'
+#'@docType data 
+#'@keywords datasets 
+#'@name Data1
+#'@usage data(Data1)
+#'@format A data frame with 65 rows and 6 variables 
+#'@source 
+NULL 
+
+#' PointPattern1
+#' 
+#' A dataset containing locations of some generic events. 
+#'  The variables are as follows: 
+#'
+#' \itemize{ 
+#'    \item x. coordinates of x points based on a false origin and normalized to the unit-square (0.94197211--0.37310555)
+#'    \item y. coordinates of y points based on a false origin and normalized to the unit-square (0.797437939--0.626555892)
+#'  Feel free to think of these events as cases of flu, the location of trees of a certain species, or the location of fires. 
+#' }
+#'@docType data
+#'@keywords datasets
+#'@name PointPattern1
+#'@format A data frame with 60 rows and 2 variables 
+#'@source NA
+NULL
+
+#' PointPattern2
+#' 
+#' A dataset containing locations of some generic events. 
+#'  The variables are as follows: 
+#'
+#' \itemize{ 
+#'    \item x. coordinates of x points based on a false origin and normalized to the unit-square (0.21511760--0.13941605)
+#'    \item y. coordinates of y points based on a false origin and normalized to the unit-square (0.23998400--0.26875381)
+#'  Feel free to think of these events as cases of flu, the location of trees of a certain species, or the location of fires. 
+#' }
+#'@docType data
+#'@keywords datasets
+#'@name PointPattern2
+#'@format A data frame with 60 rows and 2 variables 
+#'@source NA
+NULL
+
+#' PointPattern3
+#' 
+#' A dataset containing locations of some generic events. 
+#'  The variables are as follows: 
+#'
+#' \itemize{ 
+#'    \item x. coordinates of x points based on a false origin and normalized to the unit-square (0.33453032--0.04994001)
+#'    \item y. coordinates of y points based on a false origin and normalized to the unit-square (0.31238907--0.32612196)
+#'  Feel free to think of these events as cases of flu, the location of trees of a certain species, or the location of fires. 
+#' }
+#'@docType data
+#'@keywords datasets
+#'@name PointPattern3
+#'@format A data frame with 60 rows and 2 variables 
+#'@source NA
+
+

@@ -1,0 +1,8 @@
+book_filename: "bookdown-demo"
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+
+rmd_files: ["index.Rmd", "00-Reading-Basic-Operations-and-Data-Structures.Rmd"]
+#, "02-Reading-Introduction-to-Mapping-in-R.Rmd", "02-Activity-2-Statistical-Maps.Rmd"]

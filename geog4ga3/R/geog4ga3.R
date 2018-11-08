@@ -84,7 +84,6 @@ NULL
 #'    \item VAR1. Variable assocaited with location used to adjust plot (388.55666--NA)
 #'    \item VAR2. Variable associated with location used to adjust plot (571.07806--NA)
 #'    \item VAR3. Variable assocaited with location used to adjust plot (634.7831--NA)
-#'  Feel free to think of each variable if they were housing prices or concentrations in ppb of some contaminant. 
 #'    \item observed. Variable states whether it was measured at that location (TRUE--FALSE) 
 #' }
 #'
@@ -105,8 +104,7 @@ NULL
 #'
 #' \itemize{ 
 #'    \item x. x points based on a false origin and normalized to the unit-square (0.94197211--0.37310555)
-#'    \item y. y points based on a false origin and normalized to the unit-square (0.797437939--0.626555892)
-#'  Feel free to think of these events as cases of flu, the location of trees of a certain species, or the location of fires. 
+#'    \item y. y points based on a false origin and normalized to the unit-square (0.797437939--0.626555892) 
 #' }
 #' @docType data
 #' @keywords datasets
@@ -122,8 +120,7 @@ NULL
 #'
 #' \itemize{ 
 #'    \item x. x points based on a false origin and normalized to the unit-square (0.21511760--0.13941605)
-#'    \item y. y points based on a false origin and normalized to the unit-square (0.23998400--0.26875381)
-#'  Feel free to think of these events as cases of flu, the location of trees of a certain species, or the location of fires. 
+#'    \item y. y points based on a false origin and normalized to the unit-square (0.23998400--0.26875381) 
 #' }
 #'@docType data
 #'@keywords datasets
@@ -140,7 +137,6 @@ NULL
 #' \itemize{ 
 #'    \item x. x points based on a false origin and normalized to the unit-square (0.33453032--0.04994001)
 #'    \item y. y points based on a false origin and normalized to the unit-square (0.31238907--0.32612196)
-#'  Feel free to think of these events as cases of flu, the location of trees of a certain species, or the location of fires. 
 #' }
 #' @docType data
 #' @keywords datasets
@@ -209,7 +205,7 @@ NULL
 #' @keywords datasets
 #' @name Paez_Mart
 #' @format A data frame with 395 rows and 3 variables 
-#' @source Dr. Paez's project 
+#' @source Dr. Paez
 NULL
 
 #' Toronto
@@ -232,5 +228,37 @@ NULL
 #' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 NULL
 
-#' pp1 
-#' A dataset 
+#' pp1_df
+#' A dataset containing two sets of spatial events labeled as "Pattern 1" and "Pattern 2"
+#'  The varirables are as follows:
+#'
+#'    \itemize{
+#'      \item x. list of coordinates (0.22844244--0.95643341)
+#'      \item y. list of coordinates (0.81963883--0.07471783)
+#'      \item marks. Two sets of spatial events (Pattern 1, Pattern 2) 
+#' }
+#' @docType data
+#' @keywords datasets
+#' @name pp1_df
+#' @format A data frame with 72 rows and 3 variables 
+#' @ source Dr. Paez
+NULL 
+
+#' bear_df
+#' A dataset containing spatial information from the Scandinavian Bear Project 
+#'  The variables are as follows:
+#'
+#'    \itemize{
+#'      \item x. list of coordinates (518921.5--517348.2)
+#'      \item y. list of coordinates (6812989--6820431)
+#'      \item marks. Unique identifier (Day Time, Night Time)
+#" }
+#' @docType data
+#' @keywords datasets
+#' @name bear_df
+#' @format A data frame with 1000 rows and 3 variables 
+#' @source \url{https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf) and [here](http://spatstat.org/resources/spatstatJSSpaper.pdf}
+NULL
+
+
+

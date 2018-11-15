@@ -8,6 +8,8 @@ output: html_notebook
 library(sp)
 library(spdep)
 library(rgdal)
+library(adespatial)
+library(tmap)
 ```
   
 ```{r}
@@ -22,9 +24,44 @@ w <- bbox(shape) #bounding box
 
 Obtain coordinates on a regular grid:
 ```{r}
-
+ng <- 25 # number of grid elements
+x <- seq(min(w[1,]), to = max(w[1,]), by = (max(w[1,]) - min(w[1,]))/ng) 
+y <- seq(min(w[2,]), to = max(w[2,]), by = (max(w[2,]) - min(w[2,]))/ng)
 ```
 
+Use these vectors of coordinates to create the points for a regular grid:
+```{r}
+pts = sp::SpatialPoints(expand.grid(x = x, y = y))
+proj4string(pts) <- proj4string(shape)
+```
 
+Plot these points:
+```{r}
+plot(pts)
+```
 
-pts = sp::SpatialPoints(expand.grid(x=1:N,y=1:N)) 
+To obtain the Moran Eigenvector Maps we must first obtain the contiguities for the system.
+
+Convert points (`pts`) to nearest neighbors using the `knearneigh` function, selecting k=4 (number of neighbors):
+```{r}
+nn <- knn2nb(knearneigh(pts, k = 4, longlat = TRUE))
+```
+
+Spatial weights
+```{r}
+spw <- nb2listw(nn)
+```
+
+Now the spatial weights can be used to obtain Moran eigenvector maps using `adespatial::mem`:
+```{r}
+MEM <- mem(spw)
+```
+
+Add MEM to points:
+```{r}
+pts.mem <- SpatialPointsDataFrame(pts, data.frame(MEM))
+```
+
+```{r}
+tm_shape(pts.mem) + tm_dots("MEM50", size = 0.5)
+```

@@ -1,0 +1,51 @@
+#controls {
+	max-width: 90%;
+	margin-top: 5%;
+	background-color: white;
+	padding: 0 20px 20px 20px;
+	cursor: move;
+	opacity: 0.65;
+	zoom: 0.9;
+	transition: opacity 500ms 1s;
+	z-index: 9999;
+}
+
+#controls:hover {
+	opacity: 0.95;
+	transition-delay: 0;
+}
+
+.control-label {
+	left: 30%;
+	position: relative;
+	color: black;
+	font-size: 20px;
+	font-family: times;
+}
+
+.main-sidebar {
+	width: 330px;
+}
+
+.content {
+	margin-left: 90px;
+	padding-right: 5px;
+}
+
+.main-header .logo {
+	width: 330px;
+}
+
+.main-header .navbar {
+	margin-left: 330px;
+}
+
+div.outer {
+	position: fixed;
+	top: 36px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	padding: 0;
+}

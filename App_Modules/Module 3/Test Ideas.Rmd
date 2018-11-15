@@ -57,11 +57,23 @@ Now the spatial weights can be used to obtain Moran eigenvector maps using `ades
 MEM <- mem(spw)
 ```
 
+Scale and center variables to the unit
+```{r}
+maxs <- apply(MEM, 2, max) 
+mins <- apply(MEM, 2, min)
+MEM <- as.data.frame(scale(MEM, center = mins, scale = maxs - mins))
+```
+
+Use values of MEM as probabilities to simulate events:
+```{r}
+rbinom(n = nrow(pts.mem), size = 1, prob = MEM$MEM500)
+```
+
 Add MEM to points:
 ```{r}
 pts.mem <- SpatialPointsDataFrame(pts, data.frame(MEM))
 ```
 
 ```{r}
-tm_shape(pts.mem) + tm_dots("MEM50", size = 0.5)
+tm_shape(pts.mem) + tm_dots("MEM500", size = 0.5)
 ```

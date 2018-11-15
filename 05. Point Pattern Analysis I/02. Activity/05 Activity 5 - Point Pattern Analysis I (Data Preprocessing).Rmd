@@ -1,0 +1,218 @@
+---
+title: "Session 4: Point Pattern Analysis I (Data Preprocessing)"
+output: html_notebook
+---
+
+#Introduction
+
+Here I document the data preprocessing for this activity. 
+
+I want to give students real datasets that they can analyze, without having to go through all the data preprocessing, in particular converting shape files into `spatstat` objects, and so on.
+
+Therefore, I will convert all files into objects that the students can readily use.
+
+One data set is of businesses in Toronto. I will use the city boundaries and point data for businesses (including Paez Mart).
+
+The shape file with the city boundaries is called `Toronto`.
+
+#Data preprocessing
+
+Clear workspace.
+```{r}
+rm(list = ls())
+```
+
+Next, load the libraries needed to do this:
+```{r}
+library(tidyverse)
+library(spatstat)
+library(spdep)
+library(rgdal)
+library(maptools)
+#library(readxl)
+#library(dplyr)
+#library(ggplot2)
+#library(tmap)
+library(broom)
+library(ggmap)
+#library(readr)
+```
+
+I can now proceed to read the geospatial file. 
+
+For this example, I will use an ESRI shape file that contains the city boundary of Toronto. The command used for this is `rgdal::readOGR` (note that `package::function` indicates a function in the name package):
+```{r}
+Toronto <- readOGR(dsn = ".", layer = "Toronto")
+```
+
+This creates a `SpatialPolygonsDataFrame`, an R object used to store geographical information (in this example spatial polygons; other types of spatial data are points, lines, or pixels; more generally `Spatial*DataFrames`).
+
+Next, I want to create an object window object (`owin`) used by `spatstat` to define regions for spatial point pattern analysis:
+```{r}
+Toronto.owin <- as(Toronto, "owin")
+```
+
+The city boundaries of Toronto are a `SpatialPolygonDataFrame` object. To plot using `ggplot2` I need to create a "tidy" version of it. This is done by means of the `tidy` function of the `broom` package. We will call it `taz.t` for "tidy" (note that `tidy` needs to know the id that will be used to create the regions, that is, the spatial polygons; since this will be renamed `id` by `tidy`, we need to rename it to "GTA06" to keep it consistent with table data):
+```{r}
+Toronto <- tidy(Toronto, region = "ID")
+#Rename id column
+Toronto <- rename(Toronto, GTA06 = "id")
+```
+
+I have now a data frame that can be plotted in `ggmap`.
+
+I will read the business datapoints that I want to use. They are already in `Fast_Food.RData`
+```{r}
+load("Fast_Food.RData")
+```
+
+Now convert the fast food points to a `ppp` object:
+```{r}
+Fast_Food <- Fast_Food %>% select(x = LONGITUDE, y = LATITUDE, Class = Class) %>% 
+  mutate(x = x + runif(nrow(Fast_Food), min = -0.005, max = 0.005), 
+         y = y + runif(nrow(Fast_Food), min = -0.005, max = 0.005))
+Fast_Food.ppp <- as.ppp(Fast_Food, W = Toronto.owin)
+Fast_Food.ppp <- as.ppp(Fast_Food.ppp) #To remove rejected points for good
+```
+
+Now extract, the coordinates and labels to create a dataframe with only the points inside the window:
+```{r}
+Fast_Food <- data.frame(Fast_Food.ppp$x, Fast_Food.ppp$y, Fast_Food.ppp$marks)
+Fast_Food <- rename(Fast_Food, x = Fast_Food.ppp.x, y = Fast_Food.ppp.y, Class = Fast_Food.ppp.marks)
+```
+
+Next, extract Gasoline Service Stations (PRMSIC4 == 5541) for Toronto (CMACA == 535):
+```{r}
+Gas_Stands <- read_csv("Business Location File 2008.csv")
+Gas_Stands <- Gas_Stands %>% filter(CMACA == 535 & PRMSIC4 == 5541)
+Gas_Stands <- Gas_Stands %>% mutate(LONGITUDE = LONGITUDE + runif(nrow(Gas_Stands), min = -0.005, max = 0.005),
+                                    LATITUDE = LATITUDE + runif(nrow(Gas_Stands), min = -0.005, max = 0.005))
+```
+
+Select variables:
+```{r}
+Gas_Stands <- select(Gas_Stands, x = LONGITUDE, y = LATITUDE)
+```
+
+Convert `Gas_Stands` to `ppp` object:
+```{r}
+Gas_Stands.ppp <- as.ppp(Gas_Stands, W = Toronto.owin)
+Gas_Stands.ppp <- as.ppp(Gas_Stands.ppp)
+```
+
+Now extract, the coordinates and labels to create a dataframe with only the points inside the window:
+```{r}
+Gas_Stands <- data.frame(Gas_Stands.ppp$x, Gas_Stands.ppp$y)
+Gas_Stands <- rename(Gas_Stands, x = Gas_Stands.ppp.x, y = Gas_Stands.ppp.y)
+```
+
+Create locations for "Paez Mart":
+```{r}
+Paez_Mart <- gridcenters(Toronto.owin, nx = 40, ny = 20)
+Paez_Mart <- data.frame(Paez_Mart)
+```
+
+Convert `Paez_Mart` to `ppp` object:
+```{r}
+Paez_Mart.ppp <- as.ppp(Paez_Mart, W = Toronto.owin)
+Paez_Mart.ppp <- as.ppp(Paez_Mart.ppp)
+```
+
+Now extract, the coordinates and labels to create a dataframe with only the points inside the window:
+```{r}
+Paez_Mart <- data.frame(Paez_Mart.ppp$x, Paez_Mart.ppp$y)
+Paez_Mart <- rename(Paez_Mart, x = Paez_Mart.ppp.x, y = Paez_Mart.ppp.y)
+```
+
+These dataframes can be plotted using `ggplot2`:
+```{r}
+ggplot() + geom_point(data = Fast_Food, aes(x = x, y = y)) +
+    geom_polygon(data = Toronto, aes(x = long, y = lat, group = group), color = "black", fill = NA, alpha = 1, size = .3)
+```
+
+Create density maps:
+```{r}
+ggplot() +
+  geom_bin2d(data = Fast_Food,
+             aes(x = x, y = y),
+             binwidth = c(0.03, 0.03)) +
+    geom_polygon(data = Toronto, aes(x = long, y = lat, group = group), color = "black", fill = NA, alpha = 1, size = .3) +
+  coord_fixed()
+```
+
+Create density maps:
+```{r}
+ggplot() +
+  geom_bin2d(data = Gas_Stands,
+             aes(x = x, y = y),
+             binwidth = c(0.03, 0.03)) +
+    geom_polygon(data = Toronto, aes(x = long, y = lat, group = group), color = "black", fill = NA, alpha = 1, size = .3) +
+  coord_fixed()
+```
+
+Create density maps:
+```{r}
+ggplot() +
+  geom_bin2d(data = Paez_Mart,
+             aes(x = x, y = y),
+             binwidth = c(0.03, 0.03)) +
+    geom_polygon(data = Toronto, aes(x = long, y = lat, group = group), color = "black", fill = NA, alpha = 1, size = .3) +
+  coord_fixed()
+```
+
+Summarize the `ppp` objects:
+```{r}
+summary(Paez_Mart.ppp)
+```
+
+Now calculate the quadrat counts:
+```{r}
+q_count_ff <- quadratcount(Fast_Food.ppp, nx = 17, ny = 10)
+quad_freq_ff <- table(q_count_ff)
+q_count_gs <- quadratcount(Gas_Stands.ppp, nx = 17, ny = 10)
+quad_freq_gs <- table(q_count_gs)
+q_count_pm <- quadratcount(Paez_Mart.ppp, nx = 17, ny = 10)
+quad_freq_pm <- table(q_count_pm)
+```
+
+Check out the frequencies of quadrat counts:
+```{r}
+quad_freq_ff
+quad_freq_gs
+quad_freq_pm
+```
+
+To compute the mean/variance ratio first I create a table to organize the information needed:
+```{r}
+Table_ff <- as.data.frame(quad_freq_ff) %>% mutate(X = as.numeric(q_count_ff), X2 = X^2, fX = X * Freq, fX2 = X2 * Freq)
+```
+
+The mean is the total number of events divided by the number of cells:
+```{r}
+n_events <- sum(Table_ff$fX) # total number of events
+n_events2 <- sum(Table_ff$fX2) # frequency by the square of events
+n_quads <- sum(Table_ff$Freq) # number of cells
+```
+
+The mean and variance are calculated as follows:
+```{r}
+m <- n_events/n_quads
+v <- (n_events2 - (n_events)^2/n_quads)/(n_quads - 1)
+v/m
+```
+
+An independence test can also be implemented:
+```{r}
+quad_test <- quadrat.test(Gas_Stands.ppp, nx = 17, ny = 10)
+quad_test
+```
+
+The test of independence can be visualized:
+```{r}
+plot(quad_test)
+```
+
+Save the dataset for use in the activity:
+```{r}
+save(Fast_Food, Gas_Stands, Paez_Mart, Fast_Food.ppp, Gas_Stands.ppp, Paez_Mart.ppp, Toronto, file = "Toronto Business Points.RData")
+```

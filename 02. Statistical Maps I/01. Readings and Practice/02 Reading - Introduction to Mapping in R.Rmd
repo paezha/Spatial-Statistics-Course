@@ -1,0 +1,147 @@
+---
+title: "02 Introduction to Mapping in R"
+output: html_notebook
+---
+
+#Introduction
+
+NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Spatial statistics is a sub-field of spatial analysis that has grown in relevance in recent years as a result of 1) the availability of information that is geo-coded, in other words, that has geographical references; and 2) the availability of software to analyze such information.
+
+A key technology fuelling this trend is that of Geographical Information Systems (GIS). GIS are, at their simplest, digital mapping for the 21st century. In most cases, however, GIS go beyond cartographic functions to also enable and enhance our ability to analyze data.
+
+There are many available packages for geographical information analysis. Some are very user friendly, and widely available in many institutional contexts, such as ESRI's Arc software. Others are fairly specialized, such as Caliper's TransCAD, which implements many operations of interest for transportation engineering and planning. 
+
+Others packages have the advantage of being more flexible and/or free.
+
+Such is the case of the R statistial computing language. R has been adopted by many in the spatial analysis community, and a number of specialized libraries have been developed to support mapping and spatial data analysis functions.
+
+The objective of this note is to provide an introduction to mapping in R. Maps are one of the fundamental tools of spatial statistics and spatial analysis, and R allows for many GIS-like functions.
+
+To use this note you will need the following:
+
+* This R markdown notebook.
+
+* A dataset called `Snow.RData`
+
+In the previous reading/practice you created a simple proportional symbols map. In this reading/practice you will learn how to create more sophisticated maps.
+
+#Learning objectives
+
+In this reading, you will learn:
+
+1. How to read data into R and view the data structure.
+2. How to create a simple map using R.
+3. Think about how statistical maps help us understand patterns. 
+
+#Preliminaries
+
+It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Now that your workspace is clear, you can proceed to load a sample dataset. It is very important that R knows where to look for it. In this case, the dataset must be in the same directory as your Rmarkdown document. If that is the case then, the data can be loaded simply this way:
+
+```{r}
+load("Snow.RData")
+```
+
+As an alternative, I could set the working directory to the directory where the file is, and then I could load it:
+```{r eval=FALSE}
+setwd("C:/Antonio/Courses/GEOG 4GA3 - Applied Spatial Analysis/Course Material EXPERIMENTAL/01. Statistical Maps")
+load("Snow.RData")
+```
+
+*IMPORTANT* Note the use of the slash instead of the back-slash to indicate locations on a drive!
+
+Adjust the code above to reflect the location of your file. It is good practice to set the working directory, so that you know where your files are when reading and saving.
+
+#Improving on the proportional symbols map
+
+If you correctly set the path to your file, you will now have two dataframes in your Global Environment, namely `df_pumps` and `df_deaths`. You can examine the contents of these dataframes by means of the command `head`. This command displays the first few rows of the dataframe. Try it:
+```{r}
+head(df_deaths)
+```
+
+These data are from the famous London cholera example. This is the study by John Snow (not the one from Game of Thrones, but the British physician) into the cholera outbreak of Soho, London, in 1854. John Snow is considered the father of spatial epidemiology, and his study mapping the outbreak is credited with helping find its cause.
+
+The dataframe `df_deaths` includes the geocoded addresses of cholera cases in `long` and `lat`, and the number of cases the `Count` recorded at each address, as well as unique identifiers for the addresses (`Id`).
+
+The dataframe `df_pumps` includes the geocoded locations of water pumps in Soho.
+
+As in your previous reading, it is possible to map the cases using `ggplot2`. Begin by loading the libraries needed:
+```{r}
+library(tidyverse)
+```
+
+Now, you can create a blank `ggplot2` object on which you can render the points for deaths and the pumps.
+```{r}
+ggplot() +
+  geom_point(data = df_deaths, aes(x = long, y = lat), color = "blue", shape = 16) +
+  geom_point(data = df_pumps, aes(x = long, y = lat), color = "black", shape = 17)
+```
+
+This does a decent job of displaying the information, now using different colors and shapes for different types of events (deaths and pumps). However, it is not a very good quality map.
+
+A package that extends the functionality of `ggplot2` for mapping is `ggmap`. We will see next how to enhance our proportional symbol map using this package. First you  need to load the package (you need to install it first if you have not already):
+```{r}
+library(ggmap)
+```
+
+Now, you can get a base map, to provide context to the information that you are planning to display. A base map can be obtained by means of the `get_map` function of the `ggmap` package. In this case, the map is retrieved based on the coordinates of Soho in London. The map can be sourced from Google Maps, OpenStreetMap, Stamen Maps, or CloudMade maps. The zoom is an integer that varies from 3 (a continent) to 21 (a building). In this case, a zoom of 16 captures a neighborhood. The maptype varies by source. In the case of "stamen", the types can be "terrain", "watercolor", or "toner"
+```{r}
+london_main <- get_map(c(-.137,51.513), zoom = 16, source = "stamen", maptype = "toner")
+```
+
+You can render the map that you retrieved by means of the `ggmap` command:
+```{r}
+ggmap(london_main)
+```
+
+A convenient aspect of `ggmap` is that it retains the functionality of `ggplot2`. Since we have already used `ggplot2` to create a simple map, we can do the same thing, but now layered on a `ggmap` object. This will preserve the cartographic properties of the map (including the aspect, and so on).
+
+For instance, we will replace the blank ggplot object that we used before with the base map:
+```{r}
+ggmap(london_main) +
+  geom_point(data = df_deaths, aes(x = long, y = lat), color = "blue", shape = 16) +
+  geom_point(data = df_pumps, aes(x = long, y = lat), color = "black", shape = 17)
+```
+
+The above results in a much nicer map.
+
+From here, we can further enhance the map by changing the size of the symbols, in the case of the deaths by making the symbols proportional to the count of deaths:
+```{r}
+ggmap(london_main) + 
+  geom_point(data = df_deaths, aes(x = long, y = lat, size = Count * 20), color = "blue") +
+  geom_point(data = df_pumps, aes(x = long, y = lat), color = "black", size = 5, shape = 17)
+```
+
+We could even begin to do some spatial analysis on this map! For instance, we could calculate the density (we will cover this technique in more detail later on; it is called _kernel analysis_). For this, we use the `stat_density2d` function of the `ggplot2` package (for this to work, the dataframe `df_deaths` is _expanded_, so that every row represents a single case; this function is part of the `splitstackshape` package):
+```{r}
+library(splitstackshape)
+ggmap(london_main) +
+  stat_density2d(data = expandRows(df_deaths, "Count"),
+    aes(x = long, y = lat, fill = ..level.., alpha = ..level..),
+    size = 20, bins = 10,
+    geom = "polygon") +
+  scale_fill_gradient(low = "white", high = "blue") +
+  scale_alpha(range = c(0.5, 0.75), guide = FALSE) +
+  geom_point(data = df_pumps, 
+             aes(x = long, y = lat, shape = type), color = "black", size = 5, shape = 17)
+```
+
+A map showing the kernel density of deaths makes it very clear that most cases of cholera happend in the neighborhood of one (possibly contaminated) water pump! Snow noted that:
+
+"It will be observed that the deaths either very much diminished, or ceased altogether, at every point where it becomes decidedly nearer to send to another pump than to the one in Broad street. It may also be noticed that the deaths are most numerous near to the pump where the water could be more readily obtained."
+
+Snow's analysis led to the closure of the pump, after which the cholera outbreak subsided. This illustrates how some relatively simple spatial analysis can help to save lives. You can read more about this case [here](https://en.wikipedia.org/wiki/1854_Broad_Street_cholera_outbreak).
+
+In this practice you have learned how to implement some simple mapping and spatial statistical analysis using R. In future readings we will further explore the potential of R for both.
+
+If you would like to experiment some more with this dataset, visit [a Shiny app](link) that lets you explore this dataset.
+             
+For more information on the functionality of `ggmap`, check [ggmap: Spatial Visualization with ggplot2](http://stat405.had.co.nz/ggmap.pdf)

@@ -1,0 +1,140 @@
+---
+title: "Data Preprocessing"
+output: html_notebook
+---
+
+#Introduction
+
+Here I document the data preprocessing for this activity. Essentially what I want is a set of files that can be used to produce maps in a relatively simple way (at this point I don't want to discuss the conversion of `Spatial*` and `Spatial*DataFrame` dataframes into the type of dataframes used by `ggmap`).
+
+Therefore, I will convert the shape file into dataframes that students can readily use.
+
+For this I will begin with the set of files (shape) called `Hamilton CMA tts06`
+
+#Data preprocessing
+
+Begin by loading the libraries needed to do this:
+```{r}
+library(rgdal)
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(tmap)
+library(ggmap)
+library(broom)
+library(readr)
+```
+
+I can now proceed to see read the geospatial file. 
+
+For this example, I will use an ESRI shape file that contains the Traffic Analysis Zones for the Hamilton Census Metropolitan Area (CMA) (retrieved from [here](http://dmg.utoronto.ca/survey-boundary-files#2006_zone)). The command used for this is `rgdal::readOGR` (note that `package::function` indicates a function in the name package):
+```{r}
+taz <- readOGR(".", layer = "Hamilton CMA tts06")
+```
+
+This creates a `SpatialPolygonsDataFrame`, an R object used to store geographical information (in this example spatial polygons; other types of spatial data are points, lines, or pixels; more generally `Spatial*DataFrames`).
+
+Now that I have a `SpatialPolygonDataFrame` object, I need to create a "tidy" version of it; in the present case this means the SpatialPolygonDataFrame `taz`. This is done by means of the `tidy` function of the `broom` package. We will call it `taz.t` for "tidy" (note that `tidy` needs to know the id that will be used to create the regions, that is, the spatial polygons; since this will be renamed `id` by `tidy`, we need to rename it to "GTA06" to keep it consistent with table data):
+```{r}
+taz.t <- tidy(taz, region = "GTA06")
+#Rename id column
+taz.t <- rename(taz.t, GTA06 = "id")
+```
+
+I have now a data frame that can be plotted in `ggmap`.
+
+Next, for the activity, I want to create a few maps with strong spatial autocorrelation and with no autocorrelation. To do this, I will use the Moran Eigenvectors Map function `adespatial::mem`. First, load the package:
+```{r}
+library(spdep)
+library(adespatial)
+```
+
+Before calculating the eigenvectors of the spatial weights matrix, I need a spatial weights matrix! The spatial weights matrix is obtained first by obtaining the nearest neighbors by contiguity using the `spdep::poly2nb` function:
+```{r}
+taznn <- poly2nb(taz, row.names = taz@data$GTA06)
+```
+
+Then the matrix W (in list form), can be obtained from the nearest neighbors object `nb` by means of the `spdep::nb2listw` function:
+```{r}
+tazw <- nb2listw(taznn)
+```
+
+Now I can calculate the eigenvectors:
+```{r}
+EV <- mem(tazw)
+```
+
+The number of vectors is the number of random variables that I can use.
+```{r}
+# Retrieve number of maps
+nm <- ncol(EV)
+```
+
+For convenience, I will normalize the variables by scaling by the range and centering on the minimum value:
+```{r}
+#Normalize the eigenvectors
+maxs <- apply(EV, 2, max) 
+mins <- apply(EV, 2, min)
+EV <- as.data.frame(scale(EV, center = mins, scale = maxs - mins))
+```
+
+To see the range of values of autocorrelation, here we calculate Moran's I coefficient and plot it for all maps.
+```{r}
+# Calculate Moran's coefficient for eigenvectors
+mc <- numeric()
+for(i in 3:ncol(EV)){
+  junk <- moran(EV[,i], tazw, length(EV), Szero(tazw))
+  mc[i-2] <- as.numeric(junk[1])
+}
+# Plot Moran's coefficients
+plot(mc)
+```
+
+Select vector to use:
+```{r}
+SEV <- select(EV, VAR1 = MEM3, VAR2 = MEM120)
+```
+
+Add randomness to the selected eigenvector and normalize again:
+```{r}
+SEV <- mutate(SEV, VAR3 = VAR1 + 2 * runif(297), VAR4 = VAR1 + 5 * runif(297), VAR5 = VAR2 + 2 * runif(297))
+maxs <- apply(SEV, 2, max) 
+mins <- apply(SEV, 2, min)
+SEV <- as.data.frame(scale(SEV, center = mins, scale = maxs - mins))
+```
+
+Add the zone identifiers to the dataframe with the selected eigenvectors:
+```{r}
+SEV$GTA06 <- taz@data$GTA06
+```
+
+Add vectors to the tidied dataframe:
+```{r}
+taz.t <- left_join(taz.t, SEV, by = "GTA06")
+```
+
+Create maps!
+
+Obtain a base map. For this, the argument must specify the location for the capture. The outcome can be saved as an object that can later be used for mapping:
+```{r}
+hamilton <- get_map("Hamilton, Ontario")
+```
+
+The function `ggmap` allows you to create a base map to which other geometric objects (or geoms, in the terminology of `ggplot2`) can be added as layers. For instance, plot the traffic analysis zones on your base map:
+```{r}
+ggmap(hamilton, extent = "panel") + 
+  geom_polygon(data = taz.t, aes(x = long, y = lat, group = group), colour = 'black', alpha = .3, size = .3)
+```
+
+Thematic maps can also be created. The next chunk of code plots the traffic analysis zones on the map and adds some interesting info (notice the use of the `fill` argument, and the use of the variable Work):
+```{r}
+ggmap(hamilton, extent = "panel") + 
+  geom_polygon(data = taz.t, aes(x = long, y = lat, group = group, fill = cut_number(VAR 2, 5)), colour = 'black', alpha = 1, size = .3) +
+  scale_fill_brewer(palette = "Reds")
+```
+
+Save the dataset for use in the activity:
+```{r}
+HamiltonDAs <- taz.t
+save(HamiltonDAs, file = "HamiltonDAs.RData")
+```

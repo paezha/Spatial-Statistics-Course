@@ -1,0 +1,118 @@
+---
+title: "05 Activity 5: Point Pattern Analysis I"
+output: html_notebook
+---
+
+#Practice questions
+
+Answer the following questions:
+
+1. What is a random process?
+2. What is a deterministic process?
+3. What is a stochastic process?
+4. What is the usefulness of a null landscape?
+
+#Learning objectives
+
+In this activity, you will:
+
+1. Use the concept of quadrats to analyze a real dataset.
+2. Learn about a quadrat-based test for randomness in point patterns.
+3. Learn how to use the p-value of a statistical test to make a decision.
+4. Think about the distribution of events in a null landscape.
+5. Think about ways to decide whether a landscape is random.
+
+#Suggested reading
+
+O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 5. John Wiley & Sons: New Jersey.
+
+#Preliminaries
+
+For this activity you will need the following:
+
+* This R markdown notebook.
+* A dataset called `Toronto Business Points.RData`.
+
+It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity. In addition to `tidyverse`, you will need `spatstat`, a package designed for the analysis of point patterns (you can learn about `spatstat` [here](https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf) and [here](http://spatstat.org/resources/spatstatJSSpaper.pdf)):
+```{r}
+library(tidyverse)
+library(spatstat)
+```
+
+In the practice that preceded this activity, you learned about the concepts of intensity and density, about quadrats, and also how to create density maps. 
+
+Begin by loading the data that you will use in this activity:
+```{r}
+load("Toronto Business Points.RData")
+```
+
+If you inspect your workspace, you will see that the following dataframes are there:
+
+* `Fast_Food`
+* `Gas_Stands`
+* `Paez_Mart`
+* `Toronto`
+
+These are locations of fast food restaurants and gas stands in Toronto (data are from 2008). Paez Mart on the other hand is my project to cover Toronto with convenience stores. The points are the planned locations of the stores. `Toronto` is the city boundary.
+
+Try plotting the following:
+```{r}
+ggplot() + geom_point(data = Fast_Food, aes(x = x, y = y)) +
+    geom_polygon(data = Toronto, aes(x = long, y = lat, group = group), color = "black", fill = NA, alpha = 1, size = .3)
+```
+
+In addition to the dataframes, the following `ppp` objects are available:
+
+* `Fast_Food.ppp`
+* `Gas_Stands.ppp`
+* `Paez_Mart.ppp`
+
+These include the same information, but for your convenience I have converted them to `ppp` for use with `spatstat` functions.
+
+For instance, you can calculate the counts of events by quadrat by means of `quadrat.count`. The input must be a `ppp` object, and the number of quadrats on the horizontal (nx) and vertical (ny) direction (notice how I use the function `table` to present the frequency of quadrats with number of events):
+```{r}
+q_count <- quadratcount(Fast_Food.ppp, nx = 3, ny = 3)
+table(q_count)
+```
+
+As you see from the table, there is one quadrat with zero events, one quadrat with nine events, one quadrat with forty-three events, and so on.
+
+You can also plot the results of the `quadratcount`!
+```{r}
+plot(q_count)
+```
+
+
+A useful function in the `spatstat` package is `quadrat.test`. This function implements a statistical test that compares the empirical distribution of events by quadrats to the distribution of events as expected under the hypothesis that the underlying process is _random_.
+
+This is implemented as follows:
+```{r}
+q_test <- quadrat.test(Fast_Food.ppp, nx = 3, ny = 3)
+q_test
+```
+
+The quadrat test reports a p-value which can be used to make a decision. The p-value is the probability that you will be mistaken if you reject the null hypothesis. To make a decision, you need to know what is the null hypothesis, and your own tolerance for making a mistake. In the case above, the p-value is very, very small (2.2e-16 = 0.00000000000000022). Since the null hypothesis is spatial randomness, you can reject this hypothesis and the probability that you are making a mistake is vanishingly small.
+
+Try plotting the results of `quadrat.test`:
+```{r}
+plot(q_test)
+```
+
+#Activity
+
+1. Use `Fast_Food`, `Gas_Stands`, `Paez_Mart`, and `Toronto` to create density maps for the three point patterns. Select a quadrat size that you think is appropriate. 
+
+2. Show your maps to a fellow student. Did they select the same quadrat size? If not, what was their rationale for their size?
+
+3. Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadratcount` to calculate the number of events per quadrat. Remember that you need to select the number of quadrats in the horizontal and vertical directions!
+
+4. Use the function `table()` to examine the frequency of events per quadrat for each of the point patterns. What are the differences among these point patterns? What would you expect the frequency of events per quadrat to be in a null landscape?
+
+5. Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadrat.test` to calculate the test of spatial independence for these point patterns. What is your decision in each case?

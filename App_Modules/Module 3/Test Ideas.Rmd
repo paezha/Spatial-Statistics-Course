@@ -1,0 +1,30 @@
+---
+title: "Test Ideas Module 3"
+output: html_notebook
+---
+
+
+```{r}
+library(sp)
+library(spdep)
+library(rgdal)
+```
+  
+```{r}
+shape <- readOGR(dsn=".", layer = "WiFi_Collector_Wicked_Free_")
+```
+
+Find parameters for the simulation
+```{r}
+N <- length(shape) #number of events
+w <- bbox(shape) #bounding box
+```
+
+Obtain coordinates on a regular grid:
+```{r}
+
+```
+
+
+
+pts = sp::SpatialPoints(expand.grid(x=1:N,y=1:N)) 

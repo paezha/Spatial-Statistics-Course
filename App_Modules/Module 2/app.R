@@ -91,9 +91,11 @@ server <- function(input, output, session){
   #####################################################################################################
   #########################################  Point Pattern ############################################
   #####################################################################################################
-  wifi_icon   <- makeIcon(iconUrl = "Image/icon.png")
+  #wifi_icon   <- makeIcon(iconUrl = "Image/icon.png")
+  wifi_icon    <- makeIcon(iconUrl = "Image/wifi_blue.png", iconWidth = 24, iconHeight = 24)
   wifi_points <- readOGR(dsn = "Data/Geospatial/Point", "WiFi_Collector_Wicked_Free_")
-  html_wifi   <- "<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABRFBMVEUAAACAAP+qVaqVQMSUP8aSPcWTPcWTPsWSPsWTPsWTPcWUP8WXOsWSSbaTPsaTPsSTPsWTPsaTPsGUPMaTPsWSPsX/AP+TPsWTPsWTPsaUP8WUPcSSPsWTPceUP8WUPsSTPsWTPsaTPsWXQsaAQL+SPsaTPsWTPsaSN8iSPsSTPsWTPsWWPMOSPsSTPsWTPcSPPcKVQMaSQMSTPsWTPsWTPsWTPsWTP8aTPsWTPsWTPsWTPsWTPsWOOcaZM8yTPsWSPsWTPsWTPsWPQL+SPcKTPsWTP8WTPcWUPsWUP8WTQMOTPsWTPsWZM8ySPcKTPsWTPsWTP8WSPsaTPsSUPsWTPsWWPciUP8WTPsaUPsSSPcSfQL+TPsWUPcSRPMOSQMeOOcaVQL+TPsWTPsaUPsWSPsWRPsaTPsWUP8WUPcaTPsUAAACT1ymeAAAAanRSTlMAAgM8isPg++vWnl0WB2/n+JchTON8AYD+3qt5RjtpmMf0wRsEqcktDpT94SKP9XEZJDjTveXLVari98+QEgXXc/a0EBWsYVykOUDpuQoq+ah2XouRzi5y1Va3CNlkM0QJDO50nbw6zdhwLTlLEQAAAAFiS0dEAIgFHUgAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfiChkRKCpr+76mAAAA80lEQVQoz2NgoAQwYhFjYmZhZWNn5+Dk4uZBEubl48+CAwFBIZi4sEgWCmAXBRsqJi4B4klKScvIyskrKII4SsoMDCqqIJaaOky7hqYWkK+tw6ALpPT0wXoNDMGUkTFQyITBNCvLDGSbuYVlVpaVtY0tA4MdS1aWPYODo5MzA4OLK8xmDjcxBgZ3D0+gPFC5lzeSo3x84f7w0wPy/QMCg4KtQTIhcAkbIC80DBwq4Y5ZWRFwicisrKhoKNszRi8WESZx8UAb7czdEkAeTkQLR1tgeCUZYgngZFR7ESAFJJGKRSINJGGOLQJj0zMyVShKAjgAAMTjQqMDL3e+AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTEwLTI1VDE3OjQwOjQyKzAyOjAw4UFMrAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0xMC0yNVQxNzo0MDo0MiswMjowMJAc9BAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC'>Free WiFi</br>"
+  
+  #html_wifi   <- "<img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABRFBMVEUAAACAAP+qVaqVQMSUP8aSPcWTPcWTPsWSPsWTPsWTPcWUP8WXOsWSSbaTPsaTPsSTPsWTPsaTPsGUPMaTPsWSPsX/AP+TPsWTPsWTPsaUP8WUPcSSPsWTPceUP8WUPsSTPsWTPsaTPsWXQsaAQL+SPsaTPsWTPsaSN8iSPsSTPsWTPsWWPMOSPsSTPsWTPcSPPcKVQMaSQMSTPsWTPsWTPsWTPsWTP8aTPsWTPsWTPsWTPsWTPsWOOcaZM8yTPsWSPsWTPsWTPsWPQL+SPcKTPsWTP8WTPcWUPsWUP8WTQMOTPsWTPsWZM8ySPcKTPsWTPsWTP8WSPsaTPsSUPsWTPsWWPciUP8WTPsaUPsSSPcSfQL+TPsWUPcSRPMOSQMeOOcaVQL+TPsWTPsaUPsWSPsWRPsaTPsWUP8WUPcaTPsUAAACT1ymeAAAAanRSTlMAAgM8isPg++vWnl0WB2/n+JchTON8AYD+3qt5RjtpmMf0wRsEqcktDpT94SKP9XEZJDjTveXLVari98+QEgXXc/a0EBWsYVykOUDpuQoq+ah2XouRzi5y1Va3CNlkM0QJDO50nbw6zdhwLTlLEQAAAAFiS0dEAIgFHUgAAAAJcEhZcwAADdcAAA3XAUIom3gAAAAHdElNRQfiChkRKCpr+76mAAAA80lEQVQoz2NgoAQwYhFjYmZhZWNn5+Dk4uZBEubl48+CAwFBIZi4sEgWCmAXBRsqJi4B4klKScvIyskrKII4SsoMDCqqIJaaOky7hqYWkK+tw6ALpPT0wXoNDMGUkTFQyITBNCvLDGSbuYVlVpaVtY0tA4MdS1aWPYODo5MzA4OLK8xmDjcxBgZ3D0+gPFC5lzeSo3x84f7w0wPy/QMCg4KtQTIhcAkbIC80DBwq4Y5ZWRFwicisrKhoKNszRi8WESZx8UAb7czdEkAeTkQLR1tgeCUZYgngZFR7ESAFJJGKRSINJGGOLQJj0zMyVShKAjgAAMTjQqMDL3e+AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE4LTEwLTI1VDE3OjQwOjQyKzAyOjAw4UFMrAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOC0xMC0yNVQxNzo0MDo0MiswMjowMJAc9BAAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC'>Free WiFi</br>"
   
   output$map <- renderLeaflet({
     leaflet() %>% 
@@ -103,7 +105,7 @@ server <- function(input, output, session){
       addMarkers(lng = wifi_points@coords[,1], lat = wifi_points@coords[,2], icon = wifi_icon) %>% 
       fitBounds(lng1 = max(wifi_points@coords[,1]), lat1 = max(wifi_points@coords[,2]),
                 lng2 = min(wifi_points@coords[,1]), lat2 = min(wifi_points@coords[,2])) %>%
-      addControl("bottomright", html = html_wifi) %>% 
+      #addControl("bottomright", html = html_wifi) %>% 
       addLayersControl(baseGroups = c("CartoDB-Dark", "Esri WorldGrey", "Esri - Satellite"), options = layersControlOptions(collapsed = TRUE))
   })
   

@@ -306,7 +306,7 @@ NULL
 NULL
 
 #' pp5_df
-#' A dataset containing saptial events 
+#' A dataset containing spatial events 
 #'  The variables are as follows: 
 #'    
 #'    \itemize'
@@ -320,4 +320,37 @@ NULL
 #' source Dr. Paez
 NULL
 
-#' 
+#' df1_data6
+#' A dataset contianing simulated landscapes, one random, one with a strong systematic pattern
+#'  The variables are as follows: 
+#'    
+#'    \itemize'
+#'      \item x. list of points (7--44)
+#'      \item y. list of points (53--6)
+#'      \item z. list of points (32.84139--33.28378)
+#'}
+#' @docType data
+#' @keywords datasets
+#' @name df1_data6
+#' @format A data frame with 350 rows and 3 variables
+#' source Dr. Paez
+NULL
+
+#' df2_data6
+#' A dataset contianing simulated landscapes, one random, one with a strong systemic pattern 
+#'  The variables are as follows:
+#'
+#'    \itemize'
+#'      \item x. list of points (7--
+#'      \item y. list of points (53--
+#'      \item z. list of points (26.08312--
+#'}
+#' @docType data
+#' @keywords datasets 
+#' @name df2_data6
+#' @format A data frame with 350 rows and 3 variables 
+#' source Dr. Paez 
+NULL 
+
+
+  

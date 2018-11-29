@@ -410,5 +410,37 @@ NULL
 
 
 
+#' Walker_Lake
+#' A dataset with geocoded observations of a series of variables originally used for teahcing geostatistics in Isaaks and Srivastava;s [An Introduction to Geostatistics]
+#'  The variables are as follows: 
+#'
+#'    \itemize'
+#'      \item ID. object ID of variable (1--470)
+#'      \item X. false x-coordinates (8--251)
+#'      \item Y. false y-coordinates (8--291)
+#'      \item V. quantitative variable (0--1528.1)
+#'      \item U. quantitative variable (0--5190.1)
+#'      \item T. factor variable (1--2)
+#'}
+#' @docType data
+#' @keywords datasets 
+#' @name Walker_Lake
+#' @format A dataset with 470 rows and 6 variables
+#' source \url {https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA}
+NULL
 
-  
+#' Wolfcamp Aquifer
+#' A dataset of piezometric head (watertable pressure) observations of the Wolfcamp Aquifer inn Texas 
+#'  The variables are as follows:
+#'
+#'    \itemize'
+#'      \item X. x-coordinates (-145.23564--112.80450)
+#'      \item Y. y-coordiantes (9.41441--184.76636)
+#'      \item H. hydraulic head (1024--3571)
+#'}
+#' @docType data
+#' @keywords datasets
+#' @name Wolfcamp Aquifer 
+#' @format A dataset with 85 rows and 3 variables
+#' source \url {https://rubenfcasal.github.io/npsp/reference/aquifer.html}
+NULL

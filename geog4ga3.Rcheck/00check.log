@@ -2,15 +2,111 @@
 * using R version 3.5.1 (2018-07-02)
 * using platform: x86_64-w64-mingw32 (64-bit)
 * using session charset: ISO8859-1
+* using options '--no-manual --as-cran'
 * checking for file 'geog4ga3/DESCRIPTION' ... OK
 * checking extension type ... Package
 * this is package 'geog4ga3' version '0.1.0'
 * package encoding: UTF-8
 * checking package namespace information ... OK
-* checking package dependencies ... ERROR
-Package required but not available: 'spdep'
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking serialization versions ... OK
+* checking whether package 'geog4ga3' can be installed ... WARNING
+Found the following significant warnings:
+  Warning: C:/Antonio/Courses/GEOG 4GA3 - Applied Spatial Analysis/Spatial-Statistics-Course/geog4ga3.Rcheck/00_pkg_src/geog4ga3/man/travel_time.Rd:10: unexpected VERBATIM TEXT ' {http://www.transportationtomorrow.on.ca/', expecting '{'
+See 'C:/Antonio/Courses/GEOG 4GA3 - Applied Spatial Analysis/Spatial-Statistics-Course/geog4ga3.Rcheck/00install.out' for details.
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+localmoran.map: no visible binding for global variable 'ID'
+localmoran.map: no visible global function definition for 'var'
+localmoran.map: no visible binding for global variable 'Z'
+localmoran.map: no visible binding for global variable 'SMA'
+localmoran.map: no visible binding for global variable 'spat_pol'
+localmoran.map: no visible binding for global variable 'spat_pol.t'
+localmoran.map: no visible binding for global variable 'Pr.z...0.'
+localmoran.map: no visible global function definition for 'ggplot'
+localmoran.map: no visible global function definition for 'aes'
+localmoran.map: no visible binding for global variable 'long'
+localmoran.map: no visible binding for global variable 'lat'
+localmoran.map: no visible binding for global variable 'group'
+localmoran.map: no visible binding for global variable 'p.val'
+localmoran.map: no visible global function definition for
+  'geom_polygon'
+localmoran.map: no visible binding for global variable 'Type'
+localmoran.map: no visible global function definition for
+  'scale_fill_brewer'
+localmoran.map: no visible global function definition for
+  'scale_color_manual'
+localmoran.map: no visible global function definition for 'labs'
+localmoran.map: no visible global function definition for 'coord_equal'
+localmoran.map: no visible global function definition for 'theme'
+localmoran.map: no visible global function definition for
+  'element_blank'
+Undefined global functions or variables:
+  ID Pr.z...0. SMA Type Z aes coord_equal element_blank geom_polygon
+  ggplot group labs lat long p.val scale_color_manual scale_fill_brewer
+  spat_pol spat_pol.t theme var
+Consider adding
+  importFrom("stats", "var")
+to your NAMESPACE file.
+* checking Rd files ... WARNING
+prepare_Rd: travel_time.Rd:10: unexpected VERBATIM TEXT ' {http://www.transportationtomorrow.on.ca/', expecting '{'
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... WARNING
+Data with usage in documentation object 'Data1' but not in code:
+  Data1
 
-See section 'The DESCRIPTION file' in the 'Writing R Extensions'
-manual.
+Data with usage in documentation object 'HamiltonDAs' but not in code:
+  HameilonDAs
+
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of 'data' directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... ERROR
+Running examples in 'geog4ga3-Ex.R' failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: localmoran.map
+> ### Title: A funcion for creating an interactive map of local Moran's I
+> ###   statistics
+> ### Aliases: localmoran.map
+> ### Keywords: spatial
+> 
+> ### ** Examples
+> 
+> # Create a map of local Moran's I statistics for population density
+> localmoran.map(Hamilton_CT, Hamilton_CT.w, Hamilton_CT$POP_DENSIT, Hamilton_CT$TRACT)
+Error in data.frame(by = ID, VAR = VAR) : object 'ID' not found
+Calls: localmoran.map -> data.frame
+Execution halted
 * DONE
-Status: 1 ERROR
+Status: 1 ERROR, 3 WARNINGs, 1 NOTE

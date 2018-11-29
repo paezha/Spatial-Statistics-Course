@@ -4,17 +4,22 @@
 \alias{localmoran.map}
 \title{A funcion for creating an interactive map of local Moran's I statistics}
 \usage{
-localmoran.map(spat_pol = spat_pol, listw = listw, VAR = VAR,
-  ID = ID)
+localmoran.map(sp = sp, listw = listw, VAR = VAR, by = ID)
 }
 \arguments{
-\item{spat_pol, }{listw, VAR, ID}
+\item{sp}{A SpatialPolygons object}
+
+\item{listw}{A listw object (see spdep)}
+
+\item{VAR}{A variable}
+
+\item{by}{A key to join the variable to the SpatialPolygons object}
 }
 \description{
-This function obtains the m-surroundings by selecting the m-1 nearest neighbors of each observation, allowing for a degree of overlap of s.
+This function plots a map with the results of local Moran's I statistics, based on spatial polygons, a `listw` object, and a variable with an ID.
 }
 \examples{
 # Create a map of local Moran's I statistics for population density
 localmoran.map(Hamilton_CT, Hamilton_CT.w, Hamilton_CT$POP_DENSIT, Hamilton_CT$TRACT)
 }
-\keyword{autocorrelation}
+\keyword{spatial}

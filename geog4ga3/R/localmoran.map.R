@@ -1,40 +1,43 @@
 #' A funcion for creating an interactive map of local Moran's I statistics
 #'
-#' This function obtains the m-surroundings by selecting the m-1 nearest neighbors of each observation, allowing for a degree of overlap of s.
-#' @param spat_pol, listw, VAR, ID
-#' @keywords autocorrelation
+#' This function plots a map with the results of local Moran's I statistics, based on spatial polygons, a `listw` object, and a variable with an ID.
+#' @param sp A SpatialPolygons object
+#' @param listw A listw object (see spdep)
+#' @param VAR A variable
+#' @param by A key to join the variable to the SpatialPolygons object 
+#' @keywords spatial
 #' @export
 #' @examples
 #' # Create a map of local Moran's I statistics for population density
 #' localmoran.map(Hamilton_CT, Hamilton_CT.w, Hamilton_CT$POP_DENSIT, Hamilton_CT$TRACT)
 
-localmoran.map <- function(spat_pol = spat_pol, listw = listw, VAR = VAR, ID = ID){
+localmoran.map <- function(sp = sp, listw = listw, VAR = VAR, by = ID){
   #require(tidyverse)
   #require(broom)
   #require(spdep)
   #require(plotly)
 
-  spat_pol@data <- data.frame(ID = ID, VAR = VAR)
-  spat_pol.t <- broom::tidy(spat_pol, region = "ID")
-  spat_pol.t <- dplyr::rename(spat_pol.t, ID = id)
-  spat_pol.t <- dplyr::left_join(spat_pol.t, spat_pol@data, by = "ID")
+  sp@data <- data.frame(by = ID, VAR = VAR)
+  sp.t <- broom::tidy(sp, region = "ID")
+  sp.t <- dplyr::rename(sp.t, by = id)
+  sp.t <- dplyr::left_join(sp.t, sp@data, by = "ID")
 
-  df_msc <- transmute(spat_pol@data,
+  df_msc <- transmute(sp@data,
                       ID = ID,
                       Z = (VAR-mean(VAR)) / var(VAR),
                       SMA = lag.listw(listw, Z),
                       Type = factor(ifelse(Z < 0 & SMA < 0, "LL",
                                            ifelse(Z > 0 & SMA > 0, "HH", "HL/LH"))))
 
-  local_I <- localmoran(spat_pol$VAR, listw)
+  local_I <- localmoran(sp$VAR, listw)
 
-  spat_pol.t <- left_join(spat_pol.t,
+  sp.t <- left_join(sp.t,
                           data.frame(ID = spat_pol$ID, local_I))
-  spat_pol.t <- rename(spat_pol.t, p.val = Pr.z...0.)
-  spat_pol.t <- left_join(spat_pol.t,
+  sp.t <- rename(spat_pol.t, p.val = Pr.z...0.)
+  sp.t <- left_join(sp.t,
                           df_msc)
 
-  map <- ggplot(data = spat_pol.t,
+  map <- ggplot(data = sp.t,
                 aes(x = long, y = lat, group = group,
                     p.val = p.val, VAR = round(VAR))) +
     geom_polygon(aes(fill = Type, color = p.val < 0.05)) +

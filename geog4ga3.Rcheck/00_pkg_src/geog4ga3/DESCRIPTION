@@ -10,7 +10,7 @@ Description: This package includes functions and data sets used in
 License: CC0
 Encoding: UTF-8
 LazyData: true
-Imports: dplyr, broom, spdep, plotly
-RoxygenNote: 6.1.0
+Imports: dplyr, broom, spdep, plotly, deldir
+RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2018-11-15 17:10:14 UTC; Antonio
+Packaged: 2018-11-29 18:10:03 UTC; Antonio

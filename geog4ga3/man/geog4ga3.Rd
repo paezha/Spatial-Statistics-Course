@@ -4,7 +4,10 @@
 \name{geog4ga3}
 \alias{geog4ga3}
 \alias{geog4ga3-package}
-\title{geog4ga3.}
+\title{geog4ga3}
 \description{
-geog4ga3.
+A package with datasets and functions used in the course 4GA3 Applied Spatial Statistics offered by the School of Greography and Earth Sciences at McMaster University.
+}
+\author{
+Antonio Paez
 }

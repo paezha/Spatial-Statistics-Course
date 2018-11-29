@@ -110,7 +110,7 @@ NULL
 #' @keywords datasets
 #' @name PointPattern1
 #' @format A data frame with 60 rows and 2 variables 
-#' @source NA
+#' @source 
 NULL
 
 #' PointPattern2
@@ -126,7 +126,7 @@ NULL
 #'@keywords datasets
 #'@name PointPattern2
 #'@format A data frame with 60 rows and 2 variables 
-#'@source NA
+#'@source 
 NULL
 
 #' PointPattern3
@@ -142,7 +142,7 @@ NULL
 #' @keywords datasets
 #' @name PointPattern3
 #' @format A data frame with 60 rows and 2 variables 
-#' @source NA
+#' @source 
 NULL
 
 #'Data3
@@ -306,7 +306,7 @@ NULL
 NULL
 
 #' pp5_df
-#' A dataset containing saptial events 
+#' A dataset containing spatial events 
 #'  The variables are as follows: 
 #'    
 #'    \itemize'
@@ -320,4 +320,95 @@ NULL
 #' source Dr. Paez
 NULL
 
-#' 
+#' df1_data6
+#' A dataset contianing simulated landscapes, one random, one with a strong systematic pattern
+#'  The variables are as follows: 
+#'    
+#'    \itemize'
+#'      \item x. list of points (7--44)
+#'      \item y. list of points (53--6)
+#'      \item z. list of points (32.84139--33.28378)
+#'}
+#' @docType data
+#' @keywords datasets
+#' @name df1_data6
+#' @format A data frame with 350 rows and 3 variables
+#' source 
+NULL
+
+#' df2_data6
+#' A dataset contianing simulated landscapes, one random, one with a strong systemic pattern 
+#'  The variables are as follows:
+#'
+#'    \itemize'
+#'      \item x. list of points (7--
+#'      \item y. list of points (53--
+#'      \item z. list of points (26.08312--
+#'}
+#' @docType data
+#' @keywords datasets 
+#' @name df2_data6
+#' @format A data frame with 350 rows and 3 variables 
+#' source  
+NULL 
+
+#' travel_data
+#' An excel file with the number of trips by mode of transportation by TAZ, and other useful information from the 2011 census for Hamilton CMA 
+#'  The variables are as follows:
+#'
+#'    \itemize'
+#'      \item GTA06. identifier used for spatial joins (4050--6020)
+#'      \item Cycle. list of Hamiltonians that cycle to work (0--623)
+#'      \item Auto_driver. list of Hamiltonians that drive to work (0--17743)
+#'      \item Auto_passenger. list of Hamiltonians that get a ride to work (0--4321)
+#'      \item Walk. list of Hamiltonians that walk to work (0--1599)
+#'      \item Population. population based on a unique spatial polygon (38.88097--12770.552)
+#'      \item Worked_in_2010_Full-time. number of Hamiltonians that worked full-time in 2010 (0--5925.9434)
+#'      \item Worked_in_2010_Part-time. number of Hamiltonians that worked part-time in 2010 (0--1661.16313)
+#'      \item Worked_at_home. number of Hamiltonians that worked from home (0--559.97542)
+#'      \item Pop_Density. population denisty based on a unique spatial polygon (26.20745--14232.5677)
+#'      \item Median_Age. median age of Hamiltonians based on a unique spatial polygon (3.845238--56.85006)
+#'      \item Family_Size_2. size of family based on unique a spatial polygon (7.250167--1489.0255)
+#'      \item Family_Size_3. size of family based on unique a spatial polygon (3.237384--859.09030)
+#'      \item Family_Size_4. size of family based on unique a spatial polygon (1.619751--1281.18323)
+#'      \item Family_Size_5_more. size of family based on a unique spatial polygon (1.617209--387.37487)
+#'      \item Median_income. median income based on unique spatial polygon (9.496379--52496.09)
+#'      \item Average_income. average income based on unique spatial polygon (11.44593--81235.73)
+#'      \item Employment_rate. average employment rate based on a unique spatial polygon (32.74746--76.69758)
+#'      \item Unemployment)rate. average unemployment rate based on a unique polygon (0.001258--23.200001)
+#'      \item Median_commuting_duration. median commuting duration based on a unique polygon (15.41049--30.59950)
+#'}
+#' @docType data
+#' @keywords excel file
+#' @name travel_data
+#' @format An excel file with 270 rows and 20 variables 
+#' source \url{http://www12.statcan.gc.ca/census-recensement/index-eng.cfm}
+NULL
+
+#' travel_time
+#' An excel file with travel distance/time from TAZ centroids to Jackson Square in downtown Hamilton 
+#'  The variables are as follows:
+#'
+#'    \itemize'
+#'      \item GTA06. idenitifer used for spatial joins (4050--6020)
+#'      \item group. (4050.1--6020.1)
+#'      \item from. TAZ centroid address 
+#'      \item to. Jackson Square, Hamilton, Ontario 
+#'      \item m. travel distance between origin and Jackson Square in meters (493--37558)
+#'      \item km. travel distance between origin and Jackson Square in kilometers (0.493--37.558)
+#'      \item miles. travel distance between origin and Jackson Square in miles (0.3063502--23.338541)
+#'      \item seconds. travel time between origin and Jackson Square in seconds (115--2100)
+#'      \item minutes. travel time between origin and Jackson Square in minutes (1.91667--35.0000)
+#'      \item hours. travel time between origin and Jackson Square in hours (0.03194444--0.5833333)
+#'}
+#' @docType data
+#' @keywords excel file 
+#' @name travel_time 
+#' @format An excel file with 270 rows and 10 variables 
+#' source \url {http://www.transportationtomorrow.on.ca/}
+NULL
+
+
+
+
+  

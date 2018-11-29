@@ -3,11 +3,13 @@
 \docType{data}
 \name{Gas_Stands}
 \alias{Gas_Stands}
-\title{Gas_Stands
-A dataset containing locations of gas stands in Toronto (data is from 2008)
-The variables are as follows:}
+\title{Gas_Stands}
 \format{A data frame with 345 rows ad 2 variables}
 \description{
+A dataset containing locations of gas stands in Toronto (data is from 2008)
+The variables are as follows:
+}
+\details{
 \itemize{
    \item x. list of x coordinates (\-79.57759--\-79.56854)
    \item y. list of y coordinates (43.76148--43.62758)

@@ -4,7 +4,7 @@
 #'
 #' @section Functions
 #' The functions are...
-#' @author Antonio Paez
+#' @author Antonio Paez [cre, aut], \email{paezha@@mcmaster.ca}, Anastasions Dardas [ctb], Rajiv Ubhir [ctb]
 #' @name geog4ga3
 #' @docType package
 #' @import dplyr broom spdep plotly deldir
@@ -168,6 +168,7 @@ NULL
 NULL
 
 #' Fast_Food
+#'
 #' A dataset containing locations of fast food restaruants in Toronto (data is from 2008).
 #'  The variables are as follows:
 #'
@@ -184,6 +185,7 @@ NULL
 NULL
 
 #' Gas_Stands
+#'
 #' A dataset containing locations of gas stands in Toronto (data is from 2008)
 #' The variables are as follows:
 #'
@@ -199,6 +201,7 @@ NULL
 NULL
 
 #' Paez_Mart
+#'
 #' A dataset containing planned locations of convenience stores in Toronto
 #'  The variables are as follows:
 #'
@@ -214,6 +217,7 @@ NULL
 NULL
 
 #' Toronto
+#'
 #' A dataset containing the city boundary of Toronto
 #'  The variables are as follows:
 #'
@@ -234,6 +238,7 @@ NULL
 NULL
 
 #' pp1_df
+#'
 #' A dataset containing two sets of spatial events labeled as "Pattern 1" and "Pattern 2"
 #'  The varirables are as follows:
 #'
@@ -250,6 +255,7 @@ NULL
 NULL
 
 #' bear_df
+#'
 #' A dataset containing spatial information from the Scandinavian Bear Project
 #'  The variables are as follows:
 #'
@@ -266,6 +272,7 @@ NULL
 NULL
 
 #' pp2_df
+#'
 #' A dataset containing saptial events
 #'  The variables are as follows:
 #'
@@ -281,6 +288,7 @@ NULL
 NULL
 
 #' pp3_df
+#'
 #' A dataset containing saptial events
 #'  The variables are as follows:
 #'
@@ -296,6 +304,7 @@ NULL
 NULL
 
 #' pp4_df
+#'
 #' A dataset containing saptial events
 #'  The variables are as follows:
 #'
@@ -326,6 +335,7 @@ NULL
 NULL
 
 #' df1_data6
+#'
 #' A dataset contianing simulated landscapes, one random, one with a strong systematic pattern
 #'  The variables are as follows:
 #'
@@ -342,6 +352,7 @@ NULL
 NULL
 
 #' df2_data6
+#'
 #' A dataset contianing simulated landscapes, one random, one with a strong systemic pattern
 #'  The variables are as follows:
 #'
@@ -358,6 +369,7 @@ NULL
 NULL
 
 #' travel_data
+#'
 #' An excel file with the number of trips by mode of transportation by TAZ, and other useful information from the 2011 census for Hamilton CMA
 #'  The variables are as follows:
 #'
@@ -391,6 +403,7 @@ NULL
 NULL
 
 #' travel_time
+#'
 #' An excel file with travel distance/time from TAZ centroids to Jackson Square in downtown Hamilton
 #'  The variables are as follows:
 #'
@@ -416,6 +429,7 @@ NULL
 
 
 #' Walker_Lake
+#'
 #' A dataset with geocoded observations of a series of variables originally used for teahcing geostatistics in Isaaks and Srivastava;s [An Introduction to Geostatistics]
 #'  The variables are as follows:
 #'
@@ -431,10 +445,11 @@ NULL
 #' @keywords datasets
 #' @name Walker_Lake
 #' @format A dataset with 470 rows and 6 variables
-#' source \url {https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA}
+#' source \url{https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA}
 NULL
 
 #' Wolfcamp Aquifer
+#'
 #' A dataset of piezometric head (watertable pressure) observations of the Wolfcamp Aquifer inn Texas
 #'  The variables are as follows:
 #'
@@ -447,5 +462,5 @@ NULL
 #' @keywords datasets
 #' @name Wolfcamp Aquifer
 #' @format A dataset with 85 rows and 3 variables
-#' source \url {https://rubenfcasal.github.io/npsp/reference/aquifer.html}
+#' source \url{https://rubenfcasal.github.io/npsp/reference/aquifer.html}
 NULL

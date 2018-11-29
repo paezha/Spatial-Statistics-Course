@@ -3,11 +3,13 @@
 \docType{data}
 \name{pp1_df}
 \alias{pp1_df}
-\title{pp1_df
-A dataset containing two sets of spatial events labeled as "Pattern 1" and "Pattern 2"
- The varirables are as follows:}
+\title{pp1_df}
 \format{A data frame with 72 rows and 3 variables}
 \description{
+A dataset containing two sets of spatial events labeled as "Pattern 1" and "Pattern 2"
+ The varirables are as follows:
+}
+\details{
 \itemize{
      \item x. list of coordinates (0.22844244--0.95643341)
      \item y. list of coordinates (0.81963883--0.07471783)

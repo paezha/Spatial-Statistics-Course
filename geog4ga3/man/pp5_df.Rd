@@ -3,18 +3,11 @@
 \docType{data}
 \name{pp5_df}
 \alias{pp5_df}
-\title{pp4_df
-A dataset containing saptial events
- The variables are as follows:}
+\title{pp4_df}
 \format{A data frame with 81 rows and 2 variables
 source Dr. Paez}
 \description{
-pp4_df
 A dataset containing saptial events
- The variables are as follows:
-
-pp5_df
-A dataset containing spatial events
  The variables are as follows:
 }
 \keyword{datasets}

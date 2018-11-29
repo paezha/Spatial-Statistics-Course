@@ -3,13 +3,10 @@
 \docType{data}
 \name{pp2_df}
 \alias{pp2_df}
-\title{pp2_df
-A dataset containing saptial events
- The variables are as follows:}
+\title{pp2_df}
 \format{A data frame with 81 rows and 2 variables
 source Dr. Paez}
 \description{
-pp2_df
 A dataset containing saptial events
  The variables are as follows:
 }

@@ -3,13 +3,10 @@
 \docType{data}
 \name{df1_data6}
 \alias{df1_data6}
-\title{df1_data6
-A dataset contianing simulated landscapes, one random, one with a strong systematic pattern
- The variables are as follows:}
+\title{df1_data6}
 \format{A data frame with 350 rows and 3 variables
 source}
 \description{
-df1_data6
 A dataset contianing simulated landscapes, one random, one with a strong systematic pattern
  The variables are as follows:
 }

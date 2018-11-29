@@ -3,13 +3,10 @@
 \docType{data}
 \name{travel_data}
 \alias{travel_data}
-\title{travel_data
-An excel file with the number of trips by mode of transportation by TAZ, and other useful information from the 2011 census for Hamilton CMA
- The variables are as follows:}
+\title{travel_data}
 \format{An excel file with 270 rows and 20 variables
 source \url{http://www12.statcan.gc.ca/census-recensement/index-eng.cfm}}
 \description{
-travel_data
 An excel file with the number of trips by mode of transportation by TAZ, and other useful information from the 2011 census for Hamilton CMA
  The variables are as follows:
 }

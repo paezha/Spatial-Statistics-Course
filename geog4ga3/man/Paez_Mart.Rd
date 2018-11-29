@@ -3,14 +3,16 @@
 \docType{data}
 \name{Paez_Mart}
 \alias{Paez_Mart}
-\title{Paez_Mart
-A dataset containing planned locations of convenience stores in Toronto
- The variables are as follows:}
+\title{Paez_Mart}
 \format{A data frame with 395 rows and 3 variables}
 \source{
 Dr. Paez
 }
 \description{
+A dataset containing planned locations of convenience stores in Toronto
+ The variables are as follows:
+}
+\details{
 \itemize{
    \item x. list of x coordinates (\-79.54108--\-79.17440)
    \item y. list of y coordinates (43.58793--43.84853)

@@ -3,11 +3,13 @@
 \docType{data}
 \name{Fast_Food}
 \alias{Fast_Food}
-\title{Fast_Food
-A dataset containing locations of fast food restaruants in Toronto (data is from 2008).
- The variables are as follows:}
+\title{Fast_Food}
 \format{A data frame with 614 rows and 3 variables}
 \description{
+A dataset containing locations of fast food restaruants in Toronto (data is from 2008).
+ The variables are as follows:
+}
+\details{
 \itemize{
    \item x. list of x coordinates (\-79.31405--\-79.38232)
    \item y. list of y coordinates (43.82118--43.67041)

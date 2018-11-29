@@ -3,15 +3,12 @@
 \docType{data}
 \name{bear_df}
 \alias{bear_df}
-\title{bear_df
-A dataset containing spatial information from the Scandinavian Bear Project
- The variables are as follows:}
+\title{bear_df}
 \format{A data frame with 1000 rows and 3 variables}
 \source{
 \url{https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf) and [here](http://spatstat.org/resources/spatstatJSSpaper.pdf}
 }
 \description{
-bear_df
 A dataset containing spatial information from the Scandinavian Bear Project
  The variables are as follows:
 }

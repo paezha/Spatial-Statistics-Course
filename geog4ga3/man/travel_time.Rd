@@ -3,13 +3,10 @@
 \docType{data}
 \name{travel_time}
 \alias{travel_time}
-\title{travel_time
-An excel file with travel distance/time from TAZ centroids to Jackson Square in downtown Hamilton
- The variables are as follows:}
+\title{travel_time}
 \format{An excel file with 270 rows and 10 variables
 source \url{http://www.transportationtomorrow.on.ca/}}
 \description{
-travel_time
 An excel file with travel distance/time from TAZ centroids to Jackson Square in downtown Hamilton
  The variables are as follows:
 }

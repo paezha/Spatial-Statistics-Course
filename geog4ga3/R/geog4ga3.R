@@ -4,10 +4,10 @@
 #'
 #' @section Functions
 #' The functions are...
-#' @author Antonio Paez [cre, aut], \email{paezha@@mcmaster.ca}, Anastasions Dardas [ctb], Raj Ubhi [ctb]
+#' @author Antonio Paez [cre, aut], \email{paezha@@mcmaster.ca}, Anastassios Dardas [ctb], Raj Ubhi [ctb]
 #' @name geog4ga3
 #' @docType package
-#' @import dplyr broom spdep plotly deldir
+#' @import dplyr broom spdep plotly deldir tidyverse spatstat rgdal maptools cartogram gridExtra reshape2 geosphere ggmap gmapsdistance readxl knitr kableExtra spgwr
 NULL
 
 #' Snow cholera deaths
@@ -59,10 +59,10 @@ NULL
 #'    \item long. longitude of address (-\-79.86997--\-79.51301)
 #'    \item lat. latitude of adress (43.29277--43.18924)
 #'    \item order. Unique identifier of address
-#'    \item hole. 
-#'    \item price.
-#'    \item group.
-#'    \item GTA06.
+#'    \item hole. (FALSE)
+#'    \item price. (1--10)
+#'    \item group. 
+#'    \item GTA06. 
 #'    \item VAR 1. Varible used to create a thematic map (0.3788377--0.3482670)
 #'    \item VAR 2. Varible used to create a thematic map (0.3418337--0.4953046)
 #'    \item VAR 3. Varible used to create a thematic map (0.3450731--0.2735642)

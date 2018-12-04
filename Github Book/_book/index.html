@@ -25,7 +25,7 @@
 <meta name="author" content="Antonio Paez">
 
 
-<meta name="date" content="2018-11-01">
+<meta name="date" content="2018-12-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 
-<link rel="next" href="introduction.html">
+<link rel="next" href="basic-operations-in-r.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -47,6 +47,21 @@
 
 
 
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script>
+<script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script>
 
 
 <style type="text/css">
@@ -100,15 +115,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#learning-objectives"><i class="fa fa-check"></i><b>1.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#rstudio-window"><i class="fa fa-check"></i><b>1.2</b> RStudio Window</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction.html"><a href="introduction.html#some-basic-operations"><i class="fa fa-check"></i><b>1.3</b> Some basic operations</a></li>
-<li class="chapter" data-level="1.4" data-path="introduction.html"><a href="introduction.html#data-classes-in-r"><i class="fa fa-check"></i><b>1.4</b> Data Classes in R</a></li>
-<li class="chapter" data-level="1.5" data-path="introduction.html"><a href="introduction.html#data-types-in-r"><i class="fa fa-check"></i><b>1.5</b> Data Types in R</a></li>
-<li class="chapter" data-level="1.6" data-path="introduction.html"><a href="introduction.html#indexing-and-data-transformations"><i class="fa fa-check"></i><b>1.6</b> Indexing and Data Transformations</a></li>
-<li class="chapter" data-level="1.7" data-path="introduction.html"><a href="introduction.html#visualization"><i class="fa fa-check"></i><b>1.7</b> Visualization</a></li>
-<li class="chapter" data-level="1.8" data-path="introduction.html"><a href="introduction.html#creating-a-simple-map"><i class="fa fa-check"></i><b>1.8</b> Creating a simple map</a></li>
+<li class="chapter" data-level="1" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html"><i class="fa fa-check"></i><b>1</b> Basic Operations in R</a><ul>
+<li class="chapter" data-level="1.1" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#learning-objectives"><i class="fa fa-check"></i><b>1.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="1.2" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#rstudio-window"><i class="fa fa-check"></i><b>1.2</b> RStudio Window</a></li>
+<li class="chapter" data-level="1.3" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#some-basic-operations"><i class="fa fa-check"></i><b>1.3</b> Some basic operations</a></li>
+<li class="chapter" data-level="1.4" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#data-classes-in-r"><i class="fa fa-check"></i><b>1.4</b> Data Classes in R</a></li>
+<li class="chapter" data-level="1.5" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#data-types-in-r"><i class="fa fa-check"></i><b>1.5</b> Data Types in R</a></li>
+<li class="chapter" data-level="1.6" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#indexing-and-data-transformations"><i class="fa fa-check"></i><b>1.6</b> Indexing and Data Transformations</a></li>
+<li class="chapter" data-level="1.7" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#visualization"><i class="fa fa-check"></i><b>1.7</b> Visualization</a></li>
+<li class="chapter" data-level="1.8" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#creating-a-simple-map"><i class="fa fa-check"></i><b>1.8</b> Creating a simple map</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to Mapping in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#preliminaries"><i class="fa fa-check"></i><b>2.2</b> Preliminaries</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#packages"><i class="fa fa-check"></i><b>2.3</b> Packages</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#exploring-dataframes-and-a-simple-proportional-symbols-map"><i class="fa fa-check"></i><b>2.4</b> Exploring dataframes and a simple proportional symbols map</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#improving-on-the-proportional-symbols-map"><i class="fa fa-check"></i><b>2.5</b> Improving on the proportional symbols map</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#some-simple-spatial-analysis"><i class="fa fa-check"></i><b>2.6</b> Some simple spatial analysis</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#other-resources"><i class="fa fa-check"></i><b>2.7</b> Other resources</a></li>
+<li class="chapter" data-level="2.8" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#references"><i class="fa fa-check"></i><b>2.8</b> References</a></li>
 </ul></li>
 </ul>
 
@@ -130,16 +155,61 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">Applied Spatial Statistics</h1>
 <h4 class="author"><em>Antonio Paez</em></h4>
-<h4 class="date"><em>2018-11-01</em></h4>
+<h4 class="date"><em>2018-12-03</em></h4>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
-<p>This book introduces data analysis for applied spatial scientists. These could be geographers, earth scientists, environmental scientists, planners, or others who work with georeferenced datasets.</p>
+<p>The objective of this book is to introduce selected topics in applied spatial statistics. The foundation for the book are the notes that I have developed over several years of teaching applied spatial statistics at McMaster University. This course is a senior level specialist course for geographers and students in other disciplines who are working towards specializations in Geographic Information Systems.</p>
+<p>Over the course of the years, my colleagues and I at McMaster have used at least three different textbooks for teaching spatial statistics. I have personally used McGrew and Monroe <span class="citation">(<a href="#ref-Mcgrew2009">2009</a>)</span> to introduce fundamental statistical concepts to geographers. This book (currently on its third edition with Lembo) does a fine job of introducing statistics as a tool for decision making, and is an very valuable resource to study matters of inference, for instance. Many of the examples in the book are geographical, however, the book is relatively limited in its coverage of <em>spatial statistics</em> (particularly models for spatial processes), which is a limitation for teaching a specialist course on this topic.</p>
+<p>My book of choice early on (approximately between 2003 and 2010) was the excellent book Interactive Spatial Data Analysis by Bailey and Gatrell <span class="citation">(<a href="#ref-Bailey1995">1995</a>)</span>. I started using their book as a graduate student, but even then the limitations of the software that accompanied the book were apparent - in particular the absence of updates or a central repository for code. Despite the regretable obsolesence of the software, the book provided, and still does, a very accessible yet rigorous treatment of many topics of interest in spatial statistics. Bailey and Gatrell’s book was, I believe, the first attempt to bridge the need of teaching mid- and upper-level university courses in spatial statistics, and the challenges of doing so with very specialized texts on this topic, including the excellent but demanding Spatial Econometrics <span class="citation">(Anselin <a href="#ref-Anselin1988">1988</a>)</span>, Advanced Spatial Statistics <span class="citation">(Griffith <a href="#ref-Griffith1988">1988</a>)</span>, Spatial Data Analysis in the Social and Environmental Sciences <span class="citation">(Haining <a href="#ref-Haining1990">1990</a>)</span>, not to mention Statistics for Spatial Data <span class="citation">(Cressie <a href="#ref-Cressie1993">1993</a>)</span>.</p>
+<p>Subsequently, my book of choice for teaching spatial statistics became O’Sullivan and Unwin’s Geographical Information Analysis <span class="citation">(O’Sullivan and Unwin <a href="#ref-Osullivan2010">2010</a>)</span>. This book updates some topics that were not covered by Bailey and Gatrell. To give an example, much work happened in the mid- to late-nineties with the development of <em>local forms</em> of spatial analysis, including Getis and Ord pioneering research on concentration statistics <span class="citation">(Getis and Ord <a href="#ref-Getis1992">1992</a>)</span>, Anselin’s Local Indicators of Spatial Association <span class="citation">(Anselin <a href="#ref-Anselin1995">1995</a>)</span>, and Brunsdon, Fotheringham, and Charlton’s research on geographically weighted regression <span class="citation">(Brunsdon, Fotheringham, and Charlton <a href="#ref-Brunsdon1996">1996</a>)</span>. These and related local forms of spatial analysis have become hugely influential in the intervening years, and are duly covered by O’Sullivan and Unwin in a way that merges well with a course focusing on spatial statistics - although other specialist texts also exist that delve in much more depth into this topic <span class="citation">(e.g., Fotheringham and Brunsdon <a href="#ref-Fotheringham1999">1999</a>; and Lloyd <a href="#ref-Lloyd2010local">2010</a>)</span>.</p>
+<p>These resources, and many more, have proved invaluable for my teaching for the past few years, and I believe that their influence will be evident in the present book.</p>
+<p>So, if there are some excellent resources for teaching and learning spatial statistics, why am I moved to unleash on the world yet another book on this topic?</p>
+<p>introduces data analysis for applied spatial scientists. These could be geographers, earth scientists, environmental scientists, planners, or others who work with georeferenced datasets.</p>
 <p>My aim with this book has been to introduce key concepts and techniques in the analysis of spatial data in an intuitive way. While there are more advanced treatments of many of these topics, this book should be appealing to students or others who are approaching this topic for the first time.</p>
-<p>The book is organized thematically following the cannonical approach seen, for instance, in [BAILEY &amp; GATRELL] and [UNWIN]. This approach is to conceptualize data by their unit of support.</p>
+<p>The book is organized thematically following the cannonical approach seen, for instance, in Bailey and Gatrell <span class="citation">(<a href="#ref-Bailey1995">1995</a>)</span> and O’Sullivan and Unwin <span class="citation">(<a href="#ref-Osullivan2010">2010</a>)</span>. This approach is to conceptualize data by their unit of support.</p>
 <p>Each chapter covers a topic that builds on previous material. In this way, this is not necessarily meant as a reference (there are better books for that). The chapters are followed by an activity.</p>
 <p>I have used these materials for teaching spatial data analysis in different settings. In a flipped classroom setting, the chapters are used as practice material by the students before class. The activity is then completed in class, with the instructor providing support and motivating some discussion. Used in a traditional lecture style, the materials provide structure and visual aids. The activities can be completed by the students as homework or during lab time.</p>
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Mcgrew2009">
+<p>McGrew Jr, J Chapman, and Charles B Monroe. 2009. <em>An Introduction to Statistical Problem Solving in Geography</em>. Book. 2nd. Edition. Long Grove, Illinois: Waveland Press.</p>
+</div>
+<div id="ref-Bailey1995">
+<p>Bailey, T. C., and A. C. Gatrell. 1995. <em>Interactive Spatial Data Analysis</em>. Book. Essex: Addison Wesley Longman.</p>
+</div>
+<div id="ref-Anselin1988">
+<p>Anselin, Luc. 1988. <em>Spatial Econometrics: Methods and Models</em>. Book. Dordrecht: Kluwer.</p>
+</div>
+<div id="ref-Griffith1988">
+<p>Griffith, D. A. 1988. <em>Advanced Spatial Statistics: Special Topics in the Exploration of Quantitative Spatial Data Series</em>. Book. Dordrecht: Kluwer.</p>
+</div>
+<div id="ref-Haining1990">
+<p>Haining, R. 1990. <em>Spatial Data Analysis in the Social and Environmental Sciences</em>. Book. Cambridge: Cambridge University Press.</p>
+</div>
+<div id="ref-Cressie1993">
+<p>Cressie, N. A. C. 1993. <em>Statistics for Spatial Data</em>. Book. Wiley Series in Probability and Mathematical Statistics. New York: John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-Osullivan2010">
+<p>O’Sullivan, David, and David Unwin. 2010. <em>Geographic Information Analysis</em>. Book. 2nd. Edition. Hoboken, New Jersey: John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-Getis1992">
+<p>Getis, A., and J. K. Ord. 1992. “The Analysis of Spatial Association by Use of Distance Statistics.” Journal Article. <em>Geographical Analysis</em> 24 (3): 189–206. <a href="ISI:A1992JF93400001
+C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf" class="uri">ISI:A1992JF93400001
+<div id="ref-Anselin1995">
+<p>Anselin, Luc. 1995. “Local Indicators of Spatial Association - Lisa.” Journal Article. <em>Geographical Analysis</em> 27: 93–115.</p>
+</div>
+<div id="ref-Brunsdon1996">
+<p>Brunsdon, C., A. S. Fotheringham, and M. E. Charlton. 1996. “Geographically Weighted Regression: A Method for Exploring Spatial Nonstationarity.” Journal Article. <em>Geographical Analysis</em> 28 (4): 281–98. <a href="ISI:A1996VL03500001" class="uri">ISI:A1996VL03500001</a>.</p>
+</div>
+<div id="ref-Fotheringham1999">
+<p>Fotheringham, A. S., and C. Brunsdon. 1999. “Local Forms of Spatial Analysis.” Journal Article. <em>Geographical Analysis</em> 31 (4): 340–58.</p>
+</div>
+<div id="ref-Lloyd2010local">
+<p>Lloyd, Christopher D. 2010. <em>Local Models for Spatial Analysis</em>. CRC press.</p>
+</div>
 </div>
             </section>
 
@@ -147,7 +217,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 
-<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="basic-operations-in-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

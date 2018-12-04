@@ -301,6 +301,7 @@ NULL
 "pp4_df"
 
 #' pp5_df
+#'
 #' A dataset containing `spatstat` `ppp`-class objects used to represent spatial events.
 #'  The variables are as follows:
 #'
@@ -317,9 +318,9 @@ NULL
 #' @source Extracted from Data5.RData
 "pp5_df"
 
-#' Data1
+#' missing_df
 #'
-#' A dataset containing point data.
+#' A dataframe containing a set of observations, including some missing variables.
 #'  The variables are as follows:
 #'
 #' \itemize{
@@ -333,13 +334,13 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name Data1
-#' @usage data(Data1)
+#' @name missing_df
+#' @usage data(missing_df)
 #' @format A data frame with 65 rows and 6 variables
 #' @source Dr. Paez
-"Data1"
+"missing_df"
 
-#' Data3
+#' PointPatterns
 #'
 #' A dataset which includess a dataframe with four sets of spatial events, labeled as "Pattern 1", "Pattern 2", "Pattern 3", "PointPattern4", with n = 60 events in each set.
 #'  The variables are as follows:
@@ -352,16 +353,15 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name Data3
-#' @usage data(Data3)
+#' @name PointPatterns
+#' @usage data(PointPatterns)
 #' @format A data frame with 140 rows and 3 variables
 #' @source Dr. Paez
-"Data3"
+"PointPatterns"
 
-#' df1_data6
+#' df1_simulated
 #'
-#' A dataset contianing simulated landscapes, one random, one with a strong systematic pattern.
-#'  The variables are as follows:
+#' A dataframe with a simulated landscape.
 #'
 #'  \itemize{
 #'    \item x. list of x-coordinates (1--87)
@@ -371,16 +371,15 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name df1_data6
-#' @usage data(df1_data6)
+#' @name df1_simulated
+#' @usage data(df1_simulated)
 #' @format A data frame with 350 rows and 3 variables
 #' @source Extracted from Data6.RData
-"df1_data6"
+"df1_simulated"
 
-#' df2_data6
+#' df2_simulated
 #'
-#' A dataset contianing simulated landscapes, one random, one with a strong systemic pattern.
-#'  The variables are as follows:
+#' A dataframe containing a simulated landscape.
 #'
 #'  \itemize{
 #'    \item x. list of x-coordinates (1--87)
@@ -390,16 +389,15 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name df2_data6
-#' @usage data(df2_data6)
+#' @name df2_simulated
+#' @usage data(df2_simulated)
 #' @format A data frame with 350 rows and 3 variables
 #' @source Extracted from Data6.RData
-"df2_data6"
+"df2_simulated"
 
-#' Hamilton CMA Trips by Mode.xlsx
+#' trips_by_mode
 #'
-#' An excel file with the number of trips by mode of transportation of TAZ, and other useful information from the 2011 census for Hamilton.
-#'  The variables are as follows:
+#' An excel file with the number of trips by mode of transportation by Traffic Analysis Zone (TAZ), and other useful information from the 2011 census for the Hamilton, CMA, Canada.
 #'
 #'  \itemize{
 #'    \item GTA06. identifier used for spatial joins (4050--6020)
@@ -425,17 +423,16 @@ NULL
 #'}
 #'
 #' @docType data
-#' @keywords excelfile
-#' @name travel_data
-#' @usage data(Hamilton CMA Trips by Mode.xlsx)
+#' @keywords datasets
+#' @name trips_by_mode
+#' @usage data(trips_by_mode)
 #' @format An excel file with 270 rows and 20 variables
 #' @source \url{http://www12.statcan.gc.ca/census-recensement/index-eng.cfm}
-"Hamilton CMA Trips by Mode.xlsx"
+"trips_by_mode"
 
-#' "travel_time_car.xlsx"
+#' "travel_time_car"
 #'
-#' An excel file with travel distance/time from TAZ centroids to Jackson Square in downtown Hamilton.
-#'  The variables are as follows:
+#' A dataframe with travel distance/time from TAZ centroids to Jackson Square in downtown Hamilton, Canada.
 #'
 #'  \itemize{
 #'    \item GTA06. idenitifer used for spatial joins (4050--6020)
@@ -451,12 +448,12 @@ NULL
 #'}
 #'
 #' @docType data
-#' @keywords excelfile
-#' @name travel_time
-#' @usage data(travel_time_car.xlsx)
+#' @keywords datasets
+#' @name travel_time_car
+#' @usage data(travel_time_car)
 #' @format An excel file with 270 rows and 10 variables
 #' @source \url{http://www.transportationtomorrow.on.ca/}
-"travel_time_car.xlsx"
+"travel_time_car"
 
 #' Walker_Lake
 #'
@@ -474,16 +471,15 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name Walker Lake
-#' @usage data(Walker Lake)
+#' @name Walker_Lake
+#' @usage data(Walker_Lake)
 #' @format A dataset with 470 rows and 6 variables
 #' @source \url{https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA}
-"Walker Lake"
+"Walker_Lake"
 
-#' Wolfcamp Aquifer
+#' aquifer
 #'
-#' A dataset of piezometric head (watertable pressure) observations of the Wolfcamp Aquifer in Texas.
-#'  The variables are as follows:
+#' A dataset of piezometric head (watertable pressure) observations of the Wolfcamp Aquifer in Texas. This dataset was used by Isaaks and Srivastavas in their book An Introduction to Applied Geostatistics.
 #'
 #'  \itemize{
 #'    \item X. x-coordinates (\-145.23564\--112.80450)
@@ -493,20 +489,20 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name Wolfcamp Aquifer
-#' @usage data(Wolfcamp Aquifer)
+#' @name aquifer
+#' @usage data(aquifer)
 #' @format A dataset with 85 rows and 3 variables
 #' @source \url{https://rubenfcasal.github.io/npsp/reference/aquifer.html}
-"Wolfcamp Aquifer"
+"aquifer"
 
-#' nyleukemia 
-#' 
-#' A spatial polygon data frame of New York leukemia data projected in UTM Zone 18 using WGS84. 
-#'  The variables are as follows: 
-#'  
+#' nyleukemia
+#'
+#' A spatial polygon data frame of New York leukemia data projected in UTM Zone 18 using WGS84.
+#'  The variables are as follows:
+#'
 #'  \itemize{
 #'    \item AREANAME. name of study area (Auburn city--Vestal town)
-#'    \item AREAKEY. unique identifier of study area (36007000100--36109992300) 
+#'    \item AREAKEY. unique identifier of study area (36007000100--36109992300)
 #'    \item X. x-coordinates of spatial polygons (-55.482300--53.508600)
 #'    \item Y. y-coordinates of spatial polygons (-75.290700--56.410130)
 #'    \item POP8. (9--13015)
@@ -523,31 +519,30 @@ NULL
 #'    \item Xshift. (363839.3--472830.2)
 #'    \item Yshift. (4653564--4785265)
 #'}
-#'  
+#'
 #' @docType data
-#' @keywords spatialpolygondataframe 
-#' @name nyleukemia 
+#' @keywords spatialpolygondataframe
+#' @name nyleukemia
 #' @usage data(nyleukemia)
-#' @format A spatial polygon data frame with 281 rows and 17 variables 
+#' @format A spatial polygon data frame with 281 rows and 17 variables
 #' @source \url{https://www.rdocumentation.org/packages/SpatialEpi/versions/1.2.3/topics/NYleukemia}
 "nyleukemia"
 
 #' pennlc
-#' 
-#' A spatial polygon data frame of Pennsylvania lung cancer projected using latitude and longitude.  
-#'  The variables are as follows: 
-#'  
+#'
+#' A spatial polygon data frame of Pennsylvania lung cancer projected using latitude and longitude.
+#'
 #'  \itemize{
-#'    \item county. name of each county in Pennsylvania with recorded lung cancer patients within this spatial polygon data frame (adams--york) 
+#'    \item county. name of each county in Pennsylvania with recorded lung cancer patients within this spatial polygon data frame (adams--york)
 #'    \item cases. number of cases in each county with lung cancer (3--1415)
 #'    \item population. population of each county in Pennsylvania (4946--1517550)
 #'    \item rate. (2.629157--13.391363)
 #'    \item smoking. (0.182--0.279)
-#'    \item cancer_rate. rate of patients diagnosed with lung cancer in each county of Pennsylvania (2.629157--13.391363) 
+#'    \item cancer_rate. rate of patients diagnosed with lung cancer in each county of Pennsylvania (2.629157--13.391363)
 #'    \item smoking_rate. smoking rate per county in Pennsylvania (18.2--27.9)
 #'}
 #'
-#' @docType data 
+#' @docType data
 #' @keywords spatialpolygondataframe
 #' @name pennlc
 #' @usage data(pennlc)

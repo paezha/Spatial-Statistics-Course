@@ -3,11 +3,20 @@
 \docType{data}
 \name{pp5_df}
 \alias{pp5_df}
-\title{pp4_df}
-\format{A data frame with 81 rows and 2 variables
-source Dr. Paez}
+\title{pp5_df
+A dataset containing `spatstat` `ppp`-class objects used to represent spatial events.
+ The variables are as follows:}
+\format{A data frame with 81 rows and 2 variables}
+\source{
+Extracted from Data5.RData
+}
+\usage{
+data(pp5_df)
+}
 \description{
-A dataset containing saptial events
- The variables are as follows:
+\itemize{
+   \item x. list of x-coordinates (0.16--0.88)
+   \item y. list of y-coordinates (0.16--0.88)
+}
 }
 \keyword{datasets}

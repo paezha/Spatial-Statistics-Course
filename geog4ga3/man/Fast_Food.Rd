@@ -5,15 +5,21 @@
 \alias{Fast_Food}
 \title{Fast_Food}
 \format{A data frame with 614 rows and 3 variables}
+\source{
+Extracted from Toronto Business Points.RData
+}
+\usage{
+data(Fast_Food)
+}
 \description{
 A dataset containing locations of fast food restaruants in Toronto (data is from 2008).
  The variables are as follows:
 }
 \details{
 \itemize{
-   \item x. list of x coordinates (\-79.31405--\-79.38232)
-   \item y. list of y coordinates (43.82118--43.67041)
-   \item class. Four sets of food offered at restaurants(Chicken, Hamburger, Pizza, Sub)
+   \item x. list of x coordinates for fast food restaruants in Toronto (\-79.13459--\-79.61018)
+   \item y. list of y coordinates for fast food restaruants in Toronto (43.83077--43.59277)
+   \item Class. Four types of food offered at fast food restaurants in Toronto (Chicken, Hamburger, Pizza, Sub)
 }
 }
 \keyword{datasets}

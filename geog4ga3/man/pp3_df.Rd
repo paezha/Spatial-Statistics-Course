@@ -4,10 +4,21 @@
 \name{pp3_df}
 \alias{pp3_df}
 \title{pp3_df}
-\format{A data frame with 81 rows and 2 variables
-source Dr. Paez}
+\format{A data frame with 81 rows and 2 variables}
+\source{
+Extracted from Data5.RData
+}
+\usage{
+data(pp3_df)
+}
 \description{
-A dataset containing saptial events
+A dataset containing `spatstat` `ppp`-class objects used to represent spatial events.
  The variables are as follows:
+}
+\details{
+\itemize{
+   \item x. list of x-coordinates (0.1035079--0.8741389)
+   \item y. list of y-coordinates (0.1015268--0.8725456)
+}
 }
 \keyword{datasets}

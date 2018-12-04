@@ -6,16 +6,19 @@
 \title{Paez_Mart}
 \format{A data frame with 395 rows and 3 variables}
 \source{
-Dr. Paez
+Data frame developed by Dr. Paez in 2008
+}
+\usage{
+data(Paez_Mart)
 }
 \description{
-A dataset containing planned locations of convenience stores in Toronto
+A dataset containing planned locations of convenience stores in Toronto.
  The variables are as follows:
 }
 \details{
 \itemize{
-   \item x. list of x coordinates (\-79.54108--\-79.17440)
-   \item y. list of y coordinates (43.58793--43.84853)
+   \item x. list of x coordinates for a project to cover Toronto with convenience stores (\-79.54108--\-79.17440)
+   \item y. list of y coordinates for a project to cover Toronto with convenience stores (43.58793--43.84853)
 }
 }
 \keyword{datasets}

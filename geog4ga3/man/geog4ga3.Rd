@@ -9,5 +9,5 @@
 A package with datasets and functions used in the course 4GA3 Applied Spatial Statistics offered by the School of Greography and Earth Sciences at McMaster University.
 }
 \author{
-Antonio Paez [cre, aut], \email{paezha@mcmaster.ca}, Anastasions Dardas [ctb], Rajiv Ubhir [ctb]
+Antonio Paez [cre, aut], \email{paezha@mcmaster.ca}, Anastassios Dardas [ctb], Raj Ubhi [ctb]
 }

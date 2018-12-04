@@ -9,7 +9,7 @@
 \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 }
 \usage{
-data(HameilonDAs)
+data(HamiltonDAs)
 }
 \description{
 A dataset containing Hamilton Dissemination Areas.
@@ -20,8 +20,8 @@ A dataset containing Hamilton Dissemination Areas.
    \item long. longitude of address (-\-79.86997--\-79.51301)
    \item lat. latitude of adress (43.29277--43.18924)
    \item order. Unique identifier of address
-   \item hole.
-   \item price.
+   \item hole. (FALSE)
+   \item price. (1--10)
    \item group.
    \item GTA06.
    \item VAR 1. Varible used to create a thematic map (0.3788377--0.3482670)

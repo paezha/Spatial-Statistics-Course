@@ -5,14 +5,20 @@
 \alias{PointPattern2}
 \title{PointPattern2}
 \format{A data frame with 60 rows and 2 variables}
+\source{
+Extracted from Data2.RData file
+}
+\usage{
+data(PointPattern2)
+}
 \description{
 A dataset containing locations of some generic events.
  The variables are as follows:
 }
 \details{
 \itemize{
-   \item x. x points based on a false origin and normalized to the unit-square (0.21511760--0.13941605)
-   \item y. y points based on a false origin and normalized to the unit-square (0.23998400--0.26875381)
+   \item x. x points based on a false origin and normalized to the unit-square for a generic variable like events as cases of flu, the location of trees of a certain species, or the location of fires (0.01689682--0.99900765)
+   \item y. y points based on a false origin and normalized to the unit-square for a generic variable like events as cases of flu, the location of trees of a certain species, or the location of fires (0.02932253--0.98867308)
 }
 }
 \keyword{datasets}

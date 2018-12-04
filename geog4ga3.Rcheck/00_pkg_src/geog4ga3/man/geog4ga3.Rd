@@ -4,12 +4,10 @@
 \name{geog4ga3}
 \alias{geog4ga3}
 \alias{geog4ga3-package}
-\title{geog4ga3: A package with datasets and functions used in the course 4GA3 Applied Spatial Statistics offered by the School of Greography and Earth Sciences at McMaster University.}
+\title{geog4ga3}
 \description{
-geog4ga3: A package with datasets and functions used in the course 4GA3 Applied Spatial Statistics offered by the School of Greography and Earth Sciences at McMaster University.
+A package with datasets and functions used in the course 4GA3 Applied Spatial Statistics offered by the School of Greography and Earth Sciences at McMaster University.
 }
 \author{
-c(person("Antonio", "Paez", role = c("cre", "aut"), email = "paezha@mcmaster.ca", comment=c(ORCID="0000-0001-6912-9919")),
-	person("Anastasio", "Dardas", role = "ctb"),
-	person("Rajir", "Ubhir", role = "ctb"))
+Antonio Paez [cre, aut], \email{paezha@mcmaster.ca}, Anastassios Dardas [ctb], Raj Ubhi [ctb]
 }

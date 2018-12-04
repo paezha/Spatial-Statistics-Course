@@ -5,14 +5,20 @@
 \alias{Gas_Stands}
 \title{Gas_Stands}
 \format{A data frame with 345 rows ad 2 variables}
+\source{
+Extracted from Toronto Business Points.RData
+}
+\usage{
+data(Gas_Stands)
+}
 \description{
-A dataset containing locations of gas stands in Toronto (data is from 2008)
-The variables are as follows:
+A dataset containing locations of gas stands in Toronto (data is from 2008).
+ The variables are as follows:
 }
 \details{
 \itemize{
-   \item x. list of x coordinates (\-79.57759--\-79.56854)
-   \item y. list of y coordinates (43.76148--43.62758)
+   \item x. list of x coordinates for gas stands in Toronto (\-79.14029--\-79.61831)
+   \item y. list of y coordinates for gas stands in Toronto (43.83122--43.59499)
 }
 }
 \keyword{datasets}

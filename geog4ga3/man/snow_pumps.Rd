@@ -12,7 +12,7 @@
 data(snow_pumps)
 }
 \description{
-A dataset containing the location of pumps if Soho.
+A dataset containing the location of pumps in Soho, London.
  The variables are as follows:
 }
 \details{

@@ -12,7 +12,7 @@
 data(snow_deaths)
 }
 \description{
-A dataset containing the location and number of cholera deaths.
+A dataset containing the location and number of cholera deaths in Soho, London.
  The variables are as follows:
 }
 \details{

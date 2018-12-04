@@ -2,12 +2,10 @@
 #'
 #' A package with datasets and functions used in the course 4GA3 Applied Spatial Statistics offered by the School of Greography and Earth Sciences at McMaster University.
 #'
-#' @section Functions
-#' The functions are...
 #' @author Antonio Paez [cre, aut], \email{paezha@@mcmaster.ca}, Anastassios Dardas [ctb], Raj Ubhi [ctb]
 #' @name geog4ga3
 #' @docType package
-#' @import dplyr broom spdep plotly deldir tidyverse spatstat rgdal maptools cartogram gridExtra reshape2 geosphere ggmap gmapsdistance readxl knitr kableExtra spgwr
+#' @import dplyr spdep plotly deldir tidyverse spatstat rgdal
 NULL
 
 #' Snow cholera deaths
@@ -61,8 +59,8 @@ NULL
 #'    \item order. Unique identifier of address
 #'    \item hole. (FALSE)
 #'    \item price. (1--10)
-#'    \item group. 
-#'    \item GTA06. 
+#'    \item group.
+#'    \item GTA06.
 #'    \item VAR 1. Varible used to create a thematic map (0.3788377--0.3482670)
 #'    \item VAR 2. Varible used to create a thematic map (0.3418337--0.4953046)
 #'    \item VAR 3. Varible used to create a thematic map (0.3450731--0.2735642)
@@ -78,28 +76,6 @@ NULL
 #' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 "HamiltonDAs"
 
-#' Data1
-#'
-#' A dataset contianing point data.
-#'  The variables are as follows:
-#'
-#' \itemize{
-#'    \item x. x points based on a false origin and normalized to the unit-square  (0.01698944--0.95718825)
-#'    \item y. y points based on a false origin and normalized to the unit-square  (0.01003585--0.98715473)
-#'    \item VAR1. Genric variable - think of it as housing prices or concentrations in ppb of some contaminant (50.00000--1050.00000)
-#'    \item VAR2. Genric variable - think of it as housing prices or concentrations in ppb of some contaminant (50.00000--1050.00000)
-#'    \item VAR3. Genric variable - think of it as housing prices or concentrations in ppb of some contaminant (50.00000--1050.00000)
-#'    \item Observed. factor variable states whether the variables were measured for a location: if the status is "FALSE", the values of the variables are missing (TRUE--FALSE)
-#' }
-#'
-#' @docType data
-#' @keywords datasets
-#' @name Data1
-#' @usage data(Data1)
-#' @format A data frame with 65 rows and 6 variables
-#' @source 
-"Data1"
-
 #' PointPattern1
 #'
 #' A dataset containing locations of some generic events.
@@ -109,13 +85,13 @@ NULL
 #'    \item x. x points based on a false origin and normalized to the unit-square for a generic variable like events as cases of flu, the location of trees of a certain species, or the location of fires (0.02849997--0.98884730)
 #'    \item y. y points based on a false origin and normalized to the unit-square for a generic variable like events as cases of flu, the location of trees of a certain species, or the location of fires (0.005306043--0.999807645)
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name PointPattern1
 #' @usage data(PointPattern1)
 #' @format A data frame with 60 rows and 2 variables
-#' @source Extracted from Data2.RData file 
+#' @source Extracted from Data2.RData file
 "PointPattern1"
 
 #' PointPattern2
@@ -127,7 +103,7 @@ NULL
 #'    \item x. x points based on a false origin and normalized to the unit-square for a generic variable like events as cases of flu, the location of trees of a certain species, or the location of fires (0.01689682--0.99900765)
 #'    \item y. y points based on a false origin and normalized to the unit-square for a generic variable like events as cases of flu, the location of trees of a certain species, or the location of fires (0.02932253--0.98867308)
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name PointPattern2
@@ -145,33 +121,14 @@ NULL
 #'    \item x. x points based on a false origin and normalized to the unit-square for a generic variable like events as cases of flu, the location of trees of a certain species, or the location of fires (0.04911492--0.98371039)
 #'    \item y. y points based on a false origin and normalized to the unit-square for a generic variable like events as cases of flu, the location of trees of a certain species, or the location of fires (0.01036480--0.99283927)
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name PointPattern3
-#' @uage data(PointPattern3)
+#' @usage data(PointPattern3)
 #' @format A data frame with 60 rows and 2 variables
-#' @source Extracted from Data2.RData file  
+#' @source Extracted from Data2.RData file
 "PointPattern3"
-
-#' Data3
-#'
-#' A dataset which includess a dataframe with four sets of spatial events, labeled as "Pattern 1", "Pattern 2", "Pattern 3", "PointPattern4", with n = 60 events in each set. 
-#'  The variables are as follows:
-#'
-#' \itemize{
-#'    \item x. x coordinates used to plot spatial event (0.01689682--0.99900765)
-#'    \item y. y coordinates used to plot spatial event (0.005306043--0.999807645)
-#'    \item Pattern. Four sets of spatial events (Pattern 1, Pattern 2, Pattern 3 and Pattern 4)
-#' }
-#' 
-#' @docType data
-#' @keywords datasets
-#' @name Data3
-#' @usage data(Data3)
-#' @format A data frame with 140 rows and 3 variables
-#' @source 
-"Data3"
 
 #' Fast_Food
 #'
@@ -183,7 +140,7 @@ NULL
 #'    \item y. list of y coordinates for fast food restaruants in Toronto (43.83077--43.59277)
 #'    \item Class. Four types of food offered at fast food restaurants in Toronto (Chicken, Hamburger, Pizza, Sub)
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name Fast_Food
@@ -201,7 +158,7 @@ NULL
 #'    \item x. list of x coordinates for gas stands in Toronto (\-79.14029--\-79.61831)
 #'    \item y. list of y coordinates for gas stands in Toronto (43.83122--43.59499)
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name Gas_Stands
@@ -219,7 +176,7 @@ NULL
 #'    \item x. list of x coordinates for a project to cover Toronto with convenience stores (\-79.54108--\-79.17440)
 #'    \item y. list of y coordinates for a project to cover Toronto with convenience stores (43.58793--43.84853)
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name Paez_Mart
@@ -261,13 +218,13 @@ NULL
 #'    \item y. list of y-coordinates used to plot two sets of spatial events (0.03408578--0.94492099)
 #'    \item marks. Two sets of spatial events (Pattern 1, Pattern 2)
 #' }
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name pp1_df
 #' @usage data(pp1_df)
 #' @format A data frame with 72 rows and 3 variables
-#' @source Extracted from Data4.RData 
+#' @source Extracted from Data4.RData
 "pp1_df"
 
 #' bear_df
@@ -360,6 +317,47 @@ NULL
 #' @source Extracted from Data5.RData
 "pp5_df"
 
+#' Data1
+#'
+#' A dataset containing point data.
+#'  The variables are as follows:
+#'
+#' \itemize{
+#'    \item x. x points based on a false origin and normalized to the unit-square  (0.01698944--0.95718825)
+#'    \item y. y points based on a false origin and normalized to the unit-square  (0.01003585--0.98715473)
+#'    \item VAR1. Genric variable - think of it as housing prices or concentrations in ppb of some contaminant (50.00000--1050.00000)
+#'    \item VAR2. Genric variable - think of it as housing prices or concentrations in ppb of some contaminant (50.00000--1050.00000)
+#'    \item VAR3. Genric variable - think of it as housing prices or concentrations in ppb of some contaminant (50.00000--1050.00000)
+#'    \item Observed. factor variable states whether the variables were measured for a location: if the status is "FALSE", the values of the variables are missing (TRUE--FALSE)
+#' }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name Data1
+#' @usage data(Data1)
+#' @format A data frame with 65 rows and 6 variables
+#' @source Dr. Paez
+"Data1"
+
+#' Data3
+#'
+#' A dataset which includess a dataframe with four sets of spatial events, labeled as "Pattern 1", "Pattern 2", "Pattern 3", "PointPattern4", with n = 60 events in each set.
+#'  The variables are as follows:
+#'
+#' \itemize{
+#'    \item x. x coordinates used to plot spatial event (0.01689682--0.99900765)
+#'    \item y. y coordinates used to plot spatial event (0.005306043--0.999807645)
+#'    \item Pattern. Four sets of spatial events (Pattern 1, Pattern 2, Pattern 3 and Pattern 4)
+#' }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name Data3
+#' @usage data(Data3)
+#' @format A data frame with 140 rows and 3 variables
+#' @source Dr. Paez
+"Data3"
+
 #' df1_data6
 #'
 #' A dataset contianing simulated landscapes, one random, one with a strong systematic pattern.
@@ -395,7 +393,7 @@ NULL
 #' @name df2_data6
 #' @usage data(df2_data6)
 #' @format A data frame with 350 rows and 3 variables
-#' @source Extracted from Data6.RData 
+#' @source Extracted from Data6.RData
 "df2_data6"
 
 #' Hamilton CMA Trips by Mode.xlsx
@@ -431,7 +429,7 @@ NULL
 #' @name travel_data
 #' @usage data(Hamilton CMA Trips by Mode.xlsx)
 #' @format An excel file with 270 rows and 20 variables
-#' @source {\url{http://www12.statcan.gc.ca/census-recensement/index-eng.cfm}
+#' @source \url{http://www12.statcan.gc.ca/census-recensement/index-eng.cfm}
 "Hamilton CMA Trips by Mode.xlsx"
 
 #' "travel_time_car.xlsx"
@@ -457,7 +455,7 @@ NULL
 #' @name travel_time
 #' @usage data(travel_time_car.xlsx)
 #' @format An excel file with 270 rows and 10 variables
-#' @source {\url{http://www.transportationtomorrow.on.ca/}
+#' @source \url{http://www.transportationtomorrow.on.ca/}
 "travel_time_car.xlsx"
 
 #' Walker_Lake
@@ -476,11 +474,11 @@ NULL
 #'
 #' @docType data
 #' @keywords datasets
-#' @name Walker_Lake
-#' @usage data(Walker_Lake)
+#' @name Walker Lake
+#' @usage data(Walker Lake)
 #' @format A dataset with 470 rows and 6 variables
-#' @source {\url{https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA}
-"Walker_Lake"
+#' @source \url{https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA}
+"Walker Lake"
 
 #' Wolfcamp Aquifer
 #'
@@ -498,5 +496,5 @@ NULL
 #' @name Wolfcamp Aquifer
 #' @usage data(Wolfcamp Aquifer)
 #' @format A dataset with 85 rows and 3 variables
-#' @source {\url{https://rubenfcasal.github.io/npsp/reference/aquifer.html}
+#' @source \url{https://rubenfcasal.github.io/npsp/reference/aquifer.html}
 "Wolfcamp Aquifer"

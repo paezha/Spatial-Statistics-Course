@@ -5,15 +5,21 @@
 \alias{pp1_df}
 \title{pp1_df}
 \format{A data frame with 72 rows and 3 variables}
+\source{
+Extracted from Data4.RData
+}
+\usage{
+data(pp1_df)
+}
 \description{
-A dataset containing two sets of spatial events labeled as "Pattern 1" and "Pattern 2"
+A dataset that includes a `spatstat` `ppp`-class object with two sets of spatial events, labeled as "Pattern 1" and "Pattern 2".
  The varirables are as follows:
 }
 \details{
 \itemize{
-     \item x. list of coordinates (0.22844244--0.95643341)
-     \item y. list of coordinates (0.81963883--0.07471783)
-     \item marks. Two sets of spatial events (Pattern 1, Pattern 2)
+   \item x. list of x-coordinates used to plot two sets of spatial events (0.04559819--0.95643341)
+   \item y. list of y-coordinates used to plot two sets of spatial events (0.03408578--0.94492099)
+   \item marks. Two sets of spatial events (Pattern 1, Pattern 2)
 }
 }
 \keyword{datasets}

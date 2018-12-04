@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="introduction-to-mapping-in-r.html">
 
-<link rel="next" href="basic-operations-in-r.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -159,63 +159,160 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Applied Spatial Statistics</h1>
-<h4 class="author"><em>Antonio Paez</em></h4>
-<h4 class="date"><em>2018-12-04</em></h4>
+<div id="activity-1-statistical-maps-i" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Activity 1: Statistical Maps I</h1>
+<div id="housekeeping-questions" class="section level2">
+<h2><span class="header-section-number">3.1</span> Housekeeping Questions</h2>
+<p>Answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li><p>What are the office hours of your instructor this term?</p></li>
+<li><p>How are assignments graded?</p></li>
+<li><p>What is the policy for late assignments in this course?</p></li>
+</ol>
 </div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>The objective of this book is to introduce selected topics in applied spatial statistics. The foundation for the book are the notes that I have developed over several years of teaching applied spatial statistics at McMaster University. This course is a senior level specialist course for geographers and students in other disciplines who are working towards specializations in Geographic Information Systems.</p>
-<p>Over the course of the years, my colleagues and I at McMaster have used at least three different textbooks for teaching spatial statistics. I have personally used McGrew and Monroe <span class="citation">(<a href="#ref-Mcgrew2009">2009</a>)</span> to introduce fundamental statistical concepts to geographers. This book (currently on its third edition with Lembo) does a fine job of introducing statistics as a tool for decision making, and is an very valuable resource to study matters of inference, for instance. Many of the examples in the book are geographical, however, the book is relatively limited in its coverage of <em>spatial statistics</em> (particularly models for spatial processes), which is a limitation for teaching a specialist course on this topic.</p>
-<p>My book of choice early on (approximately between 2003 and 2010) was the excellent book Interactive Spatial Data Analysis by Bailey and Gatrell <span class="citation">(<a href="#ref-Bailey1995">1995</a>)</span>. I started using their book as a graduate student, but even then the limitations of the software that accompanied the book were apparent - in particular the absence of updates or a central repository for code. Despite the regretable obsolesence of the software, the book provided, and still does, a very accessible yet rigorous treatment of many topics of interest in spatial statistics. Bailey and Gatrell’s book was, I believe, the first attempt to bridge the need of teaching mid- and upper-level university courses in spatial statistics, and the challenges of doing so with very specialized texts on this topic, including the excellent but demanding Spatial Econometrics <span class="citation">(Anselin <a href="#ref-Anselin1988">1988</a>)</span>, Advanced Spatial Statistics <span class="citation">(Griffith <a href="#ref-Griffith1988">1988</a>)</span>, Spatial Data Analysis in the Social and Environmental Sciences <span class="citation">(Haining <a href="#ref-Haining1990">1990</a>)</span>, not to mention Statistics for Spatial Data <span class="citation">(Cressie <a href="#ref-Cressie1993">1993</a>)</span>.</p>
-<p>Subsequently, my book of choice for teaching spatial statistics became O’Sullivan and Unwin’s Geographical Information Analysis <span class="citation">(O’Sullivan and Unwin <a href="#ref-Osullivan2010">2010</a>)</span>. This book updates some topics that were not covered by Bailey and Gatrell. To give an example, much work happened in the mid- to late-nineties with the development of <em>local forms</em> of spatial analysis, including Getis and Ord pioneering research on concentration statistics <span class="citation">(Getis and Ord <a href="#ref-Getis1992">1992</a>)</span>, Anselin’s Local Indicators of Spatial Association <span class="citation">(Anselin <a href="#ref-Anselin1995">1995</a>)</span>, and Brunsdon, Fotheringham, and Charlton’s research on geographically weighted regression <span class="citation">(Brunsdon, Fotheringham, and Charlton <a href="#ref-Brunsdon1996">1996</a>)</span>. These and related local forms of spatial analysis have become hugely influential in the intervening years, and are duly covered by O’Sullivan and Unwin in a way that merges well with a course focusing on spatial statistics - although other specialist texts also exist that delve in much more depth into this topic <span class="citation">(e.g., Fotheringham and Brunsdon <a href="#ref-Fotheringham1999">1999</a>; and Lloyd <a href="#ref-Lloyd2010local">2010</a>)</span>.</p>
-<p>These resources, and many more, have proved invaluable for my teaching for the past few years, and I believe that their influence will be evident in the present book.</p>
-<p>So, if there are some excellent resources for teaching and learning spatial statistics, why am I moved to unleash on the world yet another book on this topic?</p>
-<p>introduces data analysis for applied spatial scientists. These could be geographers, earth scientists, environmental scientists, planners, or others who work with georeferenced datasets.</p>
-<p>My aim with this book has been to introduce key concepts and techniques in the analysis of spatial data in an intuitive way. While there are more advanced treatments of many of these topics, this book should be appealing to students or others who are approaching this topic for the first time.</p>
-<p>The book is organized thematically following the cannonical approach seen, for instance, in Bailey and Gatrell <span class="citation">(<a href="#ref-Bailey1995">1995</a>)</span> and O’Sullivan and Unwin <span class="citation">(<a href="#ref-Osullivan2010">2010</a>)</span>. This approach is to conceptualize data by their unit of support.</p>
-<p>Each chapter covers a topic that builds on previous material. In this way, this is not necessarily meant as a reference (there are better books for that). The chapters are followed by an activity.</p>
-<p>I have used these materials for teaching spatial data analysis in different settings. In a flipped classroom setting, the chapters are used as practice material by the students before class. The activity is then completed in class, with the instructor providing support and motivating some discussion. Used in a traditional lecture style, the materials provide structure and visual aids. The activities can be completed by the students as homework or during lab time.</p>
+<div id="learning-objectives-2" class="section level2">
+<h2><span class="header-section-number">3.2</span> Learning Objectives</h2>
+<p>In this activity you will:</p>
+<ol style="list-style-type: decimal">
+<li>Discuss statistical maps and what makes them interesting.</li>
+</ol>
+</div>
+<div id="preliminaries-1" class="section level2">
+<h2><span class="header-section-number">3.3</span> Preliminaries</h2>
+<p>In the practice that preceded this activity, you used <code>ggmap</code> to create a proportional symbol map, a mapping technique used in spatial statistics for visualization of geocoded event information. As well, you implemented a simple technique called kernel analysis to the map to explore the distribution of events in the case of the cholera outbreak of Soho in London in 1854. Geocoded events are often called <em>point patterns</em>, so with the cholera data you were working with a point pattern.</p>
+<p>In this activity, we will map another type of spatial data, called <em>areal data</em>. Areas are often administrative or political jurisdictions.</p>
+<p>For this activity you will need the following:</p>
+<ul>
+<li><p>An R markdown notebook.</p></li>
+<li><p>A package called <code>geog4ga3</code></p></li>
+</ul>
+<p>It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is <code>rm</code> (for “remove”), followed by a list of items to be removed. To clear the workspace from <em>all</em> objects, do the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
+<p>Note that <code>ls()</code> lists all objects currently on the worspace.</p>
+<p>Load the libraries you will use in this activity:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## -- Attaching packages ------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## v ggplot2 3.1.0     v purrr   0.2.5
+## v tibble  1.4.2     v dplyr   0.7.7
+## v tidyr   0.8.2     v stringr 1.3.1
+## v readr   1.1.1     v forcats 0.3.0</code></pre>
+<pre><code>## -- Conflicts ---------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geog4ga3)
+<span class="kw">library</span>(leaflet)</code></pre></div>
+</div>
+<div id="creating-a-simple-thematic-map" class="section level2">
+<h2><span class="header-section-number">3.4</span> Creating a simple thematic map</h2>
+<p>If you successfully loaded package <code>geog4ga3</code> a dataset <code>HamiltonDAs</code> should be available for analysis:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(HamiltonDAs)</code></pre></div>
+<p>You can examine the contents of the dataset by means of <code>head</code> (which will show the top rows):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(HamiltonDAs)</code></pre></div>
+<pre><code>##        long      lat order  hole piece  group GTA06      VAR1      VAR2
+## 1 -79.86997 43.29277     1 FALSE     1 4050.1  4050 0.3788377 0.3418337
+## 2 -79.86904 43.29339     2 FALSE     1 4050.1  4050 0.3788377 0.3418337
+## 3 -79.86803 43.29426     3 FALSE     1 4050.1  4050 0.3788377 0.3418337
+## 4 -79.86699 43.29532     4 FALSE     1 4050.1  4050 0.3788377 0.3418337
+## 5 -79.86666 43.29565     5 FALSE     1 4050.1  4050 0.3788377 0.3418337
+## 6 -79.86586 43.29637     6 FALSE     1 4050.1  4050 0.3788377 0.3418337
+##        VAR3      VAR4      VAR5
+## 1 0.3450731 0.3057122 0.3622016
+## 2 0.3450731 0.3057122 0.3622016
+## 3 0.3450731 0.3057122 0.3622016
+## 4 0.3450731 0.3057122 0.3622016
+## 5 0.3450731 0.3057122 0.3622016
+## 6 0.3450731 0.3057122 0.3622016</code></pre>
+<p>Or obtain the summary statistics by means of <code>summary</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(HamiltonDAs)</code></pre></div>
+<pre><code>##       long             lat            order          hole        
+##  Min.   :-80.25   Min.   :43.05   Min.   :    1   Mode :logical  
+##  1st Qu.:-79.90   1st Qu.:43.21   1st Qu.: 2949   FALSE:11784    
+##  Median :-79.85   Median :43.25   Median : 5896   TRUE :8        
+##  Mean   :-79.83   Mean   :43.26   Mean   : 5896                  
+##  3rd Qu.:-79.79   3rd Qu.:43.29   3rd Qu.: 8844                  
+##  Max.   :-79.51   Max.   :43.48   Max.   :11792                  
+##                                                                  
+##  piece         group          GTA06                VAR1       
+##  1:11772   4050.1 :  266   Length:11792       Min.   :0.0000  
+##  2:   16   4052.1 :  239   Class :character   1st Qu.:0.3244  
+##  3:    4   6007.1 :  239   Mode  :character   Median :0.4750  
+##            5211.1 :  226                      Mean   :0.4793  
+##            5191.1 :  191                      3rd Qu.:0.6594  
+##            6018.1 :  148                      Max.   :1.0000  
+##            (Other):10483                                      
+##       VAR2             VAR3             VAR4             VAR5       
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+##  1st Qu.:0.3782   1st Qu.:0.3523   1st Qu.:0.3327   1st Qu.:0.3529  
+##  Median :0.4930   Median :0.5116   Median :0.4924   Median :0.4583  
+##  Mean   :0.4901   Mean   :0.5162   Mean   :0.4919   Mean   :0.4708  
+##  3rd Qu.:0.5812   3rd Qu.:0.6664   3rd Qu.:0.6313   3rd Qu.:0.5594  
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+## </code></pre>
+<p>The dataframe includes all <em>Dissemination Areas</em> (or DAs for short) for the Hamilton Census Metropolitan Arean in Canada. DAs are a type of geography used by the Census of Canada, in fact the smallest geography that is publicly available.</p>
+<p>To create a siple map we can use <code>ggplot2</code>, which previously we used to map points. Now, the geom for polygons can be used for areas. To create such a map, we layer a geom object of type polygon on a <code>ggplot2</code> object. For instance, to plot the DAs:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#head(HamiltonDAs)</span>
+<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> HamiltonDAs, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> .<span class="dv">3</span>, <span class="dt">size =</span> .<span class="dv">3</span>)</code></pre></div>
+<p><img src="03-Activity-Statistical-Maps_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>We selected color “black” for the polygons, with a transparency alpha = 0.3 (alpha = 0 is completely transparent, alpha = 1 is completely opaque, try it!), and line size 0.3.</p>
+<p>This map only shows the DAs, which is nice. However, as you saw in the summary of the dataframe above, in addition to the geometric information, a set of (generic) variables is also included, called VAR1, VAR2,…, VAR5.</p>
+<p>Thematic maps can be created using these variables. The next chunk of code plots the DAs and adds info. The <code>fill</code> argument is used to select a variable to color the polygons. The function <code>cut_number</code> is used to classify the values of the variable in 5 groups of equal size (notice that the lines of the polygons are still black). The <code>scale_fill_brewer</code> function can be used to select different <em>palettes</em> or coloring schemes):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> HamiltonDAs, <span class="kw">aes</span>(<span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group, <span class="dt">fill =</span> <span class="kw">cut_number</span>(VAR5, <span class="dv">5</span>)), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">size =</span> .<span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Reds&quot;</span>)</code></pre></div>
+<p><img src="03-Activity-Statistical-Maps_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Now you have seen how to create a thematic map with polygons (areal data), you are ready for the following activity.</p>
+</div>
+<div id="activity" class="section level2">
+<h2><span class="header-section-number">3.5</span> Activity</h2>
+<ol style="list-style-type: decimal">
+<li><p>Create thematic maps for variables VAR1 through VAR5 in the dataframe <code>HamiltonDAs</code>. Remember that you can introduce new chunks of code.</p></li>
+<li><p>Imagine that these maps were found, and for some reason the variables were not labeled. They may represent income, or population density, or something else. Which of the five maps you just created is more interesting? Rank the five maps from most to least interesting. Explain the reasons for your ranking.</p></li>
+</ol>
 
-</div>
-<h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-Mcgrew2009">
-<p>McGrew Jr, J Chapman, and Charles B Monroe. 2009. <em>An Introduction to Statistical Problem Solving in Geography</em>. Book. 2nd. Edition. Long Grove, Illinois: Waveland Press.</p>
-</div>
-<div id="ref-Bailey1995">
-<p>Bailey, T. C., and A. C. Gatrell. 1995. <em>Interactive Spatial Data Analysis</em>. Book. Essex: Addison Wesley Longman.</p>
-</div>
-<div id="ref-Anselin1988">
+<div>
 <p>Anselin, Luc. 1988. <em>Spatial Econometrics: Methods and Models</em>. Book. Dordrecht: Kluwer.</p>
 </div>
-<div id="ref-Griffith1988">
-<p>Griffith, D. A. 1988. <em>Advanced Spatial Statistics: Special Topics in the Exploration of Quantitative Spatial Data Series</em>. Book. Dordrecht: Kluwer.</p>
+<div>
+<p>———. 1995. “Local Indicators of Spatial Association - Lisa.” Journal Article. <em>Geographical Analysis</em> 27: 93–115.</p>
 </div>
-<div id="ref-Haining1990">
-<p>Haining, R. 1990. <em>Spatial Data Analysis in the Social and Environmental Sciences</em>. Book. Cambridge: Cambridge University Press.</p>
+<div>
+<p>Bailey, T. C., and A. C. Gatrell. 1995. <em>Interactive Spatial Data Analysis</em>. Book. Essex: Addison Wesley Longman.</p>
 </div>
-<div id="ref-Cressie1993">
-<p>Cressie, N. A. C. 1993. <em>Statistics for Spatial Data</em>. Book. Wiley Series in Probability and Mathematical Statistics. New York: John Wiley &amp; Sons.</p>
-</div>
-<div id="ref-Osullivan2010">
-<p>O’Sullivan, David, and David Unwin. 2010. <em>Geographic Information Analysis</em>. Book. 2nd. Edition. Hoboken, New Jersey: John Wiley &amp; Sons.</p>
-</div>
-<div id="ref-Getis1992">
-<p>Getis, A., and J. K. Ord. 1992. “The Analysis of Spatial Association by Use of Distance Statistics.” Journal Article. <em>Geographical Analysis</em> 24 (3): 189–206. <a href="ISI:A1992JF93400001
-C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf" class="uri">ISI:A1992JF93400001
-<div id="ref-Anselin1995">
-<p>Anselin, Luc. 1995. “Local Indicators of Spatial Association - Lisa.” Journal Article. <em>Geographical Analysis</em> 27: 93–115.</p>
-</div>
-<div id="ref-Brunsdon1996">
+<div>
 <p>Brunsdon, C., A. S. Fotheringham, and M. E. Charlton. 1996. “Geographically Weighted Regression: A Method for Exploring Spatial Nonstationarity.” Journal Article. <em>Geographical Analysis</em> 28 (4): 281–98. <a href="ISI:A1996VL03500001" class="uri">ISI:A1996VL03500001</a>.</p>
 </div>
-<div id="ref-Fotheringham1999">
+<div>
+<p>Cressie, N. A. C. 1993. <em>Statistics for Spatial Data</em>. Book. Wiley Series in Probability and Mathematical Statistics. New York: John Wiley &amp; Sons.</p>
+</div>
+<div>
 <p>Fotheringham, A. S., and C. Brunsdon. 1999. “Local Forms of Spatial Analysis.” Journal Article. <em>Geographical Analysis</em> 31 (4): 340–58.</p>
 </div>
-<div id="ref-Lloyd2010local">
+<div>
+<p>Getis, A., and J. K. Ord. 1992. “The Analysis of Spatial Association by Use of Distance Statistics.” Journal Article. <em>Geographical Analysis</em> 24 (3): 189–206. <a href="ISI:A1992JF93400001
+C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf" class="uri">ISI:A1992JF93400001
+C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf</a>.</p>
+</div>
+<div>
+<p>Griffith, D. A. 1988. <em>Advanced Spatial Statistics: Special Topics in the Exploration of Quantitative Spatial Data Series</em>. Book. Dordrecht: Kluwer.</p>
+</div>
+<div>
+<p>Haining, R. 1990. <em>Spatial Data Analysis in the Social and Environmental Sciences</em>. Book. Cambridge: Cambridge University Press.</p>
+</div>
+<div>
 <p>Lloyd, Christopher D. 2010. <em>Local Models for Spatial Analysis</em>. CRC press.</p>
+</div>
+<div>
+<p>McGrew Jr, J Chapman, and Charles B Monroe. 2009. <em>An Introduction to Statistical Problem Solving in Geography</em>. Book. 2nd. Edition. Long Grove, Illinois: Waveland Press.</p>
+</div>
+<div>
+<p>O’Sullivan, David, and David Unwin. 2010. <em>Geographic Information Analysis</em>. Book. 2nd. Edition. Hoboken, New Jersey: John Wiley &amp; Sons.</p>
+</div>
+<div>
+<p>Wickham, Hadley. 2015. <em>R Packages: Organize, Test, Document, and Share Your Code</em>. “ O’Reilly Media, Inc.”</p>
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -223,8 +320,8 @@ C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf"
           </div>
         </div>
       </div>
+<a href="introduction-to-mapping-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="basic-operations-in-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

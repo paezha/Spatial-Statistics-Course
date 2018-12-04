@@ -1,7 +1,7 @@
 --- 
 title: "Applied Spatial Statistics"
 author: "Antonio Paez"
-date: "2018-12-03"
+date: "2018-12-04"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

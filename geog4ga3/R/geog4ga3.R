@@ -498,3 +498,59 @@ NULL
 #' @format A dataset with 85 rows and 3 variables
 #' @source \url{https://rubenfcasal.github.io/npsp/reference/aquifer.html}
 "Wolfcamp Aquifer"
+
+#' nyleukemia 
+#' 
+#' A spatial polygon data frame of New York leukemia data projected in UTM Zone 18 using WGS84. 
+#'  The variables are as follows: 
+#'  
+#'  \itemize{
+#'    \item AREANAME. name of study area (Auburn city--Vestal town)
+#'    \item AREAKEY. unique identifier of study area (36007000100--36109992300) 
+#'    \item X. x-coordinates of spatial polygons (-55.482300--53.508600)
+#'    \item Y. y-coordinates of spatial polygons (-75.290700--56.410130)
+#'    \item POP8. (9--13015)
+#'    \item TRACTCAS. (0.00--9.29)
+#'    \item PROPCAS. (0.000000--0.006993)
+#'    \item PCTOWNHOME. (0.00082237--1.0000000)
+#'    \item PCTAGE65. (0.00404412--0.5050505)
+#'    \item Z. (-1.92062--4.71053)
+#'    \item AVGDIST. (0.0184667--3.5263750)
+#'    \item PEXPOSURE. (0.613384--5.865441)
+#'    \item Cases. number of leukemia cases in New York based on studya area (0.00014--9.286010)
+#'    \item Xm. (-55482.300--53508.600)
+#'    \item Ym. (-75290.700--56410.130)
+#'    \item Xshift. (363839.3--472830.2)
+#'    \item Yshift. (4653564--4785265)
+#'}
+#'  
+#' @docType data
+#' @keywords spatialpolygondataframe 
+#' @name nyleukemia 
+#' @usage data(nyleukemia)
+#' @format A spatial polygon data frame with 281 rows and 17 variables 
+#' @source \url{https://www.rdocumentation.org/packages/SpatialEpi/versions/1.2.3/topics/NYleukemia}
+"nyleukemia"
+
+#' pennlc
+#' 
+#' A spatial polygon data frame of Pennsylvania lung cancer projected using latitude and longitude.  
+#'  The variables are as follows: 
+#'  
+#'  \itemize{
+#'    \item county. name of each county in Pennsylvania with recorded lung cancer patients within this spatial polygon data frame (adams--york) 
+#'    \item cases. number of cases in each county with lung cancer (3--1415)
+#'    \item population. population of each county in Pennsylvania (4946--1517550)
+#'    \item rate. (2.629157--13.391363)
+#'    \item smoking. (0.182--0.279)
+#'    \item cancer_rate. rate of patients diagnosed with lung cancer in each county of Pennsylvania (2.629157--13.391363) 
+#'    \item smoking_rate. smoking rate per county in Pennsylvania (18.2--27.9)
+#'}
+#'
+#' @docType data 
+#' @keywords spatialpolygondataframe
+#' @name pennlc
+#' @usage data(pennlc)
+#' @format A spatial polygon data frame with 67 rows and 7 variables
+#' @source \url{https://www.rdocumentation.org/packages/RgoogleMaps/versions/1.4.2/topics/pennLC}
+"pennlc"

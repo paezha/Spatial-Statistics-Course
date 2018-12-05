@@ -1,9 +1,11 @@
 ---
-title: "02 Activity 2: Statistical Maps I"
+title: "Activity 1: Statistical Maps I"
 output: html_notebook
 ---
 
 # Activity 1: Statistical Maps I
+
+Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
 
 ## Housekeeping Questions
 
@@ -44,7 +46,6 @@ Load the libraries you will use in this activity:
 ```{r}
 library(tidyverse)
 library(geog4ga3)
-library(leaflet)
 ```
 
 ## Creating a simple thematic map

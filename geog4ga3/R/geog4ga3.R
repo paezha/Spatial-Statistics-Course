@@ -187,18 +187,7 @@ NULL
 
 #' Toronto
 #'
-#' A dataset containing the city boundary of Toronto.
-#'  The variables are as follows:
-#'
-#'  \itemize{
-#'    \item lat. longitude of address (\-79.63930--\-79.37075)
-#'    \item long. latitude of address (43.74985--43.62359)
-#'    \item order. Unique idenifier of address
-#'    \item hole. (FALSE)
-#'    \item price. (1--10)
-#'    \item group. (5299933.1-5299933.10)
-#'    \item GTA06. (5299933)
-#'}
+#' A SpatialPolygons object that contains the city boundary of Toronto.
 #'
 #' @docType data
 #' @keywords datasets
@@ -207,6 +196,28 @@ NULL
 #' @format A data frame with 5250 rows and 7 variables
 #' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 "Toronto"
+
+#' Toronto_df
+#'
+#' A dataframe that contains the city boundary of Toronto.
+#'
+#'  \itemize{
+#'    \item lat. longitude of address (\-79.63930--\-79.37075)
+#'    \item long. latitude of address (43.74985--43.62359)
+#'    \item order. Unique idenifier of address
+#'    \item hole. (FALSE)
+#'    \item piece. (1--10)
+#'    \item group. (5299933.1-5299933.10)
+#'    \item GTA06. (5299933)
+#'}
+#'
+#' @docType data
+#' @keywords datasets
+#' @name Toronto_df
+#' @usage data(Toronto_df)
+#' @format A data frame with 5250 rows and 7 variables
+#' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
+"Toronto_df"
 
 #' pp1_df
 #'

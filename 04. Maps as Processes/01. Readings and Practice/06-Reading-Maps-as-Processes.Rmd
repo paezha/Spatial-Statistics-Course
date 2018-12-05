@@ -1,11 +1,11 @@
 ---
-title: "04 Maps as Processes: Null Landscapes and Spatial Processes"
+title: "06 Maps as Processes: Null Landscapes, Spatial Processes, and Statistical Maps"
 output: html_notebook
 ---
 
-#Introduction
+# Maps as Processes: Null Landscapes, Spatial Processes, and Statistical Maps
 
-NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+*NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
 
 In last practice your learning objectives were:
 
@@ -21,7 +21,7 @@ For this practice you will need the following:
 
 * This R markdown notebook.
 
-#Learning objectives
+## Learning Objectives
 
 In this reading, you will learn:
 
@@ -31,11 +31,11 @@ In this reading, you will learn:
 4. How to create new columns in a dataframe using a formula.
 5. How to simulate a spatial process.
 
-#Suggested reading
+## Suggested Reading
 
 O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapters 4. John Wiley & Sons: New Jersey.
 
-#Preliminaries
+## Preliminaries
 
 As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 ```{r}
@@ -49,7 +49,7 @@ Load the libraries you will use in this activity:
 library(tidyverse)
 ```
 
-#Random numbers
+## Random Numbers
 
 Colloquially, we understand _random_ as something that happens in an unpredictable way. The same word in statistics has a precise meaning, as the outcome of a process that cannot be predicted with certainty.
 
@@ -107,11 +107,11 @@ ggplot(data = height, aes(x = height)) + geom_histogram()
 
 Men shorter than 150 cm would be extremely rare, as well as men taller than 190 cm.
 
-#Null landscapes
+## Null Landscapes
 
 So what have random variables have to do with maps?
 
-Random variables can be used to generate purely random maps. These are called _null landscapes_ or _neutral landscapes_ in spatial ecology (see [this](http://www.jstor.org/stable/pdf/3546007.pdf)). 
+Random variables can be used to generate purely random maps. These are called _null landscapes_ or _neutral landscapes_ in spatial ecology [@With1997use] ([Paper is available to download](http://www.jstor.org/stable/pdf/3546007.pdf)). 
 
 The concept of null landscapes is quite useful, because they provide a benchmark to compare statistical maps. Let's see how to generate a null landscape of events.
 
@@ -119,7 +119,8 @@ Suppose that there is a landscape with coordinates in the unit square, that is d
 
 Let's first create a landscape. For this, we will use the `expand.grid` function to find all combinations of two sets of coordinates in the unit interval, using small partitions:
 ```{r}
-coords <- expand.grid(x = seq(from = 0, to = 1, by = 0.05), y = seq(from = 0, to = 1, by = 0.05))
+coords <- expand.grid(x = seq(from = 0, to = 1, by = 0.05),
+                      y = seq(from = 0, to = 1, by = 0.05))
 ```
 
 Now, let's generate a binomial random variable to go with these coordinates. 
@@ -139,7 +140,7 @@ ggplot() +
   coord_fixed()
 ```
 
-By changing the probability `prob` in the function `rbinom` you can make the event more or less frequent. Try it!
+By changing the probability `prob` in the function `rbinom` you can make the event more or less frequent. If you are working with the notebook version of this document you can try changing the parameters!
 
 A continuous random variable can be used to generate a landscape with a null trend. For instance, imagine that a group of individuals are asked to stand in formation, and that they arrange themselves purely at random. What would a map of their heights look like?
 ```{r}
@@ -161,7 +162,7 @@ ggplot() +
 
 These are only two of many possible techniques to generate null landscapes. We will discuss other later in the course.
 
-#Stochastic processes
+## Stochastic processes
 
 Some processes are _random_, such as the ones used above to create _null landscapes_. These processes take values with some probability, but cannot be predicted with any certainty.
 
@@ -205,7 +206,7 @@ ggplot() +
 
 The process above has a deterministic component (the probability of an event is zero if x <= 0.5), and a random component (the probability of a coordinate being an event is 0.5 when x > 0.5).
 
-#Simulating spatial processes
+## Simulating Spatial Processes
 
 Null landscapes are interesting as a benchmark. More interesting are landscapes that emerge as the outcome of a non-random process- either a systematic/deterministic or stochastic process. Here we will see how to introduce a systematic element into a null landscape to simulate spatial processes.
 
@@ -262,6 +263,7 @@ ggplot() +
   geom_point(data = subset(pattern1, events == 1), aes(x = x, y = y), shape = 15) +
   coord_fixed()
 ```
+
 As you would expect, there are few events near the center, and the number of events tends to increase away from the center.
 
 To conclude this practice, let's revisit the example of the people standing in formation, but now their sorting is not random, since taller people tend to stand towards the back. We can simulate this by making the height a function of position.
@@ -286,6 +288,16 @@ ggplot() +
 
 As expected, shorter people are towards the "front" (bottom of the plot) and taller people towards the back. It is not a uniform process, since there is still some randomness, but a trend can be clearly appreciated.
 
-In the vast majority of cases, we do not know the process; that is precisely what we wish to infer. Understanding process generation in a statistical sense, as well as null landscapes, is a useful tool that can help to infer processes in applications with empirical (as opposed to simulated) data.
+## Processes and Patterns
 
-Please visit [app](link) to explore different examples of spatial processes. Notice that some _look_ more random and some _look_ more systematic. At which point do you think it ceases being random?
+O'Sullivan and Unwin [-@Osullivan2010] make an important distinction between processes and patterns. A process is like a recipe, a sequence of events or steps, that leads to an outcome, that is, a pattern.
+
+You can think of the simulation procedures above as having two components: the process is the formula, function, or algorithm used to simulate a pattern. For instance, a random process could be based on the binomial distribution, whereas a stochastic process would have in addition to a random component some deterministic elements. The pattern is the outcome of the process. In the case of spatial processes, the outcome is typically a statistical map. 
+
+The procedures in the preceding sections illustrate just a few different ways to simulate spatial processes with the aim of generating statistical maps that display spatial patterns. There are in fact many more ways to simulate spatial processes, and articles [e.g., @Geyer1994simulation] - and even books [e.g., @Moller2003statistical] - have been written on this topic! Simulation is a very valuable tool in spatial statistics, as we shall see in later chapters. 
+
+It is important to note, however, that in the vast majority of cases we do not actually know the process; that is precisely what we wish to infer. Understanding process generation in a statistical sense, as well as null landscapes, is a useful tool that can help us to infer processes in applications with empirical (as opposed to simulated) data. In this sense, spatial statistics is often a tool used to make decisions about spatial patterns: are they random? And, if they are not random, can we infer the underlying process?
+
+Please visit [app](link) to explore different examples of spatial processes. Notice that some _look_ more random and some _look_ more systematic. At which point do you think a pattern ceases being random?
+
+## References

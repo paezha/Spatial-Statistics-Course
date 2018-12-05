@@ -12,18 +12,6 @@
 data(Toronto)
 }
 \description{
-A dataset containing the city boundary of Toronto.
- The variables are as follows:
-}
-\details{
-\itemize{
-   \item lat. longitude of address (\-79.63930--\-79.37075)
-   \item long. latitude of address (43.74985--43.62359)
-   \item order. Unique idenifier of address
-   \item hole. (FALSE)
-   \item price. (1--10)
-   \item group. (5299933.1-5299933.10)
-   \item GTA06. (5299933)
-}
+A SpatialPolygons object that contains the city boundary of Toronto.
 }
 \keyword{datasets}

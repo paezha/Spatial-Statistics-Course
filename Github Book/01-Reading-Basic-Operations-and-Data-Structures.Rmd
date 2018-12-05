@@ -25,7 +25,7 @@ In this practice, you will learn:
 
 If you are reading this, you probably already read the document '00 Installation of R'. We can now proceed to discuss some basic concepts of operations and data types.
 
-## Some basic operations
+## Some Basic Operations
 
 R can perform many types of operations. Some simple operations are arithmetic. Other are logical. And so on.
 

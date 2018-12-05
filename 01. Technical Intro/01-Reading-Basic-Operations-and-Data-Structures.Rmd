@@ -20,11 +20,10 @@ The chunk of code above instructed R (and trough R the computer) to `print` (or 
 
 In this practice, you will learn:
 
-1. How to install R.
-2. Basic operations in R.
-3. Data classes, data types, and data transformations.
-4. About packages in R.
-5. Basic visualization.
+1. Basic operations in R.
+2. Data classes, data types, and data transformations.
+3. More about the use of packages in R.
+4. Basic visualization.
 
 ## RStudio Window
 

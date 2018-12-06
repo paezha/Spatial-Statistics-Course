@@ -1,3 +1,10 @@
+---
+title: "12 Point Pattern Analysis III"
+output:
+  html_document:
+    df_print: paged
+---
+
 # Point Pattern Analysis III
 
 *NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
@@ -8,8 +15,6 @@ In the last practice/session your learning objectives included:
 2. The concept of kernel density.
 3. The limitations of density-based analysis
 4. More ways to work with `ppp` objects.
-
-Please review the previous practices if you need a refresher on these concepts.
 
 If you wish to work interactively with this chapter you will need the following:
 
@@ -103,13 +108,13 @@ library(geog4ga3)
 Load the datasets that you will use for this practice:
 
 ```r
-data("pp1_df")
+data("pp0_df")
 ```
 
 Examine the contents of this dataframe:
 
 ```r
-summary(pp1_df)
+summary(pp0_df)
 ```
 
 ```
@@ -131,7 +136,7 @@ W <- owin(c(0,1), c(0,1))
 Given window object `W`, it is possible to transform the dataframe into a `ppp` object: 
 
 ```r
-pp1.ppp <- as.ppp(pp1_df, W = W)
+pp0.ppp <- as.ppp(pp0_df, W = W)
 ```
 
 ## Motivation
@@ -141,13 +146,13 @@ Quadrats and kernel density are examples of density-based analysis. These techni
 For this reason, the following two patterns, despite being very different, give identical number of counts per quadrat:
 
 ```r
-plot(split(pp1.ppp))
+plot(split(pp0.ppp))
 ```
 
 <img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 ```r
-plot(quadratcount(split(pp1.ppp), nx = 3, ny = 3))
+plot(quadratcount(split(pp0.ppp), nx = 3, ny = 3))
 ```
 
 <img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-7-2.png" width="672" />
@@ -157,7 +162,7 @@ The two patterns above have similar _density_, However, "Pattern 1" displays _cl
 With some fiddling of the parameters, quadrats can be coaxed to tease out the variations in density, for instance:
 
 ```r
-plot(quadratcount(split(pp1.ppp), nx = 9, ny = 9))
+plot(quadratcount(split(pp0.ppp), nx = 9, ny = 9))
 ```
 
 <img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-8-1.png" width="672" />
@@ -167,7 +172,7 @@ As a visualization technique, this gives a better sense of the variations in den
 As an alternative, kernel density can be used to visualize the smoothed estimate of the density:
 
 ```r
-plot(density(split(pp1.ppp), sigma = 0.075))
+plot(density(split(pp0.ppp), sigma = 0.075))
 ```
 
 <img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-9-1.png" width="672" />
@@ -205,34 +210,34 @@ The package `spatstat` includes functions to calculate Euclidean distances. Thre
 With these functions we can calculate, for instance, the following distances:
 
 ```r
-pp1_nn1 <- nndist(split(pp1.ppp)$"Pattern 1")
+pp0_nn1 <- nndist(split(pp0.ppp)$"Pattern 1")
 ```
 
 Let us explore the distribution of these distances by means of a histogram:
 
 ```r
-ggplot() + geom_histogram(data = data.frame(dist = pp1_nn1), aes(dist), binwidth = 0.03)
+ggplot() + geom_histogram(data = data.frame(dist = pp0_nn1), aes(dist), binwidth = 0.03)
 ```
 
 <img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 Notice how most events have a nearest neighbor at a relatively short distance (<0.05).
 
-Compare to the distribution of distances in "Pattern 2" of `pp1.ppp`:
+Compare to the distribution of distances in "Pattern 2" of `pp0.ppp`:
 
 ```r
-pp1_nn2 <- nndist(split(pp1.ppp)$"Pattern 2")
-ggplot() + geom_histogram(data = data.frame(dist = pp1_nn2), aes(dist), binwidth = 0.03)
+pp0_nn2 <- nndist(split(pp0.ppp)$"Pattern 2")
+ggplot() + geom_histogram(data = data.frame(dist = pp0_nn2), aes(dist), binwidth = 0.03)
 ```
 
 <img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 In this case, most events have a nearest neighbot at a distance of approximately 0.15.
 
-Another useful tool is a _Stienen diagram_. A Steinen diagram is essentially a proportional symbol plot of the events with symbols of size proportional to the distance to their nearest neighbor. For example, for "Pattern 1" in `pp1.ppp` (Notice the use of %mark% to add an attribute to the `ppp` object; the attribute is the distance to the nearest neighbor):
+Another useful tool is a _Stienen diagram_. A Steinen diagram is essentially a proportional symbol plot of the events with symbols of size proportional to the distance to their nearest neighbor. For example, for "Pattern 1" in `pp0.ppp` (Notice the use of %mark% to add an attribute to the `ppp` object; the attribute is the distance to the nearest neighbor):
 
 ```r
-plot(split(pp1.ppp)$"Pattern 1" %mark% (pp1_nn1), markscale = 1, main = "Stienen diagram")
+plot(split(pp0.ppp)$"Pattern 1" %mark% (pp0_nn1), markscale = 1, main = "Stienen diagram")
 ```
 
 <img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-14-1.png" width="672" />
@@ -242,7 +247,7 @@ In this diagram, the largest circle is not very large: even events that are rela
 Compare to "Pattern 2":
 
 ```r
-plot(split(pp1.ppp)$"Pattern 2" %mark% (pp1_nn2), markscale = 1, main = "Stienen diagram")
+plot(split(pp0.ppp)$"Pattern 2" %mark% (pp0_nn2), markscale = 1, main = "Stienen diagram")
 ```
 
 <img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-15-1.png" width="672" />
@@ -308,7 +313,7 @@ When the empirical $\hat{G}(x)$ is greater than the theoretical function, this s
 The G-function is implemented in `spatstat` as `Gest` (for G estimated):
 
 ```r
-g_pattern1 <- Gest(split(pp1.ppp)$"Pattern 1", correction = "none")
+g_pattern1 <- Gest(split(pp0.ppp)$"Pattern 1", correction = "none")
 ```
 
 (For the moment ignore the argument "correction"; we will discuss corrections later on.)
@@ -339,7 +344,7 @@ What this suggests is that in the actual landscape events tend to be much closer
 Compare to "Pattern 2":
 
 ```r
-g_pattern2 <- Gest(split(pp1.ppp)$"Pattern 2", correction = "none")
+g_pattern2 <- Gest(split(pp0.ppp)$"Pattern 2", correction = "none")
 plot(g_pattern2)
 ```
 

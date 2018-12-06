@@ -1,3 +1,8 @@
+---
+title: "10 Point Pattern Analysis II"
+output: html_notebook
+---
+
 # Point Pattern Analysis II
 
 *NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
@@ -105,7 +110,7 @@ Load the datasets that you will use for this practice:
 
 ```r
 data("PointPatterns")
-data("pp1_df")
+data("pp0_df")
 ```
 
 `PointPatterns` is a dataframe with four sets of spatial events, labeled as "Pattern 1", "Pattern 2", "Pattern 3", and "Pattern 4". Each set has $n=60$ events. You can check the class of this object by means of the function class `class()`.
@@ -118,7 +123,7 @@ class(PointPatterns)
 ## [1] "data.frame"
 ```
 
-The second dataframe (i.e., `pp1_df`) includes the coordinates `x` and `y` of two sets of spatial events, labeled as "Pattern 1" and "Pattern 2".
+The second dataframe (i.e., `pp0_df`) includes the coordinates `x` and `y` of two sets of spatial events, labeled as "Pattern 1" and "Pattern 2".
 
 The summary for `PointPatterns` shows that these point patterns are located in a square-unit window (check the max and min values of x and y):
 
@@ -136,10 +141,10 @@ summary(PointPatterns)
 ##  Max.   :0.9990   Max.   :0.999808
 ```
 
-The same is true for `pp1_df`:
+The same is true for `pp0_df`:
 
 ```r
-summary(pp1_df)
+summary(pp0_df)
 ```
 
 ```
@@ -161,14 +166,14 @@ W <- owin(xrange = c(0, 1), yrange = c(0, 1))
 Then the dataframes are converted using the `as.ppp` function: 
 
 ```r
-pp1.ppp <- as.ppp(pp1_df, W = W)
+pp0.ppp <- as.ppp(pp0_df, W = W)
 PointPatterns.ppp <- as.ppp(PointPatterns, W = W)
 ```
 
 You can verify that the new objects are indeed of `ppp`-class:
 
 ```r
-class(pp1.ppp)
+class(pp0.ppp)
 ```
 
 ```
@@ -384,10 +389,10 @@ Caution should be exercised when interpreting the results of the analysis based 
 
 Another issue with quadrat analysis is its insensibility to the relative position of the events within the quadrats.
 
-Consider for instance the following two patterns in `pp1`:
+Consider for instance the following two patterns in `pp0`:
 
 ```r
-plot(split(pp1.ppp))
+plot(split(pp0.ppp))
 ```
 
 <img src="10-Reading-Point-Pattern-Analysis-II_files/figure-html/unnamed-chunk-21-1.png" width="672" />
@@ -395,7 +400,7 @@ plot(split(pp1.ppp))
 These two patterns look quite different. And yet, when we count the events by quadrats:
 
 ```r
-plot(quadratcount(split(pp1.ppp), nx = 3, ny = 3))
+plot(quadratcount(split(pp0.ppp), nx = 3, ny = 3))
 ```
 
 <img src="10-Reading-Point-Pattern-Analysis-II_files/figure-html/unnamed-chunk-22-1.png" width="672" />
@@ -431,7 +436,7 @@ Kernel density is implemented in `spatstat` and can be used as follows.
 The input is a `ppp` object, and optionally a `sigma` argument that corresponds to the bandwidth of the kernel:
 
 ```r
-kernel_density <- density(split(pp1.ppp), sigma = 0.1)
+kernel_density <- density(split(pp0.ppp), sigma = 0.1)
 plot(kernel_density)
 ```
 
@@ -440,7 +445,7 @@ plot(kernel_density)
 Compare to the distribution of events:
 
 ```r
-plot(split(pp1.ppp))
+plot(split(pp0.ppp))
 ```
 
 <img src="10-Reading-Point-Pattern-Analysis-II_files/figure-html/unnamed-chunk-25-1.png" width="672" />

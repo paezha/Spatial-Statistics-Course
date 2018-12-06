@@ -1,3 +1,8 @@
+---
+title: "Activity 6: Point Pattern Analysis III"
+output: html_notebook
+---
+
 # Activity 6: Point Pattern Analysis III
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
@@ -131,15 +136,12 @@ Next the data that you will use in this activity needs to be loaded. Each datafr
 ```r
 data("Fast_Food")
 Fast_Food.ppp <- as.ppp(Fast_Food, W = Toronto.owin)
-#Fast_Food.ppp <- as.ppp(Fast_Food.ppp)
 
 data("Gas_Stands")
 Gas_Stands.ppp <- as.ppp(Gas_Stands, W = Toronto.owin)
-#Gas_Stands.ppp <- as.ppp(Gas_Stands.ppp)
 
 data("Paez_Mart")
 Paez_Mart.ppp <- as.ppp(Paez_Mart, W = Toronto.owin)
-#Paez_Mart.ppp <- as.ppp(Paez_Mart.ppp)
 ```
 
 If you inspect your workspace, you will see that the following `ppp` objects are there:

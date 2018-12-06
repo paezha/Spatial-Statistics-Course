@@ -1,3 +1,8 @@
+---
+title: "Activity 5: Point Pattern Analysis II"
+output: html_notebook
+---
+
 # Activity 5: Point Pattern Analysis II
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).

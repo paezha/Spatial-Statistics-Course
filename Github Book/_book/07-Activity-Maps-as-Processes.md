@@ -1,0 +1,74 @@
+# Activity 3: Maps as Processes
+
+Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
+
+## Practice questions
+
+Answer the following questions:
+
+1. What is a Geographic Information System?
+2. What distinguishes a statistical map from other types of mapping techniques?
+3. What is a null landscape?
+
+## Learning objectives
+
+In this activity, you will:
+
+1. Simulate landscapes using various types of processes.
+2. Discuss the difference between random and non-random landscapes.
+3. Think about ways to decide whether a landscape is random.
+
+## Suggested reading
+
+O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 4. John Wiley & Sons: New Jersey.
+
+## Preliminaries
+
+For this activity you will need the following:
+
+* An R markdown notebook version of this document (the source file).
+
+* A package called `geog4ga3`.
+
+It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+
+```r
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity:
+
+```r
+library(tidyverse)
+```
+
+```
+## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
+```
+
+```
+## v ggplot2 3.1.0     v purrr   0.2.5
+## v tibble  1.4.2     v dplyr   0.7.8
+## v tidyr   0.8.2     v stringr 1.3.1
+## v readr   1.2.1     v forcats 0.3.0
+```
+
+```
+## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+In the practice that preceded this activity, you learned how to simulate null landscapes and spatial processes. 
+
+## Activity
+
+1. Simulate and plot a landscape using a random, stochastic, or deterministic process. It is your choice whether to simulate a point pattern or a continuous variable.
+
+2. Share the map with a fellow student, and ask them to guess whether the map is random or non-random.
+
+3. Repeat 1 and 2 a few times.
+
+4. Propose one or more ways to decide whether a landscape is random, and explain your reasoning. The approach does not need to be the same for point patterns and continuous variables!

@@ -32,11 +32,11 @@ In this practice, you will learn:
 3. The concept of kernel density.
 4. More ways to manipulate objects to do point pattern analysis using `spatstat`.
 
-#Suggested reading
+## Suggested reading
 
 O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 5. John Wiley & Sons: New Jersey.
 
-#Preliminaries
+## Preliminaries
 
 As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 ```{r}
@@ -92,7 +92,7 @@ class(pp1.ppp)
 class(PointPatterns.ppp)
 ```
 
-#A quadrat-based test for spatial independence
+## A quadrat-based test for spatial independence
 
 In the preceding activity, you used a quadrat-based spatial independence test to help you decide whether a pattern was random (the function was `quadrat.test`). We will now review the intuition of the test.
 
@@ -152,7 +152,7 @@ quadrat.test(split(PointPatterns.ppp)$"Pattern 1", nx = 3, ny = 3)
 
 Explore the remaining patterns. You will notice that the residuals and test statistic tend to grow as more events are concentrated in space. In this way, the test is a test of density of the quadrats: is their density similar to what would be expected from a null landscape?
 
-# Limitations of quadrat analysis: size and number of quadrats
+## Limitations of quadrat analysis: size and number of quadrats
 
 As hinted by the previous activity, one issue with quadrat analysis is the selection of the size for the quadrats. Changing the size of the quadrats has an impact on the counts, and in turn on the aspect of density plots and even the results of the test of independence.
 
@@ -189,7 +189,7 @@ Q=\frac{2A}{N}
 $$
 Caution should be exercised when interpreting the results of the analysis based on quadrats, due to the issue of size/number of quadrats.
 
-# Limitations of quadrat analysis: relative position of events
+## Limitations of quadrat analysis: relative position of events
 
 Another issue with quadrat analysis is its insensibility to the relative position of the events within the quadrats.
 
@@ -205,7 +205,7 @@ plot(quadratcount(split(pp1.ppp), nx = 3, ny = 3))
 
 This example highlights how quadrats are relatively coarse measures of density, and fail to distinguish between fairly different event distributions, in particular because quadrat analysis does not take into account the relative position of the events with respect to each other.
 
-# Kernel density
+## Kernel density
 
 In order to better take into account the relative position of the events with respect to each other, a different technique can be devised. 
 

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 13 Point Pattern Analysis III | Applied Spatial Statistics</title>
+  <meta name="description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajiv Ubhi.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 13 Point Pattern Analysis III | Applied Spatial Statistics />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajiv Ubhi." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 13 Point Pattern Analysis III | Applied Spatial Statistics />
+  
+  <meta name="twitter:description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajiv Ubhi." />
+  
+
+<meta name="author" content="Antonio Paez">
+
+
+<meta name="date" content="2018-12-05">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="activity-5-point-pattern-analysis-ii.html">
+<link rel="next" href="activity-6-point-pattern-analysis-iii.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script>
+<script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> Preliminaries: Installing R and RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#learning-objectives"><i class="fa fa-check"></i><b>1.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="1.3" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#r-the-open-statistical-computing-project"><i class="fa fa-check"></i><b>1.3</b> R: The open statistical computing project</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>1.3.1</b> What is R?</a></li>
+<li class="chapter" data-level="1.3.2" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#the-rstudio-ide"><i class="fa fa-check"></i><b>1.3.2</b> The RStudio IDE</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#packages-in-r"><i class="fa fa-check"></i><b>1.4</b> Packages in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic Operations and Data Structures in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#rstudio-ide"><i class="fa fa-check"></i><b>2.2</b> RStudio IDE</a></li>
+<li class="chapter" data-level="2.3" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#some-basic-operations"><i class="fa fa-check"></i><b>2.3</b> Some Basic Operations</a></li>
+<li class="chapter" data-level="2.4" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#data-classes-in-r"><i class="fa fa-check"></i><b>2.4</b> Data Classes in R</a></li>
+<li class="chapter" data-level="2.5" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#data-types-in-r"><i class="fa fa-check"></i><b>2.5</b> Data Types in R</a></li>
+<li class="chapter" data-level="2.6" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#indexing-and-data-transformations"><i class="fa fa-check"></i><b>2.6</b> Indexing and Data Transformations</a></li>
+<li class="chapter" data-level="2.7" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#visualization"><i class="fa fa-check"></i><b>2.7</b> Visualization</a></li>
+<li class="chapter" data-level="2.8" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#creating-a-simple-map"><i class="fa fa-check"></i><b>2.8</b> Creating a Simple Map</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html"><i class="fa fa-check"></i><b>3</b> Introduction to Mapping in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#preliminaries"><i class="fa fa-check"></i><b>3.2</b> Preliminaries</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#packages"><i class="fa fa-check"></i><b>3.3</b> Packages</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#exploring-dataframes-and-a-simple-proportional-symbols-map"><i class="fa fa-check"></i><b>3.4</b> Exploring dataframes and a simple proportional symbols map</a></li>
+<li class="chapter" data-level="3.5" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#improving-on-the-proportional-symbols-map"><i class="fa fa-check"></i><b>3.5</b> Improving on the proportional symbols map</a></li>
+<li class="chapter" data-level="3.6" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#some-simple-spatial-analysis"><i class="fa fa-check"></i><b>3.6</b> Some simple spatial analysis</a></li>
+<li class="chapter" data-level="3.7" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#other-resources"><i class="fa fa-check"></i><b>3.7</b> Other resources</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html"><i class="fa fa-check"></i><b>4</b> Activity 1: Statistical Maps I</a><ul>
+<li class="chapter" data-level="4.1" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#housekeeping-questions"><i class="fa fa-check"></i><b>4.1</b> Housekeeping Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#learning-objectives-3"><i class="fa fa-check"></i><b>4.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="4.3" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#preliminaries-1"><i class="fa fa-check"></i><b>4.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="4.4" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#creating-a-simple-thematic-map"><i class="fa fa-check"></i><b>4.4</b> Creating a simple thematic map</a></li>
+<li class="chapter" data-level="4.5" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#activity"><i class="fa fa-check"></i><b>4.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html"><i class="fa fa-check"></i><b>5</b> Mapping in R: Continued</a><ul>
+<li class="chapter" data-level="5.1" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#learning-objectives-4"><i class="fa fa-check"></i><b>5.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#suggested-reading"><i class="fa fa-check"></i><b>5.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="5.3" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#preliminaries-2"><i class="fa fa-check"></i><b>5.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="5.4" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#summarizing-a-dataframe"><i class="fa fa-check"></i><b>5.4</b> Summarizing a Dataframe</a></li>
+<li class="chapter" data-level="5.5" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#factors"><i class="fa fa-check"></i><b>5.5</b> Factors</a></li>
+<li class="chapter" data-level="5.6" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#subsetting-data"><i class="fa fa-check"></i><b>5.6</b> Subsetting Data</a></li>
+<li class="chapter" data-level="5.7" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#pipe-operator"><i class="fa fa-check"></i><b>5.7</b> Pipe operator</a></li>
+<li class="chapter" data-level="5.8" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#more-on-visualization"><i class="fa fa-check"></i><b>5.8</b> More on Visualization</a></li>
+<li class="chapter" data-level="5.9" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#other-resources-1"><i class="fa fa-check"></i><b>5.9</b> Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html"><i class="fa fa-check"></i><b>6</b> Activity 2: Statistical Maps II</a><ul>
+<li class="chapter" data-level="6.1" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#housekeeping-questions-1"><i class="fa fa-check"></i><b>6.1</b> Housekeeping Questions</a></li>
+<li class="chapter" data-level="6.2" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#learning-objectives-5"><i class="fa fa-check"></i><b>6.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.3" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#suggested-reading-1"><i class="fa fa-check"></i><b>6.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="6.4" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#preliminaries-3"><i class="fa fa-check"></i><b>6.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="6.5" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#activity-1"><i class="fa fa-check"></i><b>6.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><i class="fa fa-check"></i><b>7</b> Maps as Processes: Null Landscapes, Spatial Processes, and Statistical Maps</a><ul>
+<li class="chapter" data-level="7.1" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#learning-objectives-6"><i class="fa fa-check"></i><b>7.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#suggested-reading-2"><i class="fa fa-check"></i><b>7.2</b> Suggested Reading</a></li>
+<li class="chapter" data-level="7.3" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#preliminaries-4"><i class="fa fa-check"></i><b>7.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="7.4" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#random-numbers"><i class="fa fa-check"></i><b>7.4</b> Random Numbers</a></li>
+<li class="chapter" data-level="7.5" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#null-landscapes"><i class="fa fa-check"></i><b>7.5</b> Null Landscapes</a></li>
+<li class="chapter" data-level="7.6" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#stochastic-processes"><i class="fa fa-check"></i><b>7.6</b> Stochastic processes</a></li>
+<li class="chapter" data-level="7.7" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#simulating-spatial-processes"><i class="fa fa-check"></i><b>7.7</b> Simulating Spatial Processes</a></li>
+<li class="chapter" data-level="7.8" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#processes-and-patterns"><i class="fa fa-check"></i><b>7.8</b> Processes and Patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html"><i class="fa fa-check"></i><b>8</b> Activity 3: Maps as Processes</a><ul>
+<li class="chapter" data-level="8.1" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#practice-questions"><i class="fa fa-check"></i><b>8.1</b> Practice questions</a></li>
+<li class="chapter" data-level="8.2" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#learning-objectives-7"><i class="fa fa-check"></i><b>8.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.3" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#suggested-reading-3"><i class="fa fa-check"></i><b>8.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="8.4" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#preliminaries-5"><i class="fa fa-check"></i><b>8.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="8.5" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#activity-2"><i class="fa fa-check"></i><b>8.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html"><i class="fa fa-check"></i><b>9</b> Point Pattern Analysis I</a><ul>
+<li class="chapter" data-level="9.1" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#learning-objectives-8"><i class="fa fa-check"></i><b>9.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#suggested-reading-4"><i class="fa fa-check"></i><b>9.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="9.3" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#preliminaries-6"><i class="fa fa-check"></i><b>9.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="9.4" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#point-patterns"><i class="fa fa-check"></i><b>9.4</b> Point patterns</a></li>
+<li class="chapter" data-level="9.5" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#processes-and-point-patterns"><i class="fa fa-check"></i><b>9.5</b> Processes and Point Patterns</a></li>
+<li class="chapter" data-level="9.6" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#intensity-and-density"><i class="fa fa-check"></i><b>9.6</b> Intensity and Density</a></li>
+<li class="chapter" data-level="9.7" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#quadrats-and-density-maps"><i class="fa fa-check"></i><b>9.7</b> Quadrats and Density Maps</a></li>
+<li class="chapter" data-level="9.8" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#defining-the-region-for-analysis"><i class="fa fa-check"></i><b>9.8</b> Defining the Region for Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html"><i class="fa fa-check"></i><b>10</b> Activity 4: Point Pattern Analysis I</a><ul>
+<li class="chapter" data-level="10.1" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#practice-questions-1"><i class="fa fa-check"></i><b>10.1</b> Practice questions</a></li>
+<li class="chapter" data-level="10.2" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#learning-objectives-9"><i class="fa fa-check"></i><b>10.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="10.3" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#suggested-reading-5"><i class="fa fa-check"></i><b>10.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="10.4" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#preliminaries-7"><i class="fa fa-check"></i><b>10.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="10.5" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#activity-3"><i class="fa fa-check"></i><b>10.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis II</a><ul>
+<li class="chapter" data-level="11.1" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#learning-objectives-10"><i class="fa fa-check"></i><b>11.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="11.2" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#suggested-reading-6"><i class="fa fa-check"></i><b>11.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="11.3" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#preliminaries-8"><i class="fa fa-check"></i><b>11.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="11.4" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#a-quadrat-based-test-for-spatial-independence"><i class="fa fa-check"></i><b>11.4</b> A quadrat-based test for spatial independence</a></li>
+<li class="chapter" data-level="11.5" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#limitations-of-quadrat-analysis-size-and-number-of-quadrats"><i class="fa fa-check"></i><b>11.5</b> Limitations of quadrat analysis: size and number of quadrats</a></li>
+<li class="chapter" data-level="11.6" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#limitations-of-quadrat-analysis-relative-position-of-events"><i class="fa fa-check"></i><b>11.6</b> Limitations of quadrat analysis: relative position of events</a></li>
+<li class="chapter" data-level="11.7" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#kernel-density"><i class="fa fa-check"></i><b>11.7</b> Kernel density</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html"><i class="fa fa-check"></i><b>12</b> Activity 5: Point Pattern Analysis II</a><ul>
+<li class="chapter" data-level="12.1" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#practice-questions-2"><i class="fa fa-check"></i><b>12.1</b> Practice questions</a></li>
+<li class="chapter" data-level="12.2" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#learning-objectives-11"><i class="fa fa-check"></i><b>12.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="12.3" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#suggested-reading-7"><i class="fa fa-check"></i><b>12.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="12.4" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#preliminaries-9"><i class="fa fa-check"></i><b>12.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="12.5" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#activity-4"><i class="fa fa-check"></i><b>12.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html"><i class="fa fa-check"></i><b>13</b> Point Pattern Analysis III</a><ul>
+<li class="chapter" data-level="13.1" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#learning-objectives-12"><i class="fa fa-check"></i><b>13.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="13.2" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#suggested-reading-8"><i class="fa fa-check"></i><b>13.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="13.3" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#preliminaries-10"><i class="fa fa-check"></i><b>13.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="13.4" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#motivation"><i class="fa fa-check"></i><b>13.4</b> Motivation</a></li>
+<li class="chapter" data-level="13.5" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#nearest-neighbors"><i class="fa fa-check"></i><b>13.5</b> Nearest neighbors</a></li>
+<li class="chapter" data-level="13.6" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#g-function"><i class="fa fa-check"></i><b>13.6</b> G-function</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html"><i class="fa fa-check"></i><b>14</b> Activity 6: Point Pattern Analysis III</a><ul>
+<li class="chapter" data-level="14.1" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#practice-questions-3"><i class="fa fa-check"></i><b>14.1</b> Practice questions</a></li>
+<li class="chapter" data-level="14.2" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#learning-objectives-13"><i class="fa fa-check"></i><b>14.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="14.3" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#suggested-reading-9"><i class="fa fa-check"></i><b>14.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="14.4" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#preliminaries-11"><i class="fa fa-check"></i><b>14.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="14.5" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#activity-5"><i class="fa fa-check"></i><b>14.5</b> Activity</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Spatial Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="point-pattern-analysis-iii" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> Point Pattern Analysis III</h1>
+<p><em>NOTE</em>: You can download the source files for this book from <a href="https://github.com/paezha/Spatial-Statistics-Course">here</a>. The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes.</p>
+<p>In the last practice/session your learning objectives included:</p>
+<ol style="list-style-type: decimal">
+<li>The intuition behind the quadrat-based test of independence.</li>
+<li>The concept of kernel density.</li>
+<li>The limitations of density-based analysis</li>
+<li>More ways to work with <code>ppp</code> objects.</li>
+</ol>
+<p>Please review the previous practices if you need a refresher on these concepts.</p>
+<p>If you wish to work interactively with this chapter you will need the following:</p>
+<ul>
+<li><p>An R markdown notebook version of this document (the source file).</p></li>
+<li><p>A package called <code>geog4ga3</code>.</p></li>
+</ul>
+<div id="learning-objectives-12" class="section level2">
+<h2><span class="header-section-number">13.1</span> Learning objectives</h2>
+<p>In this practice, you will learn:</p>
+<ol style="list-style-type: decimal">
+<li>About clustered and dispersed (or regular) patterns.</li>
+<li>The concept of nearest neighbors.</li>
+<li>About distance-based methods for point pattern analysis.</li>
+<li>About the G-function for the analysis of event-to-event nearest neighbor distances.</li>
+</ol>
+</div>
+<div id="suggested-reading-8" class="section level2">
+<h2><span class="header-section-number">13.2</span> Suggested reading</h2>
+<p>O’Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 5. John Wiley &amp; Sons: New Jersey.</p>
+</div>
+<div id="preliminaries-10" class="section level2">
+<h2><span class="header-section-number">13.3</span> Preliminaries</h2>
+<p>As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is <code>rm</code> (for “remove”), followed by a list of items to be removed. To clear the workspace from <em>all</em> objects, do the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
+<p>Note that <code>ls()</code> lists all objects currently on the worspace.</p>
+<p>Load the libraries you will use in this activity:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## v ggplot2 3.1.0     v purrr   0.2.5
+## v tibble  1.4.2     v dplyr   0.7.8
+## v tidyr   0.8.2     v stringr 1.3.1
+## v readr   1.2.1     v forcats 0.3.0</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spatstat)</code></pre></div>
+<pre><code>## Loading required package: spatstat.data</code></pre>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## 
+## Attaching package: &#39;nlme&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     collapse</code></pre>
+<pre><code>## Loading required package: rpart</code></pre>
+<pre><code>## 
+## spatstat 1.57-1       (nickname: &#39;Cartoon Physics&#39;) 
+## For an introduction to spatstat, type &#39;beginner&#39;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geog4ga3)</code></pre></div>
+<p>Load the datasets that you will use for this practice:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;pp1_df&quot;</span>)</code></pre></div>
+<p>Examine the contents of this dataframe:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(pp1_df)</code></pre></div>
+<pre><code>##        x                y                 marks   
+##  Min.   :0.0456   Min.   :0.03409   Pattern 1:36  
+##  1st Qu.:0.2251   1st Qu.:0.22963   Pattern 2:36  
+##  Median :0.4282   Median :0.43363                 
+##  Mean   :0.4916   Mean   :0.47952                 
+##  3rd Qu.:0.7812   3rd Qu.:0.77562                 
+##  Max.   :0.9564   Max.   :0.94492</code></pre>
+<p>As you can see, this dataframe includes two point patterns, labeled “Pattern 1” and “Pattern 2”, and each consists of <span class="math inline">\(n=36\)</span> events. The range of the coordinates suggests a window as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">W &lt;-<span class="st"> </span><span class="kw">owin</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</code></pre></div>
+<p>Given window object <code>W</code>, it is possible to transform the dataframe into a <code>ppp</code> object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pp1.ppp &lt;-<span class="st"> </span><span class="kw">as.ppp</span>(pp1_df, <span class="dt">W =</span> W)</code></pre></div>
+</div>
+<div id="motivation" class="section level2">
+<h2><span class="header-section-number">13.4</span> Motivation</h2>
+<p>Quadrats and kernel density are examples of density-based analysis. These techniques are useful to help you understand the large scale variation of a distribution of events, but as previously discussed, may sometimes be less informative by not taking into account <em>small scale</em> variations in the locations of the events.</p>
+<p>For this reason, the following two patterns, despite being very different, give identical number of counts per quadrat:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">split</span>(pp1.ppp))</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">quadratcount</span>(<span class="kw">split</span>(pp1.ppp), <span class="dt">nx =</span> <span class="dv">3</span>, <span class="dt">ny =</span> <span class="dv">3</span>))</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<p>The two patterns above have similar <em>density</em>, However, “Pattern 1” displays <em>clustering</em>, a situation characterized by events generally being in close proximity to others. “Pattern 2”, on the other hand, displays <em>dispersion</em> or <em>regularity</em>, a situation where points tend to be located at fairly regular distances from each other.</p>
+<p>With some fiddling of the parameters, quadrats can be coaxed to tease out the variations in density, for instance:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">quadratcount</span>(<span class="kw">split</span>(pp1.ppp), <span class="dt">nx =</span> <span class="dv">9</span>, <span class="dt">ny =</span> <span class="dv">9</span>))</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>As a visualization technique, this gives a better sense of the variations in density. However, as noted previously, the quality of the test deteriorates when there are many quadrats with small counts.</p>
+<p>As an alternative, kernel density can be used to visualize the smoothed estimate of the density:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">density</span>(<span class="kw">split</span>(pp1.ppp), <span class="dt">sigma =</span> <span class="fl">0.075</span>))</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>However, even when we can visualize the variations in density, we cannot, from the kernel estimate alone, tell if high/low values exceed those of a null landscape — in other words, we lack at the moment a way to test the hypothesis that the density is higher than what would be expected from a null landscape.</p>
+<p>In this practice you will learn about a family of techniques that instead of measuring the density, explore patterns by means of distance distributions.</p>
+</div>
+<div id="nearest-neighbors" class="section level2">
+<h2><span class="header-section-number">13.5</span> Nearest neighbors</h2>
+<p>Let us begin by introducing the concept of a nearest neighbor.</p>
+<p>The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks, for instance (see Figure ).</p>
+<div class="figure"><span id="fig:unnamed-chunk-10"></span>
+<img src="12-Reading-Figure-1.png" alt="\label{fig:distance-metrics}Figure 12.1 Examples of distance metrics" width="640" />
+<p class="caption">
+Figure 13.1: Figure 12.1 Examples of distance metrics
+</p>
+</div>
+<p>In this way, the nearest neighbor is the event j with the shortest separation from location i: <span class="math display">\[
+\text{Event }j\text{ is the nearest neighbor of location }i\text{ if: }d_{ij}\le d_{ik} \forall k 
+\]</span></p>
+<p>Ties are relatively rare in most realistic point patterns (even in regular patterns), and may not have a big impact on the analysis.</p>
+<p>The package <code>spatstat</code> includes functions to calculate Euclidean distances. Three functions are relevant:</p>
+<ul>
+<li><p><code>pairdist()</code>: returns the pairwise distance between all pairs of events i and j.</p></li>
+<li><p><code>nndist()</code>: returns a vector of distances from events to to their corresponding nearest neighbors; these distances are obtained by sorting the pairwise distances, and selecting the minimum value for each event.</p></li>
+<li><p><code>distmap()</code>: returns a pixel image with the distance from each pixel to the nearest event; in effect this is a map of the distances between empty spaces and their corresponding nearest events.</p></li>
+</ul>
+<p>With these functions we can calculate, for instance, the following distances:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pp1_nn1 &lt;-<span class="st"> </span><span class="kw">nndist</span>(<span class="kw">split</span>(pp1.ppp)<span class="op">$</span><span class="st">&quot;Pattern 1&quot;</span>)</code></pre></div>
+<p>Let us explore the distribution of these distances by means of a histogram:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">dist =</span> pp1_nn1), <span class="kw">aes</span>(dist), <span class="dt">binwidth =</span> <span class="fl">0.03</span>)</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Notice how most events have a nearest neighbor at a relatively short distance (&lt;0.05).</p>
+<p>Compare to the distribution of distances in “Pattern 2” of <code>pp1.ppp</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pp1_nn2 &lt;-<span class="st"> </span><span class="kw">nndist</span>(<span class="kw">split</span>(pp1.ppp)<span class="op">$</span><span class="st">&quot;Pattern 2&quot;</span>)
+<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">dist =</span> pp1_nn2), <span class="kw">aes</span>(dist), <span class="dt">binwidth =</span> <span class="fl">0.03</span>)</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>In this case, most events have a nearest neighbot at a distance of approximately 0.15.</p>
+<p>Another useful tool is a <em>Stienen diagram</em>. A Steinen diagram is essentially a proportional symbol plot of the events with symbols of size proportional to the distance to their nearest neighbor. For example, for “Pattern 1” in <code>pp1.ppp</code> (Notice the use of %mark% to add an attribute to the <code>ppp</code> object; the attribute is the distance to the nearest neighbor):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">split</span>(pp1.ppp)<span class="op">$</span><span class="st">&quot;Pattern 1&quot;</span> <span class="op">%mark%</span><span class="st"> </span>(pp1_nn1), <span class="dt">markscale =</span> <span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;Stienen diagram&quot;</span>)</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p>In this diagram, the largest circle is not very large: even events that are relatively isolated are not a long distance away from their nearest neighbor. This fits the definition of clustering as situation where events are close to other events.</p>
+<p>Compare to “Pattern 2”:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">split</span>(pp1.ppp)<span class="op">$</span><span class="st">&quot;Pattern 2&quot;</span> <span class="op">%mark%</span><span class="st"> </span>(pp1_nn2), <span class="dt">markscale =</span> <span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;Stienen diagram&quot;</span>)</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Notice how all circles are very similar in size: this fits the definition of dispersion, where events are more or less equally distant from their nearest neighbors.</p>
+<p>Lets use the function <code>runifpoint</code> from the <code>spatstat</code> package to generate a null landscape:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rand_ppp &lt;-<span class="st"> </span><span class="kw">runifpoint</span>(<span class="dv">36</span>)</code></pre></div>
+<p>If we plot the Stienen diagram for this point pattern:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rand_nn &lt;-<span class="st"> </span><span class="kw">nndist</span>(rand_ppp)
+<span class="kw">plot</span>(rand_ppp <span class="op">%mark%</span><span class="st"> </span>(rand_nn), <span class="dt">markscale =</span> <span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;Stienen diagram&quot;</span>)</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>In a null landscape, the distribution of the size of the symbols would tend to be random!</p>
+<p>The concept of nearest neighbors is useful to define a family of techniques that are based on the distribution of distances to nearest neighbors. Three such techniques are introduced here.</p>
+</div>
+<div id="g-function" class="section level2">
+<h2><span class="header-section-number">13.6</span> G-function</h2>
+<p>As you have seen above, the distribution of distances to nearest neighbors presents distinctive characteristics for different types of patterns.</p>
+<p>What is needed is a convenient way to summarize the distribution of distances to nearest neighbors. A way to do so is by means of a plot of the <em>cumulative distribution function</em>. A cumulative distribution is simply the proportion of events that are have a nearest neighbor at a distance less than some value x. When the value of x is very small, no events have a nearest neighbor at <span class="math inline">\(d_{ij}&lt;x\)</span>. When x is very large all events have a nearest neighbor at <span class="math inline">\(d_{ij}&lt;x\)</span>. The cumulative distribution thus depends on the value of x.</p>
+<p>Imagine for instance the following hypothetical distribution of distances of ten events to their nearest neighbors (the first event’s nearest neighbor is at a distance of 1, the second event’s nearest neighbor is at 2, the third’s at 0.5, and so on):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nnd &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.5</span>, <span class="fl">2.5</span>, <span class="fl">1.7</span>, <span class="dv">4</span>, <span class="fl">3.5</span>, <span class="fl">1.2</span>, <span class="fl">2.3</span>, <span class="fl">2.8</span>)</code></pre></div>
+<p>When x = 0, zero events have a nearest neighbor. When x = 1, two events have nearest neighbor at dist &lt;= 1. When x = 2, five events have a nearest neighbor at dist &lt;= 2. When x = 3, eight events have a nearest neighbor at dist &lt;= x. When x = 4, ten out of ten events have a nearest neighbor at dist &lt;= 4.</p>
+<p>We can plot these numbers of events as a proportion:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">proportion =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span><span class="op">/</span><span class="dv">10</span>, <span class="dv">5</span><span class="op">/</span><span class="dv">10</span>, <span class="dv">8</span><span class="op">/</span><span class="dv">10</span>, <span class="dv">10</span><span class="op">/</span><span class="dv">10</span>))
+<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> proportion))</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>The cumulative distribution function of distances from event to nearest neighbor is called a <em>G-function</em>.</p>
+<p>This function is defined as follows, with <span class="math inline">\(d_{ik}\)</span> as the distance from the event at i to its nearest neighbor: <span class="math display">\[
+\hat{G}(x)=\frac{(d_{ik}\le x, \forall i)}{n}
+\]</span></p>
+<p>This function (with a hat, because it is estimated from the data), can be used to explore the spatial point pattern. When doing so, it is useful to know that the theoretical value of G (assuming a null landscape generated by a <em>Poisson</em> distribution) is as follows: <span class="math display">\[
+G_{pois}(x) = 1 - exp(-\lambda \pi x^2).
+\]</span></p>
+<p>When the empirical <span class="math inline">\(\hat{G}(x)\)</span> is greater than the theoretical function, this suggests that the events tend to be <em>closer</em> than expected, compared to the null landscape. On the contrary, when the empirical function is less than the theoretical function, this would suggest a dispersed pattern.</p>
+<p>The G-function is implemented in <code>spatstat</code> as <code>Gest</code> (for G estimated):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g_pattern1 &lt;-<span class="st"> </span><span class="kw">Gest</span>(<span class="kw">split</span>(pp1.ppp)<span class="op">$</span><span class="st">&quot;Pattern 1&quot;</span>, <span class="dt">correction =</span> <span class="st">&quot;none&quot;</span>)</code></pre></div>
+<p>(For the moment ignore the argument “correction”; we will discuss corrections later on.)</p>
+<p>The <code>plot</code> function can be used to visualize the estimated G (with r = x):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(g_pattern1)</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>In the plot above, the empirical function is the solid black line, and the theoretical is the dashed red line.</p>
+<p>If you examine these functions, you will see that about 50% of events have a nearest neighbor at a distance of less than approximately 0.04. In the null landscape, in contrast, only about 16% of events have a nearest neighbor at less than 0.04:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(g_pattern1)
+<span class="kw">lines</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="fl">0.04</span>, <span class="fl">0.04</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>), <span class="dt">lty =</span> <span class="st">&quot;dotted&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.04</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="dt">lty =</span> <span class="st">&quot;dotted&quot;</span>)
+<span class="kw">lines</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.04</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="fl">0.16</span>, <span class="fl">0.16</span>), <span class="dt">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>What this suggests is that in the actual landscape events tend to be much closer to other events in comparison the null landscape, and would therefore be suggestive of clustering.</p>
+<p>Compare to “Pattern 2”:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g_pattern2 &lt;-<span class="st"> </span><span class="kw">Gest</span>(<span class="kw">split</span>(pp1.ppp)<span class="op">$</span><span class="st">&quot;Pattern 2&quot;</span>, <span class="dt">correction =</span> <span class="st">&quot;none&quot;</span>)
+<span class="kw">plot</span>(g_pattern2)</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Now the empirical function is below the one for the null landscape. Notice too that all events have a nearest neighbor in a limited range of distances, between 0.14 and 0.18. This is indicative of a dispersed, or regular pattern.</p>
+<p>And the random pattern that you created before:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g_pattern_rnd &lt;-<span class="st"> </span><span class="kw">Gest</span>(rand_ppp, <span class="dt">correction =</span> <span class="st">&quot;none&quot;</span>)
+<span class="kw">plot</span>(g_pattern_rnd)</code></pre></div>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>In this case, the empirical function more closely resembles the theoretical function for the null landscape.</p>
+<p>By considering the distribution of distances to nearest neighbors, you can generate additional information on a point pattern to complement the density-based analysis of the preceding chapters.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="activity-5-point-pattern-analysis-ii.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="activity-6-point-pattern-analysis-iii.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

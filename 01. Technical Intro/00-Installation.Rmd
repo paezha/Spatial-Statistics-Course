@@ -96,5 +96,3 @@ And now, you can download and install the companion package for the book by doin
 ```{r eval=FALSE}
 install_github("paezha/Spatial-Statistics-Course", subdir="geog4ga3")
 ```
-
-## References

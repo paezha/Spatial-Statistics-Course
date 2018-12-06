@@ -1,6 +1,6 @@
-# Basic Operations in R
+# Basic Operations and Data Structures in R
 
-NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+*NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
 
 Now that you have installed R and RStudio we can begin with an overview of basic operations and data structures in this computing language. Please note that this document you are reading, called an R Notebook, is an example of what is called "literate programming", a style of document that uses code to illustrate a discussion, as opposed to the traditional programming style that uses natural language to discuss/document the code. It flips around the usual technical writing approach to make it more intuitive and accessible. 
 
@@ -16,21 +16,20 @@ print("Hello, Geography 4GA3")
 
 The chunk of code above instructed R (and trough R the computer) to `print` (or display on the screen) some text.
 
-## Learning objectives
+## Learning Objectives
 
 In this practice, you will learn:
 
-1. How to install R.
-2. Basic operations in R.
-3. Data classes, data types, and data transformations.
-4. About packages in R.
-5. Basic visualization.
+1. Basic operations in R.
+2. Data classes, data types, and data transformations.
+3. More about the use of packages in R.
+4. Basic visualization.
 
-## RStudio Window
+## RStudio IDE
 
-If you are reading this, you probably already read the document '00 Installation of R'. We can now proceed to discuss some basic concepts of operations and data types.
+If you are reading this, you probably already read the introductory chapter that instructed you to install R and RStudio. We can now proceed to discuss some basic concepts of operations and data types.
 
-## Some basic operations
+## Some Basic Operations
 
 R can perform many types of operations. Some simple operations are arithmetic. Other are logical. And so on.
 
@@ -437,7 +436,7 @@ There are many different geoms that can be used in `ggplot2`. You can always con
 ## starting httpd help server ... done
 ```
 
-## Creating a simple map
+## Creating a Simple Map
 
 We will see how maps are used in spatial statistical analysis. The simplest one that can be created is a so-called _dot map_ that displays the location of an event of interest. A dot map is, in fact, simply a scatterplot of the coordinates of events. We can use ggplot2 to create a simple dot map of the cities in your simple dataset. For this, we create a ggplot object, and for the x and y aesthetics we use the coordinates. The geometric element that we want to render is a point:
 
@@ -479,6 +478,6 @@ You have now created a relatively simple proportional symbols map! You can see t
 
 Check the `ggplot2` [Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) for more information on how to use this package.
 
-A last note. Many other visualization alternatives (for instance, Excel) provide point-and-click functions for creating plots. In contrast, `ggplot2` in R requires that the plot be created by meticulously instructing the package what to do. While this is more laborious, it also means that you have complete control over the creation of plots, which in turn allows you to create more flexible and inventive visuals.
+A last note. Many other visualization alternatives (for instance, Excel) provide point-and-click functions for creating plots. In contrast, ggplot2 in R requires that the plot be created by meticulously instructing the package what to do. While this is more laborious, it also means that you have complete control over the creation of plots, which in turn allows you to create more flexible and inventive visuals.
 
 This concludes your basic overview of basic operations and data structures in R. You will have an opportunity to learn more about creating maps in R with your reading.

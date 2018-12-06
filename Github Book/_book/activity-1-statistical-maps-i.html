@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Applied Spatial Statistics</title>
+  <title>Chapter 4 Activity 1: Statistical Maps I | Applied Spatial Statistics</title>
   <meta name="description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajiv Ubhi.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Applied Spatial Statistics" />
+  <meta property="og:title" content="Chapter 4 Activity 1: Statistical Maps I | Applied Spatial Statistics />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Applied Spatial Statistics" />
+  <meta name="twitter:title" content="Chapter 4 Activity 1: Statistical Maps I | Applied Spatial Statistics />
   
   <meta name="twitter:description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajiv Ubhi." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Antonio Paez">
 
 
-<meta name="date" content="2018-12-04">
+<meta name="date" content="2018-12-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,9 +33,10 @@
   
   
 <link rel="prev" href="introduction-to-mapping-in-r.html">
-
+<link rel="next" href="mapping-in-r-continued.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -115,32 +116,123 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html"><i class="fa fa-check"></i><b>1</b> Basic Operations in R</a><ul>
-<li class="chapter" data-level="1.1" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#learning-objectives"><i class="fa fa-check"></i><b>1.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="1.2" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#rstudio-window"><i class="fa fa-check"></i><b>1.2</b> RStudio Window</a></li>
-<li class="chapter" data-level="1.3" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#some-basic-operations"><i class="fa fa-check"></i><b>1.3</b> Some basic operations</a></li>
-<li class="chapter" data-level="1.4" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#data-classes-in-r"><i class="fa fa-check"></i><b>1.4</b> Data Classes in R</a></li>
-<li class="chapter" data-level="1.5" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#data-types-in-r"><i class="fa fa-check"></i><b>1.5</b> Data Types in R</a></li>
-<li class="chapter" data-level="1.6" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#indexing-and-data-transformations"><i class="fa fa-check"></i><b>1.6</b> Indexing and Data Transformations</a></li>
-<li class="chapter" data-level="1.7" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#visualization"><i class="fa fa-check"></i><b>1.7</b> Visualization</a></li>
-<li class="chapter" data-level="1.8" data-path="basic-operations-in-r.html"><a href="basic-operations-in-r.html#creating-a-simple-map"><i class="fa fa-check"></i><b>1.8</b> Creating a simple map</a></li>
+<li class="chapter" data-level="1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> Preliminaries: Installing R and RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#learning-objectives"><i class="fa fa-check"></i><b>1.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="1.3" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#r-the-open-statistical-computing-project"><i class="fa fa-check"></i><b>1.3</b> R: The open statistical computing project</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>1.3.1</b> What is R?</a></li>
+<li class="chapter" data-level="1.3.2" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#the-rstudio-ide"><i class="fa fa-check"></i><b>1.3.2</b> The RStudio IDE</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to Mapping in R</a><ul>
-<li class="chapter" data-level="2.1" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="2.2" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#preliminaries"><i class="fa fa-check"></i><b>2.2</b> Preliminaries</a></li>
-<li class="chapter" data-level="2.3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#packages"><i class="fa fa-check"></i><b>2.3</b> Packages</a></li>
-<li class="chapter" data-level="2.4" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#exploring-dataframes-and-a-simple-proportional-symbols-map"><i class="fa fa-check"></i><b>2.4</b> Exploring dataframes and a simple proportional symbols map</a></li>
-<li class="chapter" data-level="2.5" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#improving-on-the-proportional-symbols-map"><i class="fa fa-check"></i><b>2.5</b> Improving on the proportional symbols map</a></li>
-<li class="chapter" data-level="2.6" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#some-simple-spatial-analysis"><i class="fa fa-check"></i><b>2.6</b> Some simple spatial analysis</a></li>
-<li class="chapter" data-level="2.7" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#other-resources"><i class="fa fa-check"></i><b>2.7</b> Other resources</a></li>
-<li class="chapter" data-level="2.8" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#references"><i class="fa fa-check"></i><b>2.8</b> References</a></li>
+<li class="chapter" data-level="1.4" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#packages-in-r"><i class="fa fa-check"></i><b>1.4</b> Packages in R</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html"><i class="fa fa-check"></i><b>3</b> Activity 1: Statistical Maps I</a><ul>
-<li class="chapter" data-level="3.1" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#housekeeping-questions"><i class="fa fa-check"></i><b>3.1</b> Housekeeping Questions</a></li>
-<li class="chapter" data-level="3.2" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="3.3" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#preliminaries-1"><i class="fa fa-check"></i><b>3.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="3.4" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#creating-a-simple-thematic-map"><i class="fa fa-check"></i><b>3.4</b> Creating a simple thematic map</a></li>
-<li class="chapter" data-level="3.5" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#activity"><i class="fa fa-check"></i><b>3.5</b> Activity</a></li>
+<li class="chapter" data-level="2" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic Operations and Data Structures in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#rstudio-ide"><i class="fa fa-check"></i><b>2.2</b> RStudio IDE</a></li>
+<li class="chapter" data-level="2.3" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#some-basic-operations"><i class="fa fa-check"></i><b>2.3</b> Some Basic Operations</a></li>
+<li class="chapter" data-level="2.4" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#data-classes-in-r"><i class="fa fa-check"></i><b>2.4</b> Data Classes in R</a></li>
+<li class="chapter" data-level="2.5" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#data-types-in-r"><i class="fa fa-check"></i><b>2.5</b> Data Types in R</a></li>
+<li class="chapter" data-level="2.6" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#indexing-and-data-transformations"><i class="fa fa-check"></i><b>2.6</b> Indexing and Data Transformations</a></li>
+<li class="chapter" data-level="2.7" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#visualization"><i class="fa fa-check"></i><b>2.7</b> Visualization</a></li>
+<li class="chapter" data-level="2.8" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#creating-a-simple-map"><i class="fa fa-check"></i><b>2.8</b> Creating a Simple Map</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html"><i class="fa fa-check"></i><b>3</b> Introduction to Mapping in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#preliminaries"><i class="fa fa-check"></i><b>3.2</b> Preliminaries</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#packages"><i class="fa fa-check"></i><b>3.3</b> Packages</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#exploring-dataframes-and-a-simple-proportional-symbols-map"><i class="fa fa-check"></i><b>3.4</b> Exploring dataframes and a simple proportional symbols map</a></li>
+<li class="chapter" data-level="3.5" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#improving-on-the-proportional-symbols-map"><i class="fa fa-check"></i><b>3.5</b> Improving on the proportional symbols map</a></li>
+<li class="chapter" data-level="3.6" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#some-simple-spatial-analysis"><i class="fa fa-check"></i><b>3.6</b> Some simple spatial analysis</a></li>
+<li class="chapter" data-level="3.7" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#other-resources"><i class="fa fa-check"></i><b>3.7</b> Other resources</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html"><i class="fa fa-check"></i><b>4</b> Activity 1: Statistical Maps I</a><ul>
+<li class="chapter" data-level="4.1" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#housekeeping-questions"><i class="fa fa-check"></i><b>4.1</b> Housekeeping Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#learning-objectives-3"><i class="fa fa-check"></i><b>4.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="4.3" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#preliminaries-1"><i class="fa fa-check"></i><b>4.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="4.4" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#creating-a-simple-thematic-map"><i class="fa fa-check"></i><b>4.4</b> Creating a simple thematic map</a></li>
+<li class="chapter" data-level="4.5" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#activity"><i class="fa fa-check"></i><b>4.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html"><i class="fa fa-check"></i><b>5</b> Mapping in R: Continued</a><ul>
+<li class="chapter" data-level="5.1" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#learning-objectives-4"><i class="fa fa-check"></i><b>5.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#suggested-reading"><i class="fa fa-check"></i><b>5.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="5.3" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#preliminaries-2"><i class="fa fa-check"></i><b>5.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="5.4" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#summarizing-a-dataframe"><i class="fa fa-check"></i><b>5.4</b> Summarizing a Dataframe</a></li>
+<li class="chapter" data-level="5.5" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#factors"><i class="fa fa-check"></i><b>5.5</b> Factors</a></li>
+<li class="chapter" data-level="5.6" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#subsetting-data"><i class="fa fa-check"></i><b>5.6</b> Subsetting Data</a></li>
+<li class="chapter" data-level="5.7" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#pipe-operator"><i class="fa fa-check"></i><b>5.7</b> Pipe operator</a></li>
+<li class="chapter" data-level="5.8" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#more-on-visualization"><i class="fa fa-check"></i><b>5.8</b> More on Visualization</a></li>
+<li class="chapter" data-level="5.9" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#other-resources-1"><i class="fa fa-check"></i><b>5.9</b> Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html"><i class="fa fa-check"></i><b>6</b> Activity 2: Statistical Maps II</a><ul>
+<li class="chapter" data-level="6.1" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#housekeeping-questions-1"><i class="fa fa-check"></i><b>6.1</b> Housekeeping Questions</a></li>
+<li class="chapter" data-level="6.2" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#learning-objectives-5"><i class="fa fa-check"></i><b>6.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.3" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#suggested-reading-1"><i class="fa fa-check"></i><b>6.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="6.4" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#preliminaries-3"><i class="fa fa-check"></i><b>6.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="6.5" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#activity-1"><i class="fa fa-check"></i><b>6.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><i class="fa fa-check"></i><b>7</b> Maps as Processes: Null Landscapes, Spatial Processes, and Statistical Maps</a><ul>
+<li class="chapter" data-level="7.1" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#learning-objectives-6"><i class="fa fa-check"></i><b>7.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#suggested-reading-2"><i class="fa fa-check"></i><b>7.2</b> Suggested Reading</a></li>
+<li class="chapter" data-level="7.3" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#preliminaries-4"><i class="fa fa-check"></i><b>7.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="7.4" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#random-numbers"><i class="fa fa-check"></i><b>7.4</b> Random Numbers</a></li>
+<li class="chapter" data-level="7.5" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#null-landscapes"><i class="fa fa-check"></i><b>7.5</b> Null Landscapes</a></li>
+<li class="chapter" data-level="7.6" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#stochastic-processes"><i class="fa fa-check"></i><b>7.6</b> Stochastic processes</a></li>
+<li class="chapter" data-level="7.7" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#simulating-spatial-processes"><i class="fa fa-check"></i><b>7.7</b> Simulating Spatial Processes</a></li>
+<li class="chapter" data-level="7.8" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#processes-and-patterns"><i class="fa fa-check"></i><b>7.8</b> Processes and Patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html"><i class="fa fa-check"></i><b>8</b> Activity 3: Maps as Processes</a><ul>
+<li class="chapter" data-level="8.1" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#practice-questions"><i class="fa fa-check"></i><b>8.1</b> Practice questions</a></li>
+<li class="chapter" data-level="8.2" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#learning-objectives-7"><i class="fa fa-check"></i><b>8.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.3" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#suggested-reading-3"><i class="fa fa-check"></i><b>8.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="8.4" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#preliminaries-5"><i class="fa fa-check"></i><b>8.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="8.5" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#activity-2"><i class="fa fa-check"></i><b>8.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html"><i class="fa fa-check"></i><b>9</b> Point Pattern Analysis I</a><ul>
+<li class="chapter" data-level="9.1" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#learning-objectives-8"><i class="fa fa-check"></i><b>9.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#suggested-reading-4"><i class="fa fa-check"></i><b>9.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="9.3" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#preliminaries-6"><i class="fa fa-check"></i><b>9.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="9.4" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#point-patterns"><i class="fa fa-check"></i><b>9.4</b> Point patterns</a></li>
+<li class="chapter" data-level="9.5" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#processes-and-point-patterns"><i class="fa fa-check"></i><b>9.5</b> Processes and Point Patterns</a></li>
+<li class="chapter" data-level="9.6" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#intensity-and-density"><i class="fa fa-check"></i><b>9.6</b> Intensity and Density</a></li>
+<li class="chapter" data-level="9.7" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#quadrats-and-density-maps"><i class="fa fa-check"></i><b>9.7</b> Quadrats and Density Maps</a></li>
+<li class="chapter" data-level="9.8" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#defining-the-region-for-analysis"><i class="fa fa-check"></i><b>9.8</b> Defining the Region for Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html"><i class="fa fa-check"></i><b>10</b> Activity 4: Point Pattern Analysis I</a><ul>
+<li class="chapter" data-level="10.1" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#practice-questions-1"><i class="fa fa-check"></i><b>10.1</b> Practice questions</a></li>
+<li class="chapter" data-level="10.2" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#learning-objectives-9"><i class="fa fa-check"></i><b>10.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="10.3" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#suggested-reading-5"><i class="fa fa-check"></i><b>10.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="10.4" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#preliminaries-7"><i class="fa fa-check"></i><b>10.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="10.5" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#activity-3"><i class="fa fa-check"></i><b>10.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis II</a><ul>
+<li class="chapter" data-level="11.1" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#learning-objectives-10"><i class="fa fa-check"></i><b>11.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="11.2" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#suggested-reading-6"><i class="fa fa-check"></i><b>11.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="11.3" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#preliminaries-8"><i class="fa fa-check"></i><b>11.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="11.4" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#a-quadrat-based-test-for-spatial-independence"><i class="fa fa-check"></i><b>11.4</b> A quadrat-based test for spatial independence</a></li>
+<li class="chapter" data-level="11.5" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#limitations-of-quadrat-analysis-size-and-number-of-quadrats"><i class="fa fa-check"></i><b>11.5</b> Limitations of quadrat analysis: size and number of quadrats</a></li>
+<li class="chapter" data-level="11.6" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#limitations-of-quadrat-analysis-relative-position-of-events"><i class="fa fa-check"></i><b>11.6</b> Limitations of quadrat analysis: relative position of events</a></li>
+<li class="chapter" data-level="11.7" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#kernel-density"><i class="fa fa-check"></i><b>11.7</b> Kernel density</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html"><i class="fa fa-check"></i><b>12</b> Activity 5: Point Pattern Analysis II</a><ul>
+<li class="chapter" data-level="12.1" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#practice-questions-2"><i class="fa fa-check"></i><b>12.1</b> Practice questions</a></li>
+<li class="chapter" data-level="12.2" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#learning-objectives-11"><i class="fa fa-check"></i><b>12.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="12.3" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#suggested-reading-7"><i class="fa fa-check"></i><b>12.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="12.4" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#preliminaries-9"><i class="fa fa-check"></i><b>12.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="12.5" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#activity-4"><i class="fa fa-check"></i><b>12.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html"><i class="fa fa-check"></i><b>13</b> Point Pattern Analysis III</a><ul>
+<li class="chapter" data-level="13.1" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#learning-objectives-12"><i class="fa fa-check"></i><b>13.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="13.2" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#suggested-reading-8"><i class="fa fa-check"></i><b>13.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="13.3" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#preliminaries-10"><i class="fa fa-check"></i><b>13.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="13.4" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#motivation"><i class="fa fa-check"></i><b>13.4</b> Motivation</a></li>
+<li class="chapter" data-level="13.5" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#nearest-neighbors"><i class="fa fa-check"></i><b>13.5</b> Nearest neighbors</a></li>
+<li class="chapter" data-level="13.6" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#g-function"><i class="fa fa-check"></i><b>13.6</b> G-function</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html"><i class="fa fa-check"></i><b>14</b> Activity 6: Point Pattern Analysis III</a><ul>
+<li class="chapter" data-level="14.1" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#practice-questions-3"><i class="fa fa-check"></i><b>14.1</b> Practice questions</a></li>
+<li class="chapter" data-level="14.2" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#learning-objectives-13"><i class="fa fa-check"></i><b>14.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="14.3" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#suggested-reading-9"><i class="fa fa-check"></i><b>14.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="14.4" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#preliminaries-11"><i class="fa fa-check"></i><b>14.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="14.5" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#activity-5"><i class="fa fa-check"></i><b>14.5</b> Activity</a></li>
 </ul></li>
 </ul>
 
@@ -160,9 +252,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="activity-1-statistical-maps-i" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Activity 1: Statistical Maps I</h1>
+<h1><span class="header-section-number">Chapter 4</span> Activity 1: Statistical Maps I</h1>
+<p>Remember, you can download the source file for this activity from <a href="https://github.com/paezha/Spatial-Statistics-Course">here</a>.</p>
 <div id="housekeeping-questions" class="section level2">
-<h2><span class="header-section-number">3.1</span> Housekeeping Questions</h2>
+<h2><span class="header-section-number">4.1</span> Housekeeping Questions</h2>
 <p>Answer the following questions:</p>
 <ol style="list-style-type: decimal">
 <li><p>What are the office hours of your instructor this term?</p></li>
@@ -170,40 +263,39 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p>What is the policy for late assignments in this course?</p></li>
 </ol>
 </div>
-<div id="learning-objectives-2" class="section level2">
-<h2><span class="header-section-number">3.2</span> Learning Objectives</h2>
+<div id="learning-objectives-3" class="section level2">
+<h2><span class="header-section-number">4.2</span> Learning Objectives</h2>
 <p>In this activity you will:</p>
 <ol style="list-style-type: decimal">
 <li>Discuss statistical maps and what makes them interesting.</li>
 </ol>
 </div>
 <div id="preliminaries-1" class="section level2">
-<h2><span class="header-section-number">3.3</span> Preliminaries</h2>
+<h2><span class="header-section-number">4.3</span> Preliminaries</h2>
 <p>In the practice that preceded this activity, you used <code>ggmap</code> to create a proportional symbol map, a mapping technique used in spatial statistics for visualization of geocoded event information. As well, you implemented a simple technique called kernel analysis to the map to explore the distribution of events in the case of the cholera outbreak of Soho in London in 1854. Geocoded events are often called <em>point patterns</em>, so with the cholera data you were working with a point pattern.</p>
 <p>In this activity, we will map another type of spatial data, called <em>areal data</em>. Areas are often administrative or political jurisdictions.</p>
 <p>For this activity you will need the following:</p>
 <ul>
-<li><p>An R markdown notebook.</p></li>
-<li><p>A package called <code>geog4ga3</code></p></li>
+<li><p>An R markdown notebook version of this document (the source file).</p></li>
+<li><p>A package called <code>geog4ga3</code>.</p></li>
 </ul>
 <p>It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is <code>rm</code> (for “remove”), followed by a list of items to be removed. To clear the workspace from <em>all</em> objects, do the following:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
 <p>Note that <code>ls()</code> lists all objects currently on the worspace.</p>
 <p>Load the libraries you will use in this activity:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
-<pre><code>## -- Attaching packages ------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
 <pre><code>## v ggplot2 3.1.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.7
+## v tibble  1.4.2     v dplyr   0.7.8
 ## v tidyr   0.8.2     v stringr 1.3.1
-## v readr   1.1.1     v forcats 0.3.0</code></pre>
-<pre><code>## -- Conflicts ---------------------------------------------------------- tidyverse_conflicts() --
+## v readr   1.2.1     v forcats 0.3.0</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geog4ga3)
-<span class="kw">library</span>(leaflet)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geog4ga3)</code></pre></div>
 </div>
 <div id="creating-a-simple-thematic-map" class="section level2">
-<h2><span class="header-section-number">3.4</span> Creating a simple thematic map</h2>
+<h2><span class="header-section-number">4.4</span> Creating a simple thematic map</h2>
 <p>If you successfully loaded package <code>geog4ga3</code> a dataset <code>HamiltonDAs</code> should be available for analysis:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(HamiltonDAs)</code></pre></div>
 <p>You can examine the contents of the dataset by means of <code>head</code> (which will show the top rows):</p>
@@ -264,55 +356,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Now you have seen how to create a thematic map with polygons (areal data), you are ready for the following activity.</p>
 </div>
 <div id="activity" class="section level2">
-<h2><span class="header-section-number">3.5</span> Activity</h2>
+<h2><span class="header-section-number">4.5</span> Activity</h2>
 <ol style="list-style-type: decimal">
 <li><p>Create thematic maps for variables VAR1 through VAR5 in the dataframe <code>HamiltonDAs</code>. Remember that you can introduce new chunks of code.</p></li>
 <li><p>Imagine that these maps were found, and for some reason the variables were not labeled. They may represent income, or population density, or something else. Which of the five maps you just created is more interesting? Rank the five maps from most to least interesting. Explain the reasons for your ranking.</p></li>
 </ol>
 
-<div id="refs" class="references">
-<div>
-<p>Anselin, Luc. 1988. <em>Spatial Econometrics: Methods and Models</em>. Book. Dordrecht: Kluwer.</p>
-</div>
-<div>
-<p>———. 1995. “Local Indicators of Spatial Association - Lisa.” Journal Article. <em>Geographical Analysis</em> 27: 93–115.</p>
-</div>
-<div>
-<p>Bailey, T. C., and A. C. Gatrell. 1995. <em>Interactive Spatial Data Analysis</em>. Book. Essex: Addison Wesley Longman.</p>
-</div>
-<div>
-<p>Brunsdon, C., A. S. Fotheringham, and M. E. Charlton. 1996. “Geographically Weighted Regression: A Method for Exploring Spatial Nonstationarity.” Journal Article. <em>Geographical Analysis</em> 28 (4): 281–98. <a href="ISI:A1996VL03500001" class="uri">ISI:A1996VL03500001</a>.</p>
-</div>
-<div>
-<p>Cressie, N. A. C. 1993. <em>Statistics for Spatial Data</em>. Book. Wiley Series in Probability and Mathematical Statistics. New York: John Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Fotheringham, A. S., and C. Brunsdon. 1999. “Local Forms of Spatial Analysis.” Journal Article. <em>Geographical Analysis</em> 31 (4): 340–58.</p>
-</div>
-<div>
-<p>Getis, A., and J. K. Ord. 1992. “The Analysis of Spatial Association by Use of Distance Statistics.” Journal Article. <em>Geographical Analysis</em> 24 (3): 189–206. <a href="ISI:A1992JF93400001
-C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf" class="uri">ISI:A1992JF93400001
-C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf</a>.</p>
-</div>
-<div>
-<p>Griffith, D. A. 1988. <em>Advanced Spatial Statistics: Special Topics in the Exploration of Quantitative Spatial Data Series</em>. Book. Dordrecht: Kluwer.</p>
-</div>
-<div>
-<p>Haining, R. 1990. <em>Spatial Data Analysis in the Social and Environmental Sciences</em>. Book. Cambridge: Cambridge University Press.</p>
-</div>
-<div>
-<p>Lloyd, Christopher D. 2010. <em>Local Models for Spatial Analysis</em>. CRC press.</p>
-</div>
-<div>
-<p>McGrew Jr, J Chapman, and Charles B Monroe. 2009. <em>An Introduction to Statistical Problem Solving in Geography</em>. Book. 2nd. Edition. Long Grove, Illinois: Waveland Press.</p>
-</div>
-<div>
-<p>O’Sullivan, David, and David Unwin. 2010. <em>Geographic Information Analysis</em>. Book. 2nd. Edition. Hoboken, New Jersey: John Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Wickham, Hadley. 2015. <em>R Packages: Organize, Test, Document, and Share Your Code</em>. “ O’Reilly Media, Inc.”</p>
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -320,8 +369,8 @@ C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf<
           </div>
         </div>
       </div>
-<a href="introduction-to-mapping-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="introduction-to-mapping-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mapping-in-r-continued.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -341,7 +390,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -354,6 +403,10 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"history": {
+"link": null,
+"text": null
+},
 "download": null,
 "toc": {
 "collapse": "subsection"
@@ -362,6 +415,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

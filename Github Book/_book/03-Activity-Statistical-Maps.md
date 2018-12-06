@@ -1,5 +1,7 @@
 # Activity 1: Statistical Maps I
 
+Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
+
 ## Housekeeping Questions
 
 Answer the following questions:
@@ -24,9 +26,9 @@ In this activity, we will map another type of spatial data, called _areal data_.
 
 For this activity you will need the following:
 
-* An R markdown notebook.
+* An R markdown notebook version of this document (the source file).
 
-* A package called `geog4ga3`
+* A package called `geog4ga3`.
 
 It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 
@@ -43,25 +45,24 @@ library(tidyverse)
 ```
 
 ```
-## -- Attaching packages ------------------------------------------------------- tidyverse 1.2.1 --
+## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
 ```
 
 ```
 ## v ggplot2 3.1.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.7
+## v tibble  1.4.2     v dplyr   0.7.8
 ## v tidyr   0.8.2     v stringr 1.3.1
-## v readr   1.1.1     v forcats 0.3.0
+## v readr   1.2.1     v forcats 0.3.0
 ```
 
 ```
-## -- Conflicts ---------------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
 
 ```r
 library(geog4ga3)
-library(leaflet)
 ```
 
 ## Creating a simple thematic map

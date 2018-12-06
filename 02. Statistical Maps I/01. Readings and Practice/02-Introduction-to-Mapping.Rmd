@@ -160,5 +160,3 @@ In this practice you have learned how to implement some simple mapping and spati
 If you would like to experiment some more with this dataset, visit [a Shiny app](http://130.113.141.152:3838/Modules/Module1-SnowCholera/) that lets you explore this dataset.
              
 For more information on the functionality of `leaflet`, please check [Leaflet for R](https://rstudio.github.io/leaflet/)
-
-## References

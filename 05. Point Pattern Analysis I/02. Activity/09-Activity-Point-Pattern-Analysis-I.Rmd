@@ -136,7 +136,7 @@ plot(q_test)
 
 Now that you have seen how to do some analysis using quadrats, you are ready for the next activity.
 
-#Activity
+## Activity
 
 1. Use `Fast_Food`, `Gas_Stands`, `Paez_Mart`, and `Toronto` to create density maps for the three point patterns. Select a quadrat size that you think is appropriate. 
 

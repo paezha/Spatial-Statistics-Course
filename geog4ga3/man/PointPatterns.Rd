@@ -6,7 +6,7 @@
 \title{PointPatterns}
 \format{A data frame with 140 rows and 3 variables}
 \source{
-Dr. Paez
+A Paez
 }
 \usage{
 data(PointPatterns)

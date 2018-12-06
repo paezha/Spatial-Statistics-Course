@@ -12,8 +12,7 @@ Extracted from Data5.RData
 data(pp3_df)
 }
 \description{
-A dataset containing `spatstat` `ppp`-class objects used to represent spatial events.
- The variables are as follows:
+A sample dataset with a point pattern.
 }
 \details{
 \itemize{

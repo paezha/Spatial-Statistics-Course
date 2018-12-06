@@ -6,13 +6,13 @@
 \title{missing_df}
 \format{A data frame with 65 rows and 6 variables}
 \source{
-Dr. Paez
+A Paez
 }
 \usage{
 data(missing_df)
 }
 \description{
-A dataframe containing a set of observations, including some missing variables.
+A dataframe containing a set of observations, including some with missing variables.
  The variables are as follows:
 }
 \details{

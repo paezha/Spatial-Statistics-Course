@@ -6,13 +6,15 @@
 \title{trips_by_mode}
 \format{An excel file with 270 rows and 20 variables}
 \source{
+\url{http://www.transportationtomorrow.on.ca/}
+
 \url{http://www12.statcan.gc.ca/census-recensement/index-eng.cfm}
 }
 \usage{
 data(trips_by_mode)
 }
 \description{
-An excel file with the number of trips by mode of transportation by Traffic Analysis Zone (TAZ), and other useful information from the 2011 census for the Hamilton, CMA, Canada.
+An dataframe with the number of trips by mode of transportation by Traffic Analysis Zone (TAZ), and other useful information from the 2011 census for the Hamilton, CMA, Canada.
 }
 \details{
 \itemize{

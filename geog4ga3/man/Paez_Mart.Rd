@@ -6,7 +6,7 @@
 \title{Paez_Mart}
 \format{A data frame with 395 rows and 3 variables}
 \source{
-Data frame developed by Dr. Paez in 2008
+Data frame developed by A Paez in 2008
 }
 \usage{
 data(Paez_Mart)

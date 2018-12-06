@@ -6,7 +6,7 @@
 \title{"travel_time_car"}
 \format{An excel file with 270 rows and 10 variables}
 \source{
-\url{http://www.transportationtomorrow.on.ca/}
+Calculated by A. Paez
 }
 \usage{
 data(travel_time_car)

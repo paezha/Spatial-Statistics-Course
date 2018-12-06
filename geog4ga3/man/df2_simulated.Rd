@@ -12,7 +12,7 @@ Extracted from Data6.RData
 data(df2_simulated)
 }
 \description{
-A dataframe containing a simulated landscape.
+A dataframe with a simulated landscape.
 }
 \details{
 \itemize{

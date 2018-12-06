@@ -22,11 +22,11 @@ Such is the case of the R statistial computing language. R has been adopted by m
 
 The objective of this note is to provide an introduction to mapping in R. Maps are one of the fundamental tools of spatial statistics and spatial analysis, and R allows for many GIS-like functions.
 
-To use this note you will need the following:
+If you wish to work interactively with this chapter you will need the following:
 
-* This R markdown notebook.
+* An R markdown notebook version of this document (the source file).
 
-* A package called `geog4ga3`
+* A package called `geog4ga3`.
 
 In the previous reading/practice you created a simple proportional symbols map. In this reading/practice you will learn how to create more sophisticated maps in R.
 
@@ -157,7 +157,7 @@ In this practice you have learned how to implement some simple mapping and spati
 
 ## Other resources
 
-If you would like to experiment some more with this dataset, visit [a Shiny app](link) that lets you explore this dataset.
+If you would like to experiment some more with this dataset, visit [a Shiny app](http://130.113.141.152:3838/Modules/Module1-SnowCholera/) that lets you explore this dataset.
              
 For more information on the functionality of `leaflet`, please check [Leaflet for R](https://rstudio.github.io/leaflet/)
 

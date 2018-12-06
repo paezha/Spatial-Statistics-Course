@@ -19,7 +19,7 @@ Modeling is a process that further extracts information from the data, typically
 
 All of the tasks mentioned above, and many more, can be handled easily in a variety of software applications. For this course, you will use the statistical computing language R. 
 
-```{r fig.cap= "\\label{fig:data-analysis-process}Figure. 1 The process of doing data analysis (from Wickham and Grolemund, 2016)", echo=FALSE}
+```{r fig.cap= "\\label{fig:data-analysis-process}Figure 1.1 The process of doing data analysis (from Wickham and Grolemund, 2016)", echo=FALSE}
 knitr::include_graphics(rep("Data Analysis - Grolemund and Wickham.png"))
 ```
 
@@ -55,7 +55,7 @@ Before introducing some basic functionality in R, lets quickly take a tour R Stu
 
 The RStudio IDE provides a complete interface to interact with the language R. It consists of a window with several panes. Some panes include in addition several tabs. There are the usual drop-down menus for common operations, such as creating new files, saving, common commands for editing, etc. See Figure \ref{fig:RStudio-IDE} below.
 
-```{r fig.cap= "\\label{fig:RStudio-IDE}Figure 2. The RStudio IDE", echo=FALSE}
+```{r fig.cap= "\\label{fig:RStudio-IDE}Figure 1.2 The RStudio IDE", echo=FALSE}
 knitr::include_graphics(rep("RStudio IDE.png"))
 ```
 

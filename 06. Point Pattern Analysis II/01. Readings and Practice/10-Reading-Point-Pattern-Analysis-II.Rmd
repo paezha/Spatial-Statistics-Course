@@ -1,11 +1,11 @@
 ---
-title: "05 Point Pattern Analysis II"
+title: "10 Point Pattern Analysis II"
 output: html_notebook
 ---
 
-#Introduction
+# Point Pattern Analysis II
 
-NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+*NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
 
 In the last practice/session your learning objectives included:
 
@@ -17,16 +17,13 @@ In the last practice/session your learning objectives included:
 
 Please review the previous practices if you need a refresher on these concepts.
 
-For this practice you will need the following:
+If you wish to work interactively with this chapter you will need the following:
 
-* This R markdown notebook.
-* Datasets called `Data3.RData` and `Data4.RData`.
+* An R markdown notebook version of this document (the source file).
 
-`Data3.RData` includes a dataframe with four sets of spatial events, labeled as "Pattern 1", "Pattern 2", "Pattern 3", "PointPattern4", with n = 60 events in each set.
+* A package called `geog4ga3`.
 
-`Data4.RData` includes a `spatstat` `ppp`-class object with two sets of spatial events, labeled as "Pattern 1" and "Pattern 2"
-
-#Learning objectives
+## Learning objectives
 
 In this practice, you will learn:
 
@@ -52,33 +49,30 @@ Load the libraries you will use in this activity:
 ```{r}
 library(tidyverse)
 library(spatstat)
+library(geog4ga3)
 ```
 
 Load the datasets that you will use for this practice:
 ```{r}
-load("Data3.RData")
-load("pp1_df.RData")
+data("PointPatterns")
+data("pp1_df")
 ```
 
-To turn the 'pp1_df' into a ppp object: 
-```{r}
-w <- owin(c(0,1), c(0,1))
-pp1 <- as.ppp(pp1_df, W=w)
-```
-
-There is a dataframe called `PointPatterns`. You can check this by means of the function class `class()`.
+`PointPatterns` is a dataframe with four sets of spatial events, labeled as "Pattern 1", "Pattern 2", "Pattern 3", and "Pattern 4". Each set has $n=60$ events. You can check the class of this object by means of the function class `class()`.
 ```{r}
 class(PointPatterns)
 ```
 
-In addition, there is a `ppp` object with two point patterns:
-```{r}
-class(pp1)
-```
+The second dataframe (i.e., `pp1_df`) includes the coordinates `x` and `y` of two sets of spatial events, labeled as "Pattern 1" and "Pattern 2".
 
 The summary for `PointPatterns` shows that these point patterns are located in a square-unit window (check the max and min values of x and y):
 ```{r}
 summary(PointPatterns)
+```
+
+The same is true for `pp1_df`:
+```{r}
+summary(pp1_df)
 ```
 
 As seen in the previous practice and activity, the package `spatstat` employs a type of object called `ppp` (for *p*lanar *p*oint *p*attern). Fortunately, it is relatively simple to convert a dataframe into a `ppp` object by means of `as.ppp()`. This function requires that you define a window for the point pattern, something we can do by means of the `owin` function:
@@ -86,9 +80,16 @@ As seen in the previous practice and activity, the package `spatstat` employs a 
 W <- owin(xrange = c(0, 1), yrange = c(0, 1))
 ```
 
-Now you can convert the dataframe into a `ppp` object:
+Then the dataframes are converted using the `as.ppp` function: 
 ```{r}
-PointPatterns.ppp <- as.ppp(PointPatterns, W)
+pp1.ppp <- as.ppp(pp1_df, W = W)
+PointPatterns.ppp <- as.ppp(PointPatterns, W = W)
+```
+
+You can verify that the new objects are indeed of `ppp`-class:
+```{r}
+class(pp1.ppp)
+class(PointPatterns.ppp)
 ```
 
 #A quadrat-based test for spatial independence
@@ -100,7 +101,7 @@ Let's begin by plotting the patterns. You can use `split` to do plots for each p
 plot(split(PointPatterns.ppp))
 ```
 
-Notice that you can also plot individual patterns by using `$` followed by the factor that identifies the desired pattern:
+Recall that you can also plot individual patterns by using `$` followed by the factor that identifies the desired pattern (this is a way of indexing different patterns in `ppp`-class objects):
 ```{r}
 plot(split(PointPatterns.ppp)$"Pattern 4")
 ```
@@ -116,7 +117,7 @@ Plot the results of the quadrat test:
 plot(q_test)
 ```
 
-As discussed in the previous session, the expected distribution of events on quadrats under the null landscape tends to be quite even. This is because each quadrat has equal probability of having the same number of events (depending on size, when the quadrats are not all the same size).
+As seen in the preceding chapter, the expected distribution of events on quadrats under the null landscape tends to be quite even. This is because each quadrat has equal probability of having the same number of events (depending on size, when the quadrats are not all the same size).
 
 If you check the plot of the quadrat test above, you will notice that the first number (top left corner) is the number of events in the quadrat. The second number (top right corner) is the _expected number of events_ for a null landscape. The third number is a _residual_, based on the difference between the observed and expected number of events.
 
@@ -194,12 +195,12 @@ Another issue with quadrat analysis is its insensibility to the relative positio
 
 Consider for instance the following two patterns in `pp1`:
 ```{r}
-plot(split(pp1))
+plot(split(pp1.ppp))
 ```
 
 These two patterns look quite different. And yet, when we count the events by quadrats:
 ```{r}
-plot(quadratcount(split(pp1), nx = 3, ny = 3))
+plot(quadratcount(split(pp1.ppp), nx = 3, ny = 3))
 ```
 
 This example highlights how quadrats are relatively coarse measures of density, and fail to distinguish between fairly different event distributions, in particular because quadrat analysis does not take into account the relative position of the events with respect to each other.
@@ -216,7 +217,7 @@ We can define such a window by selecting a function that declines with increasin
 ```{r}
 ggplot(data = data.frame(dist = c(-3, 3)), aes(dist)) +
   stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1)) +
-  ylim(c(0, 0.75))
+  ylim(c(0, 0.45))
 ```
 
 As you can see, the value of the function declines with increasing distance from the center of the window (when dist == 0; note that the value never becomes zero!). This is a _Gaussian kernel_. The shape of the Gaussian kernel depends on a variance parameter, which we will call the _kernel bandwidth_. 
@@ -229,11 +230,13 @@ Kernel density is implemented in `spatstat` and can be used as follows.
 
 The input is a `ppp` object, and optionally a `sigma` argument that corresponds to the bandwidth of the kernel:
 ```{r}
-kernel_density <- density(split(pp1), sigma = 0.1)
-plot(split(pp1))
+kernel_density <- density(split(pp1.ppp), sigma = 0.1)
 plot(kernel_density)
 ```
 
-The plots above illustrate how the map of the kernel density is better able to capture the variations in density across the region. In fact, kernel density is a smooth estimate of the underlying intensity of the process, and the degree of smoothing is controlled by the bandwidth.
+Compare to the distribution of events:
+```{r}
+plot(split(pp1.ppp))
+```
 
-This concludes Practice 5.
+The plots above illustrate how the map of the kernel density is better able to capture the variations in density across the region. In fact, kernel density is a smooth estimate of the underlying intensity of the process, and the degree of smoothing is controlled by the bandwidth.

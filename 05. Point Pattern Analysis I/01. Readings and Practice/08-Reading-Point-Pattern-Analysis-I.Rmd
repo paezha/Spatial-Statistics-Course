@@ -16,12 +16,11 @@ In last practice your learning objectives were:
 
 Please review the previous practices if you need a refresher on these concepts.
 
-For this practice you will need the following:
+If you wish to work interactively with this chapter you will need the following:
 
-* This R markdown notebook.
-* A dataset called `Data3.RData`
+* An R markdown notebook version of this document (the source file).
 
-This dataset includes a dataframe with four sets of spatial events, labeled as "Pattern 1", "Pattern 2", "Pattern 3", "PointPattern4", with n = 60 events in each set.
+* A package called `geog4ga3`.
 
 ## Learning objectives
 

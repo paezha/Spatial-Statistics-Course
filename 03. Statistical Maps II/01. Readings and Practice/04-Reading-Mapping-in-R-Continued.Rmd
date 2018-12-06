@@ -17,11 +17,11 @@ In the preceding chapters, you were introduced to the following concepts:
 
 Please review the previous practices if you need a refresher on these concepts.
 
-For this practice you will need the following:
+If you wish to work interactively with this chapter you will need the following:
 
-* This R markdown notebook.
+* An R markdown notebook version of this document (the source file).
 
-* A package called `geog4ga3`
+* A package called `geog4ga3`.
    
 ## Learning objectives
 
@@ -200,4 +200,6 @@ ggplot() +
   coord_fixed()
 ```
 
-These are relatively simple maps, in fact not much more than scatterplots. If you would like to see different possibilities for creating maps in R, please visit [here](link)
+## Other Resources
+
+These are relatively simple maps, in fact not much more than scatterplots. If you would like to see different possibilities for creating maps in R, please visit [a Shiny app](http://130.113.141.152:3838/Modules/Module2-DataType/) that illustrates maps for different types of data.

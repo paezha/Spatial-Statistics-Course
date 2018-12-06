@@ -1,9 +1,9 @@
 ---
-title: "04 Session 4: Point Pattern Analysis I"
+title: "Activity 4: Point Pattern Analysis I"
 output: html_notebook
 ---
 
-# Point Pattern Analysis I
+# Activity 4: Point Pattern Analysis I
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
 
@@ -33,6 +33,8 @@ O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Ch
 
 ## Preliminaries
 
+For this activity you will need the following:
+
 * An R markdown notebook version of this document (the source file).
 
 * A package called `geog4ga3`.
@@ -48,7 +50,7 @@ Load the libraries you will use in this activity. In addition to `tidyverse`, yo
 ```{r}
 library(tidyverse)
 library(spatstat)
-library(maptools)
+library(maptools) # Needed to convert a `Spatial Polygons` object into an `owin` object
 library(geog4ga3)
 ```
 
@@ -61,7 +63,7 @@ data("Gas_Stands")
 data("Paez_Mart")
 ```
 
-Next the geospatial files need to be read. For this example, an dataset that contains the city boundary of Toronto is used:
+Next the geospatial files need to be read. For this example, the city boundary of Toronto is provided in two different formats, as a dataframe (which can be used to plot using `ggplot2`) and as a `SpatialPolygons` object, a format widely used in R for spatial analysis. The :
 ```{r}
 data("Toronto")
 data("Toronto_df")
@@ -72,17 +74,27 @@ If you inspect your workspace, you will see that the following dataframes are th
 * `Fast_Food`
 * `Gas_Stands`
 * `Paez_Mart`
-* `Toronto`
+* `Toronto_df`
 
-These are locations of fast food restaurants and gas stands in Toronto (data are from 2008). Paez Mart on the other hand is my project to cover Toronto with convenience stores. The points are the planned locations of the stores. `Toronto` is the city boundary.
+These are locations of fast food restaurants and gas stands in Toronto (data are from 2008). Paez Mart on the other hand is my project to cover Toronto with convenience stores. The points are the planned locations of the stores. `Toronto_df` is the city boundary.
+
+Also, there should be an object of class `SpatialPolygons`:
+```{r}
+class(Toronto)
+```
 
 Try plotting the following:
 ```{r}
 ggplot() + geom_point(data = Fast_Food, aes(x = x, y = y)) +
-    geom_polygon(data = Toronto, aes(x = long, y = lat, group = group), color = "black", fill = NA, alpha = 1, size = .3)
+    geom_polygon(data = Toronto_df, aes(x = long, y = lat, group = group), color = "black", fill = NA, alpha = 1, size = .3)
 ```
 
-As discussed in the preceding chapter, the package `spatstat` is a very rich collection of tools to do point pattern analysis. To convert the three sets of events (i.e., the fast food establishments, gas stands, and Paez Mart) into a ppp object use the following: 
+As discussed in the preceding chapter, the package `spatstat` is a very rich collection of tools to do point pattern analysis. To convert the three sets of events (i.e., the fast food establishments, gas stands, and Paez Mart) into `ppp` objects we first must define a region or _window_. To do this we take the `SpatialPolygons` and convert to an `owin` (a window object) for use with the package `spatstat`:
+```{r}
+Toronto.owin <- as.owin(Toronto) # Requires `maptools` package
+```
+
+And, then convert the dataframes to `ppp` objects: 
 ```{r}
 Fast_Food.ppp <- as.ppp(Fast_Food, W = Toronto.owin)
 Fast_Food.ppp <- as.ppp(Fast_Food.ppp)
@@ -94,16 +106,7 @@ Paez_Mart.ppp <- as.ppp(Paez_Mart, W = Toronto.owin)
 Paez_Mart.ppp <- as.ppp(Paez_Mart.ppp)
 ```
 
-In addition to the dataframes, the following `ppp` objects are now available:
-
-* `Fast_Food.ppp`
-* `Gas_Stands.ppp`
-* `Paez_Mart.ppp`
-
-
-These include the same information, butare converted to `ppp` for use with `spatstat` functions.
-
-For instance, you can calculate the counts of events by quadrat by means of `quadrat.count`. The input must be a `ppp` object, and the number of quadrats on the horizontal (nx) and vertical (ny) direction (notice how I use the function `table` to present the frequency of quadrats with number of events):
+These objects can now be used with the functions of the `spatstat` package. For instance, you can calculate the counts of events by quadrat by means of `quadrat.count`. The input must be a `ppp` object, and the number of quadrats on the horizontal (nx) and vertical (ny) direction (notice how I use the function `table` to present the frequency of quadrats with number of events):
 ```{r}
 q_count <- quadratcount(Fast_Food.ppp, nx = 3, ny = 3)
 table(q_count)
@@ -116,7 +119,6 @@ You can also plot the results of the `quadratcount`!
 plot(q_count)
 ```
 
-
 A useful function in the `spatstat` package is `quadrat.test`. This function implements a statistical test that compares the empirical distribution of events by quadrats to the distribution of events as expected under the hypothesis that the underlying process is _random_.
 
 This is implemented as follows:
@@ -125,12 +127,14 @@ q_test <- quadrat.test(Fast_Food.ppp, nx = 3, ny = 3)
 q_test
 ```
 
-The quadrat test reports a p-value which can be used to make a decision. The p-value is the probability that you will be mistaken if you reject the null hypothesis. To make a decision, you need to know what is the null hypothesis, and your own tolerance for making a mistake. In the case above, the p-value is very, very small (2.2e-16 = 0.00000000000000022). Since the null hypothesis is spatial randomness, you can reject this hypothesis and the probability that you are making a mistake is vanishingly small.
+The quadrat test reports a $p$-value which can be used to make a decision. The $p$-value is the probability that you will be mistaken if you reject the null hypothesis. To make a decision, you need to know what is the null hypothesis, and your own tolerance for making a mistake. In the case above, the $p$-value is very, very small (2.2e-16 = 0.00000000000000022). Since the null hypothesis is spatial randomness, you can reject this hypothesis and the probability that this decision is mistaken is vanishingly small.
 
 Try plotting the results of `quadrat.test`:
 ```{r}
 plot(q_test)
 ```
+
+Now that you have seen how to do some analysis using quadrats, you are ready for the next activity.
 
 #Activity
 

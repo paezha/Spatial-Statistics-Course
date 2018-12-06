@@ -3,15 +3,15 @@ title: "09 Point Pattern Analysis V"
 output: html_notebook
 ---
 
-#Introduction
+# Point Pattern Analysis V
 
-NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+*NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
 
 In the last practice/session your learning objectives included:
 
-1. Learning about the F- or empty space function.
+1. Learning about the $\hat{F}$- or empty space function.
 2. Considering the issue of patterns at multiple scales.
-3. Learning about the K-function.
+3. Learning about the $\hat{K}$-function.
 4. Applying these techniques using a simple example.
 
 Please review the previous practices if you need a refresher on these concepts.
@@ -23,9 +23,9 @@ For this practice you will need the following:
 
 `Data5.RData` includes five `spatstat` `ppp`-class objects.
 
-#Learning objectives
+## Learning objectives
 
-In this practice, you will:
+In this chapter, you will:
 
 1. Revisit the concept of hypothesis testing
 2. Revisit the concept of null landscapes.
@@ -33,11 +33,11 @@ In this practice, you will:
 4. Learn to implement simulation envelopes
 5. Consider some caveats when working with point patterns
 
-#Suggested reading
+## Suggested reading
 
 O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 5. John Wiley & Sons: New Jersey.
 
-#Preliminaries
+## Preliminaries
 
 As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 ```{r}
@@ -50,20 +50,39 @@ Load the libraries you will use in this activity:
 ```{r}
 library(tidyverse)
 library(spatstat)
+library(geog4ga3)
 ```
 
 Load the datasets that you will use for this practice:
 ```{r}
-load("Data5.RData")
+data("pp1_df")
+data("pp2_df")
+data("pp3_df")
+data("pp4_df")
+data("pp5_df")
 ```
 
-# Motivation: hypothesis testing
+These five dataframes include the coordinates of events set in the space of a unit square. To convert these dataframes into `ppp` objects we first define a window:
+```{r}
+W <- owin(c(0, 1), c(0, 1))
+```
+
+And then use the function `as.ppp` to convert into `ppp`: 
+```{r}
+pp1.ppp <- as.ppp(pp1_df, W = W)
+pp2.ppp <- as.ppp(pp2_df, W = W)
+pp3.ppp <- as.ppp(pp3_df, W = W)
+pp4.ppp <- as.ppp(pp4_df, W = W)
+pp5.ppp <- as.ppp(pp5_df, W = W)
+```
+
+## Motivation: Hypothesis Testing
 
 In the previous sessions you learned about density- and distance-based techniques for the analysis of spatial point patterns.
 
-With the exception of the test of independence for quadrats, other techniques (including kernel density, the $\hat{G}$- and $\hat{F}$-functions, and the $\hat{K}$-function), did not have an formal hypothesis framework.
+With the exception of the test of independence for quadrats, other techniques (including kernel density, the $\hat{G}$- and $\hat{F}$-functions, and the $\hat{K}$-function), did not have a formal hypothesis testing framework.
 
-The question of "how confident are you in deciding whether a pattern is random" forms the basis of hypothesis testing. In other words, when making a decision whether the reject a null hypothesis, we would like to know what is the probability that we are making a mistake when doing so. Quantifying our uncertainty is a key feature of statistical analysis. 
+The question of "how confident are you when deciding whether a pattern is random" forms the basis of hypothesis testing. In other words, when making a decision whether the reject a null hypothesis, we would like to know what is the probability that we are making a mistake when doing so. Quantifying our uncertainty is a key feature of statistical analysis. 
 
 In statistics, tests of hypothesis are developed following these general steps:
 
@@ -80,9 +99,9 @@ $$
 
 Similar expressions were presented for the $\hat{F}$-function and $\hat{K}$-function, but not for kernel density estimates. When the expected value of the function is known, the closer the empirical function is to its expected value, the more likely it is that the null hypothesis is true.
 
-For instance, the $\hat{G}$-function of the pattern in `pp1` is shown below. It is quite close to the theoretical function, so the pattern is probably random. The question is, how probable is this?
+For instance, the $\hat{G}$-function of the pattern in `pp1.ppp` is shown below. It is quite close to the theoretical function, so the pattern is probably random. The question is, how probable is this?
 ```{r}
-g_pp1 <- Gest(pp1, correction = "none") 
+g_pp1 <- Gest(pp1.ppp, correction = "none") 
 plot(g_pp1)
 ```
 
@@ -90,15 +109,15 @@ plot(g_pp1)
 
 Unfortunately, the variance of the theoretical random processes is not known in the case of many spatial point pattern techniques (the quadrat-based test of independence is an exception.) For a long time, this meant that the techniques remained purely descriptive, and it was not possible to quantify uncertainty when trying to decide whether a pattern was random: the decision would remain purely subjective.
 
-Fortunately, with the increased use of computers in statistical analysis, the lack of theoretical expressions for the variance can be circumvented by means of simulation. Simulation has many applications in statistics, and is particularly relevant in the analysis of point patterns, allowing us to generate null landscapes with ease.
+Fortunately, with the growth in use of computers in statistical analysis, the lack of theoretical expressions for the variance can be circumvented by means of simulation. Simulation has many applications in statistics, and is particularly relevant in the analysis of point patterns, allowing us to generate null landscapes with ease.
 
-# Null landscapes revisited
+## Null landscapes revisited
 
 A null landscape is a landscape produced by a random process. In previous practices you saw various different ways of generating null landscapes. A useful way of generating null landscapes for point patterns is by means of a Poisson process. The package `spatstat` implements this by means of the function `rpoisp`. This function generates a null landscape given an intensity parameter and a window.
 
-Before creating a null landscape, we can check the characteristics of the patterns in the dataset.
+Before creating a null landscape, we can check the characteristics of the patterns in the dataset:
 ```{r}
-summary(pp1)
+summary(pp1.ppp)
 ```
 
 You can verify that the intensity in every case is 81 points per square unit, and the window is a square unit.

@@ -182,7 +182,7 @@ NULL
 #' @name Paez_Mart
 #' @usage data(Paez_Mart)
 #' @format A data frame with 395 rows and 3 variables
-#' @source Data frame developed by Dr. Paez in 2008
+#' @source Data frame developed by A Paez in 2008
 "Paez_Mart"
 
 #' Toronto
@@ -219,25 +219,6 @@ NULL
 #' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 "Toronto_df"
 
-#' pp1_df
-#'
-#' A dataset that includes a `spatstat` `ppp`-class object with two sets of spatial events, labeled as "Pattern 1" and "Pattern 2".
-#'  The varirables are as follows:
-#'
-#'  \itemize{
-#'    \item x. list of x-coordinates used to plot two sets of spatial events (0.04559819--0.95643341)
-#'    \item y. list of y-coordinates used to plot two sets of spatial events (0.03408578--0.94492099)
-#'    \item marks. Two sets of spatial events (Pattern 1, Pattern 2)
-#' }
-#'
-#' @docType data
-#' @keywords datasets
-#' @name pp1_df
-#' @usage data(pp1_df)
-#' @format A data frame with 72 rows and 3 variables
-#' @source Extracted from Data4.RData
-"pp1_df"
-
 #' bear_df
 #'
 #' A dataset containing spatial information from the Scandinavian Bear Project which is a Swedish-Noruegian collaboration that aims to study the ecology of brown bears, to provide decision makers with evidence to support bear management, and to provide information regarding bears to the public.
@@ -257,10 +238,45 @@ NULL
 #' @source \url{(http://bearproject.info/about-the-project/)}
 "bear_df"
 
+#' pp0_df
+#'
+#' A sample dataset with a point pattern with two sets of spatial events, labeled as "Pattern 1" and "Pattern 2".
+#'
+#'  \itemize{
+#'    \item x. list of x-coordinates used to plot two sets of spatial events (0.04559819--0.95643341)
+#'    \item y. list of y-coordinates used to plot two sets of spatial events (0.03408578--0.94492099)
+#'    \item marks. Two sets of spatial events (Pattern 1, Pattern 2)
+#' }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name pp0_df
+#' @usage data(pp0_df)
+#' @format A data frame with 72 rows and 3 variables
+#' @source Extracted from Data4.RData
+"pp0_df"
+
+#' pp1_df
+#'
+#' A sample dataset with a point pattern.
+#'
+#'  \itemize{
+#'    \item x. list of x-coordinates (0.01321246--0.96299812)
+#'    \item y. list of y-coordinates (0.02570673--0.84147945)
+#'}
+#'
+#' @docType data
+#' @keywords datasets
+#' @name pp1_df
+#' @usage data(pp1_df)
+#' @format A data frame with 81 rows and 2 variables
+#' @source Extracted from Data5.RData
+"pp1_df"
+
+
 #' pp2_df
 #'
-#' A dataset containing `spatstat` `ppp`-class objects used to represent spatial events.
-#'  The variables are as follows:
+#' A sample dataset with a point pattern.
 #'
 #'  \itemize{
 #'    \item x. list of x-coordinates (0.01321246--0.96299812)
@@ -277,8 +293,7 @@ NULL
 
 #' pp3_df
 #'
-#' A dataset containing `spatstat` `ppp`-class objects used to represent spatial events.
-#'  The variables are as follows:
+#' A sample dataset with a point pattern.
 #'
 #'  \itemize{
 #'    \item x. list of x-coordinates (0.1035079--0.8741389)
@@ -295,8 +310,7 @@ NULL
 
 #' pp4_df
 #'
-#' A dataset containing `spatstat` `ppp`-class objects used to represent spatial events.
-#'  The variables are as follows:
+#' A sample dataset with a point pattern.
 #'
 #'  \itemize{
 #'    \item x. list of x-coordinates (0.1945629--0.9624404)
@@ -313,8 +327,7 @@ NULL
 
 #' pp5_df
 #'
-#' A dataset containing `spatstat` `ppp`-class objects used to represent spatial events.
-#'  The variables are as follows:
+#' A sample dataset with a point pattern.
 #'
 #'  \itemize{
 #'    \item x. list of x-coordinates (0.16--0.88)
@@ -331,7 +344,7 @@ NULL
 
 #' missing_df
 #'
-#' A dataframe containing a set of observations, including some missing variables.
+#' A dataframe containing a set of observations, including some with missing variables.
 #'  The variables are as follows:
 #'
 #' \itemize{
@@ -348,7 +361,7 @@ NULL
 #' @name missing_df
 #' @usage data(missing_df)
 #' @format A data frame with 65 rows and 6 variables
-#' @source Dr. Paez
+#' @source A Paez
 "missing_df"
 
 #' PointPatterns
@@ -367,7 +380,7 @@ NULL
 #' @name PointPatterns
 #' @usage data(PointPatterns)
 #' @format A data frame with 140 rows and 3 variables
-#' @source Dr. Paez
+#' @source A Paez
 "PointPatterns"
 
 #' df1_simulated
@@ -390,7 +403,7 @@ NULL
 
 #' df2_simulated
 #'
-#' A dataframe containing a simulated landscape.
+#' A dataframe with a simulated landscape.
 #'
 #'  \itemize{
 #'    \item x. list of x-coordinates (1--87)
@@ -408,7 +421,7 @@ NULL
 
 #' trips_by_mode
 #'
-#' An excel file with the number of trips by mode of transportation by Traffic Analysis Zone (TAZ), and other useful information from the 2011 census for the Hamilton, CMA, Canada.
+#' An dataframe with the number of trips by mode of transportation by Traffic Analysis Zone (TAZ), and other useful information from the 2011 census for the Hamilton, CMA, Canada.
 #'
 #'  \itemize{
 #'    \item GTA06. identifier used for spatial joins (4050--6020)
@@ -438,6 +451,7 @@ NULL
 #' @name trips_by_mode
 #' @usage data(trips_by_mode)
 #' @format An excel file with 270 rows and 20 variables
+#' @source \url{http://www.transportationtomorrow.on.ca/}
 #' @source \url{http://www12.statcan.gc.ca/census-recensement/index-eng.cfm}
 "trips_by_mode"
 
@@ -463,7 +477,7 @@ NULL
 #' @name travel_time_car
 #' @usage data(travel_time_car)
 #' @format An excel file with 270 rows and 10 variables
-#' @source \url{http://www.transportationtomorrow.on.ca/}
+#' @source Calculated by A. Paez
 "travel_time_car"
 
 #' Walker_Lake

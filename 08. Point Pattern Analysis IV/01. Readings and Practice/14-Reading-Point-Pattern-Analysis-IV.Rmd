@@ -1,11 +1,11 @@
 ---
-title: "Practice - Point Pattern Analysis IV"
+title: "14 Point Pattern Analysis IV"
 output: html_notebook
 ---
 
-#Introduction
+# Point Pattern Analysis IV
 
-NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+*NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
 
 In the last practice/session your learning objectives included:
 
@@ -14,29 +14,26 @@ In the last practice/session your learning objectives included:
 3. Learning about distance-based methods for point pattern analysis.
 4. Learning about the G-function for the analysis of event-to-event nearest neighbor distances.
 
-Please review the previous practices if you need a refresher on these concepts.
+If you wish to work interactively with this chapter you will need the following:
 
-For this practice you will need the following:
+* An R markdown notebook version of this document (the source file).
 
-* This R markdown notebook.
-* A dataset called `Data5.RData`.
+* A package called `geog4ga3`.
 
-`Data5.RData` includes five `spatstat` `ppp`-class objects.
+## Learning objectives
 
-#Learning objectives
-
-In this practice, you will:
+In this chapter, you will:
 
 1. Learn about the F- or empty space function.
 2. Consider the issue of patterns at multiple scales.
 3. Learn about the K-function.
 4. Apply both of these techniques using a simple example.
 
-#Suggested reading
+## Suggested reading
 
 O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 5. John Wiley & Sons: New Jersey.
 
-#Preliminaries
+## Preliminaries
 
 As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 ```{r}
@@ -49,34 +46,39 @@ Load the libraries you will use in this activity:
 ```{r}
 library(tidyverse)
 library(spatstat)
+library(geog4ga3)
 ```
 
 Load the datasets that you will use for this practice:
 ```{r}
-load("pp1_df.RData")
-load("pp2_df.RData")
-load("pp3_df.RData")
-load("pp4_df.RData")
-load("pp5_df.RData")
+data("pp1_df")
+data("pp2_df")
+data("pp3_df")
+data("pp4_df")
+data("pp5_df")
 ```
 
-Turn each dataset into a ppp: 
+These five dataframes include the coordinates of events set in the space of a unit square. To convert these dataframes into `ppp` objects we first define a window:
 ```{r}
-w <- owin(c(0,1), c(0,1))
-pp1 <- as.ppp(pp1_df, W=w)
-pp2 <- as.ppp(pp2_df, W=w)
-pp3 <- as.ppp(pp3_df, W=w)
-pp4 <- as.ppp(pp4_df, W=w)
-pp5 <- as.ppp(pp5_df, W=w)
+W <- owin(c(0, 1), c(0, 1))
 ```
 
-# Motivation
+And then use the function `as.ppp` to convert into `ppp`: 
+```{r}
+pp1.ppp <- as.ppp(pp1_df, W = W)
+pp2.ppp <- as.ppp(pp2_df, W = W)
+pp3.ppp <- as.ppp(pp3_df, W = W)
+pp4.ppp <- as.ppp(pp4_df, W = W)
+pp5.ppp <- as.ppp(pp5_df, W = W)
+```
+
+## Motivation
 
 Distance-based approaches like the $\hat{G}$-function provide a useful complement to density-based approached. They can be implemented in more ways than we have seen so far.
 
-In this practice, you will learn about two more tools for doing distance-based analysis, the $\hat{F}$-function and the $\hat{K}$-function.
+In this practice, you will learn about two more tools for conducting distance-based analysis, the $\hat{F}$-function and the $\hat{K}$-function.
 
-# F-function
+## F-function
 
 The $\hat{G}$-function was defined as the cumulative distribution of the distances from _events_ to their nearest neighboring _event_. The $\hat{F}$-function is based on the same premise, but instead of using event-to-event distances, it uses point-to-event distances.
 
@@ -100,21 +102,21 @@ The interpretation of $\hat{F}(x)$ is the opposite of $\hat{G}(x)$: When the emp
 
 The $\hat{F}$-function can be implemented in at least two ways: (1) by using a fine grid to measure the distance to events; or (2) by measuring the distance to events from randomly drawn coordinates. The implementation in `spatstat` is the first one, which results in a pixel-based image of empty space.
 
-Let's illustrate this with the point pattern `pp1`.
+Let's illustrate this with the point pattern `pp1.ppp`.
 
 You can verify that this is already a `ppp` object:
 ```{r}
-class(pp1)
+class(pp1.ppp)
 ```
 
 Begin by plotting the pattern:
 ```{r}
-plot(pp1)
+plot(pp1.ppp)
 ```
 
 The empty space map is obtained by means of the `distmap` function:
 ```{r}
-empty_space_map1 <- distmap(pp1) 
+empty_space_map1 <- distmap(pp1.ppp) 
 ```
 
 The plot of this is:
@@ -124,21 +126,20 @@ plot(empty_space_map1)
 
 Similar to the Stienen diagrams that you used previously, this map shows the distance from any location on the map to the nearest event: the smaller the value, the closer the point is to an event.
 
-Compare the map above to `pp2`:
+Compare the map above to `pp2.ppp`:
 ```{r}
-empty_space_map2 <- distmap(pp2)
+empty_space_map2 <- distmap(pp2.ppp)
 plot(empty_space_map2)
 ```
 
-In the second point pattern, there is more open space in the region. This is also apparent from the dot map:
+In the second point pattern, there is more open space in the region. This is also apparent from the symbols map:
 ```{r}
-plot(pp2)
+plot(pp2.ppp)
 ```
 
-
-The F-function is implemented in `spatstat` as `Fest` (for F estimated):
+The $\hat{F}$-function is implemented in `spatstat` as `Fest` (for F-estimated), and it requires a `ppp` object as an input. Another possible input is whether a correction is to be used. This refers to boundary corrections. Since we have not yet discussed them, we will select "none":
 ```{r}
-f_pattern1 <- Fest(pp1, correction = "none")
+f_pattern1 <- Fest(pp1.ppp, correction = "none")
 ```
 
 This function can be plotted as follows:
@@ -148,7 +149,7 @@ plot(f_pattern1)
 
 Compare to the second pattern:
 ```{r}
-f_pattern2 <- Fest(pp2, correction = "none")
+f_pattern2 <- Fest(pp2.ppp, correction = "none")
 plot(f_pattern2)
 ```
 
@@ -156,36 +157,36 @@ In the empirical pattern, points on a grid tend to be more distant from events t
 
 Try plotting the $\hat{G}$-functions for these patterns, and compare.
 
-# K-function
+## K-function
 
-A limitation of the two techniques that you have seen so far is that they deal with a single scale: the k-th nearest neighbor (typically the first, although they can be used for the 2nd, 3rd, and so on nearest neighbor!).
+A limitation of the two techniques that you have seen so far is that they deal with a single scale: the $k$-th nearest neighbor (typically the first, although they can be used for the 2nd, 3rd, and so on nearest neighbor!).
 
 Their single scale nature means that these functions can easily miss patterns at different scales.
 
 Consider for instance the following point pattern:
 ```{r}
-plot(pp3)
+plot(pp3.ppp)
 ```
 
-The events above seem to be clustered, but then a second pattern becomes apparent at a different scale: a regular distribution of clusters.
+The events above initially appear to be clustered. However, at a different scale, a second pattern becomes evident. In fact, what we observe is a regular distribution of clusters.
 
 The following pattern, on the other hand, appears to be a random distribution of regularly spaced events:
 ```{r}
-plot(pp4)
+plot(pp4.ppp)
 ```
 
 Whereas the last point pattern is of clusters of dispersed events that are themselves regularly spaced:
 ```{r}
-plot(pp5)
+plot(pp5.ppp)
 ```
 
-Both $\hat{G}(x)$ or $\hat{F}(x)$ when applied to any of these patterns will detect clustering at the scale of the first nearest neighbor, but fail to detect patterns at other scales. For instance:
+Both $\hat{G}(x)$ or $\hat{F}(x)$ when applied to any of these patterns will detect clustering at the scale of the first nearest neighbor. Regrettably, they fail to detect patterns that might exist at other scales. For instance:
 ```{r}
-g_pattern3 <- Gest(pp3, correction = "none")
+g_pattern3 <- Gest(pp3.ppp, correction = "none")
 plot(g_pattern3)
 ```
 
-A different technique, called the $\hat{K}$-function, is designed to detect multiple scale patterns. The intuition behind the function is as follows. 
+A different technique, called the $\hat{K}$-function, is designed to detect patterns at multiple scales [see @Ripley1976; and @Haase1995spatial]. The intuition behind the function is as follows. 
 
 Imagine that you visit all events in the point patter in sequence. Each time you visit an event you do the following. You create a circle with radius "x" centered on the event, and then you count the number of events that are within the circle. Then you increase "x" by some distance, and repeat the process. Once that you have created the last circle (which will be suitably large to capture patterns at that scale), you move and visit the next event in the series and repeat the exact same process. These counts of events at distances "x" are aggregated and normalized by the estimated intensity of the point pattern.
 
@@ -206,12 +207,12 @@ The $\hat{K}$-function is implemented in the package `spatstat` as `Kest`.
 
 Lets plot again `pp3`:
 ```{r}
-plot(pp3)
+plot(pp3.ppp)
 ```
 
 Next, lets calculate and plot the $\hat{K}$-function:
 ```{r}
-k_pattern3 <- Kest(pp3, correction = "none")
+k_pattern3 <- Kest(pp3.ppp, correction = "none")
 plot(k_pattern3)
 ```
 
@@ -219,12 +220,12 @@ As seen from the plot, the function is suggestive of clustering at smaller scale
 
 Try this now with the last pattern:
 ```{r}
-plot(pp5)
+plot(pp5.ppp)
 ```
 
 If you calculate and plot the $\hat{K}$-function:
 ```{r}
-k_pattern5 <- Kest(pp5, correction = "none")
+k_pattern5 <- Kest(pp5.ppp, correction = "none")
 plot(k_pattern5)
 ```
 
@@ -232,4 +233,4 @@ You will see that the plot correctly suggests dispersion at the very small scale
 
 Of the distance-based techniques that you have seen so far, $\hat{G}(x)$ and $\hat{F}(x)$ are often used as complements. The $\hat{K}(x)$ is useful when exploring multi-scale patterns.
 
-This concludes Practice 7, and our coverage of distance-based techniques.
+This concludes the chapter, and our coverage of distance-based techniques.

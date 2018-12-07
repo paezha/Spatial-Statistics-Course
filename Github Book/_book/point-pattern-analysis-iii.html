@@ -381,11 +381,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="nearest-neighbors" class="section level2">
 <h2><span class="header-section-number">13.5</span> Nearest neighbors</h2>
 <p>Let us begin by introducing the concept of a nearest neighbor.</p>
-<p>The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks, for instance (see Figure ).</p>
-<div class="figure"><span id="fig:unnamed-chunk-10"></span>
-<img src="12-Reading-Figure-1.png" alt="\label{fig:distance-metrics}Figure 12.1 Examples of distance metrics" width="640" />
+<p>The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks, for instance (see Figure <a href="point-pattern-analysis-iii.html#fig:distance-metrics">13.1</a>).</p>
+<div class="figure"><span id="fig:distance-metrics"></span>
+<img src="12-Reading-Figure-1.png" alt="\label{fig:distance-metrics}Examples of distance metrics" width="640" />
 <p class="caption">
-Figure 13.1: Figure 12.1 Examples of distance metrics
+Figure 13.1: Examples of distance metrics
 </p>
 </div>
 <p>In this way, the nearest neighbor is the event j with the shortest separation from location i: <span class="math display">\[
@@ -402,27 +402,27 @@ Figure 13.1: Figure 12.1 Examples of distance metrics
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pp0_nn1 &lt;-<span class="st"> </span><span class="kw">nndist</span>(<span class="kw">split</span>(pp0.ppp)<span class="op">$</span><span class="st">&quot;Pattern 1&quot;</span>)</code></pre></div>
 <p>Let us explore the distribution of these distances by means of a histogram:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">dist =</span> pp0_nn1), <span class="kw">aes</span>(dist), <span class="dt">binwidth =</span> <span class="fl">0.03</span>)</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Notice how most events have a nearest neighbor at a relatively short distance (&lt;0.05).</p>
 <p>Compare to the distribution of distances in “Pattern 2” of <code>pp0.ppp</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pp0_nn2 &lt;-<span class="st"> </span><span class="kw">nndist</span>(<span class="kw">split</span>(pp0.ppp)<span class="op">$</span><span class="st">&quot;Pattern 2&quot;</span>)
 <span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">dist =</span> pp0_nn2), <span class="kw">aes</span>(dist), <span class="dt">binwidth =</span> <span class="fl">0.03</span>)</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>In this case, most events have a nearest neighbot at a distance of approximately 0.15.</p>
 <p>Another useful tool is a <em>Stienen diagram</em>. A Steinen diagram is essentially a proportional symbol plot of the events with symbols of size proportional to the distance to their nearest neighbor. For example, for “Pattern 1” in <code>pp0.ppp</code> (Notice the use of %mark% to add an attribute to the <code>ppp</code> object; the attribute is the distance to the nearest neighbor):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">split</span>(pp0.ppp)<span class="op">$</span><span class="st">&quot;Pattern 1&quot;</span> <span class="op">%mark%</span><span class="st"> </span>(pp0_nn1), <span class="dt">markscale =</span> <span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;Stienen diagram&quot;</span>)</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>In this diagram, the largest circle is not very large: even events that are relatively isolated are not a long distance away from their nearest neighbor. This fits the definition of clustering as situation where events are close to other events.</p>
 <p>Compare to “Pattern 2”:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">split</span>(pp0.ppp)<span class="op">$</span><span class="st">&quot;Pattern 2&quot;</span> <span class="op">%mark%</span><span class="st"> </span>(pp0_nn2), <span class="dt">markscale =</span> <span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;Stienen diagram&quot;</span>)</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Notice how all circles are very similar in size: this fits the definition of dispersion, where events are more or less equally distant from their nearest neighbors.</p>
 <p>Lets use the function <code>runifpoint</code> from the <code>spatstat</code> package to generate a null landscape:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rand_ppp &lt;-<span class="st"> </span><span class="kw">runifpoint</span>(<span class="dv">36</span>)</code></pre></div>
 <p>If we plot the Stienen diagram for this point pattern:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rand_nn &lt;-<span class="st"> </span><span class="kw">nndist</span>(rand_ppp)
 <span class="kw">plot</span>(rand_ppp <span class="op">%mark%</span><span class="st"> </span>(rand_nn), <span class="dt">markscale =</span> <span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;Stienen diagram&quot;</span>)</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>In a null landscape, the distribution of the size of the symbols would tend to be random!</p>
 <p>The concept of nearest neighbors is useful to define a family of techniques that are based on the distribution of distances to nearest neighbors. Three such techniques are introduced here.</p>
 </div>
@@ -436,7 +436,7 @@ Figure 13.1: Figure 12.1 Examples of distance metrics
 <p>We can plot these numbers of events as a proportion:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="dt">proportion =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span><span class="op">/</span><span class="dv">10</span>, <span class="dv">5</span><span class="op">/</span><span class="dv">10</span>, <span class="dv">8</span><span class="op">/</span><span class="dv">10</span>, <span class="dv">10</span><span class="op">/</span><span class="dv">10</span>))
 <span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> proportion))</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>The cumulative distribution function of distances from event to nearest neighbor is called a <em>G-function</em>.</p>
 <p>This function is defined as follows, with <span class="math inline">\(d_{ik}\)</span> as the distance from the event at i to its nearest neighbor: <span class="math display">\[
 \hat{G}(x)=\frac{(d_{ik}\le x, \forall i)}{n}
@@ -450,24 +450,24 @@ G_{pois}(x) = 1 - exp(-\lambda \pi x^2).
 <p>(For the moment ignore the argument “correction”; we will discuss corrections later on.)</p>
 <p>The <code>plot</code> function can be used to visualize the estimated G (with r = x):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(g_pattern1)</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>In the plot above, the empirical function is the solid black line, and the theoretical is the dashed red line.</p>
 <p>If you examine these functions, you will see that about 50% of events have a nearest neighbor at a distance of less than approximately 0.04. In the null landscape, in contrast, only about 16% of events have a nearest neighbor at less than 0.04:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(g_pattern1)
 <span class="kw">lines</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="fl">0.04</span>, <span class="fl">0.04</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>), <span class="dt">lty =</span> <span class="st">&quot;dotted&quot;</span>)
 <span class="kw">lines</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.04</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="dt">lty =</span> <span class="st">&quot;dotted&quot;</span>)
 <span class="kw">lines</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.04</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="fl">0.16</span>, <span class="fl">0.16</span>), <span class="dt">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>What this suggests is that in the actual landscape events tend to be much closer to other events in comparison the null landscape, and would therefore be suggestive of clustering.</p>
 <p>Compare to “Pattern 2”:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g_pattern2 &lt;-<span class="st"> </span><span class="kw">Gest</span>(<span class="kw">split</span>(pp0.ppp)<span class="op">$</span><span class="st">&quot;Pattern 2&quot;</span>, <span class="dt">correction =</span> <span class="st">&quot;none&quot;</span>)
 <span class="kw">plot</span>(g_pattern2)</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Now the empirical function is below the one for the null landscape. Notice too that all events have a nearest neighbor in a limited range of distances, between 0.14 and 0.18. This is indicative of a dispersed, or regular pattern.</p>
 <p>And the random pattern that you created before:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">g_pattern_rnd &lt;-<span class="st"> </span><span class="kw">Gest</span>(rand_ppp, <span class="dt">correction =</span> <span class="st">&quot;none&quot;</span>)
 <span class="kw">plot</span>(g_pattern_rnd)</code></pre></div>
-<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>In this case, the empirical function more closely resembles the theoretical function for the null landscape.</p>
 <p>By considering the distribution of distances to nearest neighbors, you can generate additional information on a point pattern to complement the density-based analysis of the preceding chapters.</p>
 

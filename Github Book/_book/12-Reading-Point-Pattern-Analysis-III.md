@@ -185,11 +185,11 @@ In this practice you will learn about a family of techniques that instead of mea
 
 Let us begin by introducing the concept of a nearest neighbor.
 
-The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks, for instance (see Figure \ref{fig:distance-metrics}).
+The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks, for instance (see Figure \@ref(fig:distance-metrics)).
 
 <div class="figure">
-<img src="12-Reading-Figure-1.png" alt="\label{fig:distance-metrics}Figure 12.1 Examples of distance metrics" width="640" />
-<p class="caption">(\#fig:unnamed-chunk-10)\label{fig:distance-metrics}Figure 12.1 Examples of distance metrics</p>
+<img src="12-Reading-Figure-1.png" alt="\label{fig:distance-metrics}Examples of distance metrics" width="640" />
+<p class="caption">(\#fig:distance-metrics)\label{fig:distance-metrics}Examples of distance metrics</p>
 </div>
 
 In this way, the nearest neighbor is the event j with the shortest separation from location i:
@@ -219,7 +219,7 @@ Let us explore the distribution of these distances by means of a histogram:
 ggplot() + geom_histogram(data = data.frame(dist = pp0_nn1), aes(dist), binwidth = 0.03)
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 Notice how most events have a nearest neighbor at a relatively short distance (<0.05).
 
@@ -230,7 +230,7 @@ pp0_nn2 <- nndist(split(pp0.ppp)$"Pattern 2")
 ggplot() + geom_histogram(data = data.frame(dist = pp0_nn2), aes(dist), binwidth = 0.03)
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 In this case, most events have a nearest neighbot at a distance of approximately 0.15.
 
@@ -240,7 +240,7 @@ Another useful tool is a _Stienen diagram_. A Steinen diagram is essentially a p
 plot(split(pp0.ppp)$"Pattern 1" %mark% (pp0_nn1), markscale = 1, main = "Stienen diagram")
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 In this diagram, the largest circle is not very large: even events that are relatively isolated are not a long distance away from their nearest neighbor. This fits the definition of clustering as situation where events are close to other events.
 
@@ -250,7 +250,7 @@ Compare to "Pattern 2":
 plot(split(pp0.ppp)$"Pattern 2" %mark% (pp0_nn2), markscale = 1, main = "Stienen diagram")
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
 Notice how all circles are very similar in size: this fits the definition of dispersion, where events are more or less equally distant from their nearest neighbors.
 
@@ -267,7 +267,7 @@ rand_nn <- nndist(rand_ppp)
 plot(rand_ppp %mark% (rand_nn), markscale = 1, main = "Stienen diagram")
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 In a null landscape, the distribution of the size of the symbols would tend to be random!
 
@@ -294,7 +294,7 @@ df <- data.frame(x = c(0, 1, 2, 3, 4), proportion = c(0, 3/10, 5/10, 8/10, 10/10
 ggplot() + geom_line(data = df, aes(x = x, y = proportion))
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 The cumulative distribution function of distances from event to nearest neighbor is called a _G-function_.
 
@@ -324,7 +324,7 @@ The `plot` function can be used to visualize the estimated G (with r = x):
 plot(g_pattern1)
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 In the plot above, the empirical function is the solid black line, and the theoretical is the dashed red line.
 
@@ -337,7 +337,7 @@ lines(x = c(-0.1, 0.04), y = c(0.5, 0.5), lty = "dotted")
 lines(x = c(-0.1, 0.04), y = c(0.16, 0.16), lty = "dotted", col = "red")
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-22-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 What this suggests is that in the actual landscape events tend to be much closer to other events in comparison the null landscape, and would therefore be suggestive of clustering.
 
@@ -348,7 +348,7 @@ g_pattern2 <- Gest(split(pp0.ppp)$"Pattern 2", correction = "none")
 plot(g_pattern2)
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 Now the empirical function is below the one for the null landscape. Notice too that all events have a nearest neighbor in a limited range of distances, between 0.14 and 0.18. This is indicative of a dispersed, or regular pattern.
 
@@ -359,7 +359,7 @@ g_pattern_rnd <- Gest(rand_ppp, correction = "none")
 plot(g_pattern_rnd)
 ```
 
-<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="12-Reading-Point-Pattern-Analysis-III_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 In this case, the empirical function more closely resembles the theoretical function for the null landscape.
 

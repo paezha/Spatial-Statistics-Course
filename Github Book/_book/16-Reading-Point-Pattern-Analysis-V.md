@@ -1,10 +1,3 @@
----
-title: "09 Point Pattern Analysis V"
-output:
-  html_document:
-    df_print: paged
----
-
 # Point Pattern Analysis V
 
 *NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
@@ -439,11 +432,11 @@ When this is the case, it is necessary to define a boundary that does not corres
 
 When the extent of the process exceeds the window used in the analysis, the point pattern is observed only partially, and it is possible that the information of the location of events beyond the boundary may introduce some bias.
 
-Consider the situation illustrated in Figure \ref{fig:edge-effects}.
+Consider the situation illustrated in Figure \@ref(fig:edge-effects).
 
 <div class="figure">
-<img src="Point Pattern Analysis V Figure 1.jpg" alt="\label{fig:edge-effects}Figure 16.1 Edge effects" width="480" />
-<p class="caption">(\#fig:unnamed-chunk-26)\label{fig:edge-effects}Figure 16.1 Edge effects</p>
+<img src="Point Pattern Analysis V Figure 1.jpg" alt="\label{fig:edge-effects}Edge effects" width="480" />
+<p class="caption">(\#fig:edge-effects)\label{fig:edge-effects}Edge effects</p>
 </div>
 
 In the figure, the region is the rectangular window. Events are observed only inside the window, but events still exist beyond the edges of the window. It is straightforward to see how the empty space ($\hat{F}$-) function would be biased, since locations near the edge would appear the be more distant from an event than they actually are.
@@ -456,7 +449,7 @@ These corrections are variations of weighting schemes. In other words, the stati
 plot(Gest(pp2.ppp, correction = "all"))
 ```
 
-<img src="16-Reading-Point-Pattern-Analysis-V_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+<img src="16-Reading-Point-Pattern-Analysis-V_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
 The different corrections are plotted. It can be seen in this cases that the corrections are relatively small; however, this is not always the case.
 
@@ -464,11 +457,11 @@ The different corrections are plotted. It can be seen in this cases that the cor
 
 Whereas edge effects can introduce bias by censoring the observations outside of the window/region, another issue emerges when not all events are observed _inside_ the window.
 
-We have assumed so far that any point pattern under analysis consists of a _census_ of events, or in other words, that all relevant events have been recorded. A _sampled_ point pattern, on the other hand, is a pattern where not all events have been recorded (see Figure \ref{fig:sampled-pattern}).
+We have assumed so far that any point pattern under analysis consists of a _census_ of events, or in other words, that all relevant events have been recorded. A _sampled_ point pattern, on the other hand, is a pattern where not all events have been recorded (see Figure \@ref(fig:sampled-pattern)).
 
 <div class="figure">
-<img src="Point Pattern Analysis V Figure 2.jpg" alt="\label{fig:sampled-pattern}Figure 16.2 Sampled point pattern" width="480" />
-<p class="caption">(\#fig:unnamed-chunk-28)\label{fig:sampled-pattern}Figure 16.2 Sampled point pattern</p>
+<img src="Point Pattern Analysis V Figure 2.jpg" alt="\label{fig:sampled-pattern}Sampled point pattern" width="480" />
+<p class="caption">(\#fig:sampled-pattern)\label{fig:sampled-pattern}Sampled point pattern</p>
 </div>
 
 The bias introduced by sampled point patterns can be extremely serious, because the findings depend heavily of the observations that were recorded as well as those that were not recorded! Clustered events could easily give the impression of a dispersed pattern, depending on what was observed. Imagine for instance that the events are nests of birds. If the birds tend to nest in the thickest parts of the forest that observers cannot easily access, the "observed" pattern will depend crucially on the trails and other routes of access that the researcher can use.

@@ -345,22 +345,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>For instance, a formula for processes similar to coin flips was discovered by Bernoulli in 1713 (see <a href="https://link.springer.com/referenceworkentry/10.1007%2F978-0-387-32833-1_34">here</a>).</p>
 <p>The following function reports a random binomial variable. The number of observations <code>n</code> is how many random numbers we require. The <code>size</code> is the number of trials. For instance, if the experiment was flipping a coin, it would be how many times we get heads in <code>size</code> flips. The probability of success <code>prob</code> is the probability of getting heads in any given toss. Execute the chunk repeatedly to see what happens.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</code></pre></div>
-<pre><code>## [1] 1</code></pre>
+<pre><code>## [1] 0</code></pre>
 <p>If you tried this “experiment” repeatedly, you would find that “heads” (1s) and “tails” (0s) appear each about 50% of the time. A way to implement this is to increase <code>n</code>- think of this as recruiting more people to do coin flips at the same time:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of people tossing the coin one time.</span>
 coin_flips &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> n, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
 <span class="kw">sum</span>(coin_flips)<span class="op">/</span>n</code></pre></div>
-<pre><code>## [1] 0.496</code></pre>
+<pre><code>## [1] 0.517</code></pre>
 <p>What happens if you change the <code>size</code> to 0, and why?</p>
 <p>The binomial function is an example of a <em>discrete</em> probability distribution function, because it can take only one of a discrete (limited) number of values (0 and 1).</p>
 <p>Other random probability distribution functions are for <em>continuous</em> variables, variables that can take any value within a predefined range. The most famous of this distributions is the <em>normal distribution</em>, which you may know also as the <em>bell curve</em>, which is attributed to Gauss (see <a href="https://link.springer.com/referenceworkentry/10.1007/978-0-387-32833-1_285">here</a>).</p>
 <p>This distribution is defined by a centering paramater (its mean) and a spread parameter (its standard deviation). In the normal distribution, 68% of values are within one standard deviation from the mean, 95% of values are within two standard deviations from the mean, and 99.7% of values are within three standard deviations from the mean.</p>
 <p>The following function reports a value taken at random from a normal distribution with <code>mean</code> zero and standard deviation <code>sd</code> of one. Execute this chunk repeatedly to see what happens:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre></div>
-<pre><code>## [1] -1.937254</code></pre>
+<pre><code>## [1] -1.418435</code></pre>
 <p>Let’s say that the average height of Canadian men is 170.7 cm and the standard deviation is 7 cm. The heigh of a random person in this population would be:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="fl">170.7</span>, <span class="dt">sd =</span> <span class="dv">7</span>)</code></pre></div>
-<pre><code>## [1] 168.6509</code></pre>
+<pre><code>## [1] 172.1972</code></pre>
 <p>And the distribution of heights of <code>n</code> men in this population would be:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">1000</span>
 height &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean =</span> <span class="fl">170.7</span>, <span class="dt">sd =</span> <span class="dv">7</span>)

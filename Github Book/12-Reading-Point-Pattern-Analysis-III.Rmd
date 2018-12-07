@@ -103,9 +103,9 @@ In this practice you will learn about a family of techniques that instead of mea
 
 Let us begin by introducing the concept of a nearest neighbor.
 
-The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks, for instance (see Figure \ref{fig:distance-metrics}).
+The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks, for instance (see Figure \@ref(fig:distance-metrics)).
 
-```{r fig.cap= "\\label{fig:distance-metrics}Figure 12.1 Examples of distance metrics", echo=FALSE}
+```{r distance-metrics, fig.cap= "\\label{fig:distance-metrics}Examples of distance metrics", echo=FALSE}
 knitr::include_graphics(rep("12-Reading-Figure-1.png"))
 ```
 

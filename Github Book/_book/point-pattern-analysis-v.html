@@ -521,28 +521,28 @@ pp1_reg2 &lt;-<span class="st"> </span><span class="kw">as.ppp</span>(<span clas
 <p>As discussed above, definition of the window (region) is critical. If at all possible, the region should be selected in such a way that it is consistent with the underlying process. This is not always possible, either because the underlying process is not known, or because of limitations in data collection capabilities.</p>
 <p>When this is the case, it is necessary to define a boundary that does not correspond necessarily with the extent of the process of interest. For example, analysis of business locations in Toronto may be limited to the city limits. This does not mean that establishments do not exist beyond those boundaries.</p>
 <p>When the extent of the process exceeds the window used in the analysis, the point pattern is observed only partially, and it is possible that the information of the location of events beyond the boundary may introduce some bias.</p>
-<p>Consider the situation illustrated in Figure .</p>
-<div class="figure"><span id="fig:unnamed-chunk-26"></span>
-<img src="Point%20Pattern%20Analysis%20V%20Figure%201.jpg" alt="\label{fig:edge-effects}Figure 16.1 Edge effects" width="480" />
+<p>Consider the situation illustrated in Figure <a href="point-pattern-analysis-v.html#fig:edge-effects">17.1</a>.</p>
+<div class="figure"><span id="fig:edge-effects"></span>
+<img src="Point%20Pattern%20Analysis%20V%20Figure%201.jpg" alt="\label{fig:edge-effects}Edge effects" width="480" />
 <p class="caption">
-Figure 17.1: Figure 16.1 Edge effects
+Figure 17.1: Edge effects
 </p>
 </div>
 <p>In the figure, the region is the rectangular window. Events are observed only inside the window, but events still exist beyond the edges of the window. It is straightforward to see how the empty space (<span class="math inline">\(\hat{F}\)</span>-) function would be biased, since locations near the edge would appear the be more distant from an event than they actually are.</p>
 <p>Several corrections are available in <code>spatstat</code> to deal with the possibility of edge effects. So far, we have used the argument <code>correction = &quot;none&quot;</code> when applying the functions. The following alternative corrections are implemented: “none”, “rs”, “km”, “cs” and “best”. Alternatively <code>correction = &quot;all&quot;</code> selects all options.</p>
 <p>These corrections are variations of weighting schemes. In other words, the statistic is weighted to give an unbiased estimator. See:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">Gest</span>(pp2.ppp, <span class="dt">correction =</span> <span class="st">&quot;all&quot;</span>))</code></pre></div>
-<p><img src="16-Reading-Point-Pattern-Analysis-V_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="16-Reading-Point-Pattern-Analysis-V_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p>The different corrections are plotted. It can be seen in this cases that the corrections are relatively small; however, this is not always the case.</p>
 </div>
 <div id="sampled-point-patterns" class="section level3">
 <h3><span class="header-section-number">17.7.3</span> Sampled point patterns</h3>
 <p>Whereas edge effects can introduce bias by censoring the observations outside of the window/region, another issue emerges when not all events are observed <em>inside</em> the window.</p>
-<p>We have assumed so far that any point pattern under analysis consists of a <em>census</em> of events, or in other words, that all relevant events have been recorded. A <em>sampled</em> point pattern, on the other hand, is a pattern where not all events have been recorded (see Figure ).</p>
-<div class="figure"><span id="fig:unnamed-chunk-28"></span>
-<img src="Point%20Pattern%20Analysis%20V%20Figure%202.jpg" alt="\label{fig:sampled-pattern}Figure 16.2 Sampled point pattern" width="480" />
+<p>We have assumed so far that any point pattern under analysis consists of a <em>census</em> of events, or in other words, that all relevant events have been recorded. A <em>sampled</em> point pattern, on the other hand, is a pattern where not all events have been recorded (see Figure <a href="point-pattern-analysis-v.html#fig:sampled-pattern">17.2</a>).</p>
+<div class="figure"><span id="fig:sampled-pattern"></span>
+<img src="Point%20Pattern%20Analysis%20V%20Figure%202.jpg" alt="\label{fig:sampled-pattern}Sampled point pattern" width="480" />
 <p class="caption">
-Figure 17.2: Figure 16.2 Sampled point pattern
+Figure 17.2: Sampled point pattern
 </p>
 </div>
 <p>The bias introduced by sampled point patterns can be extremely serious, because the findings depend heavily of the observations that were recorded as well as those that were not recorded! Clustered events could easily give the impression of a dispersed pattern, depending on what was observed. Imagine for instance that the events are nests of birds. If the birds tend to nest in the thickest parts of the forest that observers cannot easily access, the “observed” pattern will depend crucially on the trails and other routes of access that the researcher can use.</p>

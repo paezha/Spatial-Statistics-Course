@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Statistical analysis is the study of the properties of a dataset. There are different aspects of statistical analysis, and they often require that we work with data that are messy. According to Wickham and Grolemund [-@Wickham2016r], computer-assisted data analysis includes the steps outlined in Figure \ref{fig:data-analysis-process}.
+Statistical analysis is the study of the properties of a dataset. There are different aspects of statistical analysis, and they often require that we work with data that are messy. According to Wickham and Grolemund [-@Wickham2016r], computer-assisted data analysis includes the steps outlined in Figure \@ref(fig:data-analysis-process).
 
 First, the data are imported to a suitable software application. This can include data from primary sources (suppose that you collected coordinates using a GPS) or from secondary sources (the Census of Canada). Data will likely be text tables, or an Excel file, among other possible formats. Before data can be analyzed, they need to be tidied. This means that the data need to be arranged in such a way that they match the process that you are interested in. For instance, a travel survey can be organized so that each row is a traveler, or as an alternative so that each row is a trip.
 
@@ -12,7 +12,7 @@ Modeling is a process that further extracts information from the data, typically
 
 All of the tasks mentioned above, and many more, can be handled easily in a variety of software applications. For this course, you will use the statistical computing language R. 
 
-```{r fig.cap= "\\label{fig:data-analysis-process}Figure 1.1 The process of doing data analysis (from Wickham and Grolemund, 2016)", echo=FALSE}
+```{r data-analysis-process, fig.cap= "\\label{fig:data-analysis-process} The process of doing data analysis (from Wickham and Grolemund, 2016)", echo=FALSE}
 knitr::include_graphics(rep("Data Analysis - Grolemund and Wickham.png"))
 ```
 
@@ -46,9 +46,9 @@ Before introducing some basic functionality in R, lets quickly take a tour R Stu
 
 ###	The RStudio IDE
 
-The RStudio IDE provides a complete interface to interact with the language R. It consists of a window with several panes. Some panes include in addition several tabs. There are the usual drop-down menus for common operations, such as creating new files, saving, common commands for editing, etc. See Figure \ref{fig:RStudio-IDE} below.
+The RStudio IDE provides a complete interface to interact with the language R. It consists of a window with several panes. Some panes include in addition several tabs. There are the usual drop-down menus for common operations, such as creating new files, saving, common commands for editing, etc. See Figure \@ref(fig:RStudio-IDE) below.
 
-```{r fig.cap= "\\label{fig:RStudio-IDE}Figure 1.2 The RStudio IDE", echo=FALSE}
+```{r RStudio-IDE, fig.cap= "\\label{fig:RStudio-IDE}The RStudio IDE", echo=FALSE}
 knitr::include_graphics(rep("RStudio IDE.png"))
 ```
 

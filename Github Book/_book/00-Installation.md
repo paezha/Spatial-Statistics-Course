@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Statistical analysis is the study of the properties of a dataset. There are different aspects of statistical analysis, and they often require that we work with data that are messy. According to Wickham and Grolemund [-@Wickham2016r], computer-assisted data analysis includes the steps outlined in Figure \ref{fig:data-analysis-process}.
+Statistical analysis is the study of the properties of a dataset. There are different aspects of statistical analysis, and they often require that we work with data that are messy. According to Wickham and Grolemund [-@Wickham2016r], computer-assisted data analysis includes the steps outlined in Figure \@ref(fig:data-analysis-process).
 
 First, the data are imported to a suitable software application. This can include data from primary sources (suppose that you collected coordinates using a GPS) or from secondary sources (the Census of Canada). Data will likely be text tables, or an Excel file, among other possible formats. Before data can be analyzed, they need to be tidied. This means that the data need to be arranged in such a way that they match the process that you are interested in. For instance, a travel survey can be organized so that each row is a traveler, or as an alternative so that each row is a trip.
 
@@ -13,8 +13,8 @@ Modeling is a process that further extracts information from the data, typically
 All of the tasks mentioned above, and many more, can be handled easily in a variety of software applications. For this course, you will use the statistical computing language R. 
 
 <div class="figure">
-<img src="Data Analysis - Grolemund and Wickham.png" alt="\label{fig:data-analysis-process}Figure 1.1 The process of doing data analysis (from Wickham and Grolemund, 2016)" width="293" />
-<p class="caption">(\#fig:unnamed-chunk-1)\label{fig:data-analysis-process}Figure 1.1 The process of doing data analysis (from Wickham and Grolemund, 2016)</p>
+<img src="Data Analysis - Grolemund and Wickham.png" alt="\label{fig:data-analysis-process} The process of doing data analysis (from Wickham and Grolemund, 2016)" width="293" />
+<p class="caption">(\#fig:data-analysis-process)\label{fig:data-analysis-process} The process of doing data analysis (from Wickham and Grolemund, 2016)</p>
 </div>
 
 ## Learning objectives
@@ -47,11 +47,11 @@ Before introducing some basic functionality in R, lets quickly take a tour R Stu
 
 ###	The RStudio IDE
 
-The RStudio IDE provides a complete interface to interact with the language R. It consists of a window with several panes. Some panes include in addition several tabs. There are the usual drop-down menus for common operations, such as creating new files, saving, common commands for editing, etc. See Figure \ref{fig:RStudio-IDE} below.
+The RStudio IDE provides a complete interface to interact with the language R. It consists of a window with several panes. Some panes include in addition several tabs. There are the usual drop-down menus for common operations, such as creating new files, saving, common commands for editing, etc. See Figure \@ref(fig:RStudio-IDE) below.
 
 <div class="figure">
-<img src="RStudio IDE.png" alt="\label{fig:RStudio-IDE}Figure 1.2 The RStudio IDE" width="3898" />
-<p class="caption">(\#fig:unnamed-chunk-2)\label{fig:RStudio-IDE}Figure 1.2 The RStudio IDE</p>
+<img src="RStudio IDE.png" alt="\label{fig:RStudio-IDE}The RStudio IDE" width="3898" />
+<p class="caption">(\#fig:RStudio-IDE)\label{fig:RStudio-IDE}The RStudio IDE</p>
 </div>
 
 The editor pane allows you to open and work with text and other files, where you can write instructions that can be passed on to the program. Writing something in the editor does not execute any instructions, it merely records them for possible future use. In fact, much of what is written in the editor will not be instructions, but rather comments, discussion, and other text that is useful to understand code.

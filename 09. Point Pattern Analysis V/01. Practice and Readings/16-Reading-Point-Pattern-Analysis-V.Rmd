@@ -18,12 +18,11 @@ In the last practice/session your learning objectives included:
 
 Please review the previous practices if you need a refresher on these concepts.
 
-For this practice you will need the following:
+If you wish to work interactively with this chapter you will need the following:
 
-* This R markdown notebook.
-* A dataset called `Data5.RData`.
+* An R markdown notebook version of this document (the source file).
 
-`Data5.RData` includes five `spatstat` `ppp`-class objects.
+* A package called `geog4ga3`.
 
 ## Learning objectives
 

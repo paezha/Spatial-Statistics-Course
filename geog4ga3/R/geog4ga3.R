@@ -5,7 +5,7 @@
 #' @author Antonio Paez [cre, aut], \email{paezha@@mcmaster.ca}, Anastassios Dardas [ctb], Raj Ubhi [ctb]
 #' @name geog4ga3
 #' @docType package
-#' @import dplyr spdep plotly deldir tidyverse spatstat rgdal
+#' @import dplyr spdep plotly deldir
 NULL
 
 #' Snow cholera deaths
@@ -522,8 +522,7 @@ NULL
 
 #' nyleukemia
 #'
-#' A spatial polygon data frame of New York leukemia data projected in UTM Zone 18 using WGS84.
-#'  The variables are as follows:
+#' A SpatialPolygonDataFrame of New York leukemia data projected in UTM Zone 18 using WGS84.
 #'
 #'  \itemize{
 #'    \item AREANAME. name of study area (Auburn city--Vestal town)
@@ -555,7 +554,7 @@ NULL
 
 #' pennlc
 #'
-#' A spatial polygon data frame of Pennsylvania lung cancer projected using latitude and longitude.
+#' A SpatialPolygonDataFrame of Pennsylvania lung cancer projected using latitude and longitude.
 #'
 #'  \itemize{
 #'    \item county. name of each county in Pennsylvania with recorded lung cancer patients within this spatial polygon data frame (adams--york)
@@ -574,3 +573,38 @@ NULL
 #' @format A spatial polygon data frame with 67 rows and 7 variables
 #' @source \url{https://www.rdocumentation.org/packages/RgoogleMaps/versions/1.4.2/topics/pennLC}
 "pennlc"
+
+#' Hamilton_CT
+#'
+#' A simple feature (sf) dataframe of Hamilton Census Metropolitan Area (CMA) Census Tracts (CTs) with demographic information from the 2011 Census. The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+#'
+#'  \itemize{
+#'    \item ID. Unique Identifier of Area
+#'    \item AREA. Area of CT in sq.km.
+#'    \item TRACT. Unique Identifier of Census Tract
+#'    \item POPULATION. 2011 Population count in Census Tract
+#'    \item POP_DENSITY. Population density in Census Tract
+#'    \item AGE_LESS_20. Population aged less than 20 years old
+#'    \item AGE_20_TO_24. Population aged 20 to 24 years old
+#'    \item AGE_25_TO_29. Population aged 25 to 29 years old
+#'    \item AGE_30_TO_34. Population aged 30 to 34 years old
+#'    \item AGE_34_TO_39. Population aged 35 to 39 years old
+#'    \item AGE_40_TO_44. Population aged 40 to 44 years old
+#'    \item AGE_45_TO_49. Population aged 45 to 49 years old
+#'    \item AGE_50_TO_54. Population aged 50 to 54 years old
+#'    \item AGE_55_TO_59. Population aged 54 to 59 years old
+#'    \item AGE_60_TO_64. Population aged 60 to 64 years old
+#'    \item AGE_65_TO_69. Population aged 65 to 69 years old
+#'    \item AGE_70_TO_74. Population aged 70 to 74 years old
+#'    \item AGE_75_TO_79. Population aged 75 to 79 years old
+#'    \item AGE_80_TO_84. Population aged 80 to 84 years old
+#'    \item AGE_MORE_85. Population aged 85 years and older
+#'}
+#'
+#' @docType data
+#' @keywords spatialpolygondataframe
+#' @name Hamilton_CT
+#' @usage data(Hamilton_CT)
+#' @format A SpatialPolygonsDataDrame with 188 rows and 20 variables
+#' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
+"Hamilton_CT"

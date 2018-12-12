@@ -1,5 +1,5 @@
 ---
-title: "09 Activity 9: Point Pattern Analysis V"
+title: "Activity 9: Point Pattern Analysis V"
 output: html_notebook
 ---
 
@@ -69,7 +69,7 @@ As usual, you can check the object by means of the `summary` function:
 summary(gorillas.ppp)
 ```
 
-#Activity
+## Activity
 
 1. Partner with a fellow student to analyze the chosen dataset.
 

@@ -23,7 +23,7 @@ If you wish to work interactively with this chapter you will need the following:
 
 ## Learning Objectives
 
-In this reading, you will learn:
+In this chapter, you will learn:
 
 1. How to generate random numbers with different properties.
 2. About Null Landscapes.

@@ -12,13 +12,6 @@ Extracted from Toronto Business Points.RData
 data(Gas_Stands)
 }
 \description{
-A dataset containing locations of gas stands in Toronto (data is from 2008).
- The variables are as follows:
-}
-\details{
-\itemize{
-   \item x. list of x coordinates for gas stands in Toronto (\-79.14029--\-79.61831)
-   \item y. list of y coordinates for gas stands in Toronto (43.83122--43.59499)
-}
+A simple feature (sf) dataframe containing the locations of gas stands in Toronto (data are from 2008). The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
 }
 \keyword{datasets}

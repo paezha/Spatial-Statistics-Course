@@ -6,19 +6,12 @@
 \title{A set of points with proposed Paez Mart locations}
 \format{A data frame with 395 rows and 3 variables}
 \source{
-Data frame developed by A. Paez in 2008
+Locations proposed by A. Paez
 }
 \usage{
 data(Paez_Mart)
 }
 \description{
-A dataset containing planned locations of convenience stores in Toronto.
- The variables are as follows:
-}
-\details{
-\itemize{
-   \item x. list of x coordinates for a project to cover Toronto with convenience stores (\-79.54108--\-79.17440)
-   \item y. list of y coordinates for a project to cover Toronto with convenience stores (43.58793--43.84853)
-}
+A simple feature (sf) dataframe containing planned locations of convenience stores in Toronto. The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
 }
 \keyword{datasets}

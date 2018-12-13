@@ -111,7 +111,6 @@ NULL
 #' PointPattern3
 #'
 #' A dataset containing locations of some generic events.
-#'  The variables are as follows:
 #'
 #' \itemize{
 #'    \item x. x points based on a false origin and normalized to the unit-square for a generic variable like events as cases of flu, the location of trees of a certain species, or the location of fires (0.04911492--0.98371039)
@@ -128,12 +127,9 @@ NULL
 
 #' A selection of fast food establishments in the Toronto area
 #'
-#' A dataset containing locations of fast food restaruants in Toronto (data is from 2008).
-#'  The variables are as follows:
-#'
+#' A simple feature (sf) dataframe containing the locations selected locations of fast food restaruants in Toronto (data are from 2008). The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
+#' 
 #' \itemize{
-#'    \item x. list of x coordinates for fast food restaruants in Toronto (\-79.13459--\-79.61018)
-#'    \item y. list of y coordinates for fast food restaruants in Toronto (43.83077--43.59277)
 #'    \item Class. Four types of food offered at fast food restaurants in Toronto (Chicken, Hamburger, Pizza, Sub)
 #' }
 #'
@@ -147,14 +143,8 @@ NULL
 
 #' Gas stands in the Toronto area
 #'
-#' A dataset containing locations of gas stands in Toronto (data is from 2008).
-#'  The variables are as follows:
-#'
-#' \itemize{
-#'    \item x. list of x coordinates for gas stands in Toronto (\-79.14029--\-79.61831)
-#'    \item y. list of y coordinates for gas stands in Toronto (43.83122--43.59499)
-#' }
-#'
+#' A simple feature (sf) dataframe containing the locations of gas stands in Toronto (data are from 2008). The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
+#' 
 #' @docType data
 #' @keywords datasets
 #' @name Gas_Stands
@@ -165,20 +155,14 @@ NULL
 
 #' A set of points with proposed Paez Mart locations
 #'
-#' A dataset containing planned locations of convenience stores in Toronto.
-#'  The variables are as follows:
-#'
-#'  \itemize{
-#'    \item x. list of x coordinates for a project to cover Toronto with convenience stores (\-79.54108--\-79.17440)
-#'    \item y. list of y coordinates for a project to cover Toronto with convenience stores (43.58793--43.84853)
-#' }
+#' A simple feature (sf) dataframe containing planned locations of convenience stores in Toronto. The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
 #'
 #' @docType data
 #' @keywords datasets
 #' @name Paez_Mart
 #' @usage data(Paez_Mart)
 #' @format A data frame with 395 rows and 3 variables
-#' @source Data frame developed by A. Paez in 2008
+#' @source Locations proposed by A. Paez
 "Paez_Mart"
 
 #' Toronto
@@ -192,28 +176,6 @@ NULL
 #' @format sf object with 1 observation of 1 variable (only geometry)
 #' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 "Toronto"
-
-#' Toronto_df
-#'
-#' A dataframe that contains the city boundary of Toronto.
-#'
-#'  \itemize{
-#'    \item lat. longitude of address (\-79.63930--\-79.37075)
-#'    \item long. latitude of address (43.74985--43.62359)
-#'    \item order. Unique idenifier of address
-#'    \item hole. (FALSE)
-#'    \item piece. (1--10)
-#'    \item group. (5299933.1-5299933.10)
-#'    \item GTA06. (5299933)
-#'}
-#'
-#' @docType data
-#' @keywords datasets
-#' @name Toronto_df
-#' @usage data(Toronto_df)
-#' @format A data frame with 5250 rows and 7 variables
-#' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
-"Toronto_df"
 
 #' bear_df
 #'

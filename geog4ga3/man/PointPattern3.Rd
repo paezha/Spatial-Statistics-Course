@@ -13,7 +13,6 @@ data(PointPattern3)
 }
 \description{
 A dataset containing locations of some generic events.
- The variables are as follows:
 }
 \details{
 \itemize{

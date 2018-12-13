@@ -12,13 +12,10 @@ Extracted from Toronto Business Points.RData
 data(Fast_Food)
 }
 \description{
-A dataset containing locations of fast food restaruants in Toronto (data is from 2008).
- The variables are as follows:
+A simple feature (sf) dataframe containing the locations selected locations of fast food restaruants in Toronto (data are from 2008). The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
 }
 \details{
 \itemize{
-   \item x. list of x coordinates for fast food restaruants in Toronto (\-79.13459--\-79.61018)
-   \item y. list of y coordinates for fast food restaruants in Toronto (43.83077--43.59277)
    \item Class. Four types of food offered at fast food restaurants in Toronto (Chicken, Hamburger, Pizza, Sub)
 }
 }

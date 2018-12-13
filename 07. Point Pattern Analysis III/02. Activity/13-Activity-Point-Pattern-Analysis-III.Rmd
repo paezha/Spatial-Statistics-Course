@@ -49,31 +49,32 @@ Load the libraries you will use in this activity. In addition to `tidyverse`, yo
 library(tidyverse)
 library(spatstat)
 library(maptools) # Needed to convert `SpatialPolygons` into `owin` object
+library(sf)
 library(geog4ga3)
 ```
 
 In the practice that preceded this activity, you learned about the concepts of intensity and density, about quadrats, and also how to create density maps. For this practice, you will use the data that you first encountered in Activity 4, that is, the business locations in Toronto.
 
-Begin by reading the geospatial files, namely the city boundary of Toronto. You will only need the `SpatialPolygons` object, which will be converted into a `spatstat` window object:
+Begin by reading the geospatial files, namely the city boundary of Toronto. You need the `sf` object, which will be converted into a `spatstat` window object:
 ```{r}
 data("Toronto")
 ```
 
-Convert to an `owin` object:
+Convert the `sf` object to an `owin` object (via `SpatialPolygons`, hence `as(x, "Spatial")`:
 ```{r}
-Toronto.owin <- as(Toronto, "owin") # Requires the package `maptools`
+Toronto.owin <- as.owin(as(Toronto, "Spatial")) # Requires `maptools` package
 ```
 
-Next the data that you will use in this activity needs to be loaded. Each dataframe is converted into a ppp object using the `as.ppp` function:
+Next the data that you will use in this activity needs to be loaded. Each dataframe is converted into a `ppp` object using the `as.ppp` function, again after extracting the coordinates of the events from the `sf` object:
 ```{r}
 data("Fast_Food")
-Fast_Food.ppp <- as.ppp(Fast_Food, W = Toronto.owin)
+Fast_Food.ppp <- as.ppp(st_coordinates(Fast_Food), W = Toronto.owin)
 
 data("Gas_Stands")
-Gas_Stands.ppp <- as.ppp(Gas_Stands, W = Toronto.owin)
+Gas_Stands.ppp <- as.ppp(st_coordinates(Gas_Stands), W = Toronto.owin)
 
 data("Paez_Mart")
-Paez_Mart.ppp <- as.ppp(Paez_Mart, W = Toronto.owin)
+Paez_Mart.ppp <- as.ppp(st_coordinates(Paez_Mart), W = Toronto.owin)
 ```
 
 If you inspect your workspace, you will see that the following `ppp` objects are there:

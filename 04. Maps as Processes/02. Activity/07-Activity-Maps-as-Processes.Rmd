@@ -55,6 +55,6 @@ In the practice that preceded this activity, you learned how to simulate null la
 
 2. Share the map with a fellow student, and ask them to guess whether the map is random or non-random.
 
-3. Repeat 1 and 2 a few times.
+3. Repeat steps 1 and 2 several times (depending on time, between two and four times).
 
 4. Propose one or more ways to decide whether a landscape is random, and explain your reasoning. The approach does not need to be the same for point patterns and continuous variables!

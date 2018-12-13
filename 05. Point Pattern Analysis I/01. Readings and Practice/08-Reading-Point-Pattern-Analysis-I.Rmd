@@ -99,7 +99,7 @@ ggplot() +
 
 As you can see, faceting is a convenient way to simultaneously plot different parts of a dataframe (in the present case, the different `Pattern`s).
 
-In a previous discussion, a few ideas were suggested as possible ways of deciding whether a map of events (i.e., a point pattern) is random. One idea was to consider the _intensity_ of the process. This is discussed in more detail next.
+In the preceding activity, you were asked to generate ideas regarding possible ways of deciding whether a map of events (i.e., a point pattern) is random. In this chaper we will formalize a specific idea to do so, concretely by considering the _intensity_ of the process. This is discussed in more detail next.
 
 ## Intensity and Density
 

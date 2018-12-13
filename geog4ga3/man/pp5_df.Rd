@@ -6,7 +6,7 @@
 \title{pp5_df}
 \format{A data frame with 81 rows and 2 variables}
 \source{
-Extracted from Data5.RData
+Data simulated by A. Paez
 }
 \usage{
 data(pp5_df)

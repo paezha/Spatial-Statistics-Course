@@ -6,7 +6,7 @@
 \title{missing_df}
 \format{A data frame with 65 rows and 6 variables}
 \source{
-A Paez
+Data simulated by A. Paez
 }
 \usage{
 data(missing_df)

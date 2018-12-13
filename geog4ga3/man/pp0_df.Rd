@@ -6,7 +6,7 @@
 \title{pp0_df}
 \format{A data frame with 72 rows and 3 variables}
 \source{
-Extracted from Data4.RData
+Data simulated by A. Paez
 }
 \usage{
 data(pp0_df)

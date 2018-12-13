@@ -3,7 +3,7 @@
 \docType{data}
 \name{Fast_Food}
 \alias{Fast_Food}
-\title{Fast_Food}
+\title{A selection of fast food establishments in the Toronto area}
 \format{A data frame with 614 rows and 3 variables}
 \source{
 Extracted from Toronto Business Points.RData

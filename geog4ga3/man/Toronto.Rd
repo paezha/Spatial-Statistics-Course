@@ -4,7 +4,7 @@
 \name{Toronto}
 \alias{Toronto}
 \title{Toronto}
-\format{A data frame with 5250 rows and 7 variables}
+\format{sf object with 1 observation of 1 variable (only geometry)}
 \source{
 \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 }
@@ -12,6 +12,6 @@
 data(Toronto)
 }
 \description{
-A SpatialPolygons object that contains the city boundary of Toronto.
+A simple feature (sf) dataframe of Toronto City boundaries. The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
 }
 \keyword{datasets}

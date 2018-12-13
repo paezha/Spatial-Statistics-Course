@@ -3,8 +3,8 @@
 \docType{data}
 \name{HamiltonDAs}
 \alias{HamiltonDAs}
-\title{HamiltonDAs}
-\format{A data frame with 11792 rows and 12 variables}
+\title{Hamilton Census Metropolitan Area (CMA) Disseminations Areas (DAs)}
+\format{A data frame with 297 rows and 8 variables}
 \source{
 \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 }
@@ -12,18 +12,14 @@
 data(HamiltonDAs)
 }
 \description{
-A dataset containing Hamilton Dissemination Areas.
+A simple feature (sf) dataframe of Hamilton Census Metropolitan Area (CMA) Dissemination Areas (DAs) with some generic variables.  The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs". The generic variables were simulated by A. Paez based Moran Eigenvectors.
+ 
  The variables are as follows:
 }
 \details{
 \itemize{
-   \item long. longitude of address (-\-79.86997--\-79.51301)
-   \item lat. latitude of adress (43.29277--43.18924)
-   \item order. Unique identifier of address
-   \item hole. (FALSE)
-   \item price. (1--10)
-   \item group.
-   \item GTA06.
+   \item ID. Unique Identifier for the area
+   \item GTA06. Unique Identifier for DA according to the Transportation Tomorrow Survey GTA06 geography
    \item VAR 1. Varible used to create a thematic map (0.3788377--0.3482670)
    \item VAR 2. Varible used to create a thematic map (0.3418337--0.4953046)
    \item VAR 3. Varible used to create a thematic map (0.3450731--0.2735642)

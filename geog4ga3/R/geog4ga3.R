@@ -8,7 +8,7 @@
 #' @import dplyr spdep plotly deldir
 NULL
 
-#' Snow cholera deaths
+#' John Snow's London 1854 cholera outbreak deaths
 #'
 #' A dataset containing the location and number of cholera deaths in Soho, London.
 #'  The variables are as follows:
@@ -28,7 +28,7 @@ NULL
 #' @source \url{http://blog.rtwilson.com/?s=snow}
 "snow_deaths"
 
-#' Snow cholera pumps
+#' John Snow's London 1854 cholera outbreak pumps
 #'
 #' A dataset containing the location of pumps in Soho, London.
 #'  The variables are as follows:
@@ -48,19 +48,15 @@ NULL
 #' @source \url{http://blog.rtwilson.com/?s=snow}
 "snow_pumps"
 
-#' HamiltonDAs
+#' Hamilton Census Metropolitan Area (CMA) Disseminations Areas (DAs)
 #'
-#' A dataset containing Hamilton Dissemination Areas.
+#' A simple feature (sf) dataframe of Hamilton Census Metropolitan Area (CMA) Dissemination Areas (DAs) with some generic variables.  The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs". The generic variables were simulated by A. Paez based Moran Eigenvectors.
+#'  
 #'  The variables are as follows:
 #'
 #' \itemize{
-#'    \item long. longitude of address (-\-79.86997--\-79.51301)
-#'    \item lat. latitude of adress (43.29277--43.18924)
-#'    \item order. Unique identifier of address
-#'    \item hole. (FALSE)
-#'    \item price. (1--10)
-#'    \item group.
-#'    \item GTA06.
+#'    \item ID. Unique Identifier for the area
+#'    \item GTA06. Unique Identifier for DA according to the Transportation Tomorrow Survey GTA06 geography
 #'    \item VAR 1. Varible used to create a thematic map (0.3788377--0.3482670)
 #'    \item VAR 2. Varible used to create a thematic map (0.3418337--0.4953046)
 #'    \item VAR 3. Varible used to create a thematic map (0.3450731--0.2735642)
@@ -72,7 +68,7 @@ NULL
 #' @keywords datasets
 #' @name HamiltonDAs
 #' @usage data(HamiltonDAs)
-#' @format A data frame with 11792 rows and 12 variables
+#' @format A data frame with 297 rows and 8 variables
 #' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 "HamiltonDAs"
 
@@ -130,7 +126,7 @@ NULL
 #' @source Extracted from Data2.RData file
 "PointPattern3"
 
-#' Fast_Food
+#' A selection of fast food establishments in the Toronto area
 #'
 #' A dataset containing locations of fast food restaruants in Toronto (data is from 2008).
 #'  The variables are as follows:
@@ -149,7 +145,7 @@ NULL
 #' @source Extracted from Toronto Business Points.RData
 "Fast_Food"
 
-#' Gas_Stands
+#' Gas stands in the Toronto area
 #'
 #' A dataset containing locations of gas stands in Toronto (data is from 2008).
 #'  The variables are as follows:
@@ -167,7 +163,7 @@ NULL
 #' @source Extracted from Toronto Business Points.RData
 "Gas_Stands"
 
-#' Paez_Mart
+#' A set of points with proposed Paez Mart locations
 #'
 #' A dataset containing planned locations of convenience stores in Toronto.
 #'  The variables are as follows:
@@ -182,18 +178,18 @@ NULL
 #' @name Paez_Mart
 #' @usage data(Paez_Mart)
 #' @format A data frame with 395 rows and 3 variables
-#' @source Data frame developed by A Paez in 2008
+#' @source Data frame developed by A. Paez in 2008
 "Paez_Mart"
 
 #' Toronto
 #'
-#' A SpatialPolygons object that contains the city boundary of Toronto.
+#' A simple feature (sf) dataframe of Toronto City boundaries. The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
 #'
 #' @docType data
 #' @keywords datasets
 #' @name Toronto
 #' @usage data(Toronto)
-#' @format A data frame with 5250 rows and 7 variables
+#' @format sf object with 1 observation of 1 variable (only geometry)
 #' @source \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 "Toronto"
 
@@ -253,7 +249,7 @@ NULL
 #' @name pp0_df
 #' @usage data(pp0_df)
 #' @format A data frame with 72 rows and 3 variables
-#' @source Extracted from Data4.RData
+#' @source Data simulated by A. Paez
 "pp0_df"
 
 #' pp1_df
@@ -270,7 +266,7 @@ NULL
 #' @name pp1_df
 #' @usage data(pp1_df)
 #' @format A data frame with 81 rows and 2 variables
-#' @source Extracted from Data5.RData
+#' @source Data simulated by A. Paez
 "pp1_df"
 
 
@@ -288,7 +284,7 @@ NULL
 #' @name pp2_df
 #' @usage data(pp2_df)
 #' @format A data frame with 81 rows and 2 variables
-#' @source Extracted from Data5.RData
+#' @source Data simulated by A. Paez
 "pp2_df"
 
 #' pp3_df
@@ -305,7 +301,7 @@ NULL
 #' @name pp3_df
 #' @usage data(pp3_df)
 #' @format A data frame with 81 rows and 2 variables
-#' @source Extracted from Data5.RData
+#' @source Data simulated by A. Paez
 "pp3_df"
 
 #' pp4_df
@@ -322,7 +318,7 @@ NULL
 #' @name pp4_df
 #' @usage data(pp4_df)
 #' @format A data frame with 81 rows and 2 variables
-#' @source Extracted from Data5.RData
+#' @source Data simulated by A. Paez
 "pp4_df"
 
 #' pp5_df
@@ -339,7 +335,7 @@ NULL
 #' @name pp5_df
 #' @usage data(pp5_df)
 #' @format A data frame with 81 rows and 2 variables
-#' @source Extracted from Data5.RData
+#' @source Data simulated by A. Paez
 "pp5_df"
 
 #' missing_df
@@ -361,7 +357,7 @@ NULL
 #' @name missing_df
 #' @usage data(missing_df)
 #' @format A data frame with 65 rows and 6 variables
-#' @source A Paez
+#' @source Data simulated by A. Paez
 "missing_df"
 
 #' PointPatterns
@@ -380,7 +376,7 @@ NULL
 #' @name PointPatterns
 #' @usage data(PointPatterns)
 #' @format A data frame with 140 rows and 3 variables
-#' @source A Paez
+#' @source Data simulated by A. Paez
 "PointPatterns"
 
 #' df1_simulated
@@ -398,7 +394,7 @@ NULL
 #' @name df1_simulated
 #' @usage data(df1_simulated)
 #' @format A data frame with 350 rows and 3 variables
-#' @source Extracted from Data6.RData
+#' @source Data simulated by A. Paez
 "df1_simulated"
 
 #' df2_simulated
@@ -416,7 +412,7 @@ NULL
 #' @name df2_simulated
 #' @usage data(df2_simulated)
 #' @format A data frame with 350 rows and 3 variables
-#' @source Extracted from Data6.RData
+#' @source Data simulated by A. Paez
 "df2_simulated"
 
 #' trips_by_mode
@@ -574,7 +570,7 @@ NULL
 #' @source \url{https://www.rdocumentation.org/packages/RgoogleMaps/versions/1.4.2/topics/pennLC}
 "pennlc"
 
-#' Hamilton_CT
+#' Hamilton Census Tracts with select demographic information from the 2011 Census of Canada.
 #'
 #' A simple feature (sf) dataframe of Hamilton Census Metropolitan Area (CMA) Census Tracts (CTs) with demographic information from the 2011 Census. The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 #'

@@ -6,7 +6,7 @@
 \title{df2_simulated}
 \format{A data frame with 350 rows and 3 variables}
 \source{
-Extracted from Data6.RData
+Data simulated by A. Paez
 }
 \usage{
 data(df2_simulated)

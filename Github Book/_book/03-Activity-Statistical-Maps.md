@@ -1,3 +1,8 @@
+---
+title: "Activity 1: Statistical Maps I"
+output: html_notebook
+---
+
 # Activity 1: Statistical Maps I
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
@@ -42,36 +47,29 @@ Load the libraries you will use in this activity:
 
 ```r
 library(tidyverse)
-```
-
-```
-## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
-```
-
-```
-## v ggplot2 3.1.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.8
-## v tidyr   0.8.2     v stringr 1.3.1
-## v readr   1.2.1     v forcats 0.3.0
-```
-
-```
-## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-```r
+library(sf)
 library(geog4ga3)
 ```
 
 ## Creating a simple thematic map
 
-If you successfully loaded package `geog4ga3` a dataset `HamiltonDAs` should be available for analysis:
+If you successfully loaded package `geog4ga3` a dataset called `HamiltonDAs` should be available for analysis:
 
 ```r
 data(HamiltonDAs)
 ```
+
+Check the class of this object:
+
+```r
+class(HamiltonDAs)
+```
+
+```
+## [1] "sf"         "data.frame"
+```
+
+As you can see, this is an object of class `sf`, which stands for _simple features_. Objects of this class are used in the R package `sf` (see [here](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html)) to implement standards for [spatial objects](https://en.wikipedia.org/wiki/Simple_Features).
 
 You can examine the contents of the dataset by means of `head` (which will show the top rows):
 
@@ -80,20 +78,26 @@ head(HamiltonDAs)
 ```
 
 ```
-##        long      lat order  hole piece  group GTA06      VAR1      VAR2
-## 1 -79.86997 43.29277     1 FALSE     1 4050.1  4050 0.3788377 0.3418337
-## 2 -79.86904 43.29339     2 FALSE     1 4050.1  4050 0.3788377 0.3418337
-## 3 -79.86803 43.29426     3 FALSE     1 4050.1  4050 0.3788377 0.3418337
-## 4 -79.86699 43.29532     4 FALSE     1 4050.1  4050 0.3788377 0.3418337
-## 5 -79.86666 43.29565     5 FALSE     1 4050.1  4050 0.3788377 0.3418337
-## 6 -79.86586 43.29637     6 FALSE     1 4050.1  4050 0.3788377 0.3418337
-##        VAR3      VAR4      VAR5
-## 1 0.3450731 0.3057122 0.3622016
-## 2 0.3450731 0.3057122 0.3622016
-## 3 0.3450731 0.3057122 0.3622016
-## 4 0.3450731 0.3057122 0.3622016
-## 5 0.3450731 0.3057122 0.3622016
-## 6 0.3450731 0.3057122 0.3622016
+## Simple feature collection with 6 features and 7 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 563306.2 ymin: 4777681 xmax: 610844.5 ymax: 4793682
+## epsg (SRID):    26917
+## proj4string:    +proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
+##     ID GTA06       VAR1      VAR2      VAR3      VAR4      VAR5
+## 1 2671  5030 0.74650172 0.2596975 0.6361925 0.2290084 0.7223464
+## 2 2716  5077 0.78107142 0.4413119 0.5690740 0.8997258 0.4163702
+## 3 2710  5071 0.78824936 0.4632757 0.4197216 0.1619401 0.3052948
+## 4 2745  5108 0.82064933 0.6365193 0.9504535 0.4992477 0.6046399
+## 5 2810  5177 0.09131849 0.4455965 0.3539603 0.4919869 0.6366968
+## 6 2740  5103 0.22257665 0.6288826 0.1341962 0.6635202 0.4429712
+##                         geometry
+## 1 MULTIPOLYGON (((605123.4 47...
+## 2 MULTIPOLYGON (((606814 4784...
+## 3 MULTIPOLYGON (((605293 4785...
+## 4 MULTIPOLYGON (((607542.7 47...
+## 5 MULTIPOLYGON (((564681.8 47...
+## 6 MULTIPOLYGON (((574373.4 47...
 ```
 
 Or obtain the summary statistics by means of `summary`:
@@ -103,57 +107,53 @@ summary(HamiltonDAs)
 ```
 
 ```
-##       long             lat            order          hole        
-##  Min.   :-80.25   Min.   :43.05   Min.   :    1   Mode :logical  
-##  1st Qu.:-79.90   1st Qu.:43.21   1st Qu.: 2949   FALSE:11784    
-##  Median :-79.85   Median :43.25   Median : 5896   TRUE :8        
-##  Mean   :-79.83   Mean   :43.26   Mean   : 5896                  
-##  3rd Qu.:-79.79   3rd Qu.:43.29   3rd Qu.: 8844                  
-##  Max.   :-79.51   Max.   :43.48   Max.   :11792                  
-##                                                                  
-##  piece         group          GTA06                VAR1       
-##  1:11772   4050.1 :  266   Length:11792       Min.   :0.0000  
-##  2:   16   4052.1 :  239   Class :character   1st Qu.:0.3244  
-##  3:    4   6007.1 :  239   Mode  :character   Median :0.4750  
-##            5211.1 :  226                      Mean   :0.4793  
-##            5191.1 :  191                      3rd Qu.:0.6594  
-##            6018.1 :  148                      Max.   :1.0000  
-##            (Other):10483                                      
-##       VAR2             VAR3             VAR4             VAR5       
-##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
-##  1st Qu.:0.3782   1st Qu.:0.3523   1st Qu.:0.3327   1st Qu.:0.3529  
-##  Median :0.4930   Median :0.5116   Median :0.4924   Median :0.4583  
-##  Mean   :0.4901   Mean   :0.5162   Mean   :0.4919   Mean   :0.4708  
-##  3rd Qu.:0.5812   3rd Qu.:0.6664   3rd Qu.:0.6313   3rd Qu.:0.5594  
-##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+##        ID          GTA06          VAR1             VAR2       
+##  2299   :  1   4050   :  1   Min.   :0.0000   Min.   :0.0000  
+##  2300   :  1   4051   :  1   1st Qu.:0.3680   1st Qu.:0.3800  
+##  2301   :  1   4052   :  1   Median :0.5345   Median :0.4937  
+##  2302   :  1   4053   :  1   Mean   :0.5241   Mean   :0.4966  
+##  2303   :  1   4054   :  1   3rd Qu.:0.6938   3rd Qu.:0.6091  
+##  2304   :  1   4055   :  1   Max.   :1.0000   Max.   :1.0000  
+##  (Other):291   (Other):291                                    
+##       VAR3             VAR4             VAR5                 geometry  
+##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   MULTIPOLYGON :297  
+##  1st Qu.:0.3521   1st Qu.:0.2989   1st Qu.:0.2998   epsg:26917   :  0  
+##  Median :0.5699   Median :0.5476   Median :0.4810   +proj=utm ...:  0  
+##  Mean   :0.5548   Mean   :0.5325   Mean   :0.5001                      
+##  3rd Qu.:0.7378   3rd Qu.:0.7894   3rd Qu.:0.6915                      
+##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000                      
 ## 
 ```
 
+The above will include a column for the geometry of the spatial features.
+
 The dataframe includes all _Dissemination Areas_ (or DAs for short) for the Hamilton Census Metropolitan Arean in Canada. DAs are a type of geography used by the Census of Canada, in fact the smallest geography that is publicly available.
 
-To create a siple map we can use `ggplot2`, which previously we used to map points. Now, the geom for polygons can be used for areas. To create such a map, we layer a geom object of type polygon on a `ggplot2` object. For instance, to plot the DAs:
+To create a siple map we can use `ggplot2`, which previously we used to map points. Now, the geom for objects of class `sf` can be used to plot areas. To create such a map, we layer a geom object of type `sf` on a `ggplot2` object. For instance, to plot the DAs:
 
 ```r
 #head(HamiltonDAs)
-ggplot() + 
-  geom_polygon(data = HamiltonDAs, aes(x = long, y = lat, group = group), color = "black", alpha = .3, size = .3)
+ggplot(HamiltonDAs) + 
+  geom_sf(fill = "gray", color = "black", alpha = .3, size = .3)
 ```
 
-<img src="03-Activity-Statistical-Maps_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="03-Activity-Statistical-Maps_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 We selected color "black" for the polygons, with a transparency alpha = 0.3 (alpha = 0 is completely transparent, alpha = 1 is completely opaque, try it!), and line size 0.3.
 
 This map only shows the DAs, which is nice. However, as you saw in the summary of the dataframe above, in addition to the geometric information, a set of (generic) variables is also included, called VAR1, VAR2,..., VAR5.
 
-Thematic maps can be created using these variables. The next chunk of code plots the DAs and adds info. The `fill` argument is used to select a variable to color the polygons. The function `cut_number` is used to classify the values of the variable in 5 groups of equal size (notice that the lines of the polygons are still black). The `scale_fill_brewer` function can be used to select different _palettes_ or coloring schemes):
+Thematic maps can be created using these variables. The next chunk of code plots the DAs and adds info. The `fill` argument is used to select a variable to color the polygons. The function `cut_number` is used to classify the values of the variable in $k$ groups of equal size, in this case 5 (notice that the lines of the polygons are still black). The `scale_fill_brewer` function can be used to select different _palettes_ or coloring schemes):
 
 ```r
-ggplot() +
-  geom_polygon(data = HamiltonDAs, aes(x = long, y = lat, group = group, fill = cut_number(VAR5, 5)), color = "black", alpha = 1, size = .3) +
-  scale_fill_brewer(palette = "Reds")
+ggplot(HamiltonDAs) +
+  geom_sf(aes(fill = cut_number(HamiltonDAs$VAR1, 5)), color = "black", alpha = 1, size = .3) +
+  scale_fill_brewer(palette = "Reds") +
+  coord_sf() +
+  labs(fill = "Variable")
 ```
 
-<img src="03-Activity-Statistical-Maps_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="03-Activity-Statistical-Maps_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 Now you have seen how to create a thematic map with polygons (areal data), you are ready for the following activity.
 

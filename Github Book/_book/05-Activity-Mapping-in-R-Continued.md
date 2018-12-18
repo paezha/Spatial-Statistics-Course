@@ -1,3 +1,8 @@
+---
+title: "Activity 2: Statistical Maps II"
+output: html_notebook
+---
+
 # Activity 2: Statistical Maps II
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
@@ -42,26 +47,6 @@ Load the libraries you will use in this activity:
 
 ```r
 library(tidyverse)
-```
-
-```
-## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
-```
-
-```
-## v ggplot2 3.1.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.8
-## v tidyr   0.8.2     v stringr 1.3.1
-## v readr   1.2.1     v forcats 0.3.0
-```
-
-```
-## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-```r
 library(geog4ga3)
 ```
 
@@ -78,8 +63,7 @@ The datasets include the following dataframe which will be used in the first par
 
 * `missing_df`
 
-This dataframe includes $n = 65$ observations (Note: text between $ characters is mathematical notation in LaTeX). These observations are geocoded using a false origin and coordinates normalized to the unit-square (the extent of their values is between zero and one). The coordinates are `x` and `y`. 
-In addition, there are three variables associated with the locations (VAR1, VAR2, VAR3). The variables are generic. Feel free to think of them as if they were housing prices or concentrations in ppb of some contaminant. Finally, a factor variable states whether the variables were measured for a location: if the status is "FALSE", the values of the variables are missing.
+This dataframe includes $n = 65$ observations (Note: text between $ characters is mathematical notation in LaTeX). These observations are geocoded using a false origin and coordinates normalized to the unit-square (the extent of their values is between zero and one). The coordinates are `x` and `y`. In addition, there are three variables associated with the locations (VAR1, VAR2, VAR3). The variables are generic. Feel free to think of them as if they were housing prices or concentrations in ppb of some contaminant. Finally, a factor variable states whether the variables were measured for a location: if the status is "FALSE", the values of the variables are missing.
 
 The following dataframes will be used in the second part of the activity:
 
@@ -91,7 +75,7 @@ The dataframes `PointPattern*` are locations of some generic events. The coordin
 
 ## Activity
 
-1. Create thematic maps for variables VAR1 through VAR3 in the dataframe `Data`. 
+1. Create thematic maps for variables VAR1 through VAR3 in the dataframe `missing_df`. 
 
 2. Suppose that you were tasked with estimating the value of a variable for the locations where those were not measured. For instance, you could be a realtor, and you need to assess the value of a property, and the only information available is the published values of other properties in the region. As an alternative, you could be an environmental scientist, and you need to estimate what the concentration of a contaminant at a site, based on previous measurements at other sites in the region.
 

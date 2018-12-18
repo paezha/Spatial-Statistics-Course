@@ -1,3 +1,8 @@
+---
+title: "Activity 3: Maps as Processes"
+output: html_notebook
+---
+
 # Activity 3: Maps as Processes
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
@@ -44,23 +49,6 @@ Load the libraries you will use in this activity:
 library(tidyverse)
 ```
 
-```
-## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
-```
-
-```
-## v ggplot2 3.1.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.8
-## v tidyr   0.8.2     v stringr 1.3.1
-## v readr   1.2.1     v forcats 0.3.0
-```
-
-```
-## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
 In the practice that preceded this activity, you learned how to simulate null landscapes and spatial processes. 
 
 ## Activity
@@ -69,6 +57,6 @@ In the practice that preceded this activity, you learned how to simulate null la
 
 2. Share the map with a fellow student, and ask them to guess whether the map is random or non-random.
 
-3. Repeat 1 and 2 a few times.
+3. Repeat steps 1 and 2 several times (depending on time, between two and four times).
 
 4. Propose one or more ways to decide whether a landscape is random, and explain your reasoning. The approach does not need to be the same for point patterns and continuous variables!

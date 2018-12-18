@@ -3,7 +3,7 @@ language:
   ui:
     chapter_name: "Chapter "
 delete_merged_file: true
-
+edit: https://github.com/paezha/paezha.github.io/tree/master/applied_spatial_statistics/%s
 new_session: yes
 github-repo: paezha.github.io/applied_spatial_statistics
 

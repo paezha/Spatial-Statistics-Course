@@ -20,10 +20,10 @@ Modeling is a process that further extracts information from the data, typically
 All of the tasks mentioned above, and many more, can be handled easily in a variety of software applications. For this course, you will use the statistical computing language R. 
 
 ```{r data-analysis-process, fig.cap= "\\label{fig:data-analysis-process} The process of doing data analysis (from Wickham and Grolemund, 2016)", echo=FALSE}
-knitr::include_graphics(rep("Data Analysis - Grolemund and Wickham.png"))
+knitr::include_graphics(rep("Installation Figure 1.png"))
 ```
 
-## Learning objectives
+## Learning Objectives
 
 In this reading, you will learn:
 
@@ -31,7 +31,7 @@ In this reading, you will learn:
 2. About the RStudio Interactive Development Environment.
 3. About packages in R.
 
-##	R: The open statistical computing project
+##	R: The Open Statistical Computing Project
 
 ### What is R?
 
@@ -39,11 +39,15 @@ R is an open-source language for statistical computing. It was created by Ross I
 
 A good way to think about R is as a core package, to which a library, consisting of additional packages, can be attached to increase its functionality. R can be downloaded for free at:
 
+```
 https://cran.rstudio.com/
+```
 
 R comes with a built-in console (a user graphical interface), but better alternatives to the basic interface exist, including RStudio, an Integrated Development Environment, or IDE for short. RStudio can also be downloaded for free, by visiting the website:
 
+```
 https://www.rstudio.com/products/rstudio/download/
+```
 
 R requires you to work using the command line, which is going to be unfamiliar to many of you accustomed to user-friendly graphical interfaces. Do not fear. People worked for a long time using the command line, or even more cumbersome, punched cards in early computers. Graphical user interfaces are convenient, but they have a major drawback, namely their inflexibility. A program that functions based on graphical user interfaces allows you to do only what is hard-coded in the user interface. Command line, as we will see, is somewhat more involved, but provides much more flexibility in operation.
 
@@ -56,7 +60,7 @@ Before introducing some basic functionality in R, lets quickly take a tour R Stu
 The RStudio IDE provides a complete interface to interact with the language R. It consists of a window with several panes. Some panes include in addition several tabs. There are the usual drop-down menus for common operations, such as creating new files, saving, common commands for editing, etc. See Figure \@ref(fig:RStudio-IDE) below.
 
 ```{r RStudio-IDE, fig.cap= "\\label{fig:RStudio-IDE}The RStudio IDE", echo=FALSE}
-knitr::include_graphics(rep("RStudio IDE.png"))
+knitr::include_graphics(rep("Installation Figure 2.png"))
 ```
 
 The editor pane allows you to open and work with text and other files, where you can write instructions that can be passed on to the program. Writing something in the editor does not execute any instructions, it merely records them for possible future use. In fact, much of what is written in the editor will not be instructions, but rather comments, discussion, and other text that is useful to understand code.

@@ -1,3 +1,8 @@
+---
+title: "Activity 1: Statistical Maps I"
+output: html_notebook
+---
+
 # Activity 1: Statistical Maps I
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
@@ -38,17 +43,25 @@ rm(list = ls())
 Note that `ls()` lists all objects currently on the worspace.
 
 Load the libraries you will use in this activity:
-```{r}
+```{r message=FALSE}
 library(tidyverse)
+library(sf)
 library(geog4ga3)
 ```
 
 ## Creating a simple thematic map
 
-If you successfully loaded package `geog4ga3` a dataset `HamiltonDAs` should be available for analysis:
+If you successfully loaded package `geog4ga3` a dataset called `HamiltonDAs` should be available for analysis:
 ```{r}
 data(HamiltonDAs)
 ```
+
+Check the class of this object:
+```{r}
+class(HamiltonDAs)
+```
+
+As you can see, this is an object of class `sf`, which stands for _simple features_. Objects of this class are used in the R package `sf` (see [here](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html)) to implement standards for [spatial objects](https://en.wikipedia.org/wiki/Simple_Features).
 
 You can examine the contents of the dataset by means of `head` (which will show the top rows):
 ```{r}
@@ -60,24 +73,28 @@ Or obtain the summary statistics by means of `summary`:
 summary(HamiltonDAs)
 ```
 
+The above will include a column for the geometry of the spatial features.
+
 The dataframe includes all _Dissemination Areas_ (or DAs for short) for the Hamilton Census Metropolitan Arean in Canada. DAs are a type of geography used by the Census of Canada, in fact the smallest geography that is publicly available.
 
-To create a siple map we can use `ggplot2`, which previously we used to map points. Now, the geom for polygons can be used for areas. To create such a map, we layer a geom object of type polygon on a `ggplot2` object. For instance, to plot the DAs:
+To create a siple map we can use `ggplot2`, which previously we used to map points. Now, the geom for objects of class `sf` can be used to plot areas. To create such a map, we layer a geom object of type `sf` on a `ggplot2` object. For instance, to plot the DAs:
 ```{r}
 #head(HamiltonDAs)
-ggplot() + 
-  geom_polygon(data = HamiltonDAs, aes(x = long, y = lat, group = group), color = "black", alpha = .3, size = .3)
+ggplot(HamiltonDAs) + 
+  geom_sf(fill = "gray", color = "black", alpha = .3, size = .3)
 ```
 
 We selected color "black" for the polygons, with a transparency alpha = 0.3 (alpha = 0 is completely transparent, alpha = 1 is completely opaque, try it!), and line size 0.3.
 
 This map only shows the DAs, which is nice. However, as you saw in the summary of the dataframe above, in addition to the geometric information, a set of (generic) variables is also included, called VAR1, VAR2,..., VAR5.
 
-Thematic maps can be created using these variables. The next chunk of code plots the DAs and adds info. The `fill` argument is used to select a variable to color the polygons. The function `cut_number` is used to classify the values of the variable in 5 groups of equal size (notice that the lines of the polygons are still black). The `scale_fill_brewer` function can be used to select different _palettes_ or coloring schemes):
+Thematic maps can be created using these variables. The next chunk of code plots the DAs and adds info. The `fill` argument is used to select a variable to color the polygons. The function `cut_number` is used to classify the values of the variable in $k$ groups of equal size, in this case 5 (notice that the lines of the polygons are still black). The `scale_fill_brewer` function can be used to select different _palettes_ or coloring schemes):
 ```{r}
-ggplot() +
-  geom_polygon(data = HamiltonDAs, aes(x = long, y = lat, group = group, fill = cut_number(VAR5, 5)), color = "black", alpha = 1, size = .3) +
-  scale_fill_brewer(palette = "Reds")
+ggplot(HamiltonDAs) +
+  geom_sf(aes(fill = cut_number(HamiltonDAs$VAR1, 5)), color = "black", alpha = 1, size = .3) +
+  scale_fill_brewer(palette = "Reds") +
+  coord_sf() +
+  labs(fill = "Variable")
 ```
 
 Now you have seen how to create a thematic map with polygons (areal data), you are ready for the following activity.

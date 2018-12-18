@@ -1,5 +1,5 @@
 ---
-title: "09 Activity 9: Point Pattern Analysis V"
+title: "Activity 9: Point Pattern Analysis V"
 output: html_notebook
 ---
 
@@ -44,7 +44,7 @@ rm(list = ls())
 Note that `ls()` lists all objects currently on the worspace.
 
 Load the libraries you will use in this activity. In addition to `tidyverse`, you will need `spatstat`, a package designed for the analysis of point patterns (you can learn about `spatstat` [here](https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf) and [here](http://spatstat.org/resources/spatstatJSSpaper.pdf)):
-```{r}
+```{r message=FALSE}
 library(tidyverse)
 library(spatstat)
 library(geog4ga3)
@@ -69,7 +69,7 @@ As usual, you can check the object by means of the `summary` function:
 summary(gorillas.ppp)
 ```
 
-#Activity
+## Activity
 
 1. Partner with a fellow student to analyze the chosen dataset.
 

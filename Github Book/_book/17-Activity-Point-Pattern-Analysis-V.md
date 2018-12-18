@@ -1,5 +1,5 @@
 ---
-title: "09 Activity 9: Point Pattern Analysis V"
+title: "Activity 9: Point Pattern Analysis V"
 output: html_notebook
 ---
 
@@ -48,59 +48,7 @@ Load the libraries you will use in this activity. In addition to `tidyverse`, yo
 
 ```r
 library(tidyverse)
-```
-
-```
-## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
-```
-
-```
-## v ggplot2 3.1.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.8
-## v tidyr   0.8.2     v stringr 1.3.1
-## v readr   1.2.1     v forcats 0.3.0
-```
-
-```
-## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-```r
 library(spatstat)
-```
-
-```
-## Loading required package: spatstat.data
-```
-
-```
-## Loading required package: nlme
-```
-
-```
-## 
-## Attaching package: 'nlme'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     collapse
-```
-
-```
-## Loading required package: rpart
-```
-
-```
-## 
-## spatstat 1.57-1       (nickname: 'Cartoon Physics') 
-## For an introduction to spatstat, type 'beginner'
-```
-
-```r
 library(geog4ga3)
 ```
 
@@ -300,7 +248,7 @@ summary(gorillas.ppp)
 ## Fraction of frame area: 0.795
 ```
 
-#Activity
+## Activity
 
 1. Partner with a fellow student to analyze the chosen dataset.
 

@@ -49,99 +49,37 @@ Load the libraries you will use in this activity. In addition to `tidyverse`, yo
 
 ```r
 library(tidyverse)
-```
-
-```
-## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
-```
-
-```
-## v ggplot2 3.1.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.8
-## v tidyr   0.8.2     v stringr 1.3.1
-## v readr   1.2.1     v forcats 0.3.0
-```
-
-```
-## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-```r
 library(spatstat)
-```
-
-```
-## Loading required package: spatstat.data
-```
-
-```
-## Loading required package: nlme
-```
-
-```
-## 
-## Attaching package: 'nlme'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     collapse
-```
-
-```
-## Loading required package: rpart
-```
-
-```
-## 
-## spatstat 1.57-1       (nickname: 'Cartoon Physics') 
-## For an introduction to spatstat, type 'beginner'
-```
-
-```r
 library(maptools) # Needed to convert `SpatialPolygons` into `owin` object
-```
-
-```
-## Loading required package: sp
-```
-
-```
-## Checking rgeos availability: TRUE
-```
-
-```r
+library(sf)
 library(geog4ga3)
 ```
 
 In the practice that preceded this activity, you learned about the concepts of intensity and density, about quadrats, and also how to create density maps. For this practice, you will use the data that you first encountered in Activity 4, that is, the business locations in Toronto.
 
-Begin by reading the geospatial files, namely the city boundary of Toronto. You will only need the `SpatialPolygons` object, which will be converted into a `spatstat` window object:
+Begin by reading the geospatial files, namely the city boundary of Toronto. You need the `sf` object, which will be converted into a `spatstat` window object:
 
 ```r
 data("Toronto")
 ```
 
-Convert to an `owin` object:
+Convert the `sf` object to an `owin` object (via `SpatialPolygons`, hence `as(x, "Spatial")`:
 
 ```r
-Toronto.owin <- as(Toronto, "owin") # Requires the package `maptools`
+Toronto.owin <- as.owin(as(Toronto, "Spatial")) # Requires `maptools` package
 ```
 
-Next the data that you will use in this activity needs to be loaded. Each dataframe is converted into a ppp object using the `as.ppp` function:
+Next the data that you will use in this activity needs to be loaded. Each dataframe is converted into a `ppp` object using the `as.ppp` function, again after extracting the coordinates of the events from the `sf` object:
 
 ```r
 data("Fast_Food")
-Fast_Food.ppp <- as.ppp(Fast_Food, W = Toronto.owin)
+Fast_Food.ppp <- as.ppp(st_coordinates(Fast_Food), W = Toronto.owin)
 
 data("Gas_Stands")
-Gas_Stands.ppp <- as.ppp(Gas_Stands, W = Toronto.owin)
+Gas_Stands.ppp <- as.ppp(st_coordinates(Gas_Stands), W = Toronto.owin)
 
 data("Paez_Mart")
-Paez_Mart.ppp <- as.ppp(Paez_Mart, W = Toronto.owin)
+Paez_Mart.ppp <- as.ppp(st_coordinates(Paez_Mart), W = Toronto.owin)
 ```
 
 If you inspect your workspace, you will see that the following `ppp` objects are there:
@@ -150,7 +88,7 @@ If you inspect your workspace, you will see that the following `ppp` objects are
 * `Gas_Stands.ppp`
 * `Paez_Mart.ppp`
 
-These are locations of fast food restaurants and gas stands in Toronto (data are from 2008). Paez Mart on the other hand is my project to cover Toronto with convenience stores. The points are the planned locations of the stores. 
+These are locations of fast food restaurants and gas stands in Toronto (data are from 2008). Paez Mart on the other hand is a project to cover Toronto with convenience stores. The points are the planned locations of the stores. 
 
 You can check the contents of `ppp` objects by means of `summary`:
 
@@ -159,34 +97,28 @@ summary(Fast_Food.ppp)
 ```
 
 ```
-## Marked planar point pattern:  614 points
-## Average intensity 8663.712 points per square unit
+## Planar point pattern:  614 points
+## Average intensity 9.681378e-07 points per square unit
 ## 
-## Coordinates are given to 6 decimal places
-## 
-## Multitype:
-##           frequency proportion intensity
-## Chicken          82  0.1335505  1157.043
-## Hamburger       209  0.3403909  2949.048
-## Pizza           164  0.2671010  2314.086
-## Sub             159  0.2589577  2243.534
+## Coordinates are given to 1 decimal place
+## i.e. rounded to the nearest multiple of 0.1 units
 ## 
 ## Window: polygonal boundary
 ## 10 separate polygons (no holes)
 ##             vertices        area relative.area
-## polygon 1       4185 7.05052e-02      9.95e-01
-## polygon 2        600 2.82935e-04      3.99e-03
-## polygon 3        193 2.64610e-05      3.73e-04
-## polygon 4         28 2.96067e-06      4.18e-05
-## polygon 5         52 1.59304e-05      2.25e-04
-## polygon 6         67 1.76751e-05      2.49e-04
-## polygon 7         41 9.31149e-06      1.31e-04
-## polygon 8         30 4.78946e-06      6.76e-05
-## polygon 9         36 3.77806e-06      5.33e-05
-## polygon 10         8 1.23483e-06      1.74e-05
-## enclosing rectangle: [-79.6393, -79.11547] x [43.58107, 43.85539] units
-## Window area = 0.0708703 square units
-## Fraction of frame area: 0.493
+## polygon 1       4185 630935000.0      9.95e-01
+## polygon 2        600   2536260.0      4.00e-03
+## polygon 3        193    237206.0      3.74e-04
+## polygon 4         28     26539.7      4.18e-05
+## polygon 5         52    142793.0      2.25e-04
+## polygon 6         67    158439.0      2.50e-04
+## polygon 7         41     83470.2      1.32e-04
+## polygon 8         30     42934.1      6.77e-05
+## polygon 9         36     33866.6      5.34e-05
+## polygon 10         8     11069.2      1.75e-05
+## enclosing rectangle: [609550.5, 651611.8] x [4826375, 4857439] units
+## Window area = 634207000 square units
+## Fraction of frame area: 0.485
 ```
 
 Now that you have the data that you need in the right format, you are ready for the next activity.

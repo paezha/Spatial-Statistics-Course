@@ -49,71 +49,9 @@ Load the libraries you will use in this activity. In addition to `tidyverse`, yo
 
 ```r
 library(tidyverse)
-```
-
-```
-## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
-```
-
-```
-## v ggplot2 3.1.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.8
-## v tidyr   0.8.2     v stringr 1.3.1
-## v readr   1.2.1     v forcats 0.3.0
-```
-
-```
-## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-```r
 library(spatstat)
-```
-
-```
-## Loading required package: spatstat.data
-```
-
-```
-## Loading required package: nlme
-```
-
-```
-## 
-## Attaching package: 'nlme'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     collapse
-```
-
-```
-## Loading required package: rpart
-```
-
-```
-## 
-## spatstat 1.57-1       (nickname: 'Cartoon Physics') 
-## For an introduction to spatstat, type 'beginner'
-```
-
-```r
 library(maptools) # Needed to convert `SpatialPolygons` into `owin`-class object
-```
-
-```
-## Loading required package: sp
-```
-
-```
-## Checking rgeos availability: TRUE
-```
-
-```r
+library(sf)
 library(geog4ga3)
 ```
 
@@ -123,23 +61,23 @@ For this activity, you will use the datasets that you used in Activity 6, includ
 data("Toronto")
 ```
 
-This is converted to an `owin` object:
+Convert the `sf` object to an `owin` object (via `SpatialPolygons`, hence `as(x, "Spatial")`:
 
 ```r
-Toronto.owin <- as(Toronto, "owin") # Requires the package `maptools`
+Toronto.owin <- as.owin(as(Toronto, "Spatial")) # Requires `maptools` package
 ```
 
-Next the data that you will use in this activity needs to be loaded. Each dataframe is converted into a ppp object using the `as.ppp` function:
+Next, load the data that you will use in this activity. Each dataframe is converted into a `ppp` object using the `as.ppp` function, again after extracting the coordinates of the events from the `sf` object:
 
 ```r
 data("Fast_Food")
-Fast_Food.ppp <- as.ppp(Fast_Food, W = Toronto.owin)
+Fast_Food.ppp <- as.ppp(st_coordinates(Fast_Food), W = Toronto.owin)
 
 data("Gas_Stands")
-Gas_Stands.ppp <- as.ppp(Gas_Stands, W = Toronto.owin)
+Gas_Stands.ppp <- as.ppp(st_coordinates(Gas_Stands), W = Toronto.owin)
 
 data("Paez_Mart")
-Paez_Mart.ppp <- as.ppp(Paez_Mart, W = Toronto.owin)
+Paez_Mart.ppp <- as.ppp(st_coordinates(Paez_Mart), W = Toronto.owin)
 ```
 
 Now that you have the datasets in the appropriate format, you are ready for the next activity.

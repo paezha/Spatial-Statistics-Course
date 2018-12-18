@@ -51,71 +51,9 @@ Load the libraries you will use in this activity. In addition to `tidyverse`, yo
 
 ```r
 library(tidyverse)
-```
-
-```
-## -- Attaching packages ---------------------------------------------------------------- tidyverse 1.2.1 --
-```
-
-```
-## v ggplot2 3.1.0     v purrr   0.2.5
-## v tibble  1.4.2     v dplyr   0.7.8
-## v tidyr   0.8.2     v stringr 1.3.1
-## v readr   1.2.1     v forcats 0.3.0
-```
-
-```
-## -- Conflicts ------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
-```r
 library(spatstat)
-```
-
-```
-## Loading required package: spatstat.data
-```
-
-```
-## Loading required package: nlme
-```
-
-```
-## 
-## Attaching package: 'nlme'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     collapse
-```
-
-```
-## Loading required package: rpart
-```
-
-```
-## 
-## spatstat 1.57-1       (nickname: 'Cartoon Physics') 
-## For an introduction to spatstat, type 'beginner'
-```
-
-```r
 library(maptools) # Needed to convert a `Spatial Polygons` object into an `owin` object
-```
-
-```
-## Loading required package: sp
-```
-
-```
-## Checking rgeos availability: TRUE
-```
-
-```r
+library(sf)
 library(geog4ga3)
 ```
 
@@ -133,7 +71,6 @@ Next the geospatial files need to be read. For this example, the city boundary o
 
 ```r
 data("Toronto")
-data("Toronto_df")
 ```
 
 If you inspect your workspace, you will see that the following dataframes are there:
@@ -141,48 +78,42 @@ If you inspect your workspace, you will see that the following dataframes are th
 * `Fast_Food`
 * `Gas_Stands`
 * `Paez_Mart`
-* `Toronto_df`
 
-These are locations of fast food restaurants and gas stands in Toronto (data are from 2008). Paez Mart on the other hand is my project to cover Toronto with convenience stores. The points are the planned locations of the stores. `Toronto_df` is the city boundary.
+These are locations of a selection of fast food restaurants, and also of gas stands in Toronto (data are from 2008). Paez Mart on the other hand is a project to cover Toronto with convenience stores. The points are the planned locations of the stores.
 
-Also, there should be an object of class `SpatialPolygons`:
+Also, there should be an object of class `sf`. This dataframe contains the city boundary of Toronto:
 
 ```r
 class(Toronto)
 ```
 
 ```
-## [1] "SpatialPolygons"
-## attr(,"package")
-## [1] "sp"
+## [1] "sf"         "data.frame"
 ```
 
 Try plotting the following:
 
 ```r
-ggplot() + geom_point(data = Fast_Food, aes(x = x, y = y)) +
-    geom_polygon(data = Toronto_df, aes(x = long, y = lat, group = group), color = "black", fill = NA, alpha = 1, size = .3)
+ggplot() +
+  geom_sf(data = Toronto, color = "black", fill = NA, alpha = 1, size = .3) +
+  geom_sf(data = Paez_Mart) +
+  coord_sf()
 ```
 
 <img src="09-Activity-Point-Pattern-Analysis-I_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
-As discussed in the preceding chapter, the package `spatstat` is a very rich collection of tools to do point pattern analysis. To convert the three sets of events (i.e., the fast food establishments, gas stands, and Paez Mart) into `ppp` objects we first must define a region or _window_. To do this we take the `SpatialPolygons` and convert to an `owin` (a window object) for use with the package `spatstat`:
+As discussed in the preceding chapter, the package `spatstat` is a very rich collection of tools to do point pattern analysis. To convert the three sets of events (i.e., the fast food establishments, gas stands, and Paez Mart) into `ppp` objects we first must define a region or _window_. To do this we take the `sf` and convert to an `owin` (a window object) for use with the package `spatstat` (this is done via `SpatialPolygons`, hence `as(x, "Spatial")`:
 
 ```r
-Toronto.owin <- as.owin(Toronto) # Requires `maptools` package
+Toronto.owin <- as.owin(as(Toronto, "Spatial")) # Requires `maptools` package
 ```
 
-And, then convert the dataframes to `ppp` objects: 
+And, then convert the dataframes to `ppp` objects (this necessitates that we extract the coordinates of the events by means of `st_coordinates`): 
 
 ```r
-Fast_Food.ppp <- as.ppp(Fast_Food, W = Toronto.owin)
-Fast_Food.ppp <- as.ppp(Fast_Food.ppp)
-
-Gas_Stands.ppp <- as.ppp(Gas_Stands, W = Toronto.owin)
-Gas_Stands.ppp <- as.ppp(Gas_Stands.ppp)
-
-Paez_Mart.ppp <- as.ppp(Paez_Mart, W = Toronto.owin)
-Paez_Mart.ppp <- as.ppp(Paez_Mart.ppp)
+Fast_Food.ppp <- as.ppp(st_coordinates(Fast_Food), W = Toronto.owin)
+Gas_Stands.ppp <- as.ppp(st_coordinates(Gas_Stands), W = Toronto.owin)
+Paez_Mart.ppp <- as.ppp(st_coordinates(Paez_Mart), W = Toronto.owin)
 ```
 
 These objects can now be used with the functions of the `spatstat` package. For instance, you can calculate the counts of events by quadrat by means of `quadrat.count`. The input must be a `ppp` object, and the number of quadrats on the horizontal (nx) and vertical (ny) direction (notice how I use the function `table` to present the frequency of quadrats with number of events):
@@ -194,11 +125,11 @@ table(q_count)
 
 ```
 ## q_count
-##   0   9  43  48  60  67  83 147 157 
+##   0   6  44  48  60  64  85 144 163 
 ##   1   1   1   1   1   1   1   1   1
 ```
 
-As you see from the table, there is one quadrat with zero events, one quadrat with nine events, one quadrat with forty-three events, and so on.
+As you see from the table, there is one quadrat with zero events, one quadrat with six events, one quadrat with forty-four events, and so on.
 
 You can also plot the results of the `quadratcount`!
 
@@ -231,7 +162,7 @@ q_test
 ## 	Pearson X2 statistic
 ## 
 ## data:  Fast_Food.ppp
-## X2 = 225.72, df = 8, p-value < 2.2e-16
+## X2 = 213.74, df = 8, p-value < 2.2e-16
 ## alternative hypothesis: two.sided
 ## 
 ## Quadrats: 9 tiles (irregular windows)

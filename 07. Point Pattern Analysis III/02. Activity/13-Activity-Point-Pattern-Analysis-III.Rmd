@@ -45,7 +45,7 @@ rm(list = ls())
 Note that `ls()` lists all objects currently on the worspace.
 
 Load the libraries you will use in this activity. In addition to `tidyverse`, you will need `spatstat`, a package designed for the analysis of point patterns (you can learn about `spatstat` [here](https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf) and [here](http://spatstat.org/resources/spatstatJSSpaper.pdf)):
-```{r}
+```{r message=FALSE}
 library(tidyverse)
 library(spatstat)
 library(maptools) # Needed to convert `SpatialPolygons` into `owin` object
@@ -83,7 +83,7 @@ If you inspect your workspace, you will see that the following `ppp` objects are
 * `Gas_Stands.ppp`
 * `Paez_Mart.ppp`
 
-These are locations of fast food restaurants and gas stands in Toronto (data are from 2008). Paez Mart on the other hand is my project to cover Toronto with convenience stores. The points are the planned locations of the stores. 
+These are locations of fast food restaurants and gas stands in Toronto (data are from 2008). Paez Mart on the other hand is a project to cover Toronto with convenience stores. The points are the planned locations of the stores. 
 
 You can check the contents of `ppp` objects by means of `summary`:
 ```{r}

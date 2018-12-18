@@ -1,3 +1,10 @@
+---
+title: "00 Reading - Installing R"
+output:
+  html_document:
+    df_print: paged
+---
+
 # Preliminaries: Installing R and RStudio
 
 ## Introduction
@@ -13,11 +20,11 @@ Modeling is a process that further extracts information from the data, typically
 All of the tasks mentioned above, and many more, can be handled easily in a variety of software applications. For this course, you will use the statistical computing language R. 
 
 <div class="figure">
-<img src="Data Analysis - Grolemund and Wickham.png" alt="\label{fig:data-analysis-process} The process of doing data analysis (from Wickham and Grolemund, 2016)" width="293" />
+<img src="Installation Figure 1.png" alt="\label{fig:data-analysis-process} The process of doing data analysis (from Wickham and Grolemund, 2016)" width="293" />
 <p class="caption">(\#fig:data-analysis-process)\label{fig:data-analysis-process} The process of doing data analysis (from Wickham and Grolemund, 2016)</p>
 </div>
 
-## Learning objectives
+## Learning Objectives
 
 In this reading, you will learn:
 
@@ -25,7 +32,7 @@ In this reading, you will learn:
 2. About the RStudio Interactive Development Environment.
 3. About packages in R.
 
-##	R: The open statistical computing project
+##	R: The Open Statistical Computing Project
 
 ### What is R?
 
@@ -33,11 +40,15 @@ R is an open-source language for statistical computing. It was created by Ross I
 
 A good way to think about R is as a core package, to which a library, consisting of additional packages, can be attached to increase its functionality. R can be downloaded for free at:
 
+```
 https://cran.rstudio.com/
+```
 
 R comes with a built-in console (a user graphical interface), but better alternatives to the basic interface exist, including RStudio, an Integrated Development Environment, or IDE for short. RStudio can also be downloaded for free, by visiting the website:
 
+```
 https://www.rstudio.com/products/rstudio/download/
+```
 
 R requires you to work using the command line, which is going to be unfamiliar to many of you accustomed to user-friendly graphical interfaces. Do not fear. People worked for a long time using the command line, or even more cumbersome, punched cards in early computers. Graphical user interfaces are convenient, but they have a major drawback, namely their inflexibility. A program that functions based on graphical user interfaces allows you to do only what is hard-coded in the user interface. Command line, as we will see, is somewhat more involved, but provides much more flexibility in operation.
 
@@ -50,7 +61,7 @@ Before introducing some basic functionality in R, lets quickly take a tour R Stu
 The RStudio IDE provides a complete interface to interact with the language R. It consists of a window with several panes. Some panes include in addition several tabs. There are the usual drop-down menus for common operations, such as creating new files, saving, common commands for editing, etc. See Figure \@ref(fig:RStudio-IDE) below.
 
 <div class="figure">
-<img src="RStudio IDE.png" alt="\label{fig:RStudio-IDE}The RStudio IDE" width="3898" />
+<img src="Installation Figure 2.png" alt="\label{fig:RStudio-IDE}The RStudio IDE" width="3898" />
 <p class="caption">(\#fig:RStudio-IDE)\label{fig:RStudio-IDE}The RStudio IDE</p>
 </div>
 

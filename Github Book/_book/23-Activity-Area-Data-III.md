@@ -1,9 +1,9 @@
 ---
-title: "12 Activity 12: Area Data III"
+title: "Activity 11: Area Data III"
 output: html_notebook
 ---
 
-# Activity 12: Area Data III
+# Activity 11: Area Data III
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
 
@@ -78,7 +78,7 @@ Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
 
 You are now ready for the next activity.
 
-#Activity
+## Activity
 
 1. Create a spatial weights matrix for the census tracts in the Hamilton CMA.
 

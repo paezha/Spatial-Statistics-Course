@@ -1,9 +1,9 @@
 ---
-title: "Activity 11: Area Data II"
+title: "Activity 10: Area Data II"
 output: html_notebook
 ---
 
-# Activity 11: Area Data II
+# Activity 10: Area Data II
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
 

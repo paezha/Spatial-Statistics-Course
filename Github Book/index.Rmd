@@ -8,7 +8,7 @@ documentclass: book
 bibliography: [bibliography.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: https://github.com/paezha/Spatial-Statistics-Course
+github-repo: paezha.github.io/applied_spatial_statistics
 description: "This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi."
 ---
 

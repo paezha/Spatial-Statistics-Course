@@ -1,14 +1,14 @@
 --- 
 title: "Applied Spatial Statistics with R"
 author: "Antonio Paez"
-date: "2019-01-15"
+date: "2019-01-16"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
 bibliography: [bibliography.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-#github-repo: rstudio/bookdown-demo
+github-repo: paezha.github.io/applied_spatial_statistics
 description: "This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi."
 ---
 

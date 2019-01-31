@@ -136,6 +136,21 @@ Now that you have seen how to do some analysis using quadrats, you are ready for
 
 1. Use `Fast_Food`, `Gas_Stands`, `Paez_Mart`, and `Toronto` to create density maps for the three point patterns. Select a quadrat size that you think is appropriate. 
 
+```{r}
+q_size <- 4000
+ggplot() +
+  geom_bin2d(data = data.frame(st_coordinates(Fast_Food)),
+             aes(x = X, y = Y),
+             binwidth = c(q_size, q_size)) +
+  geom_sf(data = Toronto, color = "white", fill = NA) 
+```
++
+    geom_point(data = data.frame(st_coordinates(Fast_Food)), 
+             aes(x = X, y = Y)) 
+```
+
+
+
 2. Show your maps to a fellow student. Did they select the same quadrat size? If not, what was their rationale for their size?
 
 3. Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadratcount` to calculate the number of events per quadrat. Remember that you need to select the number of quadrats in the horizontal and vertical directions!

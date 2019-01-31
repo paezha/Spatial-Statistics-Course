@@ -1,7 +1,7 @@
 --- 
 title: "Applied Spatial Statistics with R"
 author: "Antonio Paez"
-date: "2019-01-16"
+date: "2019-01-31"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

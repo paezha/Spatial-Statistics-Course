@@ -25,7 +25,7 @@
 <meta name="author" content="Antonio Paez">
 
 
-<meta name="date" content="2019-01-16">
+<meta name="date" content="2019-01-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -425,6 +425,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Next the data that you will use in this activity needs to be loaded. Each dataframe is converted into a <code>ppp</code> object using the <code>as.ppp</code> function, again after extracting the coordinates of the events from the <code>sf</code> object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;Fast_Food&quot;</span>)
 Fast_Food.ppp &lt;-<span class="st"> </span><span class="kw">as.ppp</span>(<span class="kw">st_coordinates</span>(Fast_Food), <span class="dt">W =</span> Toronto.owin)
+<span class="co"># Add the classes of fast food to the ppp object:</span>
+<span class="kw">marks</span>(Fast_Food.ppp) &lt;-<span class="st"> </span>Fast_Food<span class="op">$</span>Class
 
 <span class="kw">data</span>(<span class="st">&quot;Gas_Stands&quot;</span>)
 Gas_Stands.ppp &lt;-<span class="st"> </span><span class="kw">as.ppp</span>(<span class="kw">st_coordinates</span>(Gas_Stands), <span class="dt">W =</span> Toronto.owin)
@@ -440,11 +442,18 @@ Paez_Mart.ppp &lt;-<span class="st"> </span><span class="kw">as.ppp</span>(<span
 <p>These are locations of fast food restaurants and gas stands in Toronto (data are from 2008). Paez Mart on the other hand is a project to cover Toronto with convenience stores. The points are the planned locations of the stores.</p>
 <p>You can check the contents of <code>ppp</code> objects by means of <code>summary</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(Fast_Food.ppp)</code></pre></div>
-<pre><code>## Planar point pattern:  614 points
+<pre><code>## Marked planar point pattern:  614 points
 ## Average intensity 9.681378e-07 points per square unit
 ## 
 ## Coordinates are given to 1 decimal place
 ## i.e. rounded to the nearest multiple of 0.1 units
+## 
+## Multitype:
+##           frequency proportion    intensity
+## Chicken          82  0.1335505 1.292953e-07
+## Hamburger       209  0.3403909 3.295453e-07
+## Pizza           164  0.2671010 2.585906e-07
+## Sub             159  0.2589577 2.507067e-07
 ## 
 ## Window: polygonal boundary
 ## 10 separate polygons (no holes)

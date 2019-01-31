@@ -74,6 +74,8 @@ Next the data that you will use in this activity needs to be loaded. Each datafr
 ```r
 data("Fast_Food")
 Fast_Food.ppp <- as.ppp(st_coordinates(Fast_Food), W = Toronto.owin)
+# Add the classes of fast food to the ppp object:
+marks(Fast_Food.ppp) <- Fast_Food$Class
 
 data("Gas_Stands")
 Gas_Stands.ppp <- as.ppp(st_coordinates(Gas_Stands), W = Toronto.owin)
@@ -97,11 +99,18 @@ summary(Fast_Food.ppp)
 ```
 
 ```
-## Planar point pattern:  614 points
+## Marked planar point pattern:  614 points
 ## Average intensity 9.681378e-07 points per square unit
 ## 
 ## Coordinates are given to 1 decimal place
 ## i.e. rounded to the nearest multiple of 0.1 units
+## 
+## Multitype:
+##           frequency proportion    intensity
+## Chicken          82  0.1335505 1.292953e-07
+## Hamburger       209  0.3403909 3.295453e-07
+## Pizza           164  0.2671010 2.585906e-07
+## Sub             159  0.2589577 2.507067e-07
 ## 
 ## Window: polygonal boundary
 ## 10 separate polygons (no holes)

@@ -67,6 +67,8 @@ Next, load the data that you will use in this activity. Each dataframe is conver
 ```{r}
 data("Fast_Food")
 Fast_Food.ppp <- as.ppp(st_coordinates(Fast_Food), W = Toronto.owin)
+# Add the classes of fast food to the ppp object:
+marks(Fast_Food.ppp) <- Fast_Food$Class
 
 data("Gas_Stands")
 Gas_Stands.ppp <- as.ppp(st_coordinates(Gas_Stands), W = Toronto.owin)

@@ -168,7 +168,7 @@ ggplot() +
   theme(axis.text.x = element_blank(), axis.text.y = element_blank()) # Remove the axis labels
 ```
 
-The empirical variable is the map number in the upper left corner. The remaining 8 maps are simulated variables. Would you say the map of the empirical variable is fairly different from the map of the simulated variables? What are the key differences?
+The empirical variable is the map in the upper left corner (labelled `POP_DENSITY.sma`). The remaining 8 maps are simulated variables. Would you say the map of the empirical variable is fairly different from the map of the simulated variables? What are the key differences?
 
 Perhaps similar insights could be derived from randomizing the original population density variable, instead of the spatial moving average. An additional advantage of the spatial moving average is its use in the development of scatterplots.
 

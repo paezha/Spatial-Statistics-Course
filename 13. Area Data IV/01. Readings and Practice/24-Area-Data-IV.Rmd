@@ -161,7 +161,7 @@ summary(POP_DENSITY.lm)
 
 Similar to the global version of Moran's $I$, hypothesis testing can be conducted by comparing the empirical statistic to its distribution under the null hypothesis of spatial independence. The function `localmoran` reports p-values to this end.
 
-For further exploration, append the local statistics to your dataframe:
+For further exploration, join the local statistics to the dataframe:
 ```{r}
 Hamilton_CT <- left_join(Hamilton_CT, 
                            data.frame(TRACT = Hamilton_CT$TRACT, POP_DENSITY.lm))
@@ -169,7 +169,7 @@ Hamilton_CT <- rename(Hamilton_CT, p.val = Pr.z...0.)
 ```
 
 Now it is possible to map the local statistics:
-```{r message=FALSE}
+```{r message = FALSE}
   plot_ly(Hamilton_CT) %>%
     add_sf(split = ~(p.val < 0.05), color = ~Type, colors = c("red", "khaki1", "dodgerblue", "dodgerblue4")) 
 ```

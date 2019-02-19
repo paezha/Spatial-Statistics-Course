@@ -17,12 +17,12 @@ If you wish to work interactively with this chapter you will need the following:
 
 ## Learning Objectives
 
-In this practice, you will learn:
+In this practice, you will:
 
-1. How to estimate regression models in R.
-2. About autocorrelation as a model diagnostic.
-3. About variable transformations.
-4. How to use autocorrelation analysis to improve regression models.
+1. Practice how to estimate regression models in R.
+2. Learn about autocorrelation as a model diagnostic.
+3. Learn about variable transformations.
+4. Use autocorrelation analysis to improve regression models.
 
 ## Suggested Readings
 
@@ -43,89 +43,31 @@ Note that `ls()` lists all objects currently on the worspace.
 Load the libraries you will use in this activity:
 ```{r}
 library(tidyverse)
-library(rgdal)
-library(broom)
-library(geosphere)
+#library(rgdal)
+#library(geosphere)
 library(ggmap)
-library(gmapsdistance)
-library(spdep)
-library(reshape2)
-library(plotly)
+library(gdistance)
 #library(gridExtra)
+library(sf)
+library(plotly)
+library(spdep)
+#library(crosstalk)
+library(geog4ga3)
 ```
 
-Next, read the shape file as an object of class `SpatialPolygonDataFrame`. The function used to read Esri shape files is `rgdal::readOGR`. Setting `integer64` to "allow.loss" keeps the data as integers as opposed to changing to factors or strings:
+Next, read an object of class `sf` (simple feature) with the census tracts of Hamilton CMA and some selected population variables from the 2011 Census of Canada:
 ```{r}
-Hamilton_CT <- readOGR(".", layer = "Hamilton CMA CT", integer64 = "allow.loss")
+data(Hamilton_CT)
 ```
 
-Clear the dataframe, retain only `ID`, `TRACT`, and `POP_DENSIT`:
+The `sf` object can be converted into a `SpatialPolygonsDataFrame` object for use with the `spdedp` package:
 ```{r}
-Hamilton_CT@data <- transmute(Hamilton_CT@data, AreaID = 1:188, TRACT = TRACT, POP_DENSIT = POP_DENSIT)
-```
-
-To use the plotting functions of `ggplot2`, the `SpatialPolygonDataFrame` needs to be "tidied" by means of the `tidy` function of the `broom` package:
-```{r}
-Hamilton_CT.t <- tidy(Hamilton_CT, region = "TRACT")
-Hamilton_CT.t <- dplyr::rename(Hamilton_CT.t, TRACT = id)
-```
-
-Tidying the spatial dataframe strips it from the non-spatial information, but we can add all the data by means of the `left_join` function:
-```{r}
-Hamilton_CT.t <- left_join(Hamilton_CT.t, Hamilton_CT@data, by = "TRACT")
-```
-
-Now the tidy dataframe `Hamilton_DA.t` contains the spatial information and the data.
-
-You can quickly verify the contents of the dataframe by means of `summary`:
-```{r}
-summary(Hamilton_CT.t)
-```
-
-Finally, this function is used to create local Moran maps:
-```{r}
-# localmoran.map <- function(spat_pol = spat_pol, listw = listw, VAR = VAR, ID = ID){
-#   require(tidyverse)
-#   require(broom)
-#   require(spdep)
-#   require(plotly)
-#   
-#   spat_pol@data <- data.frame(ID = ID, VAR = VAR)
-#   spat_pol.t <- broom::tidy(spat_pol, region = "ID")
-#   spat_pol.t <- dplyr::rename(spat_pol.t, ID = id)
-#   spat_pol.t <- dplyr::left_join(spat_pol.t, spat_pol@data, by = "ID")
-#   
-#   df_msc <- transmute(spat_pol@data, 
-#                       ID = ID,
-#                       Z = (VAR-mean(VAR)) / var(VAR), 
-#                       SMA = lag.listw(listw, Z),
-#                       Type = factor(ifelse(Z < 0 & SMA < 0, "LL", 
-#                                            ifelse(Z > 0 & SMA > 0, "HH", "HL/LH"))))
-#   
-#   local_I <- localmoran(spat_pol$VAR, listw)
-#   
-#   spat_pol.t <- left_join(spat_pol.t, 
-#                              data.frame(ID = spat_pol$ID, local_I))
-#   spat_pol.t <- rename(spat_pol.t, p.val = Pr.z...0.)
-#   spat_pol.t <- left_join(spat_pol.t, 
-#                              df_msc)
-#   
-#   map <- ggplot(data = spat_pol.t, 
-#                 aes(x = long, y = lat, group = group, 
-#                     p.val = p.val, VAR = VAR)) +
-#     geom_polygon(aes(fill = Type, color = p.val < 0.05)) +
-#     scale_fill_brewer(palette = "RdBu") +
-#     scale_color_manual(values = c(NA, "Black") ) +
-#     labs(color = "Prob < 0.05") +
-#     coord_equal() +
-#     theme(legend.title = element_blank())
-#   ggplotly(map, tooltip = c("p.val", "VAR"))
-# }
+Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
 ```
 
 ## Regression Analysis in R
 
-This section provides a refresher on linear regression, before reviewing the estimation of regression models in R.
+This section provides a refresher on linear regression, before reviewing the estimation of regression models in `R`.
 
 A linear regression model posits relationships between an outcome, called a dependent variable, and one or more covariates, called independent variables. Regression models capture statistical relationships, not causal relationships, but often the causality is implied by the choice of independent variables.
 
@@ -145,7 +87,7 @@ $$
 
 For this procedure to be valid, there are a few assumptions that need to be satisfied, including:
 
-1) The linear form of the model is correct.
+1) The functional form of the model is correct.
 
 2) The independent variables are not collinear; this is often diagnosed by calculating the correlations among the independent variables, with values greater than 0.8 often being problematic.
 
@@ -182,31 +124,40 @@ $$
 P_i = f(D_i) + \epsilon_i
 $$
 
-Lets add distance to the CBD as a covariate to your dataframe. We will use Jackson Square as the CBD of Hamilton. The function `geocode` from the `ggmap` package can be used to retrieved the coordinates of this location:
+Lets add distance to the CBD as a covariate to your dataframe. We will use Jackson Square as the CBD of Hamilton:
 ```{r}
-xy_cbd <- geocode("Jackson Square, Hamilton, Ontario")
+xy_cbd <- c(-79.8708, 43.2584)
 ```
 
-Further, the centroid coordinates of the census tracts can be retrieved from the `SpatialPolygonsDataFrame` by means of the function `spdedp::coordinates`:
+Convert these coordinates to `sf`, with EPSG code 4326 for longitude and latitude:
 ```{r}
-xy_ct <- coordinates(Hamilton_CT)
+#xy_cbd <- st_as_sf(xy_cbd, coords = c("lon", "lat"), crs = 4326)
 ```
 
-Given these coordinates, the function `distGeo` from the package `geosphere` can be used to calculate the great circle distance between the centroids of the census tracts and Hamilton's CBD:
+```{r}
+xy_ct <- coordinates(spTransform(Hamilton_CT.sp, CRSobj = "+proj=longlat +datum=WGS84 +no_defs"))
+```
+
+Given these coordinates, the function `sf::st_distance` can be used to calculate the great circle distance between the centroids of the census tracts and Hamilton's CBD. Call this `dist2cbd.sl`, i.e., straight line distance to CBD in a straight:
 ```{r}
 dist2cbd.sl <- distGeo(xy_ct, xy_cbd)
 ```
 
-We can now append this variable to the dataframe for analysis:
+
 ```{r}
-Hamilton_CT@data$dist.sl <- dist2cbd.sl
+#dist2cbd.sl <- st_distance(Hamilton_CT, xy_cbd)
 ```
 
-The arguments of the model include an object of type "formula" and a dataframe. Other arguments include conditions for subsetting the data, using sampling weights, and so on.
+The distance is given in meters. Convert to numeric and divide by $1,000$ to convert to kilometers, before adding this variable to `Hamilton_CT` for analysis (I also add 1 meter to the distances to ensure that there are no zeros in that variable):
+```{r}
+Hamilton_CT$dist.sl <- dist2cbd.sl
+```
+
+Regression analysis is implemented in `R` by means of the `lm` function. The arguments of the model include an object of type "formula" and a dataframe. Other arguments include conditions for subsetting the data, using sampling weights, and so on.
 
 A formula is written in the form `y ~ x1 + x2`, and more complex expressions are possible too, as we will see below. For the time being, the formula is simply `POP_DENSIT ~ dist.sl`:
 ```{r}
-model1 <- lm(formula = POP_DENSIT ~ dist.sl, data = Hamilton_CT@data)
+model1 <- lm(formula = POP_DENSITY ~ dist.sl, data = Hamilton_CT)
 summary(model1)
 ```
 
@@ -214,15 +165,14 @@ The value of the function is an object of class `lm` that contains the results o
 
 Notice how the coefficient for distance is negative (and significant). This indicates that population density declines with increasing distance:
 $$
-P_i = f(D_i) + \epsilon_i = 4404.91 - 0.17895D_i + \epsilon_i
+P_i = f(D_i) + \epsilon_i = 4405.15414 - 0.17989D_i + \epsilon_i
 $$
 
 ## Autocorrelation as a Model Diagnostic
 
-Let quickly explore the fit of the model. The scatterplot is of the actual population density, whereas the blue line is the regression model:
+Let quickly explore the fit of the model. The scatterplot is of the actual population density and the distance to CBD, whereas the blue line is the regression model:
 ```{r}
-ggplot(data = Hamilton_CT@data, aes(x = dist.sl, 
-                                    y = POP_DENSIT)) + 
+ggplot(data = Hamilton_CT, aes(x = dist.sl, y = POP_DENSITY)) + 
   geom_point() +
   geom_abline(slope = model1$coefficients[2], 
               intercept = model1$coefficients[1], 
@@ -236,30 +186,20 @@ If the pattern of under- and over-estimation is random (i.e., the residuals are 
 
 Lets add the residuals of the model to your dataframes:
 ```{r}
-Hamilton_CT@data$model1.e <- model1$residuals
-Hamilton_CT.t <- left_join(Hamilton_CT.t, 
-                           data.frame(TRACT = Hamilton_CT$TRACT, model1$residuals))
-Hamilton_CT.t <- rename(Hamilton_CT.t, model1.e = model1.residuals)
+Hamilton_CT$model1.e <- model1$residuals
 ```
 
 And now we can create a map of the residuals, with red indicating negative residuals and blue positive:
-```{r}
-map_model1.e <- ggplot(data = Hamilton_CT.t, aes(x= long, y = lat, group = group,
-                                                 fill = model1.e < 0)) +
-  geom_polygon(color = "white") +
-  scale_fill_manual(values=c("blue", "red")) +
-  
-  coord_equal()
-ggplotly(map_model1.e) %>% layout(showlegend = FALSE)
+```{r message = FALSE}
+  plot_ly(Hamilton_CT) %>%
+    add_sf(color = ~(model1.e > 0), colors = c("red", "dodgerblue4"))
 ```
 
 Does the distribution of residuals look random?
 
-Fortunately, we already have the tools to help us with this question.
-
-Lets create a set of spatial weights:
+Fortunately, we already have the tools to help us with this question. Lets create a set of spatial weights:
 ```{r}
-Hamilton_CT.w <- nb2listw(poly2nb(Hamilton_CT))
+Hamilton_CT.w <- nb2listw(poly2nb(Hamilton_CT.sp))
 ```
 
 With this, we can calculate Moran's I:
@@ -284,30 +224,26 @@ $$
  
 Lets create a new covariate that is the inverse distance:
 ```{r}
-Hamilton_CT@data <- mutate(Hamilton_CT@data, invdist.sl = 1/dist.sl)
+Hamilton_CT <- mutate(Hamilton_CT, invdist.sl = 1/dist.sl)
 ```
 
 Use inverse distance as the covariate in the model:
 ```{r}
-model2 <- lm(formula = POP_DENSIT ~ invdist.sl, data = Hamilton_CT@data)
+model2 <- lm(formula = POP_DENSITY ~ invdist.sl, data = Hamilton_CT)
 summary(model2)
 ```
 
-As the scatterplot below shows (the model is the blue line), we can capture a non-linear relationship, which does a better job of describing the high density of tracts close to the CBD, but unfortunately is a poor description of low density tracts elsewhere:
+As the scatterplot below shows (the model is the blue line), we can capture a non-linear relationship, which does a better job of describing the high density of tracts close to the CBD, but unfortunately is a poor description of density almost everywhere else:
 ```{r}
-ggplot(data = Hamilton_CT@data, aes(x = dist.sl, 
-                                    y = POP_DENSIT)) + 
+ggplot(data = Hamilton_CT, aes(x = dist.sl, y = POP_DENSITY)) + 
   geom_point() +
-  stat_function(fun=function(x)2303.1 + 2244627/x, geom="line", color = "blue", size = 1) +
+  stat_function(fun=function(x)2299.6 + 2260521.5/x, geom="line", color = "blue", size = 1) +
   geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
 ```
 
 Add the residuals of this model to the dataframe for further examination:
 ```{r}
-Hamilton_CT@data$model2.e <- model2$residuals
-Hamilton_CT.t <- left_join(Hamilton_CT.t, 
-                           data.frame(TRACT = Hamilton_CT$TRACT, model2$residuals))
-Hamilton_CT.t <- rename(Hamilton_CT.t, model2.e = model2.residuals)
+Hamilton_CT$model2.e <- model2$residuals
 ```
 
 If we calculate Moran's I, you will notice that the coefficient is lower than for the previous model but still significant, wich means that the residuals are not random:
@@ -327,77 +263,71 @@ $$
 
 Lets create these covariates:
 ```{r}
-Hamilton_CT@data <- mutate(Hamilton_CT@data, lnPOP_DEN = log(POP_DENSIT))
+Hamilton_CT <- mutate(Hamilton_CT, lnPOP_DEN = log(POP_DENSITY))
 ```
 
 And estimate the model:
 ```{r}
-model3 <- lm(formula = lnPOP_DEN ~ dist.sl, data = Hamilton_CT@data)
+model3 <- lm(formula = lnPOP_DEN ~ dist.sl, data = Hamilton_CT)
 summary(model3)
 ```
 
 ```{r}
-ggplot(data = Hamilton_CT@data, aes(x = dist.sl, 
-                                    y = POP_DENSIT)) + 
+ggplot(data = Hamilton_CT, aes(x = dist.sl, y = POP_DENSITY)) + 
   geom_point() +
   stat_function(fun=function(x)exp(8.465 - 0.0001161 * x), 
                 geom="line", color = "blue", size = 1) +
   geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
 ```
 
-While this latest model provides a somewhat better fit, there is still systematic under- and over-prediction, as seen in the map below:
+As before, add the residuals of the model to the dataframe for further examination:
 ```{r}
-Hamilton_CT.t <- left_join(Hamilton_CT.t, 
-                           data.frame(TRACT = Hamilton_CT$TRACT, model3$residuals))
-Hamilton_CT.t <- rename(Hamilton_CT.t, model3.e = model3.residuals)
+Hamilton_CT$model3.e <- model3$residuals
+```
 
-map_model3.e <- ggplot(data = Hamilton_CT.t, aes(x= long, y = lat, group = group,
-                                                 fill = model3.e < 0)) +
-  geom_polygon(color = "white") +
-  scale_fill_manual(values=c("blue", "red")) +
-  
-  coord_equal()
-ggplotly(map_model3.e) %>% layout(showlegend = FALSE)
+While this latest model provides a somewhat better fit, there is still systematic under- and over-prediction, as seen in the map below (red are negative residuals and blue are positive):
+```{r message = FALSE}
+  plot_ly(Hamilton_CT) %>%
+    add_sf(color = ~(model3.e > 0), colors = c("red", "dodgerblue4"))
 ```
 
 Moran's I as well strongly suggests that the residuals are not independent:
 ```{r}
-Hamilton_CT@data$model3.e <- model3$residuals
 moran.test(Hamilton_CT$model3.e, Hamilton_CT.w)
 ```
 
 ## A Note about Spatial Autocorrelation in Regression Analysis
 
-Spatial autocorrelation was originally seen as a problem in regression analysis. It is not difficult to see why, after testing three models in this section.
+Spatial autocorrelation was originally seen as a problem in regression analysis. It is not difficult to see why, after testing three models in this chapter.
 
-I prefer to view spatial autocorrelation as an opportunity for discovery. For instance, the models above all seem to struggle capturing the large variations in population density between the central parts and the suburbs of Hamilton. Perhaps this could be due to a _regime change_, that is, the underlying process operates somewhat differently in different parts parts of the city. The last model, for instance, suggests that Burlington might have an effect.
+I prefer to view spatial autocorrelation as an opportunity for discovery. For instance, the models above all seem to struggle capturing the large variations in population density between the central parts of the city and the suburbs of Hamilton. Perhaps this could be due to a _regime change_, or in other words, the presence of an underlying process that operates somewhat differently in different parts parts of the city. The last model, for instance, suggests that Burlington might have an effect.
 
 The analysis that follows is somewhat more advanced, but serves to illustrate the idea of spatial autocorrelation as a tool for discovery.
 
 Lets begin by creating local Moran maps to identify potential spatial regimes: 
-```{r}
-localmoran.map(Hamilton_CT, Hamilton_CT.w, Hamilton_CT$POP_DENSIT, Hamilton_CT$TRACT)
+```{r message = FALSE, warning = FALSE}
+localmoran.map(Hamilton_CT, Hamilton_CT.w, "POP_DENSITY", by = "TRACT")
 ```
 
 Examination of the map above, suggests that there are possibly three regimes: a CBD ("HH" and significant tracts), Suburbs ("LL" and significant tracts), and Other (not significant tracts). Based on this, we will create two indicator variables, one for census tracts in the CBD and another for census tracts in the Suburbs. An indicator variable takes values of 1 or zero, depending on whether a condition is true. For instance, all census tracts in the CBD will take the value of 1 in the CBD indicator variable, and all others will be zero.
 
 Begin by computing the local statistics:
 ```{r}
-POP_DEN.lm <- localmoran(Hamilton_CT$POP_DENSIT, listw = Hamilton_CT.w)
+POP_DEN.lm <- localmoran(Hamilton_CT$POP_DENSITY, listw = Hamilton_CT.w)
 ```
 
 Next, identify the type of tract based on the spatial relationships (i.e., "HH", "LL", or "HL/LH"). After that, identify as CBD all tracts for which Type is "HH" and the p-value is less than or equal to 0.05. Likewise, identify as Suburb all tracts for which Type is "LL" and the p-value is also less than or equal to 0.05:
 ```{r}
-df_msc <- transmute(Hamilton_CT@data,
+df_msc <- transmute(Hamilton_CT,
                     TRACT = TRACT,
-                    Z = (POP_DENSIT-mean(POP_DENSIT)) / var(POP_DENSIT),
+                    Z = (POP_DENSITY - mean(POP_DENSITY)) / var(POP_DENSITY),
                     SMA = lag.listw(Hamilton_CT.w, Z),
                     Type = factor(ifelse(Z < 0 & SMA < 0, "LL",
                                          ifelse(Z > 0 & SMA > 0, "HH", "HL/LH"))))
 df_msc <- cbind(df_msc, POP_DEN.lm)
 
-CBD <- ifelse(df_msc$Type == "HH" & df_msc$`Pr(z > 0)` < 0.05, 1, 0)
-Suburb <- ifelse(df_msc$Type == "LL" & df_msc$`Pr(z > 0)` < 0.05, 1, 0)
+CBD <- ifelse(df_msc$Type == "HH" & df_msc$`Pr.z...0` < 0.05, 1, 0)
+Suburb <- ifelse(df_msc$Type == "LL" & df_msc$`Pr.z...0` < 0.05, 1, 0)
 ```
 
 Add the indicator variables to the dataframe:
@@ -421,12 +351,10 @@ ln(P_i)=\Bigg\{\begin{array}{l l}
 $$
 
 
-Notice how the model now allows for different slopes and intercepts for observations in different parts of the city.
-
-Estimate the model:
+Notice how the model now allows for different slopes and intercepts for observations in different parts of the city. Estimate the model:
 ```{r}
 model4 <- lm(formula = lnPOP_DEN ~ dist.sl + CBD * dist.sl + Suburb * dist.sl,
-             Hamilton_CT@data)
+             data = Hamilton_CT)
 summary(model4)
 ```
 
@@ -434,22 +362,12 @@ The model is a much better fit (see the the coefficient of multiple determinatio
 
 Lets examine the residuals:
 ```{r}
-Hamilton_CT.t <- left_join(Hamilton_CT.t, 
-                           data.frame(TRACT = Hamilton_CT$TRACT, model4$residuals))
-Hamilton_CT.t <- rename(Hamilton_CT.t, model4.e = model4.residuals)
 
-map_model4.e <- ggplot(data = Hamilton_CT.t, aes(x= long, y = lat, group = group,
-                                                 fill = model4.e < 0)) +
-  geom_polygon(color = "white") +
-  scale_fill_manual(values=c("blue", "red")) +
-  
-  coord_equal()
-ggplotly(map_model4.e) %>% layout(showlegend = FALSE)
 ```
 
 It is not clear from the visual inspection that the residuals are independent, but this can be tested as usual by means of Moran's I coefficient:
 ```{r}
-Hamilton_CT@data$model4.e <- model4$residuals
+Hamilton_CT$model4.e <- model4$residuals
 moran.test(Hamilton_CT$model4.e, Hamilton_CT.w)
 ```
 
@@ -457,19 +375,21 @@ Based on the results, we fail to reject the null hypothesis, and can be confiden
 
 The following figure illustrates the final model:
 ```{r}
-fun.1 <- function(x)exp(7.943 + 0.9537 - (0.00003247  + 0.0000273) * x) #CBD
-fun.2 <- function(x)exp(7.943 - 0.9539 - (0.00003247 + 0.0001005) * x) #Suburb
-fun.3 <- function(x)exp(7.943 - 0.00003247 * x) #Other
+fun.1 <- function(x)exp(7.943 + 0.9536 - (0.00003248  + 0.0000273) * x) #CBD
+fun.2 <- function(x)exp(7.943 - 0.9535 - (0.00003248 + 0.0001006) * x) #Suburb
+fun.3 <- function(x)exp(7.943 - 0.00003248 * x) #Other
 
-ggplot(data = Hamilton_CT@data, aes(x = dist.sl, y = POP_DENSIT)) +
+ggplot(data = Hamilton_CT, aes(x = dist.sl, y = POP_DENSITY)) +
   geom_point() +
+  geom_point(data = filter(Hamilton_CT, CBD == 1), color = "Red") +
+  geom_point(data = filter(Hamilton_CT, Suburb == 1), color = "Blue") +
   stat_function(fun= fun.1, 
                 geom="line", size = 1, aes(color = "CBD")) +
   stat_function(fun=fun.2, 
                 geom="line", size = 1, aes(color = "Suburb")) +
   stat_function(fun=fun.3, 
                 geom="line", size = 1, aes(color = "Other")) +
-  scale_color_manual(values = c("red", "blue", "black"), 
-                     labels = c("CBD", "Suburb", "Other")) +
+  scale_color_manual(values = c("red", "black", "blue"), 
+                     labels = c("CBD", "Other", "Suburb")) +
   geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
 ```

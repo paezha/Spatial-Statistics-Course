@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 29 Area Data VI | Applied Spatial Statistics with R</title>
+  <meta name="description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 29 Area Data VI | Applied Spatial Statistics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi." />
+  <meta name="github-repo" content="paezha.github.io/applied_spatial_statistics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 29 Area Data VI | Applied Spatial Statistics with R" />
+  
+  <meta name="twitter:description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi." />
+  
+
+<meta name="author" content="Antonio Paez">
+
+
+<meta name="date" content="2019-02-19">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="activity-14-area-data-v.html">
+<link rel="next" href="activity-14-area-data-vi.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script>
+<script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script>
+<script src="libs/plotly-binding-4.8.0.9000/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.42.5/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.42.5/plotly-latest.min.js"></script>
+<link href="libs/colourpicker-1.1/colourpicker.min.css" rel="stylesheet" />
+<script src="libs/colourpicker-1.1/colourpicker.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#spatial-analysis-and-spatial-statistics"><i class="fa fa-check"></i>Spatial Analysis and Spatial Statistics</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-this-text"><i class="fa fa-check"></i>Why this Text?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#plan"><i class="fa fa-check"></i>Plan</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#audience"><i class="fa fa-check"></i>Audience</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#requisites"><i class="fa fa-check"></i>Requisites</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> Preliminaries: Installing R and RStudio</a><ul>
+<li class="chapter" data-level="1.1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#learning-objectives"><i class="fa fa-check"></i><b>1.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="1.3" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#r-the-open-statistical-computing-project"><i class="fa fa-check"></i><b>1.3</b> R: The Open Statistical Computing Project</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>1.3.1</b> What is R?</a></li>
+<li class="chapter" data-level="1.3.2" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#the-rstudio-ide"><i class="fa fa-check"></i><b>1.3.2</b> The RStudio IDE</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#packages-in-r"><i class="fa fa-check"></i><b>1.4</b> Packages in R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic Operations and Data Structures in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="2.2" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#rstudio-ide"><i class="fa fa-check"></i><b>2.2</b> RStudio IDE</a></li>
+<li class="chapter" data-level="2.3" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#some-basic-operations"><i class="fa fa-check"></i><b>2.3</b> Some Basic Operations</a></li>
+<li class="chapter" data-level="2.4" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#data-classes-in-r"><i class="fa fa-check"></i><b>2.4</b> Data Classes in R</a></li>
+<li class="chapter" data-level="2.5" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#data-types-in-r"><i class="fa fa-check"></i><b>2.5</b> Data Types in R</a></li>
+<li class="chapter" data-level="2.6" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#indexing-and-data-transformations"><i class="fa fa-check"></i><b>2.6</b> Indexing and Data Transformations</a></li>
+<li class="chapter" data-level="2.7" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#visualization"><i class="fa fa-check"></i><b>2.7</b> Visualization</a></li>
+<li class="chapter" data-level="2.8" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#creating-a-simple-map"><i class="fa fa-check"></i><b>2.8</b> Creating a Simple Map</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html"><i class="fa fa-check"></i><b>3</b> Introduction to Mapping in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#suggested-readings"><i class="fa fa-check"></i><b>3.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="3.3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#preliminaries"><i class="fa fa-check"></i><b>3.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="3.4" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#packages"><i class="fa fa-check"></i><b>3.4</b> Packages</a></li>
+<li class="chapter" data-level="3.5" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#exploring-dataframes-and-a-simple-proportional-symbols-map"><i class="fa fa-check"></i><b>3.5</b> Exploring Dataframes and a Simple Proportional Symbols Map</a></li>
+<li class="chapter" data-level="3.6" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#improving-on-the-proportional-symbols-map"><i class="fa fa-check"></i><b>3.6</b> Improving on the Proportional Symbols Map</a></li>
+<li class="chapter" data-level="3.7" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#some-simple-spatial-analysis"><i class="fa fa-check"></i><b>3.7</b> Some Simple Spatial Analysis</a></li>
+<li class="chapter" data-level="3.8" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#other-resources"><i class="fa fa-check"></i><b>3.8</b> Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html"><i class="fa fa-check"></i><b>4</b> Activity 1: Statistical Maps I</a><ul>
+<li class="chapter" data-level="4.1" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#housekeeping-questions"><i class="fa fa-check"></i><b>4.1</b> Housekeeping Questions</a></li>
+<li class="chapter" data-level="4.2" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#learning-objectives-3"><i class="fa fa-check"></i><b>4.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="4.3" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#preliminaries-1"><i class="fa fa-check"></i><b>4.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="4.4" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#creating-a-simple-thematic-map"><i class="fa fa-check"></i><b>4.4</b> Creating a simple thematic map</a></li>
+<li class="chapter" data-level="4.5" data-path="activity-1-statistical-maps-i.html"><a href="activity-1-statistical-maps-i.html#activity"><i class="fa fa-check"></i><b>4.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html"><i class="fa fa-check"></i><b>5</b> Mapping in R: Continued</a><ul>
+<li class="chapter" data-level="5.1" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#learning-objectives-4"><i class="fa fa-check"></i><b>5.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="5.2" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#suggested-readings-1"><i class="fa fa-check"></i><b>5.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="5.3" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#preliminaries-2"><i class="fa fa-check"></i><b>5.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="5.4" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#summarizing-a-dataframe"><i class="fa fa-check"></i><b>5.4</b> Summarizing a Dataframe</a></li>
+<li class="chapter" data-level="5.5" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#factors"><i class="fa fa-check"></i><b>5.5</b> Factors</a></li>
+<li class="chapter" data-level="5.6" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#subsetting-data"><i class="fa fa-check"></i><b>5.6</b> Subsetting Data</a></li>
+<li class="chapter" data-level="5.7" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#pipe-operator"><i class="fa fa-check"></i><b>5.7</b> Pipe Operator</a></li>
+<li class="chapter" data-level="5.8" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#more-on-visualization"><i class="fa fa-check"></i><b>5.8</b> More on Visualization</a></li>
+<li class="chapter" data-level="5.9" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#other-resources-1"><i class="fa fa-check"></i><b>5.9</b> Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html"><i class="fa fa-check"></i><b>6</b> Activity 2: Statistical Maps II</a><ul>
+<li class="chapter" data-level="6.1" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#housekeeping-questions-1"><i class="fa fa-check"></i><b>6.1</b> Housekeeping Questions</a></li>
+<li class="chapter" data-level="6.2" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#learning-objectives-5"><i class="fa fa-check"></i><b>6.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="6.3" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#suggested-reading"><i class="fa fa-check"></i><b>6.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="6.4" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#preliminaries-3"><i class="fa fa-check"></i><b>6.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="6.5" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#activity-1"><i class="fa fa-check"></i><b>6.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><i class="fa fa-check"></i><b>7</b> Maps as Processes: Null Landscapes, Spatial Processes, and Statistical Maps</a><ul>
+<li class="chapter" data-level="7.1" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#learning-objectives-6"><i class="fa fa-check"></i><b>7.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#suggested-readings-2"><i class="fa fa-check"></i><b>7.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="7.3" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#preliminaries-4"><i class="fa fa-check"></i><b>7.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="7.4" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#random-numbers"><i class="fa fa-check"></i><b>7.4</b> Random Numbers</a></li>
+<li class="chapter" data-level="7.5" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#null-landscapes"><i class="fa fa-check"></i><b>7.5</b> Null Landscapes</a></li>
+<li class="chapter" data-level="7.6" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#stochastic-processes"><i class="fa fa-check"></i><b>7.6</b> Stochastic Processes</a></li>
+<li class="chapter" data-level="7.7" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#simulating-spatial-processes"><i class="fa fa-check"></i><b>7.7</b> Simulating Spatial Processes</a></li>
+<li class="chapter" data-level="7.8" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#processes-and-patterns"><i class="fa fa-check"></i><b>7.8</b> Processes and Patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html"><i class="fa fa-check"></i><b>8</b> Activity 3: Maps as Processes</a><ul>
+<li class="chapter" data-level="8.1" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#practice-questions"><i class="fa fa-check"></i><b>8.1</b> Practice questions</a></li>
+<li class="chapter" data-level="8.2" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#learning-objectives-7"><i class="fa fa-check"></i><b>8.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.3" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#suggested-reading-1"><i class="fa fa-check"></i><b>8.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="8.4" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#preliminaries-5"><i class="fa fa-check"></i><b>8.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="8.5" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#activity-2"><i class="fa fa-check"></i><b>8.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html"><i class="fa fa-check"></i><b>9</b> Point Pattern Analysis I</a><ul>
+<li class="chapter" data-level="9.1" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#learning-objectives-8"><i class="fa fa-check"></i><b>9.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#suggested-readings-3"><i class="fa fa-check"></i><b>9.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="9.3" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#preliminaries-6"><i class="fa fa-check"></i><b>9.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="9.4" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#point-patterns"><i class="fa fa-check"></i><b>9.4</b> Point Patterns</a></li>
+<li class="chapter" data-level="9.5" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#processes-and-point-patterns"><i class="fa fa-check"></i><b>9.5</b> Processes and Point Patterns</a></li>
+<li class="chapter" data-level="9.6" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#intensity-and-density"><i class="fa fa-check"></i><b>9.6</b> Intensity and Density</a></li>
+<li class="chapter" data-level="9.7" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#quadrats-and-density-maps"><i class="fa fa-check"></i><b>9.7</b> Quadrats and Density Maps</a></li>
+<li class="chapter" data-level="9.8" data-path="point-pattern-analysis-i.html"><a href="point-pattern-analysis-i.html#defining-the-region-for-analysis"><i class="fa fa-check"></i><b>9.8</b> Defining the Region for Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html"><i class="fa fa-check"></i><b>10</b> Activity 4: Point Pattern Analysis I</a><ul>
+<li class="chapter" data-level="10.1" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#practice-questions-1"><i class="fa fa-check"></i><b>10.1</b> Practice questions</a></li>
+<li class="chapter" data-level="10.2" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#learning-objectives-9"><i class="fa fa-check"></i><b>10.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="10.3" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#suggested-reading-2"><i class="fa fa-check"></i><b>10.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="10.4" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#preliminaries-7"><i class="fa fa-check"></i><b>10.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="10.5" data-path="activity-4-point-pattern-analysis-i.html"><a href="activity-4-point-pattern-analysis-i.html#activity-3"><i class="fa fa-check"></i><b>10.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html"><i class="fa fa-check"></i><b>11</b> Point Pattern Analysis II</a><ul>
+<li class="chapter" data-level="11.1" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#learning-objectives-10"><i class="fa fa-check"></i><b>11.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="11.2" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#suggested-readings-4"><i class="fa fa-check"></i><b>11.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="11.3" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#preliminaries-8"><i class="fa fa-check"></i><b>11.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="11.4" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#a-quadrat-based-test-for-spatial-independence"><i class="fa fa-check"></i><b>11.4</b> A Quadrat-based Test for Spatial Independence</a></li>
+<li class="chapter" data-level="11.5" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#limitations-of-quadrat-analysis-size-and-number-of-quadrats"><i class="fa fa-check"></i><b>11.5</b> Limitations of Quadrat Analysis: Size and Number of Quadrats</a></li>
+<li class="chapter" data-level="11.6" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#limitations-of-quadrat-analysis-relative-position-of-events"><i class="fa fa-check"></i><b>11.6</b> Limitations of Quadrat Analysis: Relative Position of Events</a></li>
+<li class="chapter" data-level="11.7" data-path="point-pattern-analysis-ii.html"><a href="point-pattern-analysis-ii.html#kernel-density"><i class="fa fa-check"></i><b>11.7</b> Kernel Density</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html"><i class="fa fa-check"></i><b>12</b> Activity 5: Point Pattern Analysis II</a><ul>
+<li class="chapter" data-level="12.1" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#practice-questions-2"><i class="fa fa-check"></i><b>12.1</b> Practice questions</a></li>
+<li class="chapter" data-level="12.2" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#learning-objectives-11"><i class="fa fa-check"></i><b>12.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="12.3" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#suggested-reading-3"><i class="fa fa-check"></i><b>12.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="12.4" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#preliminaries-9"><i class="fa fa-check"></i><b>12.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="12.5" data-path="activity-5-point-pattern-analysis-ii.html"><a href="activity-5-point-pattern-analysis-ii.html#activity-4"><i class="fa fa-check"></i><b>12.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html"><i class="fa fa-check"></i><b>13</b> Point Pattern Analysis III</a><ul>
+<li class="chapter" data-level="13.1" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#learning-objectives-12"><i class="fa fa-check"></i><b>13.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="13.2" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#suggested-readings-5"><i class="fa fa-check"></i><b>13.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="13.3" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#preliminaries-10"><i class="fa fa-check"></i><b>13.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="13.4" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#motivation"><i class="fa fa-check"></i><b>13.4</b> Motivation</a></li>
+<li class="chapter" data-level="13.5" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#nearest-neighbors"><i class="fa fa-check"></i><b>13.5</b> Nearest Neighbors</a></li>
+<li class="chapter" data-level="13.6" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#g-function"><i class="fa fa-check"></i><b>13.6</b> G-function</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html"><i class="fa fa-check"></i><b>14</b> Activity 6: Point Pattern Analysis III</a><ul>
+<li class="chapter" data-level="14.1" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#practice-questions-3"><i class="fa fa-check"></i><b>14.1</b> Practice questions</a></li>
+<li class="chapter" data-level="14.2" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#learning-objectives-13"><i class="fa fa-check"></i><b>14.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="14.3" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#suggested-reading-4"><i class="fa fa-check"></i><b>14.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="14.4" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#preliminaries-11"><i class="fa fa-check"></i><b>14.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="14.5" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#activity-5"><i class="fa fa-check"></i><b>14.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html"><i class="fa fa-check"></i><b>15</b> Point Pattern Analysis IV</a><ul>
+<li class="chapter" data-level="15.1" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#learning-objectives-14"><i class="fa fa-check"></i><b>15.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="15.2" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#suggested-readings-6"><i class="fa fa-check"></i><b>15.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="15.3" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#preliminaries-12"><i class="fa fa-check"></i><b>15.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="15.4" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#motivation-1"><i class="fa fa-check"></i><b>15.4</b> Motivation</a></li>
+<li class="chapter" data-level="15.5" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#f-function"><i class="fa fa-check"></i><b>15.5</b> F-function</a></li>
+<li class="chapter" data-level="15.6" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#k-function"><i class="fa fa-check"></i><b>15.6</b> K-function</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="activity-7-point-pattern-analysis-iv.html"><a href="activity-7-point-pattern-analysis-iv.html"><i class="fa fa-check"></i><b>16</b> Activity 7: Point Pattern Analysis IV</a><ul>
+<li class="chapter" data-level="16.1" data-path="activity-7-point-pattern-analysis-iv.html"><a href="activity-7-point-pattern-analysis-iv.html#practice-questions-4"><i class="fa fa-check"></i><b>16.1</b> Practice questions</a></li>
+<li class="chapter" data-level="16.2" data-path="activity-7-point-pattern-analysis-iv.html"><a href="activity-7-point-pattern-analysis-iv.html#learning-objectives-15"><i class="fa fa-check"></i><b>16.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="16.3" data-path="activity-7-point-pattern-analysis-iv.html"><a href="activity-7-point-pattern-analysis-iv.html#suggested-reading-5"><i class="fa fa-check"></i><b>16.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="16.4" data-path="activity-7-point-pattern-analysis-iv.html"><a href="activity-7-point-pattern-analysis-iv.html#preliminaries-13"><i class="fa fa-check"></i><b>16.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="16.5" data-path="activity-7-point-pattern-analysis-iv.html"><a href="activity-7-point-pattern-analysis-iv.html#activity-6"><i class="fa fa-check"></i><b>16.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html"><i class="fa fa-check"></i><b>17</b> Point Pattern Analysis V</a><ul>
+<li class="chapter" data-level="17.1" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#learning-objectives-16"><i class="fa fa-check"></i><b>17.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="17.2" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#suggested-readings-7"><i class="fa fa-check"></i><b>17.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="17.3" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#preliminaries-14"><i class="fa fa-check"></i><b>17.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="17.4" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#motivation-hypothesis-testing"><i class="fa fa-check"></i><b>17.4</b> Motivation: Hypothesis Testing</a></li>
+<li class="chapter" data-level="17.5" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#null-landscapes-revisited"><i class="fa fa-check"></i><b>17.5</b> Null Landscapes Revisited</a></li>
+<li class="chapter" data-level="17.6" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#simulation-envelopes"><i class="fa fa-check"></i><b>17.6</b> Simulation Envelopes</a></li>
+<li class="chapter" data-level="17.7" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#things-to-keep-in-mind"><i class="fa fa-check"></i><b>17.7</b> Things to Keep in Mind!</a><ul>
+<li class="chapter" data-level="17.7.1" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#definition-of-a-region"><i class="fa fa-check"></i><b>17.7.1</b> Definition of a Region</a></li>
+<li class="chapter" data-level="17.7.2" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#edge-effects"><i class="fa fa-check"></i><b>17.7.2</b> Edge Effects</a></li>
+<li class="chapter" data-level="17.7.3" data-path="point-pattern-analysis-v.html"><a href="point-pattern-analysis-v.html#sampled-point-patterns"><i class="fa fa-check"></i><b>17.7.3</b> Sampled Point Patterns</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html"><i class="fa fa-check"></i><b>18</b> Activity 8: Point Pattern Analysis V</a><ul>
+<li class="chapter" data-level="18.1" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#practice-questions-5"><i class="fa fa-check"></i><b>18.1</b> Practice questions</a></li>
+<li class="chapter" data-level="18.2" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#learning-objectives-17"><i class="fa fa-check"></i><b>18.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="18.3" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#suggested-reading-6"><i class="fa fa-check"></i><b>18.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="18.4" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#preliminaries-15"><i class="fa fa-check"></i><b>18.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="18.5" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#activity-7"><i class="fa fa-check"></i><b>18.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="area-data-i.html"><a href="area-data-i.html"><i class="fa fa-check"></i><b>19</b> Area Data I</a><ul>
+<li class="chapter" data-level="19.1" data-path="area-data-i.html"><a href="area-data-i.html#learning-objectives-18"><i class="fa fa-check"></i><b>19.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="19.2" data-path="area-data-i.html"><a href="area-data-i.html#suggested-readings-8"><i class="fa fa-check"></i><b>19.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="19.3" data-path="area-data-i.html"><a href="area-data-i.html#preliminaries-16"><i class="fa fa-check"></i><b>19.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="19.4" data-path="area-data-i.html"><a href="area-data-i.html#area-data"><i class="fa fa-check"></i><b>19.4</b> Area Data</a></li>
+<li class="chapter" data-level="19.5" data-path="area-data-i.html"><a href="area-data-i.html#processes-and-area-data"><i class="fa fa-check"></i><b>19.5</b> Processes and Area Data</a></li>
+<li class="chapter" data-level="19.6" data-path="area-data-i.html"><a href="area-data-i.html#visualizing-area-data-choropleth-maps"><i class="fa fa-check"></i><b>19.6</b> Visualizing Area Data: Choropleth Maps</a></li>
+<li class="chapter" data-level="19.7" data-path="area-data-i.html"><a href="area-data-i.html#visualizing-area-data-cartograms"><i class="fa fa-check"></i><b>19.7</b> Visualizing Area Data: Cartograms</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html"><i class="fa fa-check"></i><b>20</b> Activity 9: Area Data I</a><ul>
+<li class="chapter" data-level="20.1" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#practice-questions-6"><i class="fa fa-check"></i><b>20.1</b> Practice questions</a></li>
+<li class="chapter" data-level="20.2" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#learning-objectives-19"><i class="fa fa-check"></i><b>20.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="20.3" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#suggested-reading-7"><i class="fa fa-check"></i><b>20.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="20.4" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#preliminaries-17"><i class="fa fa-check"></i><b>20.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="20.5" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#activity-8"><i class="fa fa-check"></i><b>20.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="area-data-ii.html"><a href="area-data-ii.html"><i class="fa fa-check"></i><b>21</b> Area Data II</a><ul>
+<li class="chapter" data-level="21.1" data-path="area-data-ii.html"><a href="area-data-ii.html#learning-objectives-20"><i class="fa fa-check"></i><b>21.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="21.2" data-path="area-data-ii.html"><a href="area-data-ii.html#suggested-readings-9"><i class="fa fa-check"></i><b>21.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="21.3" data-path="area-data-ii.html"><a href="area-data-ii.html#preliminaries-18"><i class="fa fa-check"></i><b>21.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="21.4" data-path="area-data-ii.html"><a href="area-data-ii.html#proximity-in-area-data"><i class="fa fa-check"></i><b>21.4</b> Proximity in Area Data</a></li>
+<li class="chapter" data-level="21.5" data-path="area-data-ii.html"><a href="area-data-ii.html#spatial-weights-matrices"><i class="fa fa-check"></i><b>21.5</b> Spatial Weights Matrices</a></li>
+<li class="chapter" data-level="21.6" data-path="area-data-ii.html"><a href="area-data-ii.html#creating-spatial-weights-matrices-in-r"><i class="fa fa-check"></i><b>21.6</b> Creating Spatial Weights Matrices in R</a></li>
+<li class="chapter" data-level="21.7" data-path="area-data-ii.html"><a href="area-data-ii.html#spatial-moving-averages"><i class="fa fa-check"></i><b>21.7</b> Spatial Moving Averages</a></li>
+<li class="chapter" data-level="21.8" data-path="area-data-ii.html"><a href="area-data-ii.html#other-criteria-for-coding-proximity"><i class="fa fa-check"></i><b>21.8</b> Other Criteria for Coding Proximity</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html"><i class="fa fa-check"></i><b>22</b> Activity 10: Area Data II</a><ul>
+<li class="chapter" data-level="22.1" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#practice-questions-7"><i class="fa fa-check"></i><b>22.1</b> Practice questions</a></li>
+<li class="chapter" data-level="22.2" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#learning-objectives-21"><i class="fa fa-check"></i><b>22.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="22.3" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#suggested-reading-8"><i class="fa fa-check"></i><b>22.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="22.4" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#preliminaries-19"><i class="fa fa-check"></i><b>22.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="22.5" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#activity-9"><i class="fa fa-check"></i><b>22.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="area-data-iii.html"><a href="area-data-iii.html"><i class="fa fa-check"></i><b>23</b> Area Data III</a><ul>
+<li class="chapter" data-level="23.1" data-path="area-data-iii.html"><a href="area-data-iii.html#learning-objectives-22"><i class="fa fa-check"></i><b>23.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="23.2" data-path="area-data-iii.html"><a href="area-data-iii.html#suggested-readings-10"><i class="fa fa-check"></i><b>23.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="23.3" data-path="area-data-iii.html"><a href="area-data-iii.html#preliminaries-20"><i class="fa fa-check"></i><b>23.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="23.4" data-path="area-data-iii.html"><a href="area-data-iii.html#spatial-moving-averages-and-simulation"><i class="fa fa-check"></i><b>23.4</b> Spatial Moving Averages and Simulation</a></li>
+<li class="chapter" data-level="23.5" data-path="area-data-iii.html"><a href="area-data-iii.html#the-spatial-moving-average-as-a-smoother"><i class="fa fa-check"></i><b>23.5</b> The Spatial Moving Average as a Smoother</a></li>
+<li class="chapter" data-level="23.6" data-path="area-data-iii.html"><a href="area-data-iii.html#spatial-moving-average-scatterplots"><i class="fa fa-check"></i><b>23.6</b> Spatial Moving Average Scatterplots</a></li>
+<li class="chapter" data-level="23.7" data-path="area-data-iii.html"><a href="area-data-iii.html#spatial-autocorrelation-and-morans-i-coefficient"><i class="fa fa-check"></i><b>23.7</b> Spatial Autocorrelation and Moran’s <span class="math inline">\(I\)</span> coefficient</a></li>
+<li class="chapter" data-level="23.8" data-path="area-data-iii.html"><a href="area-data-iii.html#morans-i-and-morans-scatterplot"><i class="fa fa-check"></i><b>23.8</b> Moran’s <span class="math inline">\(I\)</span> and Moran’s Scatterplot</a></li>
+<li class="chapter" data-level="23.9" data-path="area-data-iii.html"><a href="area-data-iii.html#hypothesis-testing-for-spatial-autocorrelation"><i class="fa fa-check"></i><b>23.9</b> Hypothesis Testing for Spatial Autocorrelation</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html"><i class="fa fa-check"></i><b>24</b> Activity 11: Area Data III</a><ul>
+<li class="chapter" data-level="24.1" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#practice-questions-8"><i class="fa fa-check"></i><b>24.1</b> Practice questions</a></li>
+<li class="chapter" data-level="24.2" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#learning-objectives-23"><i class="fa fa-check"></i><b>24.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="24.3" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#suggested-reading-9"><i class="fa fa-check"></i><b>24.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="24.4" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#preliminaries-21"><i class="fa fa-check"></i><b>24.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="24.5" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#activity-10"><i class="fa fa-check"></i><b>24.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="area-data-iv.html"><a href="area-data-iv.html"><i class="fa fa-check"></i><b>25</b> Area Data IV</a><ul>
+<li class="chapter" data-level="25.1" data-path="area-data-iv.html"><a href="area-data-iv.html#learning-objectives-24"><i class="fa fa-check"></i><b>25.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="25.2" data-path="area-data-iv.html"><a href="area-data-iv.html#suggested-readings-11"><i class="fa fa-check"></i><b>25.2</b> Suggested readings</a></li>
+<li class="chapter" data-level="25.3" data-path="area-data-iv.html"><a href="area-data-iv.html#preliminaries-22"><i class="fa fa-check"></i><b>25.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="25.4" data-path="area-data-iv.html"><a href="area-data-iv.html#decomposing-morans-i"><i class="fa fa-check"></i><b>25.4</b> Decomposing Moran’s I</a></li>
+<li class="chapter" data-level="25.5" data-path="area-data-iv.html"><a href="area-data-iv.html#local-morans-i-and-mapping"><i class="fa fa-check"></i><b>25.5</b> Local Moran’s I and Mapping</a></li>
+<li class="chapter" data-level="25.6" data-path="area-data-iv.html"><a href="area-data-iv.html#a-quick-note-on-functions"><i class="fa fa-check"></i><b>25.6</b> A Quick Note on Functions</a></li>
+<li class="chapter" data-level="25.7" data-path="area-data-iv.html"><a href="area-data-iv.html#a-concentration-approach-for-local-analysis-of-spatial-association"><i class="fa fa-check"></i><b>25.7</b> A Concentration approach for Local Analysis of Spatial Association</a></li>
+<li class="chapter" data-level="25.8" data-path="area-data-iv.html"><a href="area-data-iv.html#a-short-note-on-hypothesis-testing"><i class="fa fa-check"></i><b>25.8</b> A Short Note on Hypothesis Testing</a></li>
+<li class="chapter" data-level="25.9" data-path="area-data-iv.html"><a href="area-data-iv.html#detection-of-hot-and-cold-spots"><i class="fa fa-check"></i><b>25.9</b> Detection of Hot and Cold Spots</a></li>
+<li class="chapter" data-level="25.10" data-path="area-data-iv.html"><a href="area-data-iv.html#other-resources-2"><i class="fa fa-check"></i><b>25.10</b> Other Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html"><i class="fa fa-check"></i><b>26</b> Activity 13: Area Data IV</a><ul>
+<li class="chapter" data-level="26.1" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#practice-questions-9"><i class="fa fa-check"></i><b>26.1</b> Practice questions</a></li>
+<li class="chapter" data-level="26.2" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#learning-objectives-25"><i class="fa fa-check"></i><b>26.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="26.3" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#suggested-reading-10"><i class="fa fa-check"></i><b>26.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="26.4" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#preliminaries-23"><i class="fa fa-check"></i><b>26.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="26.5" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#activity-11"><i class="fa fa-check"></i><b>26.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="area-data-v.html"><a href="area-data-v.html"><i class="fa fa-check"></i><b>27</b> Area Data V</a><ul>
+<li class="chapter" data-level="27.1" data-path="area-data-v.html"><a href="area-data-v.html#learning-objectives-26"><i class="fa fa-check"></i><b>27.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="27.2" data-path="area-data-v.html"><a href="area-data-v.html#suggested-readings-12"><i class="fa fa-check"></i><b>27.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="27.3" data-path="area-data-v.html"><a href="area-data-v.html#preliminaries-24"><i class="fa fa-check"></i><b>27.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="27.4" data-path="area-data-v.html"><a href="area-data-v.html#regression-analysis-in-r"><i class="fa fa-check"></i><b>27.4</b> Regression Analysis in R</a></li>
+<li class="chapter" data-level="27.5" data-path="area-data-v.html"><a href="area-data-v.html#autocorrelation-as-a-model-diagnostic"><i class="fa fa-check"></i><b>27.5</b> Autocorrelation as a Model Diagnostic</a></li>
+<li class="chapter" data-level="27.6" data-path="area-data-v.html"><a href="area-data-v.html#variable-transformations"><i class="fa fa-check"></i><b>27.6</b> Variable Transformations</a></li>
+<li class="chapter" data-level="27.7" data-path="area-data-v.html"><a href="area-data-v.html#a-note-about-spatial-autocorrelation-in-regression-analysis"><i class="fa fa-check"></i><b>27.7</b> A Note about Spatial Autocorrelation in Regression Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html"><i class="fa fa-check"></i><b>28</b> Activity 14: Area Data V</a><ul>
+<li class="chapter" data-level="28.1" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#practice-questions-10"><i class="fa fa-check"></i><b>28.1</b> Practice questions</a></li>
+<li class="chapter" data-level="28.2" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#learning-objectives-27"><i class="fa fa-check"></i><b>28.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="28.3" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#suggested-reading-11"><i class="fa fa-check"></i><b>28.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="28.4" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#preliminaries-25"><i class="fa fa-check"></i><b>28.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="28.5" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#activity-12"><i class="fa fa-check"></i><b>28.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="area-data-vi.html"><a href="area-data-vi.html"><i class="fa fa-check"></i><b>29</b> Area Data VI</a><ul>
+<li class="chapter" data-level="29.1" data-path="area-data-vi.html"><a href="area-data-vi.html#learning-objectives-28"><i class="fa fa-check"></i><b>29.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="29.2" data-path="area-data-vi.html"><a href="area-data-vi.html#suggested-readings-13"><i class="fa fa-check"></i><b>29.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="29.3" data-path="area-data-vi.html"><a href="area-data-vi.html#preliminaries-26"><i class="fa fa-check"></i><b>29.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="29.4" data-path="area-data-vi.html"><a href="area-data-vi.html#residual-spatial-autocorrelation-revisited"><i class="fa fa-check"></i><b>29.4</b> Residual spatial autocorrelation revisited</a><ul>
+<li class="chapter" data-level="29.4.1" data-path="area-data-vi.html"><a href="area-data-vi.html#incorrect-functional-form"><i class="fa fa-check"></i><b>29.4.1</b> Incorrect Functional Form</a></li>
+<li class="chapter" data-level="29.4.2" data-path="area-data-vi.html"><a href="area-data-vi.html#omitted-variables"><i class="fa fa-check"></i><b>29.4.2</b> Omitted Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="29.5" data-path="area-data-vi.html"><a href="area-data-vi.html#remedial-action"><i class="fa fa-check"></i><b>29.5</b> Remedial Action</a></li>
+<li class="chapter" data-level="29.6" data-path="area-data-vi.html"><a href="area-data-vi.html#flexible-functional-forms-and-models-with-spatially-varying-coefficients"><i class="fa fa-check"></i><b>29.6</b> Flexible Functional Forms and Models with Spatially-varying Coefficients</a><ul>
+<li class="chapter" data-level="29.6.1" data-path="area-data-vi.html"><a href="area-data-vi.html#trend-surface-analysis"><i class="fa fa-check"></i><b>29.6.1</b> Trend Surface Analysis</a></li>
+<li class="chapter" data-level="29.6.2" data-path="area-data-vi.html"><a href="area-data-vi.html#models-with-spatially-varying-coefficients"><i class="fa fa-check"></i><b>29.6.2</b> Models with Spatially-varying Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="29.7" data-path="area-data-vi.html"><a href="area-data-vi.html#spatial-error-model-sem"><i class="fa fa-check"></i><b>29.7</b> Spatial Error Model (SEM)</a></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html"><i class="fa fa-check"></i><b>30</b> Activity 14: Area Data VI</a><ul>
+<li class="chapter" data-level="30.1" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#practice-questions-11"><i class="fa fa-check"></i><b>30.1</b> Practice questions</a></li>
+<li class="chapter" data-level="30.2" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#learning-objectives-29"><i class="fa fa-check"></i><b>30.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="30.3" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#suggested-reading-12"><i class="fa fa-check"></i><b>30.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="30.4" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#preliminaries-27"><i class="fa fa-check"></i><b>30.4</b> Preliminaries</a><ul>
+<li class="chapter" data-level="30.4.1" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#new-york-leukemia-data"><i class="fa fa-check"></i><b>30.4.1</b> New York leukemia data</a></li>
+<li class="chapter" data-level="30.4.2" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#pennsylvania-lung-cancer"><i class="fa fa-check"></i><b>30.4.2</b> Pennsylvania lung cancer</a></li>
+</ul></li>
+<li class="chapter" data-level="30.5" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#activity-13"><i class="fa fa-check"></i><b>30.5</b> Activity</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Spatial Statistics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="area-data-vi" class="section level1">
+<h1><span class="header-section-number">Chapter 29</span> Area Data VI</h1>
+<p><em>NOTE</em>: You can download the source files for this book from <a href="https://github.com/paezha/Spatial-Statistics-Course">here</a>. The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes.</p>
+<p>In the previous chapter, you learned about how to use local spatial statistics for exploratory spatial data analysis.</p>
+<p>If you wish to work interactively with this chapter you will need the following:</p>
+<ul>
+<li><p>An R markdown notebook version of this document (the source file).</p></li>
+<li><p>A package called <code>geog4ga3</code>.</p></li>
+</ul>
+<p>NOTE: This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code.</p>
+<p>In previous practice/session, you learned about how to use local spatial statistics for exploratory spatial data analysis.</p>
+<p>For this practice you will need the following:</p>
+<ul>
+<li>This R markdown notebook.</li>
+<li>A shape file called “Hamilton CMA tts06”</li>
+</ul>
+<p>The shape file includes spatial information for Traffic Analysis Zones (TAZ) in the Hamilton Census Metropolitan Area (as polygons).</p>
+<div id="learning-objectives-28" class="section level2">
+<h2><span class="header-section-number">29.1</span> Learning Objectives</h2>
+<p>In this practice, you will:</p>
+<ol style="list-style-type: decimal">
+<li>Revisit the notion of autocorrelation as a model diagnostic.</li>
+<li>Remedial action.</li>
+<li>Flexible functional forms and models with spatially-varying coefficients. 3.1 Trend surface analysis. 3.2 The expansion method. 3.3 Geographically weighted regression (GWR).</li>
+<li>Spatial error model (SEM).</li>
+</ol>
+</div>
+<div id="suggested-readings-13" class="section level2">
+<h2><span class="header-section-number">29.2</span> Suggested Readings</h2>
+<ul>
+<li>Bailey TC and Gatrell AC (1995) Interactive Spatial Data Analysis, Chapter 7. Longman: Essex.</li>
+<li>Bivand RS, Pebesma E, and Gomez-Rubio V (2008) Applied Spatial Data Analysis with R, Chapter 9. Springer: New York.</li>
+<li>Brunsdon C and Comber L (2015) An Introduction to R for Spatial Analysis and Mapping, Chapter 7. Sage: Los Angeles.</li>
+<li>O’Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 7. John Wiley &amp; Sons: New Jersey.</li>
+</ul>
+</div>
+<div id="preliminaries-26" class="section level2">
+<h2><span class="header-section-number">29.3</span> Preliminaries</h2>
+<p>As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is <code>rm</code> (for “remove”), followed by a list of items to be removed. To clear the workspace from <em>all</em> objects, do the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
+<p>Note that <code>ls()</code> lists all objects currently on the worspace.</p>
+<p>Load the libraries you will use in this activity:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<pre><code>## -- Attaching packages ----------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## v ggplot2 3.1.0     v purrr   0.2.5
+## v tibble  2.0.1     v dplyr   0.7.8
+## v tidyr   0.8.2     v stringr 1.3.1
+## v readr   1.3.1     v forcats 0.3.0</code></pre>
+<pre><code>## -- Conflicts -------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)</code></pre></div>
+<pre><code>## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#library(broom)</span>
+<span class="kw">library</span>(spdep)</code></pre></div>
+<pre><code>## Loading required package: sp</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## 
+## Attaching package: &#39;Matrix&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     expand</code></pre>
+<pre><code>## Loading required package: spData</code></pre>
+<pre><code>## To access larger datasets in this package, install the spDataLarge
+## package with: `install.packages(&#39;spDataLarge&#39;,
+## repos=&#39;https://nowosad.github.io/drat/&#39;, type=&#39;source&#39;)`</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#library(reshape2)</span>
+<span class="kw">library</span>(plotly)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;plotly&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     last_plot</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     layout</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(knitr)
+<span class="kw">library</span>(kableExtra)
+<span class="kw">library</span>(spgwr)</code></pre></div>
+<pre><code>## NOTE: This package does not constitute approval of GWR
+## as a method of spatial analysis; see example(gwr)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(geog4ga3)</code></pre></div>
+<p>Begin by loading the data needed for this chapter:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;HamiltonDAs&quot;</span>)</code></pre></div>
+<p>The file is of the Dissemination Areas in the Hamilton CMA, in Canada.</p>
+</div>
+<div id="residual-spatial-autocorrelation-revisited" class="section level2">
+<h2><span class="header-section-number">29.4</span> Residual spatial autocorrelation revisited</h2>
+<p>Previously you learned about the use of Moran’s I coefficient as a diagnostic in regression analysis.</p>
+<p>Residual spatial autocorrelation is a symptom of a model that has not been properly specified. There are two reasons for this that are of interest:</p>
+<ol style="list-style-type: decimal">
+<li>The functional form is incorrect.</li>
+<li>The model failed to include relevant variables.</li>
+</ol>
+<p>Lets explore these in turn.</p>
+<div id="incorrect-functional-form" class="section level3">
+<h3><span class="header-section-number">29.4.1</span> Incorrect Functional Form</h3>
+<p>To illustrate this, we will simulate a spatial process as follows: <span class="math display">\[
+z = f(x,y) = exp(\beta_0)exp(\beta_1x)exp(\beta_2y) + \epsilon_i
+\]</span></p>
+<p>Clearly, this is a non-linear spatial process.</p>
+<p>The simulation is as follows, with a random term with a mean of zero and standard deviation of 1. <strong>The random terms are independent by design</strong>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">10</span>)
+b0 =<span class="st"> </span><span class="dv">1</span>
+b1 =<span class="st"> </span><span class="dv">2</span>
+b2 =<span class="st"> </span><span class="dv">4</span>
+xy_coords &lt;-<span class="st"> </span><span class="kw">st_coordinates</span>(<span class="kw">st_centroid</span>(HamiltonDAs))</code></pre></div>
+<pre><code>## Warning in st_centroid.sf(HamiltonDAs): st_centroid assumes attributes are
+## constant over geometries of x</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HamiltonDAs &lt;-<span class="st"> </span><span class="kw">mutate</span>(HamiltonDAs,
+                            <span class="dt">x =</span> (xy_coords[,<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(xy_coords[,<span class="dv">1</span>]))<span class="op">/</span><span class="dv">100000</span>,
+                            <span class="dt">y =</span> (xy_coords[,<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(xy_coords[,<span class="dv">2</span>]))<span class="op">/</span><span class="dv">100000</span>,
+                            <span class="dt">z =</span> <span class="kw">exp</span>(b0) <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(b1 <span class="op">*</span><span class="st"> </span>x) <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(b2 <span class="op">*</span><span class="st"> </span>y) <span class="op">+</span>
+<span class="st">                              </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">297</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>))</code></pre></div>
+<p>This is the summary of the simulated variables:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(HamiltonDAs[, <span class="dv">8</span><span class="op">:</span><span class="dv">10</span>])</code></pre></div>
+<pre><code>##        x                y                z                   geometry  
+##  Min.   :0.0000   Min.   :0.0000   Min.   : 3.919   MULTIPOLYGON :297  
+##  1st Qu.:0.2284   1st Qu.:0.1354   1st Qu.: 7.842   epsg:26917   :  0  
+##  Median :0.2695   Median :0.1712   Median : 9.370   +proj=utm ...:  0  
+##  Mean   :0.2724   Mean   :0.1863   Mean   :10.370                      
+##  3rd Qu.:0.3127   3rd Qu.:0.2195   3rd Qu.:11.710                      
+##  Max.   :0.5312   Max.   :0.4079   Max.   :22.809</code></pre>
+<p>Suppose that we estimate the model as a linear regression that does not correctly capture the non-linearity. The model would be as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">formula =</span> z <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y, <span class="dt">data =</span> HamiltonDAs) 
+<span class="kw">summary</span>(model1)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = z ~ x + y, data = HamiltonDAs)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7267 -0.8591  0.0028  0.8250  3.5826 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -3.6765     0.3255  -11.29   &lt;2e-16 ***
+## x            20.9207     0.8586   24.37   &lt;2e-16 ***
+## y            44.8033     0.9305   48.15   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.231 on 294 degrees of freedom
+## Multiple R-squared:  0.8965, Adjusted R-squared:  0.8958 
+## F-statistic:  1273 on 2 and 294 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>At first glance, the model gives the impression of a very good fit: all coefficients are significant, and the coefficient of multiple determination <span class="math inline">\(R^2\)</span> is moderately high.</p>
+<p>At this point, it is important to examine the residuals to verify that they are independent. Lets add the residuals of this model to your dataframes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HamiltonDAs<span class="op">$</span>model1.e &lt;-<span class="st"> </span>model1<span class="op">$</span>residuals</code></pre></div>
+<p>A map of the residuals can help examine their spatial pattern:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot_ly</span>(HamiltonDAs) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">add_sf</span>(<span class="dt">color =</span> <span class="op">~</span>(model1.e <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;dodgerblue4&quot;</span>))</code></pre></div>
+<div id="htmlwidget-26dc660ce6a3eebfb88b" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-26dc660ce6a3eebfb88b">{"x":{"visdat":{"25045a7b34b7":["function () ","plotlyVisDat"],"2504165c5f6":["function () ","data"]},"cur_data":"2504165c5f6","attrs":{"2504165c5f6":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"_bbox":[560916.611536223,4767184.04219115,621054.054190107,4814333.99341374],"mode":"lines","fill":"toself","color":{},"colors":["red","dodgerblue4"],"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"showgrid":false,"zeroline":false,"ticks":"","showticklabels":false,"domain":[0,1],"automargin":true,"scaleanchor":"y","scaleratio":-0.514771718507519},"yaxis":{"showgrid":false,"zeroline":false,"ticks":"","showticklabels":false,"domain":[0,1],"automargin":true},"hovermode":"closest","showlegend":true},"source":"A","config":{"cloud":false},"data":[{"fillcolor":"rgba(255,0,0,0.5)","x":{},"y":{},"_bbox":[560916.611536223,4767184.04219115,621054.054190107,4814333.99341374],"mode":"lines","fill":"toself","type":"scatter","name":"FALSE","marker":{"color":"rgba(255,0,0,1)","line":{"color":"rgba(255,0,0,1)"}},"textfont":{"color":"rgba(255,0,0,1)"},"error_y":{"color":"rgba(255,0,0,1)"},"error_x":{"color":"rgba(255,0,0,1)"},"line":{"color":"rgba(255,0,0,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(16,78,139,0.5)","x":{},"y":{},"_bbox":[560916.611536223,4767184.04219115,621054.054190107,4814333.99341374],"mode":"lines","fill":"toself","type":"scatter","name":"TRUE","marker":{"color":"rgba(16,78,139,1)","line":{"color":"rgba(16,78,139,1)"}},"textfont":{"color":"rgba(16,78,139,1)"},"error_y":{"color":"rgba(16,78,139,1)"},"error_x":{"color":"rgba(16,78,139,1)"},"line":{"color":"rgba(16,78,139,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>To test the residuals for spatial autocorrelation we first create a set of spatial weights:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HamiltonDAs.w &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(<span class="kw">poly2nb</span>(<span class="kw">as</span>(HamiltonDAs, <span class="st">&quot;Spatial&quot;</span>)))</code></pre></div>
+<p>With this, we can now calculate Moran’s <span class="math inline">\(I\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(HamiltonDAs<span class="op">$</span>model1.e, HamiltonDAs.w)</code></pre></div>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  HamiltonDAs$model1.e  
+## weights: HamiltonDAs.w    
+## 
+## Moran I statistic standard deviate = 10.373, p-value &lt; 2.2e-16
+## alternative hypothesis: greater
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##       0.350300067      -0.003378378       0.001162633</code></pre>
+<p>The test does not allow us to reject the null hypothesis of spatial independence. Thus, despite the apparent goodness of fit of the model, there is reason to believe something is missing.</p>
+<p>Lets now use a variable transformation to approximate the underlying non-linear process:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model2 &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">formula =</span> <span class="kw">log</span>(z) <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y, <span class="dt">data =</span> HamiltonDAs)
+<span class="kw">summary</span>(model2)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log(z) ~ x + y, data = HamiltonDAs)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.32033 -0.06456  0.00671  0.07647  0.31233 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.96853    0.02864   33.81   &lt;2e-16 ***
+## x            2.08863    0.07554   27.65   &lt;2e-16 ***
+## y            3.97537    0.08187   48.56   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.1083 on 294 degrees of freedom
+## Multiple R-squared:  0.9016, Adjusted R-squared:  0.901 
+## F-statistic:  1348 on 2 and 294 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>This model does not necessarily have a better goodness of fit. However, when we test for spatial autocorrelation:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HamiltonDAs<span class="op">$</span>model2.e &lt;-<span class="st"> </span>model2<span class="op">$</span>residuals
+<span class="kw">moran.test</span>(HamiltonDAs<span class="op">$</span>model2.e, HamiltonDAs.w)</code></pre></div>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  HamiltonDAs$model2.e  
+## weights: HamiltonDAs.w    
+## 
+## Moran I statistic standard deviate = 0.59638, p-value = 0.2755
+## alternative hypothesis: greater
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##       0.016946454      -0.003378378       0.001161482</code></pre>
+<p>Once that the correct functional form has been specified, the model is better at capturing the underlying process (check how the coefficients approximate to a high degree the true coefficients of the model). In addition, we can conclude that the residuals are independent, and therefore are now also spatially random: meaning the there is nothing left of the process but white noise.</p>
+</div>
+<div id="omitted-variables" class="section level3">
+<h3><span class="header-section-number">29.4.2</span> Omitted Variables</h3>
+<p>Using the same example, suppose now that the functional form of the model is correctly specified, but a relevant variable is missing:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">formula =</span> <span class="kw">log</span>(z) <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> HamiltonDAs)
+<span class="kw">summary</span>(model3)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log(z) ~ x, data = HamiltonDAs)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.78563 -0.19306 -0.05461  0.14453  0.91857 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.90764    0.06334  30.118  &lt; 2e-16 ***
+## x            1.36012    0.22197   6.127 2.85e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3246 on 295 degrees of freedom
+## Multiple R-squared:  0.1129, Adjusted R-squared:  0.1099 
+## F-statistic: 37.54 on 1 and 295 DF,  p-value: 2.853e-09</code></pre>
+<p>As before, lets append the residuals to the dataframes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HamiltonDAs<span class="op">$</span>model3.e &lt;-<span class="st"> </span>model3<span class="op">$</span>residuals</code></pre></div>
+<p>We can plot a map of the residuals to examine their spatial pattern:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">plot_ly</span>(HamiltonDAs) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">add_sf</span>(<span class="dt">color =</span> <span class="op">~</span>(model3.e <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>), <span class="dt">colors =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;dodgerblue4&quot;</span>))</code></pre></div>
+<div id="htmlwidget-434ec92e8ca6a0d25397" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-434ec92e8ca6a0d25397">{"x":{"visdat":{"250436805cf3":["function () ","plotlyVisDat"],"25047e12513b":["function () ","data"]},"cur_data":"25047e12513b","attrs":{"25047e12513b":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"_bbox":[560916.611536223,4767184.04219115,621054.054190107,4814333.99341374],"mode":"lines","fill":"toself","color":{},"colors":["red","dodgerblue4"],"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"showgrid":false,"zeroline":false,"ticks":"","showticklabels":false,"domain":[0,1],"automargin":true,"scaleanchor":"y","scaleratio":-0.514771718507519},"yaxis":{"showgrid":false,"zeroline":false,"ticks":"","showticklabels":false,"domain":[0,1],"automargin":true},"hovermode":"closest","showlegend":true},"source":"A","config":{"cloud":false},"data":[{"fillcolor":"rgba(255,0,0,0.5)","x":{},"y":{},"_bbox":[560916.611536223,4767184.04219115,621054.054190107,4814333.99341374],"mode":"lines","fill":"toself","type":"scatter","name":"FALSE","marker":{"color":"rgba(255,0,0,1)","line":{"color":"rgba(255,0,0,1)"}},"textfont":{"color":"rgba(255,0,0,1)"},"error_y":{"color":"rgba(255,0,0,1)"},"error_x":{"color":"rgba(255,0,0,1)"},"line":{"color":"rgba(255,0,0,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(16,78,139,0.5)","x":{},"y":{},"_bbox":[560916.611536223,4767184.04219115,621054.054190107,4814333.99341374],"mode":"lines","fill":"toself","type":"scatter","name":"TRUE","marker":{"color":"rgba(16,78,139,1)","line":{"color":"rgba(16,78,139,1)"}},"textfont":{"color":"rgba(16,78,139,1)"},"error_y":{"color":"rgba(16,78,139,1)"},"error_x":{"color":"rgba(16,78,139,1)"},"line":{"color":"rgba(16,78,139,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>In this case, the visual inspection makes it clear that there is an issue with spatially autocorrelated residuals, something that a test reinforces:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(HamiltonDAs<span class="op">$</span>model3.e, HamiltonDAs.w)</code></pre></div>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  HamiltonDAs$model3.e  
+## weights: HamiltonDAs.w    
+## 
+## Moran I statistic standard deviate = 24.921, p-value &lt; 2.2e-16
+## alternative hypothesis: greater
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##       0.846098172      -0.003378378       0.001161895</code></pre>
+<p>As seen above, the model with the full set of relevant variables resolves this problem.</p>
+</div>
+</div>
+<div id="remedial-action" class="section level2">
+<h2><span class="header-section-number">29.5</span> Remedial Action</h2>
+<p>When spatial autocorrelation is detected in the residuals, further work is warranted. The preceding examples illustrate two possible solutions to the issue of residual pattern:</p>
+<ol style="list-style-type: decimal">
+<li>Modifications of the model to approximate the true functional form of the process; and</li>
+<li>Inclusion of relevant variables.</li>
+</ol>
+<p>Ideally, we would try to ensure that the model is properly specified. In practice, however, it is not always evident what the functional form of the model should be. The search for an appropriate functional form can be guided by theoretical considerations, empirical findings, and experimentation. With respect to inclusion of relevant variables, it is not always possible to find all the information we desire. This could be because of limited resources, or because some aspects of the process are not known and therefore we do not even know what additional information should be collected.</p>
+<p>In these cases, it is a fact that residual spatial autocorrelation is problematic.</p>
+<p>Fortunately, a number of approaches have been proposed in the literature that can be used for remedial action.</p>
+<p>In the following sections we will review some of them.</p>
+</div>
+<div id="flexible-functional-forms-and-models-with-spatially-varying-coefficients" class="section level2">
+<h2><span class="header-section-number">29.6</span> Flexible Functional Forms and Models with Spatially-varying Coefficients</h2>
+<p>Some models use variable transformations to create more flexible functions, while others use adaptive estimation strategies.</p>
+<div id="trend-surface-analysis" class="section level3">
+<h3><span class="header-section-number">29.6.1</span> Trend Surface Analysis</h3>
+<p>Trend surface analysis is a simple way to generate relatively flexible surfaces.</p>
+<p>This approach consists of using the coordinates as covariates, and transforming them into polynomials of different orders. Seen this way, linear regression is the analog of a trend surface of first degree: <span class="math display">\[
+z = f(x,y) = \beta_0 + \beta_1x + \beta_2y
+\]</span> where <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are the coordinates.</p>
+<p>A figure illustrates how the function above creates a regression <em>plane</em>. First, create a grid of coordinates for plotting:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">2</span>, <span class="dt">to =</span> <span class="dv">2</span>, <span class="dt">by =</span> <span class="fl">0.2</span>), <span class="dt">y =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="op">-</span><span class="dv">2</span>, <span class="dt">to =</span> <span class="dv">2</span>, <span class="dt">by =</span> <span class="fl">0.2</span>))</code></pre></div>
+<p>Next, select some values for the coefficients (feel free to experiment with these values):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co">#0.5</span>
+b1 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co">#1</span>
+b2 &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co">#2</span>
+z1 &lt;-<span class="st"> </span>b0 <span class="op">+</span><span class="st"> </span>b1 <span class="op">*</span><span class="st"> </span>df<span class="op">$</span>x <span class="op">+</span><span class="st"> </span>b2 <span class="op">*</span><span class="st"> </span>df<span class="op">$</span>y
+z1 &lt;-<span class="st"> </span><span class="kw">matrix</span>(z1, <span class="dt">nrow =</span> <span class="dv">21</span>, <span class="dt">ncol =</span> <span class="dv">21</span>)</code></pre></div>
+<p>The plot is as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_ly</span>(<span class="dt">z =</span> <span class="op">~</span>z1) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_surface</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">layout</span>(<span class="dt">scene =</span> <span class="kw">list</span>(<span class="dt">xaxis =</span> <span class="kw">list</span>(<span class="dt">ticktext =</span> <span class="kw">c</span>(<span class="st">&quot;-2&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;2&quot;</span>), <span class="dt">tickvals =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>)), 
+                      <span class="dt">yaxis =</span> <span class="kw">list</span>(<span class="dt">ticktext =</span> <span class="kw">c</span>(<span class="st">&quot;-2&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;2&quot;</span>), <span class="dt">tickvals =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>))
+                      )
+         )</code></pre></div>
+<div id="htmlwidget-c76b14cc1e7fb271e726" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c76b14cc1e7fb271e726">{"x":{"visdat":{"250473c4876":["function () ","plotlyVisDat"]},"cur_data":"250473c4876","attrs":{"250473c4876":{"z":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"surface","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"ticktext":["-2","0","2"],"tickvals":[0,10,20]},"yaxis":{"ticktext":["-2","0","2"],"tickvals":[0,10,20]},"zaxis":{"title":"z1"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"cloud":false},"data":[{"colorbar":{"title":"z1","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":true,"z":[[-5.5,-5.1,-4.7,-4.3,-3.9,-3.5,-3.1,-2.7,-2.3,-1.9,-1.5,-1.1,-0.699999999999999,-0.3,0.100000000000001,0.5,0.9,1.3,1.7,2.1,2.5],[-5.3,-4.9,-4.5,-4.1,-3.7,-3.3,-2.9,-2.5,-2.1,-1.7,-1.3,-0.9,-0.499999999999999,-0.0999999999999999,0.3,0.7,1.1,1.5,1.9,2.3,2.7],[-5.1,-4.7,-4.3,-3.9,-3.5,-3.1,-2.7,-2.3,-1.9,-1.5,-1.1,-0.7,-0.299999999999999,0.1,0.5,0.9,1.3,1.7,2.1,2.5,2.9],[-4.9,-4.5,-4.1,-3.7,-3.3,-2.9,-2.5,-2.1,-1.7,-1.3,-0.9,-0.5,-0.0999999999999992,0.3,0.700000000000001,1.1,1.5,1.9,2.3,2.7,3.1],[-4.7,-4.3,-3.9,-3.5,-3.1,-2.7,-2.3,-1.9,-1.5,-1.1,-0.7,-0.3,0.100000000000001,0.5,0.900000000000001,1.3,1.7,2.1,2.5,2.9,3.3],[-4.5,-4.1,-3.7,-3.3,-2.9,-2.5,-2.1,-1.7,-1.3,-0.9,-0.5,-0.0999999999999996,0.300000000000001,0.7,1.1,1.5,1.9,2.3,2.7,3.1,3.5],[-4.3,-3.9,-3.5,-3.1,-2.7,-2.3,-1.9,-1.5,-1.1,-0.7,-0.3,0.100000000000001,0.500000000000001,0.9,1.3,1.7,2.1,2.5,2.9,3.3,3.7],[-4.1,-3.7,-3.3,-2.9,-2.5,-2.1,-1.7,-1.3,-0.9,-0.5,-0.0999999999999999,0.3,0.700000000000001,1.1,1.5,1.9,2.3,2.7,3.1,3.5,3.9],[-3.9,-3.5,-3.1,-2.7,-2.3,-1.9,-1.5,-1.1,-0.7,-0.3,0.1,0.5,0.900000000000001,1.3,1.7,2.1,2.5,2.9,3.3,3.7,4.1],[-3.7,-3.3,-2.9,-2.5,-2.1,-1.7,-1.3,-0.9,-0.5,-0.0999999999999999,0.3,0.7,1.1,1.5,1.9,2.3,2.7,3.1,3.5,3.9,4.3],[-3.5,-3.1,-2.7,-2.3,-1.9,-1.5,-1.1,-0.7,-0.3,0.1,0.5,0.9,1.3,1.7,2.1,2.5,2.9,3.3,3.7,4.1,4.5],[-3.3,-2.9,-2.5,-2.1,-1.7,-1.3,-0.899999999999999,-0.5,-0.0999999999999996,0.3,0.7,1.1,1.5,1.9,2.3,2.7,3.1,3.5,3.9,4.3,4.7],[-3.1,-2.7,-2.3,-1.9,-1.5,-1.1,-0.699999999999999,-0.299999999999999,0.100000000000001,0.5,0.9,1.3,1.7,2.1,2.5,2.9,3.3,3.7,4.1,4.5,4.9],[-2.9,-2.5,-2.1,-1.7,-1.3,-0.9,-0.5,-0.0999999999999996,0.3,0.7,1.1,1.5,1.9,2.3,2.7,3.1,3.5,3.9,4.3,4.7,5.1],[-2.7,-2.3,-1.9,-1.5,-1.1,-0.7,-0.299999999999999,0.100000000000001,0.5,0.9,1.3,1.7,2.1,2.5,2.9,3.3,3.7,4.1,4.5,4.9,5.3],[-2.5,-2.1,-1.7,-1.3,-0.9,-0.5,-0.0999999999999996,0.3,0.7,1.1,1.5,1.9,2.3,2.7,3.1,3.5,3.9,4.3,4.7,5.1,5.5],[-2.3,-1.9,-1.5,-1.1,-0.7,-0.3,0.100000000000001,0.5,0.9,1.3,1.7,2.1,2.5,2.9,3.3,3.7,4.1,4.5,4.9,5.3,5.7],[-2.1,-1.7,-1.3,-0.899999999999999,-0.5,-0.0999999999999996,0.300000000000001,0.700000000000001,1.1,1.5,1.9,2.3,2.7,3.1,3.5,3.9,4.3,4.7,5.1,5.5,5.9],[-1.9,-1.5,-1.1,-0.7,-0.3,0.1,0.5,0.9,1.3,1.7,2.1,2.5,2.9,3.3,3.7,4.1,4.5,4.9,5.3,5.7,6.1],[-1.7,-1.3,-0.9,-0.5,-0.0999999999999996,0.3,0.700000000000001,1.1,1.5,1.9,2.3,2.7,3.1,3.5,3.9,4.3,4.7,5.1,5.5,5.9,6.3],[-1.5,-1.1,-0.7,-0.3,0.1,0.5,0.9,1.3,1.7,2.1,2.5,2.9,3.3,3.7,4.1,4.5,4.9,5.3,5.7,6.1,6.5]],"type":"surface","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>A trend surface of second degree, or quadratic, would be as follows. Notice how it includes <em>all</em> possible quadratic terms, including the product <span class="math inline">\(xy\)</span>: <span class="math display">\[
+z = f(x,y) = \beta_0 + \beta_1x^2 + \beta_2x + \beta_3xy + \beta_4y + \beta_5y^2
+\]</span></p>
+<p>Use the same grid as above to create now a regression <em>surface</em>. Select some coefficients:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b0 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co">#0.5</span>
+b1 &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co">#2</span>
+b2 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co">#1</span>
+b3 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co">#1</span>
+b4 &lt;-<span class="st"> </span><span class="fl">1.5</span> <span class="co">#1.5</span>
+b5 &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="co">#2.5</span>
+z2 &lt;-<span class="st"> </span>b0 <span class="op">+</span><span class="st"> </span>b1 <span class="op">*</span><span class="st"> </span>df<span class="op">$</span>x<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>b2 <span class="op">*</span><span class="st"> </span>df<span class="op">$</span>x <span class="op">+</span><span class="st"> </span>b3 <span class="op">*</span><span class="st"> </span>df<span class="op">$</span>x <span class="op">*</span><span class="st"> </span>df<span class="op">$</span>y <span class="op">+</span><span class="st"> </span>b4 <span class="op">*</span><span class="st"> </span>df<span class="op">$</span>y <span class="op">+</span><span class="st"> </span>b5 <span class="op">*</span><span class="st"> </span>df<span class="op">$</span>y<span class="op">^</span><span class="dv">2</span>
+z2 &lt;-<span class="st"> </span><span class="kw">matrix</span>(z2, <span class="dt">nrow =</span> <span class="dv">21</span>, <span class="dt">ncol =</span> <span class="dv">21</span>)</code></pre></div>
+<p>And the plot is as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot_ly</span>(<span class="dt">z =</span> <span class="op">~</span>z2) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_surface</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">layout</span>(<span class="dt">scene =</span> <span class="kw">list</span>(<span class="dt">xaxis =</span> <span class="kw">list</span>(<span class="dt">ticktext =</span> <span class="kw">c</span>(<span class="st">&quot;-2&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;2&quot;</span>), <span class="dt">tickvals =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>)), 
+                      <span class="dt">yaxis =</span> <span class="kw">list</span>(<span class="dt">ticktext =</span> <span class="kw">c</span>(<span class="st">&quot;-2&quot;</span>, <span class="st">&quot;0&quot;</span>, <span class="st">&quot;2&quot;</span>), <span class="dt">tickvals =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>))
+                      )
+         )</code></pre></div>
+<div id="htmlwidget-fd7b79236bd5fac9f0d6" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fd7b79236bd5fac9f0d6">{"x":{"visdat":{"250425c71ffa":["function () ","plotlyVisDat"]},"cur_data":"250425c71ffa","attrs":{"250425c71ffa":{"z":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"surface","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"ticktext":["-2","0","2"],"tickvals":[0,10,20]},"yaxis":{"ticktext":["-2","0","2"],"tickvals":[0,10,20]},"zaxis":{"title":"z2"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"cloud":false},"data":[{"colorbar":{"title":"z2","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":true,"z":[[9.5,9.02,8.58,8.18,7.82,7.5,7.22,6.98,6.78,6.62,6.5,6.42,6.38,6.38,6.42,6.5,6.62,6.78,6.98,7.22,7.5],[7.78,7.34,6.94,6.58,6.26,5.98,5.74,5.54,5.38,5.26,5.18,5.14,5.14,5.18,5.26,5.38,5.54,5.74,5.98,6.26,6.58],[6.22,5.82,5.46,5.14,4.86,4.62,4.42,4.26,4.14,4.06,4.02,4.02,4.06,4.14,4.26,4.42,4.62,4.86,5.14,5.46,5.82],[4.82,4.46,4.14,3.86,3.62,3.42,3.26,3.14,3.06,3.02,3.02,3.06,3.14,3.26,3.42,3.62,3.86,4.14,4.46,4.82,5.22],[3.58,3.26,2.98,2.74,2.54,2.38,2.26,2.18,2.14,2.14,2.18,2.26,2.38,2.54,2.74,2.98,3.26,3.58,3.94,4.34,4.78],[2.5,2.22,1.98,1.78,1.62,1.5,1.42,1.38,1.38,1.42,1.5,1.62,1.78,1.98,2.22,2.5,2.82,3.18,3.58,4.02,4.5],[1.58,1.34,1.14,0.979999999999999,0.859999999999999,0.779999999999999,0.739999999999999,0.739999999999999,0.779999999999999,0.86,0.98,1.14,1.34,1.58,1.86,2.18,2.54,2.94,3.38,3.86,4.38],[0.82,0.62,0.46,0.34,0.26,0.22,0.22,0.26,0.34,0.46,0.62,0.82,1.06,1.34,1.66,2.02,2.42,2.86,3.34,3.86,4.42],[0.22,0.0599999999999996,-0.0600000000000003,-0.14,-0.18,-0.18,-0.14,-0.0600000000000001,0.0599999999999999,0.22,0.42,0.66,0.940000000000001,1.26,1.62,2.02,2.46,2.94,3.46,4.02,4.62],[-0.22,-0.34,-0.42,-0.46,-0.46,-0.42,-0.34,-0.22,-0.0599999999999999,0.14,0.38,0.66,0.980000000000001,1.34,1.74,2.18,2.66,3.18,3.74,4.34,4.98],[-0.5,-0.58,-0.62,-0.62,-0.58,-0.5,-0.38,-0.22,-0.0199999999999999,0.22,0.5,0.82,1.18,1.58,2.02,2.5,3.02,3.58,4.18,4.82,5.5],[-0.62,-0.66,-0.66,-0.62,-0.54,-0.42,-0.26,-0.0599999999999996,0.18,0.46,0.78,1.14,1.54,1.98,2.46,2.98,3.54,4.14,4.78,5.46,6.18],[-0.58,-0.58,-0.54,-0.459999999999999,-0.339999999999999,-0.179999999999999,0.0200000000000007,0.260000000000001,0.540000000000001,0.860000000000001,1.22,1.62,2.06,2.54,3.06,3.62,4.22,4.86,5.54,6.26,7.02],[-0.38,-0.34,-0.26,-0.14,0.0200000000000002,0.22,0.46,0.740000000000001,1.06,1.42,1.82,2.26,2.74,3.26,3.82,4.42,5.06,5.74,6.46,7.22,8.02],[-0.0199999999999996,0.0600000000000003,0.18,0.340000000000001,0.540000000000001,0.780000000000001,1.06,1.38,1.74,2.14,2.58,3.06,3.58,4.14,4.74,5.38,6.06,6.78,7.54,8.34,9.18],[0.5,0.62,0.78,0.98,1.22,1.5,1.82,2.18,2.58,3.02,3.5,4.02,4.58,5.18,5.82,6.5,7.22,7.98,8.78,9.62,10.5],[1.18,1.34,1.54,1.78,2.06,2.38,2.74,3.14,3.58,4.06,4.58,5.14,5.74,6.38,7.06,7.78,8.54,9.34,10.18,11.06,11.98],[2.02,2.22,2.46,2.74,3.06,3.42,3.82,4.26,4.74,5.26,5.82,6.42,7.06,7.74,8.46,9.22,10.02,10.86,11.74,12.66,13.62],[3.02,3.26,3.54,3.86,4.22,4.62,5.06,5.54,6.06,6.62,7.22,7.86,8.54,9.26,10.02,10.82,11.66,12.54,13.46,14.42,15.42],[4.18,4.46,4.78,5.14,5.54,5.98,6.46,6.98,7.54,8.14,8.78,9.46,10.18,10.94,11.74,12.58,13.46,14.38,15.34,16.34,17.38],[5.5,5.82,6.18,6.58,7.02,7.5,8.02,8.58,9.18,9.82,10.5,11.22,11.98,12.78,13.62,14.5,15.42,16.38,17.38,18.42,19.5]],"type":"surface","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>Higher order polynomials (i.e., cubic, quartic, etc.) are possible in principle. Something to keep in mind is that the higher the order of the polynomial, the more flexible the surface, which may lead to the following issues:</p>
+<ol style="list-style-type: decimal">
+<li>Multicollinearity.</li>
+</ol>
+Powers of variables tend to be highly correlated with each other. See the following table of correlations for the <code>x</code> coordinate in the example:
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+x
+</th>
+<th style="text-align:right;">
+x^2
+</th>
+<th style="text-align:right;">
+x^3
+</th>
+<th style="text-align:right;">
+x^4
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+x
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.92
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+x^2
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+x^3
+</td>
+<td style="text-align:right;">
+0.92
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+x^4
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.96
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+</tbody>
+</table>
+<p>When two variables are highly collinear, the model has difficulties discriminating their relative contribution to the model. This is manifested by inflated standard errors that may depress the significance of the coefficients, and occasionally by sign reversals.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Overfitting.</li>
+</ol>
+<p>Overfitting is another possible consequence of using a trend surface that is too flexible. This happens when a model fits too well the observations used for callibration, but because of this it may fail to fit well new information.</p>
+<p>To illustrate overfitting consider a simple example. Below we simulate a simple linear model with <span class="math inline">\(y_i = x_i + \epsilon_i\)</span> (the random terms are drawn from the uniform distribution). We also simulate new data using the exact same process:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Dataset for estimation</span>
+df.of1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="dv">1</span>))
+df.of1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(df.of1, <span class="dt">y =</span> x <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">10</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))
+<span class="co"># New data</span>
+new_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.5</span>))
+df.of2 &lt;-<span class="st"> </span><span class="kw">mutate</span>(new_data, <span class="dt">y =</span> x <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="kw">nrow</span>(new_data), <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</code></pre></div>
+<p>This is the scatterplot of the observations in the estimation dataset:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> df.of1, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) 
+p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="28-Area-Data-VI_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>A model with a first order trend (essentially linear regression), does not fit the observations perfectly, but when confronted with new data (plotted as red squares), it predicts them with reasonable accuracy:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod.of1 &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> df.of1)
+pred1 &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.of1, <span class="dt">newdata =</span> new_data) <span class="co">#mod.of1$fitted.values</span>
+p <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> mod.of1<span class="op">$</span>coefficients[<span class="dv">2</span>], <span class="dt">intercept =</span> mod.of1<span class="op">$</span>coefficients[<span class="dv">1</span>], 
+                <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.of2, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> df.of2, <span class="kw">aes</span>(<span class="dt">xend =</span> x, <span class="dt">yend =</span> pred1)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlim</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>))</code></pre></div>
+<p><img src="28-Area-Data-VI_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>Compare to a polynomial of very high degree (nine in this case). The model is much more flexible, to the extent that it perfectly matches the observations in the estimation dataset. However, this flexibility has a downside. When the model is confronted with new information, its performance is less satisfactory.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod.of2 &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(x, <span class="dt">degree =</span> <span class="dv">9</span>, <span class="dt">raw =</span> <span class="ot">TRUE</span>), <span class="dt">data =</span> df.of1)
+poly.fun &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.of2, <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="fl">0.1</span>)))
+pred2 &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.of2, <span class="dt">newdata =</span> new_data) <span class="co">#mod.of1$fitted.values</span>
+
+p <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co">#stat_function(fun = fun.pol, </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="fl">0.1</span>), <span class="dt">y =</span> poly.fun), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y),
+                <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.of2, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> df.of2, <span class="kw">aes</span>(<span class="dt">xend =</span> x, <span class="dt">yend =</span> pred2)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlim</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">10</span>))</code></pre></div>
+<p><img src="28-Area-Data-VI_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>We can compute the <em>root mean square</em> (RMS), for each of the two models. The RMS is a measure of error calculated as the square root of the mean of the squared differences between two values (in this case the prediction of the model and the new information). This statistic is a measure of the typical deviation between two sets of values. Given new information, the RMS would tell us the expected size of the error when making a prediction using a given model.</p>
+<p>The RMS for model 1 is:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>((df.of2<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>pred1)<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+<pre><code>## [1] 0.525595</code></pre>
+<p>And for model 2:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="kw">mean</span>((df.of2<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>pred2)<span class="op">^</span><span class="dv">2</span>))</code></pre></div>
+<pre><code>## [1] 1.681143</code></pre>
+<p>You will notice how model 2, despite fitting the estimation data better than model 1, typically produces larger errors when new information becomes available.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Edge effects.</li>
+</ol>
+<p>Another consequence of overfitting, is that the resulting functions tend to display extreme behavior when taken outside of their estimation range, where the largest polynomial terms tend to dominate.</p>
+<p>The plot below is the same high degree polynomial estimated above, just plotted in a slightly larger range of plus/minus one unit:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">poly.fun &lt;-<span class="st"> </span><span class="kw">predict</span>(mod.of2, <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">11</span>, <span class="fl">0.1</span>)))
+p <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">11</span>, <span class="fl">0.1</span>), <span class="dt">y =</span> poly.fun), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y),
+                <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> df.of2, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_segment</span>(<span class="dt">data =</span> df.of2, <span class="kw">aes</span>(<span class="dt">xend =</span> x, <span class="dt">yend =</span> pred2)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="28-Area-Data-VI_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+</div>
+<div id="models-with-spatially-varying-coefficients" class="section level3">
+<h3><span class="header-section-number">29.6.2</span> Models with Spatially-varying Coefficients</h3>
+<p>Another way to generate flexible functional forms is by means of models with spatially varying coefficients. Two approaches are reviewed here.</p>
+<div id="expansion-method" class="section level4">
+<h4><span class="header-section-number">29.6.2.1</span> Expansion Method</h4>
+<p>The expansion method (<a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1538-4632.1972.tb00458.x/full">Casetti, 1972</a>) is an approach to generate models with contextual effects. It follows a philosophy of specifying first a substantive model with variables of interest, and then an expanded model with contextual variables. In geographical analysis, typically the contextual variables are trend surfaces estimated using the coordinates of the observations.</p>
+<p>To illustrate this, suppose that there is the following initial model of proportion of donors in a population, with two variables of substantive interest (say, income and education): <span class="math display">\[
+d_i = \beta_i(x_i,y_i) + \beta_1(x_i,y_i)I_i + \beta_3(x_i,y_i)Ed_i + \epsilon_i
+\]</span></p>
+<p>Note how the coefficients are now a function of the coordinates at <span class="math inline">\(i\)</span>. Unlike previous models that had <em>global</em> coefficients, the coefficients in this model are allowed to adapt by location.</p>
+<p>Unfortunately, it is not possible to estimate one coefficient per location. In this case, there are <span class="math inline">\(n\times k\)</span> coefficients, which exceeds the size of the sample (<span class="math inline">\(n\)</span>). It is not possible to retrieve more information from the sample than <span class="math inline">\(n\)</span> parameters (this is called the incidental parameter problem.)</p>
+<p>A possible solution is to specify a function for the coefficients, for instance, by specifying a trend surface for them: <span class="math display">\[
+\begin{array}{l}
+\beta_0(x_i, y_i) = \beta_{01} +\beta_{02}x_i + \beta_{03}y_i\\
+\beta_1(x_i, y_i) = \beta_{11} +\beta_{12}x_i + \beta_{13}y_i\\
+\beta_2(x_i, y_i) = \beta_{21} +\beta_{22}x_i + \beta_{23}y_i
+\end{array}
+\]</span> By specifying the coefficients as a function of the coordinates, we allow them to vary by location.</p>
+<p>Next, if we substitute these coefficients in the intial model, we arrive at a final expanded model: <span class="math display">\[
+d_i = \beta_{01} +\beta_{02}x_i + \beta_{03}y_i + \beta_{11}I_i +\beta_{12}x_iI_i + \beta_{13}y_iI_i + \beta_{21}Ed_i +\beta_{22}x_iEd_i + \beta_{23}y_iEd_i + \epsilon_i
+\]</span></p>
+<p>This model has now nine coefficients, instead of <span class="math inline">\(n\times 3\)</span>, and can be estimated as usual.</p>
+<p>It is important to note that since models generated based on the expansion method are based on the use of trend surfaces, similar caveats apply with respect to multicollinearity and overfitting.</p>
+</div>
+<div id="geographically-weighted-regression-gwr" class="section level4">
+<h4><span class="header-section-number">29.6.2.2</span> Geographically Weighted Regression (GWR)</h4>
+<p>A different strategy to estimate models with spatially-varying coefficients is a semi-parametric approach, called geographically weighted regression (see <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1538-4632.1996.tb00936.x/abstract">Brunsdon et al., 1996</a>).</p>
+<p>Instead of selecting a functional form for the coefficients as the expansion method does, the functions are left unspecified. The spatial variation of the coefficients results from an estimation strategy that takes subsamples of the data in a systematic way.</p>
+<p>If you recall kernel density analysis, a kernel was a way of weighting observations based on their distance from a focal point.</p>
+<p>Geographically weighted regression applies a similar concept, with a moving window that visits a focal point and estimates a weighted least squares model at that location. The results of the regression are conventionally applied to the focal point, in such a way that not only the coefficients are localized, but also every other regression diagnostic (e.g., the coefficient of determination, the standard deviation, etc.)</p>
+<p>A key aspect of implementing this model is the selection of the kernel bandwidth, that is, the size of the window. If the window is too large, the local models tend towards the global model (estimated using the whole sample). If the window is too small, the model tends to overfit, since in the limit each window will contain only one, or a very small number of observations.</p>
+<p>The kernel bandwidth can be selected if we define some loss function to minimize. A conventional approach (but not the only one), is to minimize a cross-validation score of the following form: <span class="math display">\[
+CV (\delta) = \sum_{i=1}^n{\big(y_i - \hat{y}_{\neq i}(\delta)\big)^2}
+\]</span> In this notation, <span class="math inline">\(\delta\)</span> is the bandwidth, and <span class="math inline">\(\hat{y}_{\neq i}(\delta)\)</span> is the value of <span class="math inline">\(y\)</span> predicted by a model with a bandwidth of <span class="math inline">\(\delta\)</span> <em>after excluding the observation at <span class="math inline">\(i\)</span></em>. This is called a <em>leave-one-out</em> cross-validation procedure, used to prevent the estimation from shrinking the bandwidth to zero.</p>
+<p>GWR is implemented in the package <code>spgwr</code>. To estimate models using this approach, the function <code>sel.GWR</code>, which takes as inputs a formula specifying the dependent and independent variables, a <code>SpatialPolygonsDataFrame</code> (or a <code>SpatialPointsDataFrame</code>), and the kernel function (in the example below a Gaussian kernel). Since our data come in the form of simple features, we use <code>as(x, &quot;Spatial&quot;)</code> to convert to a <code>Spatial*DataFrame</code> object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">delta &lt;-<span class="st"> </span><span class="kw">gwr.sel</span>(<span class="dt">formula =</span> z <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y, 
+                 <span class="dt">data =</span> <span class="kw">as</span>(HamiltonDAs, <span class="st">&quot;Spatial&quot;</span>), 
+                 <span class="dt">gweight =</span> gwr.Gauss)</code></pre></div>
+<pre><code>## Bandwidth: 25621.66 CV score: 416.6583 
+## Bandwidth: 41415.33 CV score: 439.9313 
+## Bandwidth: 15860.64 CV score: 373.3401 
+## Bandwidth: 9827.993 CV score: 326.3479 
+## Bandwidth: 6099.614 CV score: 301.3906 
+## Bandwidth: 3795.349 CV score: 307.3175 
+## Bandwidth: 5784.775 CV score: 300.0247 
+## Bandwidth: 5317.712 CV score: 298.6785 
+## Bandwidth: 4736.221 CV score: 298.7873 
+## Bandwidth: 5058.919 CV score: 298.4138 
+## Bandwidth: 5051.908 CV score: 298.4127 
+## Bandwidth: 5032.504 CV score: 298.4117 
+## Bandwidth: 5034.856 CV score: 298.4117 
+## Bandwidth: 5034.926 CV score: 298.4117 
+## Bandwidth: 5034.918 CV score: 298.4117 
+## Bandwidth: 5034.918 CV score: 298.4117 
+## Bandwidth: 5034.918 CV score: 298.4117 
+## Bandwidth: 5034.918 CV score: 298.4117</code></pre>
+<p>The function <code>gwr</code> estimates the suite of local models given a bandwidth:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.gwr &lt;-<span class="st"> </span><span class="kw">gwr</span>(<span class="dt">formula =</span> z <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y, 
+                 <span class="dt">bandwidth =</span> delta, 
+                 <span class="dt">data =</span> <span class="kw">as</span>(HamiltonDAs, <span class="st">&quot;Spatial&quot;</span>),
+                 <span class="dt">gweight =</span> gwr.Gauss)
+model.gwr</code></pre></div>
+<pre><code>## Call:
+## gwr(formula = z ~ x + y, data = as(HamiltonDAs, &quot;Spatial&quot;), bandwidth = delta, 
+##     gweight = gwr.Gauss)
+## Kernel function: gwr.Gauss 
+## Fixed bandwidth: 5034.918 
+## Summary of GWR coefficient estimates at data points:
+##                  Min.  1st Qu.   Median  3rd Qu.     Max.  Global
+## X.Intercept. -16.8369  -5.8339  -2.0390  -0.6852   2.0016 -3.6765
+## x              6.1497  16.5814  19.1775  24.9633  36.8438 20.9207
+## y             22.3026  31.5813  36.8539  47.5515  84.3637 44.8033</code></pre>
+<p>The results are given for each location where a local regression was estimated. Lets join these results to <code>sf</code> dataframe for plotting:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HamiltonDAs<span class="op">$</span>beta0 &lt;-<span class="st"> </span>model.gwr<span class="op">$</span>SDF<span class="op">@</span>data<span class="op">$</span>X.Intercept.
+HamiltonDAs<span class="op">$</span>beta1 &lt;-<span class="st"> </span>model.gwr<span class="op">$</span>SDF<span class="op">@</span>data<span class="op">$</span>x
+HamiltonDAs<span class="op">$</span>beta2 &lt;-<span class="st"> </span>model.gwr<span class="op">$</span>SDF<span class="op">@</span>data<span class="op">$</span>y
+HamiltonDAs<span class="op">$</span>localR2 &lt;-<span class="st"> </span>model.gwr<span class="op">$</span>SDF<span class="op">@</span>data<span class="op">$</span>localR2
+HamiltonDAs<span class="op">$</span>gwr.e &lt;-<span class="st"> </span>model.gwr<span class="op">$</span>SDF<span class="op">@</span>data<span class="op">$</span>gwr.e</code></pre></div>
+<p>The results can be mapped as shown below (try mapping <code>beta1</code>, <code>beta2</code>, <code>localR2</code>, or the residuals <code>gwr.e</code>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> HamiltonDAs, <span class="kw">aes</span>(<span class="dt">fill =</span> beta0)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">trans =</span> <span class="st">&quot;reverse&quot;</span>)</code></pre></div>
+<p><img src="28-Area-Data-VI_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>You can verify that the residuals are not spatially autocorrelated:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(HamiltonDAs<span class="op">$</span>gwr.e, HamiltonDAs.w)</code></pre></div>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  HamiltonDAs$gwr.e  
+## weights: HamiltonDAs.w    
+## 
+## Moran I statistic standard deviate = 0.016155, p-value = 0.4936
+## alternative hypothesis: greater
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##      -0.002827161      -0.003378378       0.001164184</code></pre>
+<p>Some caveats with respect to GWR.</p>
+<p>Since estimation requires the selection of a kernel bandwidth, and a kernel bandwidth requires the estimation of many times leave-one-out regressions, GWR can be computationally quite demanding, especially for large datasets.</p>
+<p>GWR has become a very popular method, however, there is conflicting evidence regarding its ability to retrieve a known spatial process <span class="citation">(Paez, Farber, and Wheeler <a href="#ref-Paez2011gwr">2011</a>)</span>. For this reasons, interpretation of the spatially-varying coefficients must be conducted with a grain of salt, although this seems to be less of a concern with larger samples - but at the moment it is not known how large a sample is safe (and larger samples also become computationally more demanding). As well, the estimation method is known to be sensitive to unusual observations <span class="citation">(Farber and Páez <a href="#ref-Farber2007gwr">2007</a>)</span>. At the moment, I recommend that GWR be used for prediction only, and in this respect it seems to perform as well, or even better than alternatives approaches <span class="citation">(Paez, Long, and Farber <a href="#ref-Paez2008gwr">2008</a>)</span>.</p>
+</div>
+</div>
+</div>
+<div id="spatial-error-model-sem" class="section level2">
+<h2><span class="header-section-number">29.7</span> Spatial Error Model (SEM)</h2>
+<p>A model that can be used to take direct remedial action with respect to residual spatial autocorrelation is the spatial error model.</p>
+<p>This model is specified as follows: <span class="math display">\[
+y_i = \beta_0 + \sum_{j=1}^k{\beta_kx_{ij}} + \epsilon_i
+\]</span></p>
+<p>However, it is no longer assumed that the residuals <span class="math inline">\(\epsilon\)</span> are independent, but instead display map pattern, in the shape of a moving average: <span class="math display">\[
+\epsilon_i = \lambda\sum_{i=1}^n{w_{ij}^{st}\epsilon_i} + \mu_i
+\]</span></p>
+<p>A second set of residuals <span class="math inline">\(\mu\)</span> are assumed to be independent.</p>
+<p>It is possible to show that this model is no longer linear in the coefficients (but this would require a little bit of matrix algebra). For this reason, ordinary least squares is no longer an appropriate estimation algorithm, and models of this kind are instead estimated based on maximum likelihood.</p>
+<p>Spatial error models are implemented in the package <code>spdep</code>.</p>
+<p>As a remedial model, it can account for a model with a misspecified functional form. We know that the underlying process is not linear, but we specify a linear relationship between the covariates in the form of <span class="math inline">\(z = \beta_0 + \beta_1x + \beta_2y\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.sem1 &lt;-<span class="st"> </span><span class="kw">errorsarlm</span>(<span class="dt">formula =</span> z <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y, 
+                        <span class="dt">data =</span> HamiltonDAs, 
+                        <span class="dt">listw =</span> HamiltonDAs.w)
+<span class="kw">summary</span>(model.sem1)</code></pre></div>
+<pre><code>## 
+## Call:
+## errorsarlm(formula = z ~ x + y, data = HamiltonDAs, listw = HamiltonDAs.w)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -2.801195 -0.845856  0.054448  0.793607  2.753617 
+## 
+## Type: error 
+## Coefficients: (asymptotic standard errors) 
+##             Estimate Std. Error z value  Pr(&gt;|z|)
+## (Intercept) -3.89916    0.63027 -6.1865 6.151e-10
+## x           20.99256    1.66815 12.5844 &lt; 2.2e-16
+## y           45.92072    1.80719 25.4100 &lt; 2.2e-16
+## 
+## Lambda: 0.5839, LR test value: 70.68, p-value: &lt; 2.22e-16
+## Asymptotic standard error: 0.063578
+##     z-value: 9.184, p-value: &lt; 2.22e-16
+## Wald statistic: 84.345, p-value: &lt; 2.22e-16
+## 
+## Log likelihood: -446.2198 for error model
+## ML residual variance (sigma squared): 1.0996, (sigma: 1.0486)
+## Number of observations: 297 
+## Number of parameters estimated: 5 
+## AIC: 902.44, (AIC for lm: 971.12)</code></pre>
+<p>The coefficient <span class="math inline">\(\lambda\)</span> is positive (indicative of positive autocorrelation) and high, since about 50% of the moving average of the residuals <span class="math inline">\(\epsilon\)</span> in the neighborhood of <span class="math inline">\(i\)</span> contribute to the value of <span class="math inline">\(\epsilon_i\)</span>.</p>
+<p>You can verify that the residuals are spatially uncorrelated (note that the alternative is “less” because of the negative sign of Moran’s I coefficient):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(model.sem1<span class="op">$</span>residuals, HamiltonDAs.w, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>)</code></pre></div>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  model.sem1$residuals  
+## weights: HamiltonDAs.w    
+## 
+## Moran I statistic standard deviate = -0.99147, p-value = 0.1607
+## alternative hypothesis: less
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##      -0.037200709      -0.003378378       0.001163727</code></pre>
+<p>Now consider the case of a missing covariate:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.sem2 &lt;-<span class="st"> </span><span class="kw">errorsarlm</span>(<span class="dt">formula =</span> <span class="kw">log</span>(z) <span class="op">~</span><span class="st"> </span>x, 
+                        <span class="dt">data =</span> HamiltonDAs, 
+                        <span class="dt">listw =</span> HamiltonDAs.w)
+<span class="kw">summary</span>(model.sem2)</code></pre></div>
+<pre><code>## 
+## Call:
+## errorsarlm(formula = log(z) ~ x, data = HamiltonDAs, listw = HamiltonDAs.w)
+## 
+## Residuals:
+##        Min         1Q     Median         3Q        Max 
+## -0.4528582 -0.0706124  0.0077446  0.0831516  0.4621741 
+## 
+## Type: error 
+## Coefficients: (asymptotic standard errors) 
+##             Estimate Std. Error z value  Pr(&gt;|z|)
+## (Intercept)  1.75329    0.20266  8.6512 &lt; 2.2e-16
+## x            1.89674    0.65840  2.8808  0.003966
+## 
+## Lambda: 0.92272, LR test value: 492.33, p-value: &lt; 2.22e-16
+## Asymptotic standard error: 0.021523
+##     z-value: 42.87, p-value: &lt; 2.22e-16
+## Wald statistic: 1837.9, p-value: &lt; 2.22e-16
+## 
+## Log likelihood: 159.879 for error model
+## ML residual variance (sigma squared): 0.015466, (sigma: 0.12436)
+## Number of observations: 297 
+## Number of parameters estimated: 4 
+## AIC: -311.76, (AIC for lm: 178.57)</code></pre>
+<p>In this case, the residual pattern is particularly strong, with more than 90% of the moving average contributing to the residuals. Alas, in this case, the remedial action falls short of cleaning the residuals, and we can see that they still remain spatially correlated:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">moran.test</span>(model.sem2<span class="op">$</span>residuals, HamiltonDAs.w, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>)</code></pre></div>
+<pre><code>## 
+##  Moran I test under randomisation
+## 
+## data:  model.sem2$residuals  
+## weights: HamiltonDAs.w    
+## 
+## Moran I statistic standard deviate = -3.3739, p-value = 0.0003705
+## alternative hypothesis: less
+## sample estimates:
+## Moran I statistic       Expectation          Variance 
+##      -0.118141071      -0.003378378       0.001156981</code></pre>
+<p>This would suggest the need for alternative action (such as the search for additional covariates).</p>
+<p>Ideally, a model should be well-specified, and remedial action should be undertaken only when other alternatives have been exhausted.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Paez2011gwr">
+<p>Paez, A., S. Farber, and D. Wheeler. 2011. “A Simulation-Based Study of Geographically Weighted Regression as a Method for Investigating Spatially Varying Relationships.” Journal Article. <em>Environment and Planning A</em> 43 (12): 2992–3010. doi:<a href="https://doi.org/10.1068/a44111">10.1068/a44111</a>.</p>
+</div>
+<div id="ref-Farber2007gwr">
+<p>Farber, S., and A. Páez. 2007. “A Systematic Investigation of Cross-Validation in Gwr Model Estimation: Empirical Analysis and Monte Carlo Simulations.” Journal Article. <em>Journal of Geographical Systems</em> 9 (4): 371–96. <a href="C:/Papers/Journal of Geographical Systems/Journal of Geographical Systems (2007) 9 (4) 371-396.pdf" class="uri">C:/Papers/Journal of Geographical Systems/Journal of Geographical Systems (2007) 9 (4) 371-396.pdf</a>.</p>
+</div>
+<div id="ref-Paez2008gwr">
+<p>Paez, A., F. Long, and S. Farber. 2008. “Moving Window Approaches for Hedonic Price Estimation: An Empirical Comparison of Modelling Techniques.” Journal Article. <em>Urban Studies</em> 45 (8): 1565–81. doi:<a href="https://doi.org/10.1177/0042098008091491">10.1177/0042098008091491</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="activity-14-area-data-v.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="activity-14-area-data-vi.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/paezha/paezha.github.io/tree/master/applied_spatial_statistics/28-Area-Data-VI.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

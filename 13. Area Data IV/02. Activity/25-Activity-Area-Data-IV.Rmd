@@ -1,9 +1,9 @@
 ---
-title: "13 Activity 13: Area Data IV"
+title: "Activity: Area Data IV"
 output: html_notebook
 ---
 
-# Activity 13: Area Data IV
+# Activity: Area Data IV
 
 ## Practice questions
 

@@ -15,17 +15,6 @@ If you wish to work interactively with this chapter you will need the following:
 
 * A package called `geog4ga3`.
 
-NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-In previous practice/session, you learned about how to use local spatial statistics for exploratory spatial data analysis. 
-
-For this practice you will need the following:
-
-* This R markdown notebook.
-* A shape file called "Hamilton CMA tts06"
-
-The shape file includes spatial information for Traffic Analysis Zones (TAZ) in the Hamilton Census Metropolitan Area (as polygons).
-
 ## Learning Objectives
 
 In this practice, you will:
@@ -40,10 +29,10 @@ In this practice, you will:
 
 ## Suggested Readings
 
-- Bailey TC and Gatrell AC (1995) Interactive Spatial Data Analysis, Chapter 7. Longman: Essex.
-- Bivand RS, Pebesma E, and Gomez-Rubio V (2008) Applied Spatial Data Analysis with R, Chapter 9. Springer: New York.
-- Brunsdon C and Comber L (2015) An Introduction to R for Spatial Analysis and Mapping, Chapter 7. Sage: Los Angeles.
-- O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 7. John Wiley & Sons: New Jersey.
+- Bailey TC and Gatrell AC [-@Bailey1995] Interactive Spatial Data Analysis, Chapter 7. Longman: Essex.
+- Bivand RS, Pebesma E, and Gomez-Rubio V [-@Bivand2008] Applied Spatial Data Analysis with R, Chapter 9. Springer: New York.
+- Brunsdon C and Comber L [-@Brunsdon2015R] An Introduction to R for Spatial Analysis and Mapping, Chapter 7. Sage: Los Angeles.
+- O'Sullivan D and Unwin D [-@Osullivan2010] Geographic Information Analysis, 2nd Edition, Chapter 7. John Wiley & Sons: New Jersey.
 
 ## Preliminaries
 
@@ -127,7 +116,7 @@ At this point, it is important to examine the residuals to verify that they are 
 HamiltonDAs$model1.e <- model1$residuals
 ```
 
-A map of the residuals can help examine their spatial pattern:
+A map of the residuals can help examine their spatial pattern (negative residuals are red, positive are blue):
 ```{r message = FALSE, warning = FALSE}
   plot_ly(HamiltonDAs) %>%
     add_sf(color = ~(model1.e > 0), colors = c("red", "dodgerblue4"))
@@ -172,7 +161,7 @@ As before, lets append the residuals to the dataframes:
 HamiltonDAs$model3.e <- model3$residuals
 ```
 
-We can plot a map of the residuals to examine their spatial pattern:
+We can plot a map of the residuals to examine their spatial pattern (negative residuals are red, positive are blue):
 ```{r message = FALSE, warning = FALSE}
   plot_ly(HamiltonDAs) %>%
     add_sf(color = ~(model3.e > 0), colors = c("red", "dodgerblue4"))

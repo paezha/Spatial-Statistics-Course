@@ -1,0 +1,357 @@
+---
+title: "Spatially Continuous Data I"
+output: html_notebook
+---
+
+# Spatially Continuous Data I {#spatially-continuous-data-i}
+
+*NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes.
+
+Previously, you learned about the analysis of area data. Starting with this practice, you will be introduced to another type of spatial data: continuous data, also called fields. 
+
+If you wish to work interactively with this chapter you will need the following:
+
+* An R markdown notebook version of this document (the source file).
+
+* A package called `geog4ga3`.
+
+You will also use two custom functions that are included in the package `geog4ga3` as follows:
+
+1. point2voronoi(sp)
+
+This is a function to obtain Voronoi polygons based on a set of points. It takes an argument `sp` (a `SpatialPointsDataFrame`) and calculates a set of Voronoi polygons. The value (output) of the function is a `SpatialPolygonsDataFrame` with the polygons.
+
+2. kpointmeans(source_xy, z, target_xy, k, latlong)
+
+This is a function to calculate k-point means. It takes a set of source coordinates (`source_xy`), that is, the coordinates of observations to be used for interpolation; a variable `z` to interpolate; a set of target coordinates (`target_xy`), the points to interpolate `z`; the number of nearest neighbors `k`; and a logical value to indicate whether the coordinates are latitude-longitude (the default is `FALSE`).
+
+## Learning objectives
+
+In this practice, you will learn:
+
+1. About spatially continuous data/fields.
+2. Exploratory visualization.
+3. The purpose of spatial interpolation.
+4. The use of tile-based approaches.
+5. Inverse distance weighting.
+6. K-point means.
+
+## Suggested readings
+
+- Bailey TC and Gatrell AC [-@Bailey1995] Interactive Spatial Data Analysis, Chapters 5 and 6. Longman: Essex.
+- Bivand RS, Pebesma E, and Gomez-Rubio V [-@Bivand2008] Applied Spatial Data Analysis with R, Chapter 8. Springer: New York.
+- Brunsdon C and Comber L [-@Brunsdon2015R] An Introduction to R for Spatial Analysis and Mapping, Chapter 6, Sections 6.7 and 6.8. Sage: Los Angeles.
+- Isaaks EH and Srivastava RM  [-@Isaaks1989applied] An Introduction to Applied Geostatistics, **CHAPTERS**. Oxford University Press: Oxford.
+- O'Sullivan D and Unwin D [-@Osullivan2010] Geographic Information Analysis, 2nd Edition, Chapters 9 and 10. John Wiley & Sons: New Jersey.
+
+## Preliminaries
+
+As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+```{r}
+rm(list = ls())
+```
+
+Note that `ls()` lists all objects currently on the worspace.
+
+Load the libraries you will use in this activity:
+```{r}
+library(tidyverse)
+library(spdep)
+library(plotly)
+library(deldir)
+library(spatstat)
+library(geog4ga3)
+```
+
+Begin by loading the data you will need for this Chapter:
+```{r}
+data("Walker_Lake")
+```
+
+You can verify the contents of the dataframe:
+```{r}
+summary(Walker_Lake)
+```
+
+This dataframe includes a sample of of geocoded observations with false coordinates `X` and `Y`, of two quantitative variables `V`, `U`, and a factor variable `T`. The variables are generic, but you can think of them as measurements of pollutants. The Walker Lake dataset originally was used for teaching geostatistics in Isaaks and Srivastava's [-@Isaaks1989applied] book [An Introduction to Geostatistics](https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA).
+
+## Spatially continuous (field) data
+
+Previously we have discussed two types of data that are of interest in spatial analysis: points and events, and areas.
+
+The last section of the course will deal with a third type of data that finds numerous applications in many fields.
+
+Let us recall that we have discussed to different _units of support_. The unit of support is the type of spatial object that is used for the analysis.
+
+In the case of point pattern analysis, the unit of support is the point. Depending on the scale of the analysis, the point could be anything from the centroid of cells, the location of trees, the addresses of businesses, or the centers of cities at a much larger scale. Obviously, none of these objects are actual points (the point is a theoretical object). However, points are a reasonable representation for events when their size is minuscule compared to the area of the region under analysis. The most basic attribute of an event is whether its present (e.g., is there a tree at this location?) Other attributes are conditional on that one.
+
+In the case of areas, the unit of support is a zone. Data in this type of analysis may or not be generated by a discontinuous process, but once it has been cast in the form of statistics for areas, it will usually involve discontinuities at the edges of the areas.
+
+An important difference between point pattern analysis and analysis of data in areas is the source of the randomness.
+
+In the case of point pattern analysis, the coordinates of the event are assumed to be the outcome of a random process. In area data, the locations of the data are exogenously given, and the source of randomness instead is in the values of the attributes.
+
+This brings us to spatially continuous data.
+
+Superficially, spatially continuous data looks like points. This is because of how a field is measured at discrete locations. The underlying process, however, is not discrete, and a field can in principle be measured at any location. Examples include temperature and elevation. Temperature is measured at discrete locations, but the phenomenon itself is extensive. Same thing with elevation. 
+
+The source of randomness in the case of fields is the inherent uncertainty of the outcome of the process at locations where it was not measured. Therefore, an essential task is to predict values at unmeasured locations (interpolate), and to assess the degree of uncertainty of those predictions.
+
+The study of continuous data has been heavily influenced by the work in mining of South African engineer D.G. Krige, who sought to estimate the distribution of minerals based on a sample of boreholes. Since then, the study of fields has found applications in remote sensing, real estate appraisal, environmental science, hydrogeology, and many other fields.
+
+We will define a mixed spatial process that depends on the coordinates $u_i$ and $v_i$, in addition to a vector of covariates $\bf{x}_i$:
+$$
+z_i = f(u_i, v_i, \bf{x}_i) + \epsilon_i
+$$
+where $i$ is an arbitrary location in the region, and $\epsilon_i$ is the difference between the smooth description of the process and the value of the field.
+
+More simply, a field could be the outcome of a purely spatial process as follows:
+$$
+z_i = f(u_i, v_i) + \epsilon_i
+$$
+
+The value of a field is known in the locations where it is measured. In locations where the field was not measured (lets call these locations $p$), there will be some uncertainty that stems from our limited knowledge of the underlying process. As a consequence, there will be a random term associated with any prediction of the value of the field:
+$$
+\hat{z}_p = \hat{f}(u_p, v_p) + \hat{\epsilon}_p
+$$
+We use the hat notation to indicate that these are estimates of the true values.
+
+A key task in the analysis of fields is to determine a suitable function for making predictions $\hat{z}_p$ and to estimate the uncertainty as well.
+
+In this and upcoming sessions you will learn about methods to achieve this task. 
+
+## Exploratory visualization
+
+We will begin with some exploratory visualizations. The methods are very similar to those used for marked point patterns. You can use dot or proportional symbol maps. Lets create a proportional symbol map of the variable `V` in the Walker Lake dataset (with alpha = 0.5 for some transparency to mitigate the overplotting):
+```{r}
+ps1 <- ggplot(data = Walker_Lake, aes (x = X, y = Y, color = V, size = V)) +
+  geom_point(alpha = 0.5) + 
+  scale_color_distiller(palette = "OrRd", trans = "reverse") +
+  coord_equal()
+ps1
+```
+
+The proportional symbols indicate the location where a measurement was made. There is no randomness in these locations, as they were selected by design. In particular, notice how a regular grid seems to have been used for sampling, and then there was further infill sampling at those places where the field appeared to vary more.
+
+Imagine that the observations are of a contaminant. The task could be to calculate the total amount of the contaminant over the region. This would require you to obtain estimates of the contaminant in all the region, not just those places where measurements were made. If, as is typically the case, making more observations is expensive, other approaches must be adopted.
+
+Before proceeding, it is worthwhile noting that the package `plotly` can be used to enhance exploratory analysis by allowing user interactivity. Below is the same plot as before, but now as an interactive 3D scatterplot:
+```{r}
+plot_ly(data = Walker_Lake, x = ~X, y = ~Y, z = ~V,
+         marker = list(color = ~V, colorscale = c("Orange", "Red"), 
+                       showscale = TRUE)) %>% 
+  add_markers()
+```
+
+## Tile-based methods
+
+Tile-based methods take a set of points and convert them into a tesselation. 
+
+A widely used algorithm to do this is called Voronoi polygons, after Georgy Voronoi, the mathematician that discovered it. Voronoi polygons are created as follows:
+
+1. Given a set of generating points $p_g$ with coordinates $(u_g, u_g)$ (for $g = 1,...,n$) and values of a variable $z_{p_g}$:
+```{r}
+uv_coords <- data.frame(u = c(0.7, 5.2, 3.3, 1.3, 5.4), v = c(0.5, 1.8, 2.3, 4.8, 5.5))
+p <- ggplot(data = uv_coords, aes(x = u, y = v)) + geom_point(size = 2) + coord_equal() +
+  xlim(c(0,6)) + ylim(c(0,6))
+p
+```
+
+2. Each point is connected by means of straight lines to its two nearest neighbors to create a triangulation:
+```{r}
+l2n <- data.frame(u = c(0.7, 5.2, 5.2, 3.3, 1.3, 1.3, 5.4), 
+                  uend = c(3.3, 3.3, 5.4, 5.4, 0.7, 3.3, 1.3), 
+                  v = c(0.5, 1.8, 1.8, 2.3, 4.8, 4.8, 5.5),
+                  vend = c(2.3, 2.3, 5.5, 5.5, 0.5, 2.3, 4.8))
+p <- p + geom_segment(data = l2n, aes(x = u, xend = uend, y = v, yend = vend), color = "gray")
+p
+```
+
+3. The perpendicular bisectors of each triangle are found and extended, until they intersect. The resulting tesselation is a set of Voronoi polygons:
+```{r message=FALSE}
+uv_coords.sp <- SpatialPointsDataFrame(coords = cbind(x = uv_coords$u, y = uv_coords$v), uv_coords)
+vor <- points2voronoi(uv_coords.sp)
+vor.t <- fortify(vor)
+p + geom_polygon(data = vor.t, aes(x = long, y = lat, group = group),
+                 color = "black", fill = NA)
+```
+
+Voronoi polygons have the property that any point $p_i$ inside the polygon with generating point $p_g$ in it, is closer to $p_g$ than to any other generating point $p_k$ on the plane. For this reason, Voronoi polygons are used to obtain areas of influence, among other applications.
+
+There are other ways of obtaining Voronoi polygons, as Figure 1 below illustrates. Voronoi polygons in the figure are created by radial growth. The basic concept is the same, but implemented in a different way: find every point that is closest to $p_g$. When two circles touch, they become the boundary between all points that are closer to $p_g$ and $p_k$ respectively. Continue growing until the plane is fully covered.
+
+![Figure 1. Voronoi polygons by radial growth (source: The Internet)](Voronoi_growth_euclidean.gif)
+
+Voronoi polygons can be obtained in `R` as follows (using the sample dataset).
+
+First, if the object with the coordinates is not a `SpatialPointsDataFrame` (for instance, it could be a `ppp` object of the `spatstat` package), convert the points to a `SpatialPointsDataFrame`:
+```{r}
+Walker_Lake.sp <- SpatialPointsDataFrame(coords = cbind(X = Walker_Lake$X, 
+                                                     Y = Walker_Lake$Y), 
+                                      data = Walker_Lake)
+```
+
+Use the function provided to obtain the voronoi polygons based on the `SpatialPointsDataFrame` (note that the coordinates must be in the @data):
+```{r}
+Walker_Lake.voronoi <- points2voronoi(Walker_Lake.sp)
+```
+
+The value (output) of the function is a `SpatialPolygonsDataFrame` that can be plotted directly, or better yet, converted to a tidy table for plotting using `ggplot2`:
+```{r}
+Walker_Lake.voronoi.t <- fortify(Walker_Lake.voronoi)
+Walker_Lake.voronoi.t <- rename(Walker_Lake.voronoi.t, ID = id)
+Walker_Lake.voronoi.t <- left_join(Walker_Lake.voronoi.t, Walker_Lake, by = "ID")
+```
+
+The value of $z$ for a tile is the same as the value of the variable for its corresponding generating point, or $z_{p_g}$. This is the plot for the current example:
+```{r}
+vor.plot <- ggplot(data = Walker_Lake.voronoi.t, aes(x = long, y = lat, group = group,
+                                         fill = V)) +
+  geom_polygon(color = "white") +
+  scale_fill_distiller(palette = "OrRd", trans = "reverse") +
+  coord_equal()
+ggplotly(vor.plot)   # Uncomment this line for the interactive version of the plot
+```
+
+As you can see, the points in the sample have been converted to a surface from which the value of $z$ can be estimated at any point as desired, from the value of $z$ of the closest point used to generate the tiles. This can be expressed as follows:
+$$
+\hat{z}_p = z_{p_g}\text{ for } p_g\text{ with } d_{pp_g}<d_{pp_k}\forall{k}
+$$
+
+## Inverse distance weighting (IDW)
+
+The tile-based approach above assumes that the field is flat within each polygon (see Figure 2). This is in most cases an unrealistic assumption. Other approaches to interpolate a spatial variable allow the estimated value of $z_p$ to vary with proximity to observations. Such is the case of IDW.
+
+![Figure 2. A field according to Voronoi polygons](Figure 2. Voronoi polygons field.jpg)
+
+Inverse distance weigthing takes the following form:
+$$
+\hat{z}_p = \frac{\sum_{i=1}^n{w_{pi}z_i}}{\sum_{i=1}^n{w_{pi}}}
+$$
+
+This will look familiar to you, because it is formally identical to the spatial moving average. The difference is in how the "spatial weights" $w_{pi}$ are defined. For IDW, the spatial weights are given by a function of the inverse power of distance, as follows:
+$$
+w_{pi} = \frac{1}{d_{pi}^\gamma}
+$$
+Parameter $\gamma$ controls the steepness of the decay function, with smaller values giving greater weight to more distant locations. Large values of $\gamma$ converge to a 1-point average (so that the interpolated value is identical to the nearest observation; you can verify this).
+
+Inverse distance weighting then is a weighted average of _all_ observations in the sample, but with greater weight given to more proximate observations. This approach is implemented in R in the package `spatstat` with the function `idw`. To use this function, the points must be converted into a `ppp` object. This necessitates that we define a window object, which we do based on the extent of the observations (check the summary of `Walker_Lake.t` above):
+```{r}
+W <- owin(xrange = c(0, 259), yrange = c(0, 299))
+Walker_Lake.ppp <- as.ppp(X = Walker_Lake[,2:4], W = W)
+```
+
+The call to the function requires a `ppp` object and the argument for the power to use in the inverse distance function. In this call, the power is set to 1:
+```{r}
+z_p.idw1 <- idw(Walker_Lake.ppp, power = 1)
+```
+
+The value (output) of this function is an `im` object. Objects of this type are used by the package `spatstat` to work with raster data. It can be simply plotted as follows:
+```{r}
+plot(z_p.idw1)
+```
+
+Or the information can be extracted for greater control of the aspect of the plot in `ggplot2`:
+```{r}
+ggplot(data = data.frame(expand.grid(X= z_p.idw1$xcol, Y = z_p.idw1$yrow),
+                         V = as.vector(t(z_p.idw1$v))), # transpose matrix
+       aes(x = X, y = Y, fill = V)) + 
+  geom_tile() +
+  scale_fill_distiller(palette = "OrRd", trans = "reverse") +
+  coord_equal()
+```
+
+Notice the dots where the observations are - the value of the field is known there. Lets explore the effect of changing the parameter for the power, by using $\gamma = 0.5, 1, 2, \text{ and } 5$:
+```{r}
+z_p.idw05 <- idw(Walker_Lake.ppp, power = 0.5)
+z_p.idw2 <- idw(Walker_Lake.ppp, power = 2)
+z_p.idw5 <- idw(Walker_Lake.ppp, power = 5)
+```
+
+For ease of comparison, we will collect the information into a single dataframe:
+```{r}
+z_p.idw05.df <- data.frame(expand.grid(X= z_p.idw05$xcol, Y = z_p.idw05$yrow),
+                         V = as.vector(t(z_p.idw05$v)), Power = "P05")
+z_p.idw1.df <- data.frame(expand.grid(X= z_p.idw1$xcol, Y = z_p.idw1$yrow),
+                         V = as.vector(t(z_p.idw1$v)), Power = "P1")
+z_p.idw2.df <- data.frame(expand.grid(X= z_p.idw2$xcol, Y = z_p.idw2$yrow),
+                         V = as.vector(t(z_p.idw2$v)), Power = "P2")
+z_p.idw5.df <- data.frame(expand.grid(X= z_p.idw5$xcol, Y = z_p.idw5$yrow),
+                         V = as.vector(t(z_p.idw5$v)), Power = "P5")
+idw_df <- rbind(z_p.idw05.df, z_p.idw1.df, z_p.idw2.df, z_p.idw5.df)
+```
+
+We can now plot using the `facet_wrap` function to compare the results side by side:
+```{r}
+ggplot(data = idw_df, aes(x = X, y = Y, fill = V)) + 
+  geom_tile() +
+  scale_fill_distiller(palette = "OrRd", trans = "reverse") +
+  coord_equal() + 
+  facet_wrap(~ Power, ncol = 2)
+```
+
+Notice how smaller values of $\gamma$ "flatten" the predictions, in the extreme tending towards to global average, as all observations are weighted equally. Larger values, on the other hand, tend to the one point average, as seen in the following plot that combines the Voronoi polygons (without filling!) and the predictions from the IDW algorithm with $\gamma = 5$:
+```{r}
+ggplot() + 
+  geom_tile(data = subset(idw_df, Power = "P5"), aes(x = X, y = Y, fill = V)) +
+  geom_polygon(data = Walker_Lake.voronoi.t, aes(x = long, y = lat, group = group), 
+               color =  "white", fill = NA) +
+  scale_fill_distiller(palette = "OrRd", trans = "reverse") +
+  coord_equal()
+```
+
+Clearly, selection of a value for $\gamma$ is an important modelling decision when using IDW.
+
+## $k$-point means
+
+Another interpolation technique that is based on the idea of moving averages is $k$-point means. Again, this will look familiar to you, because it is formally identical to the spatial moving average:
+$$
+\hat{z}_p = \frac{\sum_{i=1}^n{w_{pi}z_i}}{\sum_{i=1}^n{w_{pi}}}
+$$
+
+The spatial weights in this case, however, are defined in terms of $k$-nearest neighbors:
+$$
+w_{pi} = \bigg\{\begin{array}{ll}
+1 & \text{if } i \text{ is one of } kth \text{ nearest neighbors of } p \text{ for a given }k \\
+0 & otherwise \\
+\end{array}
+$$
+
+Clearly, the above becomes:
+$$
+\hat{z}_p = \sum_{i=1}^n {w_{pi}^{st}z_i}
+$$
+
+If row-standardized spatial weights are used.
+
+Lets calculate $k$-point means using the example. For this, we need to define a set of "target" coordinates, that is, the points where we wish to interpolate. In addition, we create a matrix with the coordinates of the "source" points, the observations used for interpolation:
+```{r}
+target_xy = expand.grid(x = seq(0.5, 259.5, 2.2), y = seq(0.5, 299.5, 2.2))
+source_xy = cbind(x = Walker_Lake$X, y = Walker_Lake$Y)
+```
+
+The value (output) of the function is a dataframe with the coordinates of the target points, as well as estimated values of $\hat{z_p}$ at those points. Using the three nearest neighbors:
+```{r cache=TRUE}
+kpoint.3 <- kpointmean(source_xy = source_xy, z = Walker_Lake$V, target_xy = target_xy, k =3)
+```
+
+We can plot the interpolated field now:
+```{r}
+ggplot(data = kpoint.3, aes(x = x, y = y, fill = z)) +
+  geom_tile() +
+  scale_fill_distiller(palette = "OrRd", trans = "reverse") +
+  coord_equal()
+```
+
+As with other spatially moving averages, the crucial aspect of implementing $k$-point means is the selection of $k$. A large value will tend towards the global average, whereas a value of 1 will tend to replicate the Voronoi polygons (see below):
+```{r cache=TRUE}
+kpoint.1 <- kpointmean(source_xy = source_xy, z = Walker_Lake$V, target_xy = target_xy, k = 1)
+ggplot(data = kpoint.1, aes(x = x, y = y, fill = z)) +
+  geom_tile() +
+    geom_polygon(data = Walker_Lake.voronoi.t, aes(x = long, y = lat, group = group), 
+               color =  "white", fill = NA) +
+  scale_fill_distiller(palette = "OrRd", trans = "reverse") +
+  coord_equal()
+```
+
+This concludes Practice 15.

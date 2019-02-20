@@ -1,9 +1,11 @@
 ---
-title: "16 Activity 16: Spatially Continuous Data I"
+title: "Activity: Spatially Continuous Data I"
 output: html_notebook
 ---
 
-#Practice questions
+# Activity: Spatially Continuous Data I
+
+## Practice questions
 
 Answer the following questions:
 
@@ -13,7 +15,7 @@ Answer the following questions:
 4. Consider the following spatial interpolation algorithms: Voronoi polygons and k-point means. How do they differ when the number of points used to calculate means is 1?
 
 
-#Learning objectives
+## Learning objectives
 
 In this activity, you will:
 
@@ -21,23 +23,17 @@ In this activity, you will:
 2. Discuss a process that might explain any pattern observed from the data.
 3. Conduct a modeling exercise using appropriate techniques. Justify your modeling decisions.
 
-#Suggested reading
+## Suggested reading
 
 O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapters 8 and 9. John Wiley & Sons: New Jersey.
 
-#Preliminaries
+## Preliminaries
 
 For this activity you will need the following:
 
-* This R markdown notebook.
+* An R markdown notebook version of this document (the source file).
 
-* A file called "Wolfcamp Aquifer.RData"
-
-The data is a set of piezometric head (watertable pressure) observations of the Wolfcamp Aquifer in Texas (https://en.wikipedia.org/wiki/Hydraulic_head). Measures of pressure can be used to infer the flow of underground water, since water flows from high to low pressure areas.
-
-These data were collected to evaluate potential flow of contamination related to a high level toxic waste repository in Texas. The Deaf Smith county site in Texas was one of three potential sites proposed for this repository. Beneath the site is a deep brine aquifer known as the Wolfcamp aquifer that may serve as a conduit of contamination leaking from the repository.
-
-The data set consists of 85 georeferenced measurements of piezometric head. Possible applications of interpolation are to determine sites at risk and to quantify uncertainty of the interpolated surface, to evaluate the best locations for monitoring stations.
+* A package called `geog4ga3`.
 
 It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 ```{r}
@@ -51,14 +47,21 @@ Load the libraries you will use in this activity (load other packages as appropr
 library(tidyverse)
 library(spatstat)
 library(spdep)
+library(geog4ga3)
 ```
 
-Load dataset:
+Load the data that you will use in this activity:
 ```{r}
-load("Wolfcamp Aquifer.RData")
+data("aquifer")
 ```
 
-#Activity
+The data is a set of piezometric head (watertable pressure) observations of the Wolfcamp Aquifer in Texas (https://en.wikipedia.org/wiki/Hydraulic_head). Measures of pressure can be used to infer the flow of underground water, since water flows from high to low pressure areas.
+
+These data were collected to evaluate potential flow of contamination related to a high level toxic waste repository in Texas. The Deaf Smith county site in Texas was one of three potential sites proposed for this repository. Beneath the site is a deep brine aquifer known as the Wolfcamp aquifer that may serve as a conduit of contamination leaking from the repository.
+
+The data set consists of 85 georeferenced measurements of piezometric head. Possible applications of interpolation are to determine sites at risk and to quantify uncertainty of the interpolated surface, to evaluate the best locations for monitoring stations.
+
+## Activity
 
 1. Map the Wolfcamp Aquifer data.
 

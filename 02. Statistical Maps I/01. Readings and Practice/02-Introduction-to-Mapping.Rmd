@@ -41,8 +41,8 @@ In this reading, you will:
 
 ## Suggested Readings
 
-- Bivand RS, Pebesma E, Gomez-Rubio V (2008) Applied Spatial Data Analysis with R, Chapters 2-3. Springer: New York
-- Brunsdon C and Comber L (2015) An Introduction to R for Spatial Analysis and Mapping, Chapter 3. Sage: Los Angeles
+- Bivand RS, Pebesma E, Gomez-Rubio V [-@Bivand2008] Applied Spatial Data Analysis with R, Chapters 2-3. Springer: New York
+- Brunsdon C and Comber L [-@Brunsdon2015R] An Introduction to R for Spatial Analysis and Mapping, Chapter 3. Sage: Los Angeles
 
 ## Preliminaries
 

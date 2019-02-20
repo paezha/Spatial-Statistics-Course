@@ -1,9 +1,9 @@
 ---
-title: "14 Activity 14: Area Data V"
+title: "Activity: Area Data V"
 output: html_notebook
 ---
 
-# Activity 14: Area Data V
+# Activity: Area Data V
 
 ## Practice questions
 
@@ -29,8 +29,6 @@ In this activity, you will:
 O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 7. John Wiley & Sons: New Jersey. 
 
 ## Preliminaries
-
-For this activity you will need the following:
 
 For this activity you will need the following:
 

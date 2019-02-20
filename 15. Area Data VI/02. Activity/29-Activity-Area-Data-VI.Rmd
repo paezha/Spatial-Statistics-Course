@@ -1,9 +1,9 @@
 ---
-title: "14 Session 14: Area Data VI"
+title: "Activity: Area Data VI"
 output: html_notebook
 ---
 
-# Activity 14: Area Data VI
+# Activity: Area Data VI
 
 Remember, you can download the source file for this activity from [here](https://github.com/paezha/Spatial-Statistics-Course).
 

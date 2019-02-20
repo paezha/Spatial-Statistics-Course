@@ -44,9 +44,9 @@ A pipe operator allows you to pass the results of a function to another function
 
 ## Suggested Readings
 
-- Bivand RS, Pebesma E, Gomez-Rubio V (2008) Applied Spatial Data Analysis with R, Chapters 2-3. Springer: New York.
-- Brunsdon C and Comber L (2015) An Introduction to R for Spatial Analysis and Mapping, Chapter 3. Sage: Los Angeles.
-- O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapters 1-3. John Wiley & Sons: New Jersey.
+- Bivand RS, Pebesma E, Gomez-Rubio V [-@Bivand2008] Applied Spatial Data Analysis with R, Chapters 2-3. Springer: New York.
+- Brunsdon C and Comber L [-@Brunsdon2015R] An Introduction to R for Spatial Analysis and Mapping, Chapter 3. Sage: Los Angeles.
+- O'Sullivan D and Unwin D [-@Osullivan2010] Geographic Information Analysis, 2nd Edition, Chapters 1-3. John Wiley & Sons: New Jersey.
 
 ## Preliminaries
 

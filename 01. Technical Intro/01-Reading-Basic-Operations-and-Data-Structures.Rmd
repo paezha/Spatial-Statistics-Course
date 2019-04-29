@@ -64,6 +64,7 @@ As you can see, R can be used as a calculator, but it is much more powerful than
 
 We can also create _variables_. You can think of a variable as a box with a name, whose contents can change. Variables are used to keep track of important stuff in your calculations, and to automate operations. To create a variable, a value is assigned to a name, using this notation `<-`. You can read this `x <- 2` as "assign value of 2 to a variable called x". For instance:
 ```{r}
+# `<-` means "put the value of 2 in the object called `x`"
 x <- 2
 y <- 3
 z <- 5
@@ -115,6 +116,8 @@ print('This is a scalar')
 print('This is a vector')
 c(1,2,3,4)
 print('This is a matrix')
+# matrix() creates a two-dimensional array with `nrow` rows, and `ncol` columns
+# c() is a function to concatenate, that is, to put values in a vector
 matrix(c(1,2,3,4),nrow = 2, ncol=2)
 ```
 
@@ -126,6 +129,7 @@ A data frame can accommodate large amounts of information (several billion indiv
 
 To illustrate a data frame, let us first create the following vectors, that include names, populations, average salaries, and coordinates of some cities:
 ```{r}
+# c() is a function to concatenate, that is, to put values in a vector
 Name <- c('Hamilton','Waterloo','Toronto')
 Population <- c(551751, 219153, 2731571)
 AvgSalary <- c(45692, 57625, 48920)

@@ -1,47 +1,36 @@
 ---
-title: "19 Spatially Continuous Data IV"
+title: "Spatially Continuous Data IV"
 output: html_notebook
 ---
 
-#Introduction
+# Spatially Continuous Data IV
 
-NOTE: This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+*NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
 
-In the previous practice you were introduced to the concept of fields/spatially continuous data.
+In the previous practice you were introduced to the concept of variographic analysis for fields/spatially continuous data.
 
-For this practice you will need the following:
+If you wish to work interactively with this chapter you will need the following:
 
-* This R markdown notebook.
-* A file called "Walker_Lake.RData"
+* An R markdown notebook version of this document (the source file).
 
-The file contains a dataframe with geocoded observations of a series of variables. The dataframe is in tidy format, that is, each observation is a row with its corresponding variables (coordinates, variables).
+* A package called `geog4ga3`.
 
-The Walker Lake dataset originally was used for teaching geostatistics in Isaaks and Srivastava's [An Introduction to Geostatistics](https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA).
-
-The dataset contains a set of false coordinates `X` and `Y`, two quantitative variables `V`, `U`, and a factor variable `T`. The variables are generic, but you can think of them as measurements of pollutants.
-
-In addition, the file includes two custom functions as follows:
-
-1. point2voronoi(sp)
-
-This is a function to obtain Voronoi polygons based on a set of points. It takes an argument `sp` (a `SpatialPointsDataFrame`) and calculates a set of Voronoi polygons. The value (output) of the function is a `SpatialPolygonsDataFrame` with the polygons.
-
-2. kpointmeans(source_xy, z, target_xy, k, latlong)
-
-This is a function to calculate k-point means. It takes a set of source coordinates (`source_xy`), that is, the coordinates of observations to be used for interpolation; a variable `z` to interpolate; a set of target coordinates (`target_xy`), the points to interpolate `z`; the number of nearest neighbors `k`; and a logical value to indicate whether the coordinates are latitude-longitude (the default is `FALSE`).
-
-#Learning objectives
+## Learning objectives
 
 In this practice, you will learn:
 
 1. Using residual spatial pattern to estimate prediction errors.
 2. Kriging: a method for optimal predictions.
 
-#Suggested reading
+## Suggested reading
 
-O'Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapters 8 and 9. John Wiley & Sons: New Jersey.
+- Bailey TC and Gatrell AC [-@Bailey1995] Interactive Spatial Data Analysis, Chapters 5 and 6. Longman: Essex.
+- Bivand RS, Pebesma E, and Gomez-Rubio V [-@Bivand2008] Applied Spatial Data Analysis with R, Chapter 8. Springer: New York.
+- Brunsdon C and Comber L [-@Brunsdon2015R] An Introduction to R for Spatial Analysis and Mapping, Chapter 6, Sections 6.7 and 6.8. Sage: Los Angeles.
+- Isaaks EH and Srivastava RM  [-@Isaaks1989applied] An Introduction to Applied Geostatistics, **CHAPTERS**. Oxford University Press: Oxford.
+- O'Sullivan D and Unwin D [-@Osullivan2010] Geographic Information Analysis, 2nd Edition, Chapters 9 and 10. John Wiley & Sons: New Jersey.
 
-#Preliminaries
+## Preliminaries
 
 As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 ```{r}
@@ -56,21 +45,20 @@ library(tidyverse)
 library(spdep)
 library(plotly)
 library(gstat)
+library(geog4ga3)
 ```
 
 Begin by loading the data file:
 ```{r}
-load("Walker_Lake.RData")
+data("Walker_Lake")
 ```
 
 You can verify the contents of the dataframe:
 ```{r}
-summary(Walker_Lake.t)
+summary(Walker_Lake)
 ```
 
-You can also check that the two functions have been loaded to your workspace.
-
-# Using residual spatial pattern to estimate prediction errors
+## Using residual spatial pattern to estimate prediction errors
 
 Previously, you have seen how to interpolate a field using trend surface analysis. You have also seen how that may at least on occasions residuals that are not spatially independent. 
 
@@ -78,7 +66,7 @@ The implication of non-random residuals is that there uncaptured pattern remains
 
 As before, we first calculate the polynomial terms of the coordinates to fit a trend surface to the data:
 ```{r}
-Walker_Lake.t <- mutate(Walker_Lake.t,
+Walker_Lake <- mutate(Walker_Lake,
                         X3 = X^3, X2Y = X^2 * Y, X2 = X^2, 
                         XY = X * Y,
                         Y2 = Y^2, XY2 = X * Y^2, Y3 = Y^3)
@@ -87,13 +75,13 @@ Walker_Lake.t <- mutate(Walker_Lake.t,
 Given the polynomial expansion, we can proceed to estimate the following cubic trend surface model, which in the previous practice provided the best fit to the data:
 ```{r}
 WL.trend3 <- lm(formula = V ~ X3 + X2Y + X2 + X + XY + Y + Y2 + XY2 + Y3, 
-                data = Walker_Lake.t)
+                data = Walker_Lake)
 summary(WL.trend3)
 ```
 
 Lets visualize the residuals. As you can see, the residuals do not appear to be random 
 ```{r}
-plot_ly(x = ~Walker_Lake.t$X, y = ~Walker_Lake.t$Y, z = ~WL.trend3$residuals, color = ~WL.trend3$residuals < 0, colors = c("blue", "red"), type = "scatter3d")
+plot_ly(x = ~Walker_Lake$X, y = ~Walker_Lake$Y, z = ~WL.trend3$residuals, color = ~WL.trend3$residuals < 0, colors = c("blue", "red"), type = "scatter3d")
 ```
 
 Now create an interpolation grid.
@@ -117,7 +105,7 @@ WL.preds3 <- predict(WL.trend3, newdata = df.p, se.fit = TRUE, interval = "predi
 
 The surface is converted into a matrix for 3D plotting:
 ```{r}
-z.p3 <- matrix(data = WL.preds3$fit[,1], nrow = 119, ncol = 103, byrow = TRUE)
+z.p3 <- matrix(data = WL.preds3$fit[,1], nrow = length(Y.p), ncol = length(X.p), byrow = TRUE)
 ```
 
 And plot:
@@ -131,14 +119,14 @@ WL.plot3
 
 The trend surface provides a smooth estimate of the field. However, it is not sufficient to capture all systematic variation, and fails to produce random residuals.
 
-A possible way of enhancing this approach to interpolation is to _exploit_ the information that remains in the residuals, for instance by the use of k-point means.
+A possible way of enhancing this approach to interpolation is to _exploit_ the information that remains in the residuals, for instance by the use of $k$-point means.
 
 Lets see how this is done.
 
 To interpolate the _residuals_, we first need the set of _target_ points (the points for the interpolation), as well as the _source_ (the observations)m as follows:
 ```{r}
 target_xy = expand.grid(x = X.p, y = Y.p)
-source_xy = cbind(x = Walker_Lake.t$X, y = Walker_Lake.t$Y)
+source_xy = cbind(x = Walker_Lake$X, y = Walker_Lake$Y)
 ```
 
 It is possible now to use the `kpointmean` function to interpolate the residuals, for instance using $k=5$ neighbors:
@@ -149,7 +137,7 @@ kpoint.5 <- kpointmean(source_xy = source_xy, z = WL.trend3$residuals, target_xy
 Given the estimated residuals, we can add them to the cubic trend surface, as follows:
 ```{r}
 z.p3 <- matrix(data = WL.preds3$fit[,1] + kpoint.5$z,
-               nrow = 119, ncol = 103, byrow = TRUE)
+               nrow = length(Y.p), ncol = length(X.p), byrow = TRUE)
 ```
 
 to produce an interpolated field:
@@ -171,18 +159,18 @@ $$
 \hat{z}_p = f(x_p, y_p)
 $$
 
-And k-point means providing an estimator of:
+And $k$-point means providing an estimator of:
 $$
 \hat{\epsilon}_p
 $$
 
 A question is how to decide the number of neighbors to use in the calculation of the k-point means. As previously discussed, $k = 1$ becomes identical to Voronoi polygons, and $k = n$ becomes the global mean.
 
-A second question concerns the way the average is calculated. As variographic analysis demonstrates, it is possible to estimate the way in which spatial dependence weakens with distance. Why should more distant points be weighted equally? The answer is, there is no reason why they should, and in fact, variographic analysis elegantly solves as well the question of how many points to use: all of them, with varying weights.
+A second question concerns the way the average is calculated. As variographic analysis demonstrates, it is possible to estimate the way in which spatial dependence weakens with distance. Why should more distant points be weighted equally? The answer is, there is no reason why they should, and in fact, variographic analysis elegantly solves this, as well the question of how many points to use: all of them, with varying weights.
 
 Next, we will introduce kriging, a method for optimal prediction that is based on the use of variographic analyisis.
 
-# Kriging: a method for optimal prediction.
+## Kriging: a method for optimal prediction.
 
 Lets begin by positing a situation as follows:
 $$
@@ -229,7 +217,7 @@ This means that, given the distance $h$ between $i$ and $j$, and $i$ and $p$, we
 These weights can be obtained if we use the following rules:
 
 > The expectation of the prediction errors is zero (unbiassedness)
-> Find the weights $lambda$ that minimize the prediction variance (optimal estimator.
+> Find the weights $lambda$ that minimize the prediction variance (optimal estimator).
 
 This makes sense, since we would like our predictions to be unbiased and as precise as possible, that is, to have the smallest variance.
 
@@ -245,14 +233,14 @@ Kriging is implemented in the package `gstat` as follows.
 
 Lets first conduct variographic analysis of the residuals. The function `variogram` uses as an argument a `SpatialPointsDataFrame` that we can create as follows, based on the tidy table:
 ```{r}
-Walker_Lake <- Walker_Lake.t
-coordinates(Walker_Lake) <- ~X+Y
+Walker_Lake.sp <- Walker_Lake
+coordinates(Walker_Lake.sp) <- ~X+Y
 ```
 
 The variogram of the residuals can be obtained by specifying a trend surface in the formula:
 ```{r}
 variogram_v <- variogram(V ~ X3 + X2Y + X2 + X + XY + Y + Y2 + XY2 + Y3, 
-                         data = Walker_Lake)
+                         data = Walker_Lake.sp)
 ggplot(data = variogram_v, aes(x = dist, y = gamma)) +
   geom_point() + 
   geom_text(aes(label = np), nudge_y = -1500) +
@@ -261,13 +249,13 @@ ggplot(data = variogram_v, aes(x = dist, y = gamma)) +
 
 You can verify that the semivariogram above corresponds to the residuals by repeating the analysis directly on the residuals. First join the residuals to the `SpatialPointsDataFrame`:
 ```{r}
-Walker_Lake$e <- WL.trend3$residuals
+Walker_Lake.sp$e <- WL.trend3$residuals
 ```
 
 And then calculate the semivariogram and plot:
 ```{r}
 variogram_e <- variogram(e ~ 1, 
-                         data = Walker_Lake)
+                         data = Walker_Lake.sp)
 ggplot(data = variogram_e, aes(x = dist, y = gamma)) +
   geom_point() + 
   geom_text(aes(label = np), nudge_y = -1500) +
@@ -297,7 +285,7 @@ coordinates(df.sp) <- ~X+Y
 
 ```{r}
 V.kriged <- krige(V ~ X3 + X2Y + X2 + X + XY + Y + Y2 + XY2 + Y3,
-              Walker_Lake, df.sp, variogram_v.t)
+              Walker_Lake.sp, df.sp, variogram_v.t)
 ```
 
 Extract the predictions and prediction variance from the object `V.kriged`:
@@ -327,5 +315,3 @@ V.sm.plot
 ```
 
 Where are predictions more/less precise?
-
-This concludes Practice 18.

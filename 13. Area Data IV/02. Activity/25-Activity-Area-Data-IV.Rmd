@@ -141,6 +141,68 @@ You are now ready for the next activity.
 
 2. Use the $G_i^*$ statitic to analyze the population _and_ proportion of population in the age group 20-34. What is the difference between using population (absolute) and proportion of population (rate)? Is there a reason to prefer either variable in analysis? Discuss.
 
+```{r}
+gistar.map(Hamilton_CT, Hamilton_CT.3kw, "POP_DENSITY", by = "TRACT")
+gistar.map(Hamilton_CT, Hamilton_CT.3kw, "POPULATION", by = "TRACT")
+```
+
+```{r}
+ggplot(Hamilton_CT, aes(x = AREA, y = POPULATION)) + geom_point()
+```
+
+
+
+```{r}
+pop <- mutate(Hamilton_CT, x = (AGE_20_TO_24 + AGE_25_TO_29 + AGE_30_TO_34))
+proppop <- mutate(Hamilton_CT, x = (AGE_20_TO_24 + AGE_25_TO_29 + AGE_30_TO_34)/POPULATION)
+pop.sp <- as(Hamilton_CT, "Spatial")
+proppop.sp <- as(Hamilton_CT, "Spatial")
+pop.w <- nb2listw(poly2nb(pl = pop.sp))
+proppop.w <- nb2listw(poly2nb(pl = proppop.sp))
+
+pop.3knb <- pop.sp %>% coordinates() %>% dnearneigh(d1 = 0, d2 = 3)
+pop.3kw <- nb2listw(include.self(pop.3knb), style = "B")
+
+proppop.3knb <- proppop.sp %>% coordinates() %>% dnearneigh(d1 = 0, d2 = 3)
+proppop.3kw <- nb2listw(include.self(proppop.3knb), style = "B")
+
+df1.lg <- localG(pop$x, pop.3kw)
+df2.lg <- localG(proppop$x, proppop.3kw)
+summary(df1.lg)
+summary(df2.lg)
+
+#Calcualting the p-value 
+df1.lg <- as.numeric(df1.lg)
+df1.lg <- data.frame(Gstar = df1.lg, p.val = 2 * pnorm(abs(df1.lg), lower.tail = FALSE))
+
+df2.lg <- as.numeric(df2.lg)
+df2.lg <- data.frame(Gstar = df1.lg, p.val = 2 * pnorm(abs(df2.lg), lower.tail = FALSE))
+
+#Join to sf: 
+join <- Hamilton_CT
+join$Gstar <- df1.lg$Gstar
+join$p.val <- df1.lg$p.val 
+join2 <- Hamilton_CT
+join2$Gstar <- df2.lg$Gstar
+join2$p.val <- df2.lg$p.val 
+
+joinplot <- mutate(join, 
+                   Type = factor(ifelse(Gstar < 0 & p.val <= 0.05, "Low Concentration",
+                                        ifelse(Gstar > 0 & p.val <= 0.05, "High Concentration", "Not Significant"))))
+joinplot2 <- mutate(join2, 
+                   Type = factor(ifelse(Gstar < 0 & p.val <= 0.05, "Low Concentration",
+                                        ifelse(Gstar > 0 & p.val <= 0.05, "High Concentration", "Not Significant"))))
+
+#plot
+ggplot(data = joinplot) +
+  geom_sf(aes(fill = Type))
+ggplot(data = joinplot2) +
+  geom_sf(aes(fill=Type))
+
+```
+
+
+
 3. Now create local Moran maps for the population _and_ population density in the age group 20-34. What is the difference between using population (absolute) and population density (rate)?
 
 4. More generally, what do you think should guide the decision of whether to analyze variables as absolute values or rates?

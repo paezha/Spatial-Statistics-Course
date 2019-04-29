@@ -85,10 +85,63 @@ Note that the proportion of people who travelled by car as passengers are not in
 
 1. Examine your dataframe. What variables are included? Are there any missing values?
 
+```{r}
+summary(HamiltonDAs)
+```
+
+
 2. Map the variable `Auto_driver.prop`, and use Moran's I to test for spatial autocorrelation. What do you find? Is autocorrelation in this variable a sign that autocorrelation will be an issue in regression analysis?
+
+```{r}
+ggplot(data = HamiltonDAs) + 
+  geom_sf(aes(fill = Auto_driver.prop)) +
+  scale_fill_distiller(direction = 1)
+```
+
+Create listw
+```{r}
+HamiltonDAs.w <- nb2listw(poly2nb(pl = as(HamiltonDAs, "Spatial")))
+```
+
+Moran's I:
+```{r}
+moran.test(HamiltonDAs$Auto_driver.prop, HamiltonDAs.w)
+```
+
+```{r}
+localmoran.map(HamiltonDAs, HamiltonDAs.w, "Auto_driver.prop", by = "GTA06")
+```
+
+
 
 3. Estimate regression model using the variables `Pop_Density` and travel time in `minutes`. Discuss this model.
 
+```{r}
+model1 <- lm(formula = Pop_Density ~ minutes, data = HamiltonDAs)
+summary (model1)
+
+ggplot(data = HamiltonDAs, aes(x = minutes, y = Pop_Density))+
+  geom_point() +
+  stat_function(fun = function(x)(5441.82 - 187.19 * x), 
+                geom ="line", color = "blue", size = 1) +
+  geom_vline(xintercept = 0) + geom_hline(yintercept = 0) 
+#The values 5441.82 and 187.19 are taken from the summary of model 1 under coefficients. This is one exmaple of a model, other models can also be made depending on the function that you want to fit to the data. 
+```
+
 4. Examine residuals of the model. Are they spatially independent?
+```{r}
+HamiltonDAs <- mutate(HamiltonDAs, Pop_Density.log = log(Pop_Density))
+model2 <- lm(formula = Pop_Density.log ~ minutes, data = HamiltonDAs)
+summary (model2)
+```
+```{r}
+moran.test(model1$residuals, HamiltonDAs.w)
+```
+
+```{r}
+moran.test(model2$residuals, HamiltonDAs.w)
+```
+
+
 
 5. Propose ways to improve your model.

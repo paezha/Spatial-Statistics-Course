@@ -1,6 +1,8 @@
 ---
-title: "16 Session 16: Spatially Continuous Data II"
-output: html_notebook
+title: '16 Session 16: Spatially Continuous Data II'
+output:
+  html_document:
+    df_print: paged
 ---
 
 #Practice questions
@@ -51,11 +53,12 @@ Load the libraries you will use in this activity (load other packages as appropr
 library(tidyverse)
 library(plotly)
 library(spdep)
+library(geog4ga3)
 ```
 
 Load dataset:
 ```{r}
-load("Wolfcamp Aquifer.RData")
+data("aquifer")
 ```
 
 #Activity

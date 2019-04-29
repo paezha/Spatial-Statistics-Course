@@ -104,6 +104,36 @@ pennlc.sf <- st_as_sf(pennlc)
 
 2. Visualize/explore the dataset using appropriate tools.
 
+```{r}
+ggplot(data = pennlc.sf) + geom_sf(aes(fill = smoking_rate)) + scale_fill_distiller(direction = 1)
+```
+
+```{r}
+ggplot(data = pennlc.sf) + geom_sf(aes(fill = cancer_rate)) + scale_fill_distiller(direction = 1)
+```
+
+```{r}
+ggplot(data = pennlc.sf) + geom_point(aes(x = smoking_rate, y = cancer_rate))
+```
+
+Correlation:
+```{r}
+cor(pennlc.sf$cancer_rate, pennlc.sf$smoking_rate)
+```
+
 3. Analyze your dataset by means of regression modeling. Which should be the dependent variable in your dataset? Why?
+
+```{r}
+mod1 <- lm(cancer_rate ~ smoking_rate, pennlc.sf)
+summary(mod1)
+```
+
+```{r}
+ggplot(data = pennlc.sf) + 
+  geom_point(aes(x = smoking_rate, y = cancer_rate)) + 
+  geom_abline(slope = mod1$coefficients[2], intercept = mod1$coefficients[1], color = "red")
+```
+
+
 
 4. Discuss the results of your analysis, including possible limitations, and possible ways to improve it (e.g., what additional variables would you like to use?)

@@ -137,24 +137,63 @@ Now that you have seen how to do some analysis using quadrats, you are ready for
 1. Use `Fast_Food`, `Gas_Stands`, `Paez_Mart`, and `Toronto` to create density maps for the three point patterns. Select a quadrat size that you think is appropriate. 
 
 ```{r}
+#Denisty map for Fast Food 
 q_size <- 4000
 ggplot() +
   geom_bin2d(data = data.frame(st_coordinates(Fast_Food)),
              aes(x = X, y = Y),
              binwidth = c(q_size, q_size)) +
   geom_sf(data = Toronto, color = "white", fill = NA) 
-```
-+
-    geom_point(data = data.frame(st_coordinates(Fast_Food)), 
-             aes(x = X, y = Y)) 
-```
 
+#Density map for Gas Stands
+q_size <- 3000
+ggplot() +
+  geom_bin2d(data = data.frame(st_coordinates(Gas_Stands)),
+             aes(x = X, y = Y),
+             binwidth = c(q_size, q_size)) +
+  geom_sf(data = Toronto, color = "white", fill = NA) 
 
+#Denisty map for Paez Mart 
+q_size <- 3500
+ggplot() +
+  geom_bin2d(data = data.frame(st_coordinates(Paez_Mart)),
+             aes(x = X, y = Y),
+             binwidth = c(q_size, q_size)) +
+  geom_sf(data = Toronto, color = "white", fill = NA) 
+```
 
 2. Show your maps to a fellow student. Did they select the same quadrat size? If not, what was their rationale for their size?
 
 3. Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadratcount` to calculate the number of events per quadrat. Remember that you need to select the number of quadrats in the horizontal and vertical directions!
 
+```{r}
+qcount_fastfood <- quadratcount(Fast_Food.ppp, nx = 80, ny = 80)
+qcount_gasstands <- quadratcount(Gas_Stands.ppp, nx = 12.5, ny = 12.5)
+qcount_paezmart <- quadratcount(Paez_Mart.ppp, nx = 12, ny = 12)
+```
+
+
 4. Use the function `table()` to examine the frequency of events per quadrat for each of the point patterns. What are the differences among these point patterns? What would you expect the frequency of events per quadrat to be in a null landscape?
 
+```{r}
+table(qcount_fastfood)
+table(qcount_gasstands)
+table(qcount_paezmart)
+```
+
+
 5. Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadrat.test` to calculate the test of spatial independence for these point patterns. What is your decision in each case?
+```{r}
+qtest_fastfood <- quadrat.test(Fast_Food.ppp, nx = 80, ny = 80)
+qtest_fastfood
+plot(qtest_fastfood)
+
+qtest_gasstands <- quadrat.test(Gas_Stands.ppp, nx = 12.5, ny = 12.5)
+qtest_gasstands
+plot(qtest_gasstands)
+
+qtest_paezmart <- quadrat.test(Paez_Mart.ppp, nx = 12, ny = 12)
+qtest_paezmart
+plot(qtest_paezmart)
+```
+

@@ -83,10 +83,40 @@ Now that you have the datasets in the appropriate format, you are ready for the 
 
 1. Plot the empirical F-function for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
 
+```{r}
+f_all <- Fest(Fast_Food.ppp)
+plot(f_all)
+
+f_chicken <- Fest(split(Fast_Food.ppp)$"Chicken", correction = "none")
+plot(f_chicken)
+f_hamburger <- Fest(split(Fast_Food.ppp)$"Hamburger", correction = "none")
+plot(f_hamburger)
+f_pizza <- Fest(split(Fast_Food.ppp)$"Pizza", correction = "none")
+plot(f_pizza)
+f_sub <- Fest(split(Fast_Food.ppp)$"Sub", correction = "none")
+plot(f_sub)
+```
+
+
 2. Discuss your results with a fellow student. Is there evidence of clustering/regularity?
 
 3. Plot the empirical K-function for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
 
-4. What can you say about patterns at multiple-scales based on point 4 above?
+```{r}
+k_all <- Kest(Fast_Food.ppp)
+plot(k_all)
+
+k_chicken <- Kest(split(Fast_Food.ppp)$"Chicken", correction = "none")
+plot(k_chicken)
+k_hamburger <- Kest(split(Fast_Food.ppp)$"Hamburger", correction = "none")
+plot(k_hamburger)
+k_pizza <- Kest(split(Fast_Food.ppp)$"Pizza", correction = "none")
+plot(k_pizza)
+k_sub <- Kest(split(Fast_Food.ppp)$"Sub", correction = "none")
+plot(k_sub)
+```
+
+
+4. What can you say about patterns at multiple-scales based on the graphs above?
 
 5. How confident are you to make a decision whether the patterns are not random? What could you do to assess your confidence in making a decision whether the patterns are random? Explain.

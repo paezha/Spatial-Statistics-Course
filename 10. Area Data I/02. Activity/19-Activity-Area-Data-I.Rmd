@@ -71,7 +71,57 @@ You are ready for the next activity.
 
 ## Activity
 
-1. Create choropleth maps for the proportion of the population who are 20 to 34 years old, 35 to 49 years old, 50 to 65 years old, and 65 and older. 
+1. Create choropleth maps for the proportion of the population who are 20 to 34 years old, 35 to 49 years old, 50 to 65 years old, and 65 and older.
+
+```{r}
+#20 to 34 years old
+ggplot(Hamilton_CT) + 
+  geom_sf(aes(fill = cut_number((  Hamilton_CT$AGE_20_TO_24 +
+                                   Hamilton_CT$AGE_25_TO_29 +
+                                   Hamilton_CT$AGE_30_TO_34) / Hamilton_CT$POPULATION, 3)),
+          color = NA, 
+          size = 0.1) +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "20 to 34 years old")
+```
+
+```{r}
+#35 to 49 years old
+ggplot(Hamilton_CT) + 
+  geom_sf(aes(fill = cut_number((Hamilton_CT$AGE_35_TO_39 +
+                                   Hamilton_CT$AGE_40_TO_44 +
+                                   Hamilton_CT$AGE_45_TO_49) / Hamilton_CT$POPULATION, 3)),
+          color = NA, 
+          size = 0.1) +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "35 to 49 years old")
+```
+
+```{r}
+#50 to 65 years old
+ggplot(Hamilton_CT) + 
+  geom_sf(aes(fill = cut_number((Hamilton_CT$AGE_50_TO_54 +
+                                   Hamilton_CT$AGE_55_TO_59 +
+                                   Hamilton_CT$AGE_60_TO_64) / Hamilton_CT$POPULATION, 3)),
+          color = NA, 
+          size = 0.1) +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "50 to 65 years old")
+```
+
+```{r}
+#65 years and older
+ggplot(Hamilton_CT) + 
+  geom_sf(aes(fill = cut_number((Hamilton_CT$AGE_65_TO_69 +
+                                   Hamilton_CT$AGE_70_TO_74 +
+                                   Hamilton_CT$AGE_75_TO_79 +
+                                   Hamilton_CT$AGE_80_TO_84) / Hamilton_CT$POPULATION, 4)),
+          color = NA, 
+          size = 0.1) +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "65 and older")
+```
+
 
 2. Show your maps to a fellow student. What patterns do you notice in the distribution of age in Hamilton?
 

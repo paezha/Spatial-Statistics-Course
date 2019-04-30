@@ -90,10 +90,43 @@ You are now ready for the next activity.
 
 1. Create a spatial weights matrix for the census tracts in the Hamilton CMA.
 
-2. Calculate the proportion of spatial moving average for the proportion of the population who are 20 to 34 years old, 35 to 49 years old, 50 to 65 years old, and 65 and older.
+```{r}
+Hamilton_CT.nb <- poly2nb(pl = Hamilton_CT.sp, queen = TRUE)
+Hamilton_CT$TRACT[Hamilton_CT.nb[[1]]]
+Hamilton_CT.w <- nb2listw(Hamilton_CT.nb)
+plot(Hamilton_CT.sp, border = "gray")
+plot(Hamilton_CT.nb, coordinates(Hamilton_CT.sp), col = "red", add = TRUE)
+```
+
+
+2. Calculate the proportion of spatial moving average for the proportion of the population who are 20 to 34 years old, 35 to 49 years old, 50 to 64 years old, and 65 and older.
+
+```{r}
+AGE20to34.sma <- lag.listw(x = Hamilton_CT.w, Hamilton_CT$AGE_20_TO_24 + Hamilton_CT$AGE_25_TO_29 + Hamilton_CT$AGE_30_TO_34)
+AGE35to49.sma <- lag.listw(x = Hamilton_CT.w, Hamilton_CT$AGE_35_TO_39 + Hamilton_CT$AGE_40_TO_44 + Hamilton_CT$AGE_45_TO_49)
+AGE50to65.sma <- lag.listw(x = Hamilton_CT.w, Hamilton_CT$AGE_50_TO_54 + Hamilton_CT$AGE_55_TO_59 + Hamilton_CT$AGE_60_TO_64)
+age65andolder.sma <- lag.listw(x = Hamilton_CT.w, Hamilton_CT$AGE_65_TO_69 + Hamilton_CT$AGE_70_TO_74 + Hamilton_CT$AGE_75_TO_79 + Hamilton_CT$AGE_80_TO_84 + Hamilton_CT$AGE_MORE_85)
+```
+
 
 3. Append the spatial moving averages to your dataframe.
 
+```{r}
+Hamilton_CT <- left_join(Hamilton_CT, data.frame(TRACT = Hamilton_CT$TRACT, AGE20to34.sma, AGE35to49.sma, AGE50to65.sma))
+```
+
+
 4. Choose one age group and create a scatterplot of the proportion of population in that group versus its spatial moving average. (Hint: if creating the scatterplot in `ggplot2` you can add the 45 degree line by using `geom_abline(slope = 1, intercept = 0)`).
+
+```{r}
+pop <- (Hamilton_CT$AGE_20_TO_24 + Hamilton_CT$AGE_25_TO_29 + Hamilton_CT$AGE_30_TO_34)
+pop2 <- (Hamilton_CT$AGE_35_TO_39 + Hamilton_CT$AGE_40_TO_44 + Hamilton_CT$AGE_45_TO_49)
+
+ggplot(Hamilton_CT, aes(y = AGE20to34.sma, x = pop)) + geom_point() + geom_abline(slope = 1, intercept = 0)
+
+ggplot(Hamilton_CT, aes(y = AGE35to49.sma, x = pop2)) + geom_point() + geom_abline(slope = 1, intercept = 0)
+```
+
+NOTE: Looking at the plot generated above, when the points generated are flat, meaning they run horizontally across the graph, the data is random becasue the neighbours are all over the study area and there is no apparent pattern whereas when the data is non-random, the points will follow the line meaning there is a pattern across the study area. 
 
 5. What would you expect the scatterplots of the variables and their spatial moving averages to look like if the variable was spatially random? Discuss.

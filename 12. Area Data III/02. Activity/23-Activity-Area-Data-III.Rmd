@@ -77,8 +77,33 @@ You are now ready for the next activity.
 
 1. Create a spatial weights matrix for the census tracts in the Hamilton CMA.
 
+```{r}
+Hamilton_CT.nb <- poly2nb(pl = Hamilton_CT.sp)
+Hamilton_CT.w <- nb2listw(Hamilton_CT.nb)
+POP_DENSITY.sma <- lag.listw(Hamilton_CT.w, Hamilton_CT$POP_DENSITY)
+Hamilton_CT$POP_DENSITY.sma <- POP_DENSITY.sma
+Hamilton_CT.sp$POP_DENSITY.sma <- POP_DENSITY.sma
+```
+
+
 2. Use `moran.test` to test the following variables for autocorrelation: proportion of the population who are 20 to 34 years old, 35 to 49 years old, 50 to 65 years old, and 65 and older. How confident are you deciding whether these variables are not spatially random? What can you say regarding the relative strength of these variables' spatial patterns?
 
+```{r}
+moran.test(Hamilton_CT$AGE_20_TO_24 + Hamilton_CT$AGE_25_TO_29 + Hamilton_CT$AGE_30_TO_34, Hamilton_CT.w)
+moran.test(Hamilton_CT$AGE_35_TO_39 + Hamilton_CT$AGE_40_TO_44 + Hamilton_CT$AGE_45_TO_49, Hamilton_CT.w)
+moran.test(Hamilton_CT$AGE_50_TO_54 + Hamilton_CT$AGE_55_TO_59 + Hamilton_CT$AGE_60_TO_64, Hamilton_CT.w)
+moran.test(Hamilton_CT$AGE_65_TO_69 + Hamilton_CT$AGE_70_TO_74 + Hamilton_CT$AGE_75_TO_79 + Hamilton_CT$AGE_80_TO_84 + Hamilton_CT$AGE_MORE_85, Hamilton_CT.w)
+```
+NOTE: number 2 is non-random, 1, 3 and 4 are random 
+
 3. Use `moran.plot` to create Moran's scatterplots to complement your tests of spatial autocorrelation. Discuss the patterns that you observe.
+
+```{r}
+mp20to34 <- moran.plot(Hamilton_CT$AGE_20_TO_24 + Hamilton_CT$AGE_25_TO_29 + Hamilton_CT$AGE_30_TO_34, Hamilton_CT.w)
+mp35to49 <- moran.plot(Hamilton_CT$AGE_35_TO_39 + Hamilton_CT$AGE_40_TO_44 + Hamilton_CT$AGE_45_TO_49, Hamilton_CT.w)
+mp50to64 <- moran.plot(Hamilton_CT$AGE_50_TO_54 + Hamilton_CT$AGE_55_TO_59 + Hamilton_CT$AGE_60_TO_64, Hamilton_CT.w)
+mp65plus <- moran.plot(Hamilton_CT$AGE_65_TO_69 + Hamilton_CT$AGE_70_TO_74 + Hamilton_CT$AGE_75_TO_79 + Hamilton_CT$AGE_80_TO_84 + Hamilton_CT$AGE_MORE_85, Hamilton_CT.w)
+```
+
 
 4. The scatterplots created using `moran.plot` include some observations that are labeled with their id and a different symbol. Why do you think these observations are highlighted in such a way?

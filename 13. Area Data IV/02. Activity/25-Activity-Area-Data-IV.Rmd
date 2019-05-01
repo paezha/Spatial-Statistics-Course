@@ -139,6 +139,19 @@ You are now ready for the next activity.
 
 1. Create local Moran maps for the population _and_ proportion of population in the age group 20-34. What is the difference between using population (absolute) and proportion of population (rate)? Is there a reason to prefer either variable in analysis? Discuss.
 
+```{r}
+data(Hamilton_CT)
+pop <- mutate(Hamilton_CT, X = (AGE_20_TO_24 + AGE_25_TO_29 + AGE_30_TO_34))
+proppop <- mutate(Hamilton_CT, X = (AGE_20_TO_24 + AGE_25_TO_29 + AGE_30_TO_34)/POPULATION)
+pop.sp <- as(Hamilton_CT, "Spatial")
+proppop.sp <- as(Hamilton_CT, "Spatial")
+pop.w <- nb2listw(poly2nb(pl = pop.sp))
+proppop.w <- nb2listw(poly2nb(pl = proppop.sp))
+
+localmoran.map(pop, pop.w, "X", by = "TRACT")
+localmoran.map(proppop, proppop.w, "X", by = "TRACT")
+```
+
 2. Use the $G_i^*$ statitic to analyze the population _and_ proportion of population in the age group 20-34. What is the difference between using population (absolute) and proportion of population (rate)? Is there a reason to prefer either variable in analysis? Discuss.
 
 ```{r}

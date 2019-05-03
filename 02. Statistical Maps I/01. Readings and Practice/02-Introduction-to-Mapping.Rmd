@@ -65,7 +65,7 @@ library(geog4ga3)
 
 The package includes a few datasets that will be used throughout the book:
 ```{r}
-#The function 'data' is used to check which datasets are available in the snow_deaths package located inside the geog4ga3 master package we loaded above
+#The function 'data' is used to check to see if a dataset is present within the geog4ga3 master package we loaded above. In this case, we are looking for 'snow_deaths'
 data("snow_deaths")
 ```
 

@@ -8,6 +8,8 @@ output:
 # Preliminaries: Installing R and RStudio
 
 ## Introduction
+ 
+Megan will work on this at some point
 
 Statistical analysis is the study of the properties of a dataset. There are different aspects of statistical analysis, and they often require that we work with data that are messy. According to Wickham and Grolemund [-@Wickham2016r], computer-assisted data analysis includes the steps outlined in Figure \@ref(fig:data-analysis-process).
 

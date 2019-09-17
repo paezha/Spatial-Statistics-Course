@@ -8,12 +8,6 @@ bibliography: bibliography.bib
 
 # Introduction to Mapping in R
 
-Alexis will work on this file 
-
-
-
-Well done, Alexis.
-
 *NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
 
 Spatial statistics is a sub-field of spatial analysis that has grown in relevance in recent years as a result of 1) the availability of information that is geo-coded, in other words, that has geographical references; and 2) the availability of software to analyze such information.
@@ -83,7 +77,7 @@ If you correctly loaded the library, you can now access the dataframes in the pa
 head(snow_deaths)
 ```
 
-These data are from the famous London cholera example. This is the study by John Snow (not the one from Game of Thrones, but the British physician) into the cholera outbreak of Soho, London, in 1854. John Snow is considered the father of spatial epidemiology, and his study mapping the outbreak is credited with helping find its cause.
+These data are from the famous London cholera example by John Snow (not the one from Game of Thrones, but the British physician). This is the study investigates the cholera outbreak of Soho, London, in 1854. John Snow is considered the father of spatial epidemiology, and his study mapping the outbreak is credited with helping find its cause.
 
 The dataframe `snow_deaths` includes the geocoded addresses of cholera deaths in `long` and `lat`, and the number of deaths (the `Count`) recorded at each address, as well as unique identifiers for the addresses (`Id`).
 
@@ -111,7 +105,7 @@ This does a decent job of displaying the information, now using different colors
 
 ## Improving on the Proportional Symbols Map
 
-A package that extends the functionality of mapping in R is `leaflet`. We will see next how to enhance our proportional symbol map using this package. First you  need to load the package (you need to install it first if you have not already):
+A package that extends the functionality of mapping in R is `leaflet`. A key feature of the `leaflet` package is the ability to make maps interactive for the user. We will see next how to enhance our proportional symbol map using this package. First you  need to load the package (you need to install it first if you have not already):
 ```{r}
 #'Leaflet' is a package used for visualizing data on a map in R. 'Magrittr' is a package used for creating pipe operators 
 install.packages('leaflet')
@@ -128,7 +122,7 @@ m <- leaflet(data = snow_deaths) %>% setView(lng = -0.136, lat = 51.513, zoom = 
 ```
 
 ```{r}
-#We are adding a basemap or background map by means of the `addTiles` function to the 'm' variable 
+#We are adding a basemap or background map of the study location by means of the `addTiles` function to the 'm' variable 
 m <- m %>% addTiles()
 ```
 

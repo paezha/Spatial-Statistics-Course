@@ -70,11 +70,11 @@ data("missing_df")
 
 The dataframe `missing_df` includes $n = 65$ observations (Note: text between $ characters is mathematical notation in LaTeX). These observations are geocoded using a false origin and coordinates normalized to the unit-square (the extent of their values is between zero and one). The coordinates are `x` and `y`. 
 
-In addition, there are three variables associated with the locations (VAR1, VAR2, VAR3). The variables are generic. Feel free to think of them as if they were housing prices or concentrations in ppb of some contaminant. Finally, a factor variable states whether the variables were measured for a location: if the status is "FALSE", the values of the variables are missing.
+In addition, there are three variables associated with the locations (VAR1, VAR2, VAR3). The variables are generic. Feel free to think of them as housing prices, concentrations in ppb of some contaminant or any other variable that will help clarify your understading. Finally, a factor variable states whether the variables were measured for a location: if the status is "FALSE", the values of the variables are missing.
 
 ## Summarizing a Dataframe
 
-Obtaining the a set of descriptive statistics for a dataframe is very simple thanks to the function `summary`. For instance, the summary of `missing_df` is:
+Obtaining a set of descriptive statistics for a dataframe is very simple thanks to the function `summary`. For instance, the summary of `missing_df` is:
 ```{r}
 summary(missing_df)
 ```
@@ -83,7 +83,7 @@ This function reports the minimum, maximum, mean, median, and quantile values of
 
 ## Factors
 
-A factor describes a category. You can examine the class of a variable by means of the function `class`. From the summary, it is clear that several variables are numeric. However, for `Observed`, it is not evident if the variable is `character` or `factor`. Use of `class` reveals that it is indeed a factor:
+A factor describes a category. You can examine the class of a variable by means of the function `class`. From the summary, it is clear that several variables are numeric. However, for `Observed`, it is not evident if the variable is  a `character` or `factor`. Use of `class` reveals that it is indeed a factor:
 ```{r}
 class(missing_df$Observed)
 ```
@@ -92,7 +92,7 @@ Factors are an important data type because they allow us to store information th
 
 In the dataframe `missing_df`, the variable `Observed` could have been coded as 1's (for missing) and 2's (for observed), but this does not mean that one observed is twice the amount of one missing! In this case, the numbers would not be quantities but labels. Factors in R allow us to work directly with the labels.
 
-Now, you may be wondering what does it mean when the status of a datum's `Observed` variable is coded as `FALSE`. If you check again the summary, there are five cases of `NA` in the variables VAR1 through VAR3. `NA` essentially means that the value is missing. Likely, the five `NA` values correspond to the five missing observations. We can check this by subsetting the data.
+Now, you may be wondering what does it mean when the status of a datum's `Observed` variable is coded as `FALSE`. If you check the summary again, there are five cases of `NA` in the variables VAR1 through VAR3. `NA` essentially means that the value is missing. Likely, the five `NA` values correspond to the five missing observations. We can check this by subsetting the data.
 
 ## Subsetting Data
 
@@ -105,7 +105,7 @@ Data are indexed by means of the square brackets `[` and `]`. The indices corres
 
 As you can see, the five `NA` values correspond, as anticipated, to the locations where `Observed` is `FALSE`.
 
-Using indices is only one of different ways of subsetting data. Base R also has a subset command, that is implemented as follows:
+Using indices is only one of many ways of subsetting data. Base R also has a subset command, that is implemented as follows:
 ```{r}
 subset(missing_df, Observed == FALSE)
 ```
@@ -125,7 +125,7 @@ Or:
 summary(missing_df[missing_df$Observed == FALSE,])
 ```
 
-Nesting functions makes it difficult to read the code, since functions are evaluated from the innermost to the outermost function, whereas we are used to read from left to right. Fortunately, R implements (as part of package `magrittr` which is required by `tidyverse`) a so-called _pipe operator_ that simplifies things and allows for code that is more intuitive to read.
+Nesting functions makes it difficult to read the code, since functions are evaluated from the innermost to the outermost function, whereas we are used to reading from left to right. Fortunately, R implements (as part of package `magrittr` which is required by `tidyverse`) a so-called _pipe operator_ that simplifies things and allows for code that is more intuitive to read.
 
 ## Pipe Operator
 
@@ -147,7 +147,7 @@ ggplot() +
   coord_fixed()
 ```
 
-The above simply plots the coordinates, so that we can see the spatial distribution of the observations. (Notice the use of `coord_fixed` to maintain the aspect ratio of the plot to 1, the relationship between width and height). You have control of the `shape` of the markers, as well as their `size`. You can consult the shapes available [here](http://sape.inf.usi.ch/quick-reference/ggplot2/shape). Experiment with different shapes and sizes if you wish.
+The above simply plots the coordinates, so that we can see the spatial distribution of the observations. (Notice the use of `coord_fixed` to maintain the aspect ratio of the plot to 1, i.e. the relationship between width and height). You have control of the `shape` of the markers, as well as their `size`. You can consult the shapes available [here](http://sape.inf.usi.ch/quick-reference/ggplot2/shape). Experiment with different shapes and sizes if you wish.
 
 The dataframe `missing_df` includes more attributes that could be used in the plot. For instance, if you wished to create a thematic map showing `VAR1` you would do the following:
 ```{r}
@@ -171,6 +171,7 @@ ggplot() +
   geom_point(data = missing_df, aes(x = x, y = y, color = VAR1, shape = Observed), size = 3) +
   coord_fixed()
 ```
+Now it is easy to see the locations of the five observations that were `Observed == FALSE`!, which are labeled with grey circles. 
 
 You can change the coloring scheme by means of `scale_color_distiller` (you can can check the different color palettes available [here](http://ggplot2.tidyverse.org/reference/scale_brewer.html)):
 ```{r}

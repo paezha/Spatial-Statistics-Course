@@ -1,6 +1,6 @@
-Sample Slides
+Statistical Maps I 
 ========================================================
-author: Megan and Alexis
+author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
@@ -53,7 +53,7 @@ Of course, this allows us to illustrate things. This example is taken from 02-In
 
 The code is not displayed, but the output, a plot, will appear on the slide
 
-![plot of chunk unnamed-chunk-3](Sample Slides-figure/unnamed-chunk-3-1.png)
+![plot of chunk unnamed-chunk-3](Sample Slides 2-figure/unnamed-chunk-3-1.png)
 
 Slide with code
 ========================================================
@@ -122,7 +122,7 @@ This column is a numbered list:
 
 This column is an image:
 
-![plot of chunk unnamed-chunk-5](Sample Slides-figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-5](Sample Slides 2-figure/unnamed-chunk-5-1.png)
 
 
 Slide with mathematical notation

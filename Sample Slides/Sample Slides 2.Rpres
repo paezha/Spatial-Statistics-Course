@@ -1,6 +1,6 @@
-Sample Slides
+Statistical Maps I 
 ========================================================
-author: Megan and Alexis
+author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
@@ -34,7 +34,10 @@ In many cases we can use this functionality to do things within the presentation
 
 For example, this slide has code, but the code is not displayed on the slide (echo = FALSE)
 
-
+```{r, echo=FALSE}
+library(geog4ga3)
+library(tidyverse)
+```
 
 Slide with code
 ========================================================
@@ -43,7 +46,9 @@ Some functions do not produce output, but many other do
 
 Notice that this slide has code that is run but not displayed; the output is displayed on the slide (echo = FALSE)
 
-
+```{r, include=FALSE}
+summary(snow_deaths)
+```
 
 
 Slide with code
@@ -53,7 +58,11 @@ Of course, this allows us to illustrate things. This example is taken from 02-In
 
 The code is not displayed, but the output, a plot, will appear on the slide
 
-![plot of chunk unnamed-chunk-3](Sample Slides-figure/unnamed-chunk-3-1.png)
+```{r, echo=FALSE}
+ggplot() +
+  geom_point(data = snow_deaths, aes(x = long, y = lat), color = "blue", shape = 16) +
+  geom_point(data = snow_pumps, aes(x = long, y = lat), color = "black", shape = 17)
+```
 
 Slide with code
 ========================================================
@@ -62,8 +71,7 @@ Sometimes you might want to illustrate the code, but not necessarily run it
 
 Notice that this slide has code that is displayed but not run (eval = FALSE)
 
-
-```r
+```{r, eval=FALSE}
 summary(snow_deaths)
 ```
 
@@ -122,7 +130,11 @@ This column is a numbered list:
 
 This column is an image:
 
-![plot of chunk unnamed-chunk-5](Sample Slides-figure/unnamed-chunk-5-1.png)
+```{r, echo=FALSE}
+ggplot() +
+  geom_point(data = snow_deaths, aes(x = long, y = lat), color = "blue", shape = 16) +
+  geom_point(data = snow_pumps, aes(x = long, y = lat), color = "black", shape = 17)
+```
 
 
 Slide with mathematical notation

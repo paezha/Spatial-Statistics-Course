@@ -46,7 +46,7 @@ Some functions do not produce output, but many other do
 
 Notice that this slide has code that is run but not displayed; the output is displayed on the slide (echo = FALSE)
 
-```{r, echo=FALSE}
+```{r, include=FALSE}
 summary(snow_deaths)
 ```
 

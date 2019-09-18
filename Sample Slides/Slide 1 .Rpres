@@ -11,18 +11,15 @@ Loading Data Into R
 
 Necessary for Spatial Analysis 
 
-
-```r
+```{r}
 rm(list = ls())
 ```
 
-
-```r
+```{r}
 library(geog4ga3)
 ```
 
-
-```r
+```{r}
 data("snow_deaths")
 ```
 
@@ -33,7 +30,12 @@ Graphing in R
 - Effective method for visualizing the contents of the dataframe
 - Example of Broad Street Pumps and Deaths from John Snow Cholera Example
 
-![plot of chunk unnamed-chunk-4](Sample Slides-figure/unnamed-chunk-4-1.png)
+```{r, echo=FALSE}
+library(tidyverse)
+ggplot() +
+  geom_point(data = snow_deaths, aes(x = long, y = lat), color = "blue", shape = 16) +
+  geom_point(data = snow_pumps, aes(x = long, y = lat), color = "black", shape = 17)
+```
 
 
 Leaflet Maps
@@ -45,9 +47,9 @@ Interacting panning of Cholera Example
 
 ***
 
-- Interactive Spatial Analysis
+- Interactive Mapping
 - Can look into this further using additional packages
-- Heat Maps can also be used 
+- Heat Maps can also be used for preliminary spatial analysis
 
 
 Concluding Remarks

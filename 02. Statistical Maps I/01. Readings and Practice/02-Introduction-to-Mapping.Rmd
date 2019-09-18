@@ -12,7 +12,7 @@ bibliography: bibliography.bib
 
 Spatial statistics is a sub-field of spatial analysis that has grown in relevance in recent years as a result of 1) the availability of information that is geo-coded, in other words, that has geographical references; and 2) the availability of software to analyze such information.
 
-A key technology fuelling this trend is that of Geographical Information Systems (GIS). GIS are, at their simplest, digital mapping for the 21st century. In most cases, however, GIS go beyond cartographic functions to also enable and enhance our ability to analyze data.
+A key technology fuelling this trend is that of Geographical Information Systems (GIS). GIS are, in simplest terms, digital mapping for the 21st century. In most cases, however, GIS go beyond cartographic functions to also enable and enhance our ability to analyze data.
 
 There are many available packages for geographical information analysis. Some are very user friendly, and widely available in many institutional contexts, such as ESRI's Arc software. Others are fairly specialized, such as Caliper's TransCAD, which implements many operations of interest for transportation engineering and planning. 
 
@@ -77,7 +77,7 @@ If you correctly loaded the library, you can now access the dataframes in the pa
 head(snow_deaths)
 ```
 
-These data are from the famous London cholera example by John Snow (not the one from Game of Thrones, but the British physician). This is the study investigates the cholera outbreak of Soho, London, in 1854. John Snow is considered the father of spatial epidemiology, and his study mapping the outbreak is credited with helping find its cause.
+These data are from the famous London cholera example by John Snow (not the one from Game of Thrones, but the British physician). John Snow is considered the father of spatial epidemiology, and his study mapping the outbreak is credited with helping find its cause.This study investigates the cholera outbreak of Soho, London, in 1854. 
 
 The dataframe `snow_deaths` includes the geocoded addresses of cholera deaths in `long` and `lat`, and the number of deaths (the `Count`) recorded at each address, as well as unique identifiers for the addresses (`Id`).
 
@@ -86,13 +86,13 @@ A second dataframe `snow_pumps` includes the geocoded locations of water pumps i
 head(snow_pumps)
 ```
 
-As in your previous reading, it is possible to map the cases using `ggplot2`. Begin by loading the package you will need:
+As in your previous reading, it is possible to map the cases using `ggplot2`. Begin by loading the package `tidyverse`:
 ```{r}
 #'Tidyverse' is a collection of R packages designed for data science used in everyday data analyses  
 library(tidyverse)
 ```
 
-Now, you can create a blank `ggplot2` object on which you can render the points for deaths and the pumps.
+Now, you can create a blank `ggplot2` object from which you can render the points for deaths and the pumps.
 ```{r}
 #The function 'ggplot' is used for data visualization - it creates a graph. The function 'geom_point' tells R you want to create a plot of points. 'data = snow_deaths' tells R you want to use the 'snow_deaths' dataframe. 'aes' stands for aesthetics of your graph where 'x = long' sets the x axis to 'long', where 'y = lat' sets the y axis to 'lat', where 'color = blue' colours the points blue and 'shape = 16' assigns the shape of the points - in this case, '16' are circles and '17' are triangles  
 
@@ -101,7 +101,7 @@ ggplot() +
   geom_point(data = snow_pumps, aes(x = long, y = lat), color = "black", shape = 17)
 ```
 
-This does a decent job of displaying the information, now using different colors and shapes for different types of events (deaths and pumps). However, it is not a very good quality map.
+This map is provides a decent example of a vicual representation of some contents in the dataframe. Here, information is displayed using different colours and symbols for pumps and deaths from the London Cholera Example. Though this map provides useful insight, it is not of the greatest quality. Lets further investigate packages that illustrate maps interactively. 
 
 ## Improving on the Proportional Symbols Map
 
@@ -139,7 +139,7 @@ To the map above we could also add the location of the pumps (notice that the Br
 m %>% addMarkers(data = snow_pumps, ~long, ~lat, group = "Pumps")
 ```
 
-An alternative and quicker way to run the same bit of code is as follows. Pipe operators make writing code a lot faster!:
+An alternative and quicker way to run the same bit of code is through using Pipe operators that make writing code a lot faster!:
 ```{r}
 m_test <- leaflet () %>% setView(lng = -0.136, lat = 51.513, zoom = 16) %>% addTiles() %>% addMarkers(data = snow_deaths, ~long, ~lat, clusterOptions = markerClusterOptions(), group = "Deaths") %>% addMarkers(data = snow_pumps, ~long, ~lat, group = "Pumps")
 m_test

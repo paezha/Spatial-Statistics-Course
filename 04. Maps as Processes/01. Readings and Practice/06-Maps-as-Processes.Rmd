@@ -52,17 +52,19 @@ library(tidyverse)
 
 ## Random Numbers
 
-Colloquially, we understand _random_ as something that happens in an unpredictable way. The same word in statistics has a precise meaning, as the outcome of a process that cannot be predicted with certainty.
+Colloquially, we understand _random_ as something that happens in an unpredictable manner. The same word in statistics has a precise meaning, as the outcome of a process that cannot be predicted with any form of certainty.
 
 The question whether random processes exist is philosophically interesting. In the early stages of the invention of science, there was much optimism that humans could one day understand every aspect of the universe. This notion is well illustrated by Laplace's Demon, a hypothetical entity that could predict the state of the universe in the future based on an all-encompassing knowledge of the state of the universe at any past point in time (see [here](https://en.wikipedia.org/wiki/Laplace%27s_demon)).
 
 There are two important limitations to this perspective. First, there is the assumption that the mechanisms of operation of phenomena are well understood (in the case of Laplace's Demon, it was somewhat naively assumed that classical Newtonian mechanics were sufficient). And secondly, the assumption that all relevant information is available to the observer.
 
-In reality, there are many processes that are not fully understood. Furthermore, there are often constraints in terms of how much information (and how accurately) can be collected with respect to any given phenomenon.
+There are many processes in reality that are not fully understood, which make Laplace's Demon an interesting, but unreliable source on predicting the state of the universe. Furthermore, there are often constraints in terms of how much and how acurately information can be collected with respect to any given phenomenon.
+
+##Types of Processes
 
 A process can be deterministic. However, When limited knowledge/limited information prevent us from being able to make certain predictions, we assume that the process is random.
 
-It is important to note that "random" does not mean that just _any_ outcome is possible. For instance, if you flip a coin, there are only two possible outcomes. If you roll a dice, there are only six possible outcomes. The concentration of a pollutant cannot be negative. The height of a human adult cannot be zero or 10 meters. And so on.
+It is important to note that "random" does not mean that just _any_ outcome is possible. For instance, if you flip a coin, there are only two possible outcomes. If you roll a dice, there are only six possible outcomes. The concentration of a pollutant cannot be negative. The height of a human adult cannot be zero or 10 meters. And so on. It is the result of the possible outcomes that is random, as there is no process controlling the respective outcome.
 
 Over time, many formulas have been devised to describe different types of random processes.  A _random probability distribution function_ describes the probability of observing different outcomes.
 
@@ -73,7 +75,7 @@ The following function reports a random binomial variable. The number of observa
 rbinom(n = 1, size = 1, prob = 0.5)
 ```
 
-If you tried this "experiment" repeatedly, you would find that "heads" (1s) and "tails" (0s) appear each about 50% of the time. A way to implement this is to increase `n`- think of this as recruiting more people to do coin flips at the same time:
+It can be noted that although there are only two outcomes, we do not have control over the result of the process, making the result random. If you tried this "experiment" repeatedly, you would find that "heads" (1s) and "tails" (0s) appear each about 50% of the time. A way to implement this is to increase `n`- think of this as recruiting more people to do coin flips at the same time:
 ```{r}
 n <- 1000 # Number of people tossing the coin one time.
 coin_flips <- rbinom(n = n, size = 1, prob = 0.5)
@@ -114,7 +116,7 @@ So what have random variables have to do with maps?
 
 Random variables can be used to generate purely random maps. These are called _null landscapes_ or _neutral landscapes_ in spatial ecology [@With1997use] ([Paper is available to download](http://www.jstor.org/stable/pdf/3546007.pdf)). 
 
-The concept of null landscapes is quite useful, because they provide a benchmark to compare statistical maps. Let's see how to generate a null landscape of events.
+The concept of null landscapes is quite useful. They provide a benchmark to compare the results of statistical maps. Let's see how to generate a null landscape of events.
 
 Suppose that there is a landscape with coordinates in the unit square, that is divided in very small discrete units of land. Each of these units of land can be the location of an event. For example, a tree might be present; or a case of a disease.
 

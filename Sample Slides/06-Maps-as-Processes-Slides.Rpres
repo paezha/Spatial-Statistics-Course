@@ -1,0 +1,97 @@
+Maps as Processes
+========================================================
+author: Alexis Polidoro and Megan Coad 
+date: 
+autosize: true
+
+Key Concepts 
+========================================================
+
+
+- Random Processes
+- Null Landscapes
+- Deterministic Processes
+- Stochastic Processes 
+
+
+
+Random Processes: Null Landscape
+========================================================
+
+```{r, echo=FALSE}
+rm(list = ls())
+library(tidyverse)
+coords <- expand.grid(x = seq(from = 0, to = 1, by = 0.05),
+                      y = seq(from = 0, to = 1, by = 0.05))
+events <- rbinom(n = nrow(coords), size = 1, prob = 0.5)
+null_pattern <- data.frame(coords, events)
+ggplot() + 
+  geom_point(data = subset(null_pattern, events == 1), aes(x = x, y = y), shape = 15) +
+  coord_fixed()
+heights <- rnorm(n = nrow(coords), mean = 170.7, sd = 7)
+null_trend <- data.frame(coords, heights)
+ggplot() + 
+  geom_point(data = null_trend, aes(x = x, y = y, color = heights), shape = 15) +
+  scale_color_distiller(palette = "Spectral") +
+  coord_fixed()
+```
+
+***
+- Does not mean ANY outcome
+- Ex: Rolling a dice, flipping a coin
+- limited information available
+- cannot make predictions of results
+- Using random variables to create random maps 
+- Provide a benchmark to compare statistical maps
+
+Deterministic Processes
+========================================================
+
+```{r, echo=FALSE}
+deterministic_point_pattern <- coords
+deterministic_point_pattern <- mutate(deterministic_point_pattern, events = round(x))
+ggplot() + 
+  geom_point(data = subset(deterministic_point_pattern, events == 1), aes(x = x, y = y), shape = 15) +
+  xlim(0, 1) +
+  coord_fixed()
+```
+
+***
+- No element of Randomness 
+- Predicted with complete certainty 
+
+Stochastic Processes
+========================================================
+
+```{r, echo=FALSE}
+stochastic_point_pattern <- coords
+stochastic_point_pattern <- 
+  mutate(stochastic_point_pattern, 
+         events = round(x) - round(x) * rbinom(n = nrow(coords), size = 1, prob = 0.5))
+ggplot() + 
+  geom_point(data = subset(stochastic_point_pattern, events == 1), aes(x = x, y = y), shape = 15) +
+  xlim(0, 1) +
+  coord_fixed()
+```
+
+***
+- Both random and Deterministic 
+- Deterministic Component: the probability of an event is zero if x <= 0.5
+- Random Component: the probability of a coordinate being an event is 0.5 when x > 0.5
+
+Simulating Spatial Processes
+========================================================
+
+```{r, echo=FALSE}
+stochastic_point_pattern <- coords
+pattern1 <- coords
+pattern1 <- mutate(pattern1, events = rbinom(n = nrow(pattern1), size = 1, prob = (x)))
+ggplot() + 
+  geom_point(data = subset(pattern1, events == 1), aes(x = x, y = y), shape = 15) +
+  coord_fixed()
+```
+
+***
+
+- Probability of an event increases in the "East" direction
+- Natural Process? 

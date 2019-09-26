@@ -70,7 +70,7 @@ The dataframe contains the `x` and `y` coordinates of four different patterns of
 
 ## Point Patterns
 
-Previously you created different types of maps and learned about different kinds of processes (i.e., random, stochastic, deterministic). A map that you have seen in several occasions is one where the coordinates of an even of interest are available. The simplest kind of data of this type is when only the coordinates are available: we call this a _point pattern_.
+Previously you created different types of maps and learned about different kinds of processes (i.e., random, stochastic, deterministic). A map that you have seen in several occasions is one where the coordinates of an event of interest are available. The simplest kind of data of this type is called a _point pattern_. This occurs when only the coordinates are available. 
 
 A point pattern is given by a set of events of interest that are observed in a region $R$.
 
@@ -84,15 +84,15 @@ with coordinates:
 $$
 (x_i,y_i).
 $$
-Sometimes other attributes of the events have been measured as well. For example, the event could be an address where cholera was reported (as in John Snow's famous map). In addition to the address (which can be converted into the coordinates of the event), the _number of cases_ could be recorded. Other examples could be the height and diameter of trees, the magnitude of an earthquake, and so on.
+Sometimes other attributes of the events have been measured as well. For example, the event could be an address where cholera was reported (as in John Snow's famous map). In addition to the address (which can be converted into the coordinates of the event), the _number of cases_ could be recorded. Other examples could be the height and diameter of trees, the magnitude of an earthquake, etc. 
 
 It is important, for reasons that will be discussed later, that the point pattern is a complete _enumeration_. What this means is that every event that happened has been recorded! Interpretation of most analysis becomes dubious if the events are only sampled, that is, if only a few of them have been recorded.
 
 ## Processes and Point Patterns
 
-Point patterns are interesting in many applications. In these application, a key question of interest is whether the pattern is _random_.
+Point patterns are interesting in many applications. In these applications, a key question of interest is whether the pattern is _random_.
 
-Imagine, for instance, a point pattern that records crimes in a region. The pattern might be random, in which case there is no way to anticipate where the next occurrence will be. Non-random patterns, on the other hand, are likely the outcome of some meaningful process. For instance, crimes might _cluster_ as a consequence of some common environmental variable (e.g., concentration of wealth). On the contrary, they might repeal each other (e.g., the location of a crime draws attention of law enforcement, and therefore the next occurrence of a crime tends to happen away from it). Deciding whether the pattern is random or not is the initial step towards developing hypotheses about the underlying process.
+Imagine a point pattern that records crimes in a region. The pattern might be random, in which case there is no way to anticipate where the next occurrence will be. Non-random patterns, on the other hand, are likely the outcome of some meaningful process. For instance, crimes might _cluster_ as a consequence of some common environmental variable (e.g., concentration of wealth). On the contrary, they might repeal each other (e.g., the location of a crime draws attention of law enforcement, and therefore the next occurrence of a crime tends to happen away from it). Deciding whether the pattern is random or not is the initial step towards developing hypotheses about the underlying process.
 
 Consider for example the following patterns. To create the following figure, you can use _faceting_ by means of `ggplot2::facet_grid`:
 ```{r}
@@ -103,7 +103,7 @@ ggplot() +
 
 As you can see, faceting is a convenient way to simultaneously plot different parts of a dataframe (in the present case, the different `Pattern`s).
 
-In the preceding activity, you were asked to generate ideas regarding possible ways of deciding whether a map of events (i.e., a point pattern) is random. In this chaper we will formalize a specific idea to do so, concretely by considering the _intensity_ of the process. This is discussed in more detail next.
+In the preceding activity, you were asked to generate ideas regarding possible ways of deciding whether a map of events (i.e., a point pattern) is random. In this chaper we will formalize a specific idea to do so, by considering the _intensity_ of the process.
 
 ## Intensity and Density
 

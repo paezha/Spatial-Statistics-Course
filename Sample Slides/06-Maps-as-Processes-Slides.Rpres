@@ -12,12 +12,18 @@ Key Concepts
 - Null Landscapes
 - Deterministic Processes
 - Stochastic Processes 
+- Simulaitng Spatial Processes
 
 
 
-Random Processes: Null Landscape
+Random Processes
 ========================================================
+- Does not mean ANY outcome
+- Ex: Rolling a dice, flipping a coin
+- limited information available
 
+Null Landscape
+========================================================
 ```{r, echo=FALSE}
 rm(list = ls())
 library(tidyverse)
@@ -34,15 +40,13 @@ ggplot() +
   geom_point(data = null_trend, aes(x = x, y = y, color = heights), shape = 15) +
   scale_color_distiller(palette = "Spectral") +
   coord_fixed()
+
 ```
 
 ***
-- Does not mean ANY outcome
-- Ex: Rolling a dice, flipping a coin
-- limited information available
-- cannot make predictions of results
-- Using random variables to create random maps 
-- Provide a benchmark to compare statistical maps
+- Cannot make predicitons of results
+- Using rnadom variables to create random maps
+- Prove a benchmark to compare statistical maps
 
 Deterministic Processes
 ========================================================
@@ -95,3 +99,9 @@ ggplot() +
 
 - Probability of an event increases in the "East" direction
 - Natural Process? 
+
+Concluding Remarks
+========================================================
+- Not all processes are the same
+- Null landscapes are completely random 
+- Spatial processes have practical applications 

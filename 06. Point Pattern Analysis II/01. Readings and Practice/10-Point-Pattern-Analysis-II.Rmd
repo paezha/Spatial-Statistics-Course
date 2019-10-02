@@ -81,17 +81,23 @@ summary(pp0_df)
 
 As seen in the previous practice and activity, the package `spatstat` employs a type of object called `ppp` (for *p*lanar *p*oint *p*attern). Fortunately, it is relatively simple to convert a dataframe into a `ppp` object by means of `as.ppp()`. This function requires that you define a window for the point pattern, something we can do by means of the `owin` function:
 ```{r}
+#"W" will appear in your environment as a defined window with boundaries of (1,1)
+
 W <- owin(xrange = c(0, 1), yrange = c(0, 1))
 ```
 
 Then the dataframes are converted using the `as.ppp` function: 
 ```{r}
+#converts dataframe to planar point pattern using the defined window "W"
+
 pp0.ppp <- as.ppp(pp0_df, W = W)
 PointPatterns.ppp <- as.ppp(PointPatterns, W = W)
 ```
 
 You can verify that the new objects are indeed of `ppp`-class:
 ```{r}
+#"class" is an excellent tool to use when verifying the execution of a previous line of code 
+
 class(pp0.ppp)
 class(PointPatterns.ppp)
 ```
@@ -102,16 +108,21 @@ In the preceding activity, you used a quadrat-based spatial independence test to
 
 Let's begin by plotting the patterns. You can use `split` to do plots for each pattern separately, instead of putting all of them in a single plot (these plots are not as responsive as `ggplot2` but are quick):
 ```{r}
+#The split functions separates without deifining a window. This is a quicker option to get relative results
+
 plot(split(PointPatterns.ppp))
 ```
 
 Recall that you can also plot individual patterns by using `$` followed by the factor that identifies the desired pattern (this is a way of indexing different patterns in `ppp`-class objects):
 ```{r}
+#Using "$" acts as a call sign to retrive information from a data frame. In this case, you are calling "Pattern 4" from "PointPatterns.ppp"
 plot(split(PointPatterns.ppp)$"Pattern 4")
 ```
 
 Now calculate the quadrat-based test of independence:
 ```{r}
+#"quadrat.test" generates a quadrat-based test of independence, in this case, for "Pattern 2" called from "PointPatterns.ppp", with a defined quadrat size of 3 by 3 
+
 q_test <- quadrat.test(split(PointPatterns.ppp)$"Pattern 2", nx = 3, ny = 3)
 q_test
 ```
@@ -146,6 +157,8 @@ plot(quadrat.test(split(PointPatterns.ppp)$"Pattern 1", nx = 3, ny = 3))
 
 You can see that the Pearson residual of the top left quadrat is indeed `r (5 - 6.7)/sqrt(6.7)`, the next to its right is `r (6 - 6.7)/sqrt(6.7)`, and so on. The value of the test statistic should be then:
 ```{r}
+#The "Paste" function creates an argumennt for a string of values for "X2", where X2" is the squared sum of the residuals
+
 paste("X2 = ", (-0.65)^2 + (-0.26)^2 + (0.52)^2 + (-0.26)^2 + (0.9)^2 + (0.52)^2 + (-1)^2 + (0.13)^2 + (0.13)^2)
 ```
 
@@ -234,6 +247,8 @@ Kernel density is implemented in `spatstat` and can be used as follows.
 
 The input is a `ppp` object, and optionally a `sigma` argument that corresponds to the bandwidth of the kernel:
 ```{r}
+# The "density" function computes estimates of kernel density. Here we are creating a Kernel Density estimate using "pp0.ppp" from our dataframe by means of a bandwidth defined by "sigma"
+
 kernel_density <- density(split(pp0.ppp), sigma = 0.1)
 plot(kernel_density)
 ```

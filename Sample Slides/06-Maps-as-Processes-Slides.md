@@ -12,21 +12,24 @@ Key Concepts
 - Null Landscapes
 - Deterministic Processes
 - Stochastic Processes 
+- Simulaitng Spatial Processes
 
 
 
-Random Processes: Null Landscape
+Random Processes
 ========================================================
-
-![plot of chunk unnamed-chunk-1](06-Maps-as-Processes-Slides-figure/unnamed-chunk-1-1.png)![plot of chunk unnamed-chunk-1](06-Maps-as-Processes-Slides-figure/unnamed-chunk-1-2.png)
-
-***
 - Does not mean ANY outcome
 - Ex: Rolling a dice, flipping a coin
 - limited information available
-- cannot make predictions of results
-- Using random variables to create random maps 
-- Provide a benchmark to compare statistical maps
+
+Null Landscape
+========================================================
+![plot of chunk unnamed-chunk-1](06-Maps-as-Processes-Slides-figure/unnamed-chunk-1-1.png)![plot of chunk unnamed-chunk-1](06-Maps-as-Processes-Slides-figure/unnamed-chunk-1-2.png)
+
+***
+- Cannot make predicitons of results
+- Using rnadom variables to create random maps
+- Prove a benchmark to compare statistical maps
 
 Deterministic Processes
 ========================================================
@@ -56,3 +59,9 @@ Simulating Spatial Processes
 
 - Probability of an event increases in the "East" direction
 - Natural Process? 
+
+Concluding Remarks
+========================================================
+- Not all processes are the same
+- Null landscapes are completely random 
+- Spatial processes have practical applications 

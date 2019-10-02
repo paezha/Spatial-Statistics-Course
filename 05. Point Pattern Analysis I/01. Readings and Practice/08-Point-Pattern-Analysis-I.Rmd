@@ -96,6 +96,10 @@ Imagine, for instance, a point pattern that records crimes in a region. The patt
 
 Consider for example the following patterns. To create the following figure, you can use _faceting_ by means of `ggplot2::facet_grid`:
 ```{r}
+#This uses function "ggplot" to plot data "PointPatterns" loaded into the data frame earlier, by means of X and Y coordinates
+
+#facet_grid is also used in the code below to plot the variety of patterns in the dataframe
+
 ggplot() + 
   geom_point(data = PointPatterns, aes(x = x, y = y)) + facet_grid(.~ Pattern) +
   coord_fixed()

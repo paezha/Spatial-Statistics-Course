@@ -113,39 +113,24 @@ ppp1 <- as.ppp(PointPatterns, Wnd)
 ppp1 <- as.ppp(PointPatterns, Wnd)
 ```
 
-Visualizing a PPP object 
-========================================================
-
-- Objects of the class `ppp` can be plotted using the `plot` function 
-
-```{r, echo=FALSE}
-plot(ppp1)
-```
-
-
-
-Visualizing a PPP Object Contd. 
-========================================================
-- You can split the different patterns using the function `split.ppp()` to plot each pattern separately
-
-```{r, echo=FALSE}
-plot(split.ppp(ppp1)$`Pattern 1`)
-```
-
-
-
-Visualizing a PPP Object Contd. 
-========================================================
-
-- `quadratcount` can be used to compute the counts of events
-- To calculate the count separately for each pattern use`split.ppp()` 
-  
-```{r, echo=FALSE}
-quadratcount(split(ppp1), nx = 4, ny = 4)
-```
-
 
 Defining the Region for Analysis
 ========================================================
 - When conducting analysis with point pattersn it is important to define a region for analysis that is consistent with the pattern of interest
 - If the region is to big or to small the data will be harder to intrepret or could be misintrepreted
+
+Example of Different Region Sizes 
+========================================================
+```{r, echo=FALSE}
+Wnd2 <- owin(c(-1,2), c(-1,2)) 
+ppp2 <- as.ppp(PointPatterns, Wnd2)
+plot(split.ppp(ppp2)$`Pattern 1`)
+```
+***
+
+```{r, echo=FALSE}
+Wnd3 <- owin(c(-2, 3), c(-2, 3)) 
+ppp3 <- as.ppp(PointPatterns, Wnd3)
+plot(split.ppp(ppp3)$`Pattern 1`)
+```
+

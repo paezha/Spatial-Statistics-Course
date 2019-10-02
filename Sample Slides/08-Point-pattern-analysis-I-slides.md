@@ -75,68 +75,16 @@ Wnd <- owin(c(0,1), c(0,1))
 ppp1 <- as.ppp(PointPatterns, Wnd)
 ```
 
-Visualizing a PPP object 
-========================================================
-
-- Objects of the class `ppp` can be plotted using the `plot` function 
-
-![plot of chunk unnamed-chunk-10](08-Point-pattern-analysis-I-slides-figure/unnamed-chunk-10-1.png)
-
-
-
-Visualizing a PPP Object Contd. 
-========================================================
-- You can split the different patterns using the function `split.ppp()` to plot each pattern separately
-
-![plot of chunk unnamed-chunk-11](08-Point-pattern-analysis-I-slides-figure/unnamed-chunk-11-1.png)
-
-
-
-Visualizing a PPP Object Contd. 
-========================================================
-
-- `quadratcount` can be used to compute the counts of events
-- To calculate the count separately for each pattern use`split.ppp()` 
-  
-
-```
-List of spatial objects
-
-Pattern 1:
-            x
-y            [0,0.25) [0.25,0.5) [0.5,0.75) [0.75,1]
-  [0.75,1]          3          5          1        6
-  [0.5,0.75)        2          3          4        6
-  [0.25,0.5)        5          4          2        3
-  [0,0.25)          2          4          4        6
-
-Pattern 2:
-            x
-y            [0,0.25) [0.25,0.5) [0.5,0.75) [0.75,1]
-  [0.75,1]         14          2          2        6
-  [0.5,0.75)        0          0          4        6
-  [0.25,0.5)        6          3          1        2
-  [0,0.25)          4          6          2        2
-
-Pattern 3:
-            x
-y            [0,0.25) [0.25,0.5) [0.5,0.75) [0.75,1]
-  [0.75,1]          2         11          5        7
-  [0.5,0.75)        1          1          6        4
-  [0.25,0.5)        1         10          3        2
-  [0,0.25)          2          1          2        2
-
-Pattern 4:
-            x
-y            [0,0.25) [0.25,0.5) [0.5,0.75) [0.75,1]
-  [0.75,1]          4          5          6        3
-  [0.5,0.75)        3          3          4        2
-  [0.25,0.5)        3          3          4        2
-  [0,0.25)          5          4          6        3
-```
-
 
 Defining the Region for Analysis
 ========================================================
 - When conducting analysis with point pattersn it is important to define a region for analysis that is consistent with the pattern of interest
 - If the region is to big or to small the data will be harder to intrepret or could be misintrepreted
+
+Example of Different Region Sizes 
+========================================================
+![plot of chunk unnamed-chunk-10](08-Point-pattern-analysis-I-slides-figure/unnamed-chunk-10-1.png)
+***
+
+![plot of chunk unnamed-chunk-11](08-Point-pattern-analysis-I-slides-figure/unnamed-chunk-11-1.png)
+

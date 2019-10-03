@@ -148,7 +148,7 @@ ggplot() + geom_histogram(data = data.frame(dist = pp0_nn2), aes(dist), binwidth
 
 In this case, most events have a nearest neighbot at a distance of approximately 0.15.
 
-Another useful tool is a _Stienen diagram_. A Steinen diagram is essentially a proportional symbol plot of the events with symbols of size proportional to the distance to their nearest neighbor. For example, for "Pattern 1" in `pp0.ppp` (Notice the use of %mark% to add an attribute to the `ppp` object; the attribute is the distance to the nearest neighbor):
+Another useful tool is a _Stienen diagram_. A Steinen diagram is essentially a proportional symbol plot of the events. The size of symbols are proportional to the distance to their nearest neighbor. For example, for "Pattern 1" in `pp0.ppp` (Notice the use of %mark% to add an attribute to the `ppp` object; the attribute is the distance to the nearest neighbor):
 ```{r}
 plot(split(pp0.ppp)$"Pattern 1" %mark% (pp0_nn1), markscale = 1, main = "Stienen diagram")
 ```

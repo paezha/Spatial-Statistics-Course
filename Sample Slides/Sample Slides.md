@@ -1,4 +1,4 @@
-Statistical Maps I 
+Point Pattern Analysis III
 ========================================================
 author: Megan Coad and Alexis Polidoro
 date: 
@@ -6,33 +6,16 @@ autosize: true
 
 This is the title slide
 
-First Slide
+Key Points
 ========================================================
 
-Text will be displayed on the slide
+ADD POINTS HERE 
 
-Use markdown formatting:
-
-- List item 1
-- List item 2
-- List item 3
-
-
-Second Slide
-========================================================
-title: false
 
 Hide the slide title by writting "title: false" at the beginning of the slide
 
-
-Slide with code
+Motivation
 ========================================================
-
-A neat thing about R presentations is that they can include code
-
-In many cases we can use this functionality to do things within the presentation but in the background
-
-For example, this slide has code, but the code is not displayed on the slide (echo = FALSE)
 
 
 

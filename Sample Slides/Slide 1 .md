@@ -42,6 +42,19 @@ Graphing in R
 ![plot of chunk unnamed-chunk-4](Slide 1 -figure/unnamed-chunk-4-1.png)
 
 
+Leaflet Maps
+========================================================
+
+Interacting panning of Cholera Example
+
+![An Image](leaflet.png)
+
+***
+
+- Interactive Mapping
+- Can look into this further using additional packages
+- Heat Maps can also be used for preliminary spatial analysis
+
 Graphing in R
 ========================================================
 
@@ -54,6 +67,9 @@ Graphing in R
 Concluding Remarks
 ========================================================
 
+- Clear Workspace
+- R offers an abundance of ways to analyze information 
+- Graphs are Important 
 
 - R offers an abundance of ways to analyze information 
 - Maps communicate information about a topic 

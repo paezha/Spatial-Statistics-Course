@@ -72,6 +72,7 @@ For instance, a formula for processes similar to coin flips was discovered by Be
 
 The following function reports a random binomial variable. The number of observations `n` is how many random numbers we require. The `size` is the number of trials. For instance, if the experiment was flipping a coin, it would be how many times we get heads in `size` flips. The probability of success `prob` is the probability of getting heads in any given toss. Execute the chunk repeatedly to see what happens. 
 ```{r}
+#This function simulates the outcome of flipping a coin. Here, we are simulating the result for flipping heads, which has a probability of 0.5. 
 rbinom(n = 1, size = 1, prob = 0.5)
 ```
 
@@ -92,6 +93,7 @@ This distribution is defined by a centering paramater (its mean) and a spread pa
 
 The following function reports a value taken at random from a normal distribution with `mean` zero and standard deviation `sd` of one. Execute this chunk repeatedly to see what happens:
 ```{r}
+#This function generates random numbers based on the given arguments. 
 rnorm(1, mean = 0, sd = 1)
 ```
 
@@ -102,6 +104,7 @@ rnorm(1, mean = 170.7, sd = 7)
 
 And the distribution of heights of `n` men in this population would be:
 ```{r}
+#Creating a data frame using the random numbers generated from n=1000 people. The results in the data frame are then plotted using ggplot. The end result is a distribution of heights of 1000 men. You are able to see which heights are most common out of the sample.
 n <- 1000
 height <- rnorm(n, mean = 170.7, sd = 7)
 height <- data.frame(height)
@@ -122,12 +125,14 @@ Suppose that there is a landscape with coordinates in the unit square, that is d
 
 Let's first create a landscape. For this, we will use the `expand.grid` function to find all combinations of two sets of coordinates in the unit interval, using small partitions:
 ```{r}
+#expand.grid created a landscape from all combinations of factor variables. Here, our landscape ranges from 0 to 1, increasing by 0.05
 coords <- expand.grid(x = seq(from = 0, to = 1, by = 0.05),
                       y = seq(from = 0, to = 1, by = 0.05))
 ```
 
 Now, let's generate a binomial random variable to go with these coordinates. 
 ```{r}
+#nrow returns the number of rows that are present in a data frame. Here, it is returning the number of rows present in "coords" 
 events <- rbinom(n = nrow(coords), size = 1, prob = 0.5)
 ```
 
@@ -147,6 +152,7 @@ By changing the probability `prob` in the function `rbinom` you can make the eve
 
 A continuous random variable can be used to generate a landscape with a null trend. For instance, imagine that a group of individuals are asked to stand in formation, and that they arrange themselves purely at random. What would a map of their heights look like?
 ```{r}
+#heights will be random numbers genreated based on the average height of men, 7 standard deviations, and the null landscape "coords" created previously.
 heights <- rnorm(n = nrow(coords), mean = 170.7, sd = 7)
 ```
 
@@ -157,6 +163,7 @@ null_trend <- data.frame(coords, heights)
 
 One possible map of heights when the individuals stand in formation at random would look like:
 ```{r}
+#Our plot is created based on the dataframe of coords and heights by means of X and Y. The colour scale is dependent upon heights, as higher measurements are more red, while shorter men are documented as a more blue shade. 
 ggplot() + 
   geom_point(data = null_trend, aes(x = x, y = y, color = heights), shape = 15) +
   scale_color_distiller(palette = "Spectral") +
@@ -185,6 +192,9 @@ ggplot() +
 
 A _systematic_ or _deterministic_ process is one that contains no elements of randomness, and can therefore be predicted with complete certainty. For instance (note the use of `xlim` to set the extent of x axis in the plot):
 ```{r}
+#Mutate function adds new variables while preserving esixting variables
+#Subset function is a method of selecting variables
+
 deterministic_point_pattern <- coords
 deterministic_point_pattern <- mutate(deterministic_point_pattern, events = round(x))
 ggplot() + 
@@ -215,6 +225,7 @@ Null landscapes are interesting as a benchmark. More interesting are landscapes 
 
 Let's begin with the point pattern, using the same landscape that we used above. We will first copy the coordinates of the landscape to a new dataframe, that we will call `pattern1`:
 ```{r}
+#Here, we are establishing that pattern1 is "coords"
 pattern1 <- coords
 ```
 

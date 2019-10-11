@@ -1,0 +1,161 @@
+Mapping in R Continued 
+========================================================
+author: Megan Coad and Alexis Polidoro
+date: 
+autosize: true
+
+
+Summarizing the Dataframe
+========================================================
+
+```{r, echo=FALSE}
+library(geog4ga3)
+library(tidyverse)
+data("missing_df")
+```
+```{r, eval=FALSE}
+summary(missing_df)
+```
+```{r, echo=FALSE}
+summary(missing_df)
+```
+
+Factors
+========================================================
+- A factors describes a category 
+- Examine the class of a variable by means of the function `class`
+- allow us to store information that is not measured as a quantity
+```{r, eval=FALSE}
+class(missing_df$Observed)
+```
+
+```{r, echo=FALSE}
+class(missing_df$Observed)
+```
+
+Subsetting Data
+========================================================
+- use when you want to work only with parts of a dataset
+- do this by indexing 
+- different functions have the same result
+
+```{r, eval=FALSE}
+missing_df[missing_df$Observed == FALSE,]
+subset(missing_df, Observed == FALSE)
+filter(missing_df, Observed == FALSE)
+```
+
+Nesting Functions
+========================================================
+- Example from text
+```{r, eval=FALSE}
+summary(filter(missing_df, Observed == FALSE))
+```
+
+- this makes it hard to read code
+- pipe operators solve this problem 
+
+Pipe Operator
+========================================================
+- a pipe operator is written as '%>% 
+-  it passes forward the output of a function to a second function
+```{r, eval=FALSE}
+subset(missing_df, Observed == FALSE) %>% summary()
+```
+
+
+More on Visualization
+========================================================
+- Observations in the sample dataset are georeferenced
+based on a false origin
+-  we can visualize their spatial distribution
+- you have control over the shape and size of the markers 
+
+***
+
+```{r, echo=FALSE}
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y), shape = 17, size = 3) + 
+  coord_fixed()
+```
+
+
+More on Visualization Contd. 
+========================================================
+- there are more attributes that you can plot
+- to make a thematic map of one of the variables you can set the colour to the desired variable
+
+
+***
+
+
+```{r, echo=FALSE}
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR1), shape = 17, size = 3) + 
+  coord_fixed()
+```
+
+
+More on Visualization Contd. 
+========================================================
+- if you want to let other aesthetic attributes vary with the values of a variable in the dataframe you could set the size equal to a variable 
+
+***
+
+```{r, echo=FALSE}
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR1, size = VAR1), shape = 17) + 
+  coord_fixed()
+```
+
+
+
+More on Visualization Contd. 
+========================================================
+
+- you can also change the colouring scheme by means of `scale_color_distiller`
+
+***
+
+```{r, echo=FALSE}
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR1, shape = Observed), size = 3) +
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+```
+
+More on Visualization Contd. 
+========================================================
+
+- you can add a layer with hollow symbols to makes points stand out more 
+  
+***
+
+```{r, echo=FALSE}
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR1), shape = 17, size = 3) +
+  geom_point(data = missing_df, aes(x = x, y = y), shape = 2, size = 3) +
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+```
+
+
+
+More on Visualization Contd. 
+========================================================
+
+-  you could try subsetting the data to have greater control of the appareance of your plot
+
+***
+
+```{r, echo=FALSE}
+ggplot() +
+  geom_point(data = subset(missing_df, Observed == TRUE),
+             aes(x = x, y= y, color = VAR1), shape = 17, size = 3) +
+  geom_point(data = subset(missing_df, Observed == TRUE),
+             aes(x = x, y= y), shape = 2, size = 3) +
+  geom_point(data = subset(missing_df, Observed == FALSE),
+             aes(x = x, y= y), shape = 18, size = 4) +
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+```

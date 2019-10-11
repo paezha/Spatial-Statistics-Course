@@ -1,0 +1,110 @@
+Point Pattern Analysis II
+========================================================
+author: Megan Coad and Alexis Polidoro
+date: 
+autosize: true
+
+Key Concepts
+========================================================
+
+- Theory of Quadrat Test 
+- Understanding the Residual Value
+- Limitations of Quadrat Test 
+- Kernel Density
+
+
+Quick Refresher: PPP Objects and Quadrat Test  
+========================================================
+
+```{r, echo=FALSE}
+rm(list = ls())
+library(tidyverse)
+library(spatstat)
+library(geog4ga3)
+data("PointPatterns")
+data("pp0_df")
+W <- owin(xrange = c(0, 1), yrange = c(0, 1))
+pp0.ppp <- as.ppp(pp0_df, W = W)
+PointPatterns.ppp <- as.ppp(PointPatterns, W = W)
+plot(split(PointPatterns.ppp))
+```
+
+***
+- PPP Represents two-dimensional point patterns
+- Quadrat Test help us decide whether a pattern is random
+
+Intuition: Calculating Quadrat Test  
+========================================================
+-Performs a test of Complete Spatial Randomness for a point pattern, based on quadrat counts
+```{r, echo=FALSE}
+q_test <- quadrat.test(split(PointPatterns.ppp)$"Pattern 4", nx = 3, ny = 3)
+q_test
+```
+
+Intuition Continued: Plot Results of Quadrat Test  
+========================================================
+```{r, echo=FALSE}
+plot(q_test)
+```
+***
+- Top left: Number of events in quadrat 
+- Top Right: Expected number of events for null landscape
+- Bottom: Residual; difference between observed and expected values. 
+
+
+Calculating X2 (Quadrat Test Value)
+========================================================
+- Chi Square independence tests for a significant association between the categories of the two variables (events occurring and events expected)
+- X2 is alculated using squared sum of the residuals
+- The smaller this number, the more likely the event is random
+
+Importance of the p-value
+========================================================
+- Determines if the point pattern is result of a random process
+- When p is small, this indicates it is unlikely that the point pattern reflects the theoretical random pattern, resulting in a random landscape
+
+Limitations of Quadrat Test: Size and Number of Quadrats 
+========================================================
+- Changing size of quadrat impacts the counts
+- Events will not be properly accounted for if cell is too small
+- General Rule: (Q=2A/N)
+
+Limitations Continued: Relative Position of Event
+========================================================
+- Fails to distinguish between different even distributions
+```{r, echo=FALSE}
+plot(split(pp0.ppp))
+plot(quadratcount(split(pp0.ppp), nx = 3, ny = 3))
+```
+
+Kernel Density: A solution to Quadrat Test
+========================================================
+- Moving window over each grid cell
+- Assigns highest "weight" to events closest to the centre of the bandwidth
+- Accounts for relative position
+
+***
+```{r, echo=FALSE}
+ggplot(data = data.frame(dist = c(-3, 3)), aes(dist)) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1)) +
+  ylim(c(0, 0.45))
+```
+
+
+Kernel Density: A solution to Quadrat Test 
+========================================================
+```{r, echo=FALSE}
+kernel_density <- density(split(pp0.ppp), sigma = 0.1)
+plot(kernel_density)
+```
+***
+```{r, echo=FALSE}
+plot(quadratcount(split(pp0.ppp), nx = 3, ny = 3))
+```
+
+Concluding Remarks
+========================================================
+- Quadrat Test observes values as counts within a defined cell 
+- Pearson residuals increase with difference in quantity of events
+- Kernel density accounts for relative position of an event 
+

@@ -96,6 +96,7 @@ These attributes will typically be counts (e.g., number of people in a DA), or s
 
 Imagine that data on income by household were collected as follows:
 ```{r}
+#Here, we are creating a data frame by means of X and Y in space, with repect to income by household.
 df <- data.frame(x = c(0.3, 0.4, 0.5, 0.6, 0.7), y = c(0.1, 0.4, 0.2, 0.5, 0.3), Income = c(30000, 30000, 100000, 100000, 100000))
 ```
 
@@ -103,6 +104,7 @@ Households are geocoded as points with coordinates `x` and `y`, whereas income i
 
 Plot the income as points (hover over the points to see the attributes):
 ```{r}
+#The "ggplot" function defines household incomes in point space. Higer income households appear to be on the East regions of the area. 
 p <- ggplot(data = df, aes(x = x, y = y, color = Income)) + 
   geom_point(shape = 17, size = 5) +
   coord_fixed()
@@ -117,6 +119,7 @@ Another reason why variables reported for areas could display similarities in sp
 
 Suppose for a moment that the data above can only be reported at the zonal level, perhaps because of privacy and confidentiality concerns. Thanks to the great talent of the designers of the zoning system (or a felicitous coincidence!), the zoning system is such that it is consistent with the underlying process of sorting. The zones, therefore, are as follows:
 ```{r}
+#creating zones with boundaries on both axes. "Zone_ID" only has 2 values because there are only two zones in the analysis. 
 zones1 <- data.frame(x1=c(0.2, 0.45), x2=c(0.45, 0.80), y1=c(0.0, 0.0), y2=c(0.6, 0.6), Zone_ID = c('1','2'))
 ```
 
@@ -133,6 +136,7 @@ What is the mean income in zone 1? What is the mean income in zone 2? Not only a
 
 Imagine now that for whatever reason (lack of prior knowledge of the process, convenience for data collection, etc.) the zones instead are as follows:
 ```{r}
+#Note how the values have changed for X1 and X2. This reveals that the zones have shifted and are no longer the same as the plot above. 
 zones2 <- data.frame(x1=c(0.2, 0.55), x2=c(0.55, 0.80), y1=c(0.0, 0.0), y2=c(0.6, 0.6), Zone_ID = c('1','2'))
 ```
 
@@ -155,6 +159,7 @@ Commonly, area data are visualized by means of choropleth maps. A choropleth map
 
 Lets use `ggplot2` to create a choropleth map of population in Hamilton. Notice that the fill color for the polygons is given by cutting the values of `POPULATION` in five equal segments. In other words, the colors represent zones in the bottom 20% of population, zones in the next 20%, and so on, so that the darkest zones are those with populations so large as to be in the top 20% of the population distribution:
 ```{r}
+#"ggplot" is used in this funciton to plot populations per census tract in Hamilton. This is visible as the "cut_number" function calls the population variable from the Hamilt census tract dataframe. "fill" is determined by population, resulting in higher population counts having a more red colour. 
 ggplot(Hamilton_CT) + geom_sf(aes(fill = cut_number(Hamilton_CT$POPULATION, 5)), color = NA, size = 0.1) +
   scale_fill_brewer(palette = "YlOrRd") +
   coord_sf() +
@@ -165,6 +170,7 @@ Inspecting the map above, would you say that the distribution of population is r
 
 Often, creating a choropleth map using the absolute value of a variable can be somewhat misleading. As seen in the map above, the zones with the largest population are also usually large zones. Any process that you might think of will be confounded by the size of the zones. For this reason, it is often more informative when creating a choropleth map to use a variable that is a rate, for instance population divided by area to give population density:
 ```{r}
+#Note how the "cut_number" calls population density rather than population like the figure above. This gives a more accurate representation of the distribution of population.
 pop_den.map <- ggplot(Hamilton_CT) + 
   geom_sf(aes(fill = cut_number(Hamilton_CT$POP_DENSITY, 5)), color = "white", size = 0.1) +
   scale_fill_brewer(palette = "YlOrRd") +
@@ -176,6 +182,7 @@ It can be seen now that the population density is higher in the more central par
 
 Other times, it is appropriate to standardize instead of by area, by what might be called the _population at risk_. For instance, lets say that we wanted to explore the distribution of the population of older adults (say, 65 and older). In this case, normalizing not by area, but by the total population, would remove the "size" effect, giving a proportion:
 ```{r}
+#The "HAMILTON_CT" dataframe portions ages by category. For this choropleth map, we call all age categories over 65 by simply using the "+" sign. 
 ggplot(Hamilton_CT) + 
   geom_sf(aes(fill = cut_number((Hamilton_CT$AGE_65_TO_69 +
                                    Hamilton_CT$AGE_70_TO_74 +
@@ -190,7 +197,7 @@ ggplot(Hamilton_CT) +
 
 Do you notice a pattern in the distribution of seniors in the Hamilton, CMA?
 
-There are a few things to keep in mind when creating choroplet maps.
+There are a few things to keep in mind when creating choropleth maps.
 
 First, what classification scheme to use, with how many classes, and what colors? 
 
@@ -214,16 +221,19 @@ In the maps above, the zones are faithful to their geographical properties. Unfo
 
 Cartograms are implemented in R in the package `cartogram`.
 ```{r}
+#The "Cartogram_cont" function construct a continuous area cartogram. Here, a cartogram is attempting to be constructed for the city of Hamilton by means of Census Tract.
 CT_pop_cartogram <- cartogram_cont(as(Hamilton_CT, "Spatial"), "POPULATION")
 ```
 
 Notice that the value of the function `cartogram` (i.e., its output) is a `SpatialPolygonsDataFrame`. This object needs to be converted to an object of class `sf` if we wish to use `ggplot2` to visualize it:
 ```{r}
+#"st_as_sf" function is converting "CT_pop_cartogram" to a "sf" object class so that we can successfully visualize the cartogram. 
 CT_pop_cartogram.t <- st_as_sf(CT_pop_cartogram)
 ```
 
 Plotting the cartogram:
 ```{r}
+#We are using "ggplot" to create a cartogram for populations by census tact in Hamilton. Census tracts with a larger value are distorted to visually represent their population size. The number "5" after calling the population variable states that there will be 5 categories dividing population quantities.
 ggplot(CT_pop_cartogram.t) + 
   geom_sf(aes(fill = cut_number(Hamilton_CT$POPULATION, 5)), color = "white", size = 0.1) +
   scale_fill_brewer(palette = "YlOrRd") +

@@ -4,6 +4,12 @@ author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
+Key Concepts
+========================================================
+
+- How do we Map in R? 
+- Why do we Map? 
+- Applications in R 
 
 
 Loading Data Into R 
@@ -38,25 +44,26 @@ ggplot() +
 ```
 
 
-Leaflet Maps
+Graphing in R
 ========================================================
 
-Interacting panning of Cholera Example
-
-![An Image](leaflet.png)
+```{r, echo=FALSE}
+library(tidyverse)
+ggplot() +
+  geom_point(data = snow_deaths, aes(x = long, y = lat), color = "blue", shape = 16) +
+  geom_point(data = snow_pumps, aes(x = long, y = lat), color = "black", shape = 17)
+```
 
 ***
 
-- Interactive Mapping
-- Can look into this further using additional packages
-- Heat Maps can also be used for preliminary spatial analysis
-
+-Identifying different Variables 
 
 Concluding Remarks
 ========================================================
 
-- Clear Workspace
+
 - R offers an abundance of ways to analyze information 
-- Graphs are Important 
+- Maps communicate information about a topic 
+- We use code to visualize problems 
 
 

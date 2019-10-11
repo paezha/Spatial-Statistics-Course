@@ -71,12 +71,16 @@ In the preceding chapter and activity you learned about spatial weights matrices
 
 Let us briefly revisit these notions. Here, you create a spatial weights matrix for Hamilton CMA census tracts:
 ```{r}
+#Poly2nb funciton builds a neighbours list based on regions with contiguous boundaries, where the argument is "Hamilton_CT.sp", an object containiing multi-polygon objects. 
+
+#nb2listw supplements a neighbours list with spatial weights (for "Hamilton_CT.sp). These two functions create a spatial weights matrix for census tracts.
 Hamilton_CT.nb <- poly2nb(pl = Hamilton_CT.sp)
 Hamilton_CT.w <- nb2listw(Hamilton_CT.nb)
 ```
 
 The spatial moving averages are calculated as follows:
 ```{r}
+#lag.listw function is establishing that there is a dependency between population density and census tracts in Hamilton. This can be further explained as one variable is affecting the result of another variable (how populaito density changes by each census tract). This is the spatial moving average. 
 POP_DENSITY.sma <- lag.listw(Hamilton_CT.w, Hamilton_CT$POP_DENSITY)
 ```
 
@@ -96,16 +100,19 @@ This can be illustrated with the help of a little simulation.
 
 To simulate a random spatial variable, we can randomize the observations that we already have, reassigning them at random to areas in the system. This is accomplished as follows:
 ```{r}
+#Taking a random sample which will be simulated further below. 
 POP_DENSITY_s1 <- sample(Hamilton_CT$POP_DENSITY)
 ```
 
 Calculate the spatial moving average for this randomized variable:
 ```{r}
+#Calculating the spatial moving average for the sample variable from above. 
 POP_DENSITY_s1.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s1)
 ```
 
 Once that you have seen how to randomize the variable, simulate a total of eight variables, and calculate their spatial moving averages:
 ```{r}
+#Note that we are creating 8 simulations of population density Spatial Moving Average of the Randomized variable using "lag.listw". Each simulation has a new name. 
 POP_DENSITY_s2 <- sample(Hamilton_CT$POP_DENSITY)
 POP_DENSITY_s2.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s2)
 POP_DENSITY_s3 <- sample(Hamilton_CT$POP_DENSITY)
@@ -145,6 +152,8 @@ Hamilton_CT$POP_DENSITY_s8.sma <- POP_DENSITY_s8.sma
 
 To create choropleth maps of the empirical variable and the eight simulated variables using `facet_wrap`, we first reorganize the data so that all the spatial moving average variables are in a single column, and there is a new column that identifies which variable they correspond to:
 ```{r}
+#"Hamilton_CT2 is created as a new choropleth map. Here, pipe operators (%>%) denote that we are selecting the empirical spatial moving average in addition to the 8 simulations of population densities of Hamilton census tracts. 
+
 Hamilton_CT2 <- Hamilton_CT %>% select(POP_DENSITY.sma, 
                                        POP_DENSITY_s1.sma,
                                        POP_DENSITY_s2.sma,
@@ -154,7 +163,7 @@ Hamilton_CT2 <- Hamilton_CT %>% select(POP_DENSITY.sma,
                                        POP_DENSITY_s6.sma,
                                        POP_DENSITY_s7.sma,
                                        POP_DENSITY_s8.sma,
-                                       geometry) %>% 
+                                       geometry) %>% #this pipe operator extacts density variables and geometry
   gather(VAR, DENSITY_SMA, -geometry)
 ```
 
@@ -170,7 +179,7 @@ ggplot() +
 
 The empirical variable is the map in the upper left corner (labelled `POP_DENSITY.sma`). The remaining 8 maps are simulated variables. Would you say the map of the empirical variable is fairly different from the map of the simulated variables? What are the key differences?
 
-Perhaps similar insights could be derived from randomizing the original population density variable, instead of the spatial moving average. An additional advantage of the spatial moving average is its use in the development of scatterplots.
+An additional advantage of the spatial moving average is its use in the development of scatterplots. The information below provides further examples of exploring spatial moving averages with scatterplots.
 
 ## Spatial Moving Average Scatterplots
 
@@ -234,9 +243,9 @@ In this way, the values of $z_i$ are given in _deviations from the mean_. By for
 
 Calculate the mean-centered version of POP_DENSIT, and then its spatial moving average:
 ```{r}
-df_mean_center_scatterplot <- transmute(Hamilton_CT, 
+df_mean_center_scatterplot <- transmute(Hamilton_CT, #modify values in dataframe
                                         Density_z = POP_DENSITY - mean(POP_DENSITY), 
-                                        SMA_z = lag.listw(Hamilton_CT.w, Density_z))
+                                        SMA_z = lag.listw(Hamilton_CT.w, Density_z)) #spatial weights matrix of newly created modified "Density_z"
 ```
 
 Compare the following two plots. You will see that they are identical, but in the mean-centered one the origin of the axes coincides with the means of $x$ and the spatial moving average:
@@ -323,7 +332,7 @@ Moran's $I$ is a coefficient of _spatial autocorrelation_.
 
 We can calculate Moran's $I$ as follows (notice how it is the sum of the products of $z$ by its spatial moving average, divided by the variance):
 ```{r}
-sum(df_mean_center_scatterplot$Density_z * df_mean_center_scatterplot$SMA_z) / sum(df_mean_center_scatterplot$Density_z^2)
+sum(df_mean_center_scatterplot$Density_z *  df_mean_center_scatterplot$SMA_z) / sum(df_mean_center_scatterplot$Density_z^2)
 ```
 
 Since the value is positive, and relatively high, this would suggest a non-random spatial pattern of similar values (i.e., high & high and low & low).
@@ -338,6 +347,7 @@ mc$I
 
 You can verify that this matches the value calculated above. The kind of scatterplots that we used previously (called _Moran's scatterplots_) can also be created easily by means of the `moran.plot` function:
 ```{r}
+#confirming the results from the Moran coefficient above. We use "moran.plot" to illustrate the SMA of population density by census tract in Hamilton. 
 mp <- moran.plot(Hamilton_CT$POP_DENSITY, Hamilton_CT.w)
 ```
 
@@ -349,6 +359,7 @@ Moran's $I$ can be used to develop a test of hypothesis. The expected value of M
 
 A test for autocorrelation based on Moran's $I$ is implemented in the `spdep` package:
 ```{r}
+#"moran.test" is calculating spatial autocorrelation of population density in Hamilton census tracts
 moran.test(Hamilton_CT$POP_DENSITY, Hamilton_CT.w)
 ```
 

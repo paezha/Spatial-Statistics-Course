@@ -4,6 +4,12 @@ author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
+Key Concepts
+========================================================
+
+- How do we Map in R? 
+- Why do we Map? 
+- Applications in R 
 
 
 Loading Data Into R 
@@ -49,6 +55,14 @@ Interacting panning of Cholera Example
 - Can look into this further using additional packages
 - Heat Maps can also be used for preliminary spatial analysis
 
+Graphing in R
+========================================================
+
+![plot of chunk unnamed-chunk-5](Slide 1 -figure/unnamed-chunk-5-1.png)
+
+***
+
+-Identifying different Variables 
 
 Concluding Remarks
 ========================================================
@@ -56,5 +70,9 @@ Concluding Remarks
 - Clear Workspace
 - R offers an abundance of ways to analyze information 
 - Graphs are Important 
+
+- R offers an abundance of ways to analyze information 
+- Maps communicate information about a topic 
+- We use code to visualize problems 
 
 

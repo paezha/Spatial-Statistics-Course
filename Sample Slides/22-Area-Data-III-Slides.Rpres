@@ -1,0 +1,207 @@
+Area Data III
+========================================================
+author: Alexis Polidoro and Megan Coad 
+date: 
+autosize: true
+
+Key Concepts
+========================================================
+
+- Spatial Moving Averages as a Smoother
+- Spatial Moivng Averages via Moran's scatterplot
+- Hypothesis Testing for Spatial Autocorrelation 
+
+```{r, echo=FALSE}
+rm(list = ls())
+library(tidyverse)
+library(spdep)
+library(sf)
+library(geog4ga3)
+#library(reshape2)
+library(gridExtra)
+data(Hamilton_CT)
+Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
+Hamilton_CT.nb <- poly2nb(pl = Hamilton_CT.sp)
+Hamilton_CT.w <- nb2listw(Hamilton_CT.nb)
+POP_DENSITY.sma <- lag.listw(Hamilton_CT.w, Hamilton_CT$POP_DENSITY)
+Hamilton_CT$POP_DENSITY.sma <- POP_DENSITY.sma
+Hamilton_CT.sp$POP_DENSITY.sma <- POP_DENSITY.sma
+```
+
+
+Spatial Moving Averages as a Smoother
+========================================================
+- SMA can reduce variability in patterns 
+- Randomize existing observations and reassign to random areas
+- Calculate SMA of empirical observations, simulate for other landscapes
+
+
+Spatial Moving Averages as a Smoother
+========================================================
+- Simulations do not mean similar results
+
+***
+
+```{r, echo=FALSE}
+POP_DENSITY_s1 <- sample(Hamilton_CT$POP_DENSITY)
+POP_DENSITY_s1.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s1)
+POP_DENSITY_s2 <- sample(Hamilton_CT$POP_DENSITY)
+POP_DENSITY_s2.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s2)
+POP_DENSITY_s3 <- sample(Hamilton_CT$POP_DENSITY)
+POP_DENSITY_s3.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s3)
+POP_DENSITY_s4 <- sample(Hamilton_CT$POP_DENSITY)
+POP_DENSITY_s4.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s4)
+POP_DENSITY_s5 <- sample(Hamilton_CT$POP_DENSITY)
+POP_DENSITY_s5.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s5)
+POP_DENSITY_s6 <- sample(Hamilton_CT$POP_DENSITY)
+POP_DENSITY_s6.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s6)
+POP_DENSITY_s7 <- sample(Hamilton_CT$POP_DENSITY)
+POP_DENSITY_s7.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s7)
+POP_DENSITY_s8 <- sample(Hamilton_CT$POP_DENSITY)
+POP_DENSITY_s8.sma <- lag.listw(Hamilton_CT.w, POP_DENSITY_s8)
+Hamilton_CT$POP_DENSITY_s1 <- POP_DENSITY_s1
+Hamilton_CT$POP_DENSITY_s2 <- POP_DENSITY_s2
+Hamilton_CT$POP_DENSITY_s3 <- POP_DENSITY_s3
+Hamilton_CT$POP_DENSITY_s4 <- POP_DENSITY_s4
+Hamilton_CT$POP_DENSITY_s5 <- POP_DENSITY_s5
+Hamilton_CT$POP_DENSITY_s6 <- POP_DENSITY_s6
+Hamilton_CT$POP_DENSITY_s7 <- POP_DENSITY_s7
+Hamilton_CT$POP_DENSITY_s8 <- POP_DENSITY_s8
+
+Hamilton_CT$POP_DENSITY_s1.sma <- POP_DENSITY_s1.sma
+Hamilton_CT$POP_DENSITY_s2.sma <- POP_DENSITY_s2.sma
+Hamilton_CT$POP_DENSITY_s3.sma <- POP_DENSITY_s3.sma
+Hamilton_CT$POP_DENSITY_s4.sma <- POP_DENSITY_s4.sma
+Hamilton_CT$POP_DENSITY_s5.sma <- POP_DENSITY_s5.sma
+Hamilton_CT$POP_DENSITY_s6.sma <- POP_DENSITY_s6.sma
+Hamilton_CT$POP_DENSITY_s7.sma <- POP_DENSITY_s7.sma
+Hamilton_CT$POP_DENSITY_s8.sma <- POP_DENSITY_s8.sma
+
+Hamilton_CT2 <- Hamilton_CT %>% select(POP_DENSITY.sma, 
+                                       POP_DENSITY_s1.sma,
+                                       POP_DENSITY_s2.sma,
+                                       POP_DENSITY_s3.sma,
+                                       POP_DENSITY_s4.sma,
+                                       POP_DENSITY_s5.sma,
+                                       POP_DENSITY_s6.sma,
+                                       POP_DENSITY_s7.sma,
+                                       POP_DENSITY_s8.sma,
+                                       geometry) %>% 
+  gather(VAR, DENSITY_SMA, -geometry)
+
+ggplot() + 
+  geom_sf(data = Hamilton_CT2, aes(fill = DENSITY_SMA), color = NA) + 
+  facet_wrap(~VAR, ncol = 3) +
+  scale_fill_distiller(palette = "YlOrRd", direction = 1) + # Select palette for colors 
+  labs(fill = "Pop Den SMA") + # Change the label of the legend
+  theme(axis.text.x = element_blank(), axis.text.y = element_blank()) # Remove the axis labels
+
+
+```
+
+Spatial Moving Average Scatterplots 
+========================================================
+- Simulated regression line is flat suggesting randomness
+- Values of variable are independent of their local means
+- Low possibility for non-random spatial pattern 
+
+***
+
+```{r, echo=FALSE}
+Hamilton_CT2$DENSITY <- data.matrix(Hamilton_CT %>% select(POP_DENSITY,
+                                               POP_DENSITY_s1,
+                                               POP_DENSITY_s2,
+                                               POP_DENSITY_s3,
+                                               POP_DENSITY_s4,
+                                               POP_DENSITY_s5,
+                                               POP_DENSITY_s6,
+                                               POP_DENSITY_s7,
+                                               POP_DENSITY_s8,
+                                               geometry) %>% # Extract density variables and geometry
+  gather(VAR, DENSITY, -geometry) %>%
+  select(DENSITY) %>% # Drop VAR from the object
+  st_set_geometry(NULL)) # Drop geometry, turn into dataframe
+
+ggplot(data = Hamilton_CT2, aes(x = DENSITY, y = DENSITY_SMA, color = VAR)) +
+  geom_point(alpha = 0.1) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+  geom_smooth(method = "lm") +
+  coord_equal() +
+  facet_wrap(~ VAR, ncol = 3, nrow = 3)
+```
+
+
+Spatial Moving Average Scatterplots 
+========================================================
+- Empirical values of variable are not independent of their local means 
+- High probability for non-random pattern
+- Evidence for Spatial Autocorrelation: feature similarity (variable is correlated to 45-degree line)
+
+***
+
+```{r, echo=FALSE}
+
+ggplot(data = Hamilton_CT2, aes(x = DENSITY, y = DENSITY_SMA, color = VAR)) +
+  geom_point(alpha = 0.1) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+  geom_smooth(method = "lm") +
+  coord_equal() +
+  facet_wrap(~ VAR, ncol = 3, nrow = 3)
+```
+
+What is Moran's I?
+========================================================
+- Measure of spatial autocorrelation
+- Looks at a set of features and associated attribute 
+- Sum of products by its SMA divided by variance
+
+***
+
+$$
+I = \frac{\sum_{i=1}^n{z_i\sum_{j=1}^n{w_{ij}^{st}z_j}}}{\sum_{i=1}^{n}{z_i^2}}
+$$
+
+
+Interpreting Moran's I: Moran Coefficient
+========================================================
+```{r, echo=FALSE}
+df_mean_center_scatterplot <- transmute(Hamilton_CT, #modify values in dataframe
+                                        Density_z = POP_DENSITY - mean(POP_DENSITY), 
+                                        SMA_z = lag.listw(Hamilton_CT.w, Density_z)) #spatial weights matrix of newly created modified "Density_z"
+```
+
+
+- Positive and relatively high value
+- Suggest non-random spatial pattern of similar values 
+```{r, echo=TRUE}
+sum(df_mean_center_scatterplot$Density_z * df_mean_center_scatterplot$SMA_z) / sum(df_mean_center_scatterplot$Density_z^2)
+```
+
+
+Interpreting Moran's I: Moran's Scatterplot 
+========================================================
+```{r, echo=FALSE}
+mp <- moran.plot(Hamilton_CT$POP_DENSITY, Hamilton_CT.w)
+```
+
+***
+
+- Non-random spatial pattern of similar values
+- clustering 
+- supporting evidence from Moran's I coefficient
+
+
+Hypothesis Testing for Spatial Autocorrelation
+========================================================
+- Determine if pattern is random 
+- p value is very small; reject null hypothesis with high level of confidence 
+```{r, echo=FALSE}
+moran.test(Hamilton_CT$POP_DENSITY, Hamilton_CT.w)
+```
+
+Conclusions
+========================================================
+- We can simulate the empirical observation to test for randomness
+- Moran's I is a coefficient determining spatial autocorrelation
+- We can prove the Moran's I coefficient with a scatterplot 
+- Hypothesis testing confirms randomness in the spatial pattern

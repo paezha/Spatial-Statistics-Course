@@ -28,7 +28,6 @@ Explaining Area Data
 
 ***
 
-
 ![Median Household Income by Zone](houses.png)
 
 

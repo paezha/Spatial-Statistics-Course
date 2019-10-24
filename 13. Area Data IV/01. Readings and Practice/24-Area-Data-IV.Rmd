@@ -311,7 +311,7 @@ xy_coord <- cbind(df1_simulated$x, df1_simulated$y)
 dn10 <- dnearneigh(xy_coord, 0, 10)
 ```
 
-Two differences with the procedure that you used before to create spatial weights is that we wish to include the observation at $i$ as well (so `include.self()`, and the style of the matrix is "B" (for binary):
+Two differences with the procedure that you used before to create spatial weights is that we wish to include the observation at $i$ as well (so `include.self()`, and the style of the matrix is "B" (for binary):fr
 ```{r}
 wb10 <- nb2listw(include.self(dn10), style = "B")
 ```
@@ -371,7 +371,7 @@ A risk when conducting a large number of tests is that some of them might appear
 
 What this suggests is that some correction to the level of significance used is needed.
 
-A crude rule to make this adjustment in called _Bonferroni correction_. This correction is as follows:
+A crude rule to make this adjustment is called _Bonferroni correction_. This correction is as follows:
 $$
 \alpha_B = \frac{\alpha_{nominal}}{m}
 $$

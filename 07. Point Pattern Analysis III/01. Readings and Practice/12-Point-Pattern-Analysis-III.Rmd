@@ -70,10 +70,15 @@ As you can see, this dataframe includes two point patterns, labeled "Pattern 1" 
 W <- owin(c(0,1), c(0,1))
 ```
 
+The function `owin` is used to specify this window for observation of the point pattern. 
+
+
 Given window object `W`, it is possible to transform the dataframe into a `ppp` object: 
 ```{r}
 pp0.ppp <- as.ppp(pp0_df, W = W)
 ```
+
+For clarification on how to create a 'ppp' object see reading 08, point pattern analysis I. 
 
 ## Motivation
 
@@ -84,6 +89,9 @@ For this reason, the following two patterns, despite being very different, give 
 plot(split(pp0.ppp))
 plot(quadratcount(split(pp0.ppp), nx = 3, ny = 3))
 ```
+
+The 'split' function is used to divide data in the vector into groups. 
+
 
 The two patterns above have similar _density_, However, "Pattern 1" displays _clustering_, a situation characterized by events generally being in close proximity to others. "Pattern 2", on the other hand, displays _dispersion_ or _regularity_, a situation where points tend to be located at fairly regular distances from each other.
 
@@ -107,7 +115,7 @@ In this practice you will learn about a family of techniques that instead of mea
 
 Let us begin by introducing the concept of a nearest neighbor.
 
-The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks, for instance (see Figure \@ref(fig:distance-metrics)).
+The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks.(see Figure \@ref(fig:distance-metrics)).
 
 ```{r distance-metrics, fig.cap= "\\label{fig:distance-metrics}Examples of distance metrics", echo=FALSE}
 knitr::include_graphics(rep("Point Pattern Analysis-III-Figure-1.png"))
@@ -208,7 +216,7 @@ $$
 G_{pois}(x) = 1 - exp(-\lambda \pi x^2).
 $$
 
-When the empirical $\hat{G}(x)$ is greater than the theoretical function, this suggests that the events tend to be _closer_ than expected, compared to the null landscape. On the contrary, when the empirical function is less than the theoretical function, this would suggest a dispersed pattern.
+When the empirical $\hat{G}(x)$ is greater than the theoretical function, this suggests that the events tend to be _closer_ than expected, compared to the null landscape (clustered pattern). On the contrary, when the empirical function is less than the theoretical function, this would suggest that the events tend to be _further_ than expected, compared to the null landscape (dispersed pattern).
 
 The G-function is implemented in `spatstat` as `Gest` (for G estimated):
 ```{r}
@@ -224,7 +232,7 @@ plot(g_pattern1)
 
 In the plot above, the empirical function is the solid black line, and the theoretical is the dashed red line.
 
-If you examine these functions, you will see that about 50% of events have a nearest neighbor at a distance of less than approximately 0.04. In the null landscape, in contrast, only about 16% of events have a nearest neighbor at less than 0.04:
+If you examine the empirical function, you will see that about 50% of events have a nearest neighbor at a distance of less than approximately 0.04. In the null landscape (theoretical function), in contrast, only about 16% of events have a nearest neighbor at less than 0.04:
 ```{r}
 plot(g_pattern1)
 lines(x = c(0.04, 0.04), y = c(-0.1, 0.5), lty = "dotted")
@@ -232,7 +240,7 @@ lines(x = c(-0.1, 0.04), y = c(0.5, 0.5), lty = "dotted")
 lines(x = c(-0.1, 0.04), y = c(0.16, 0.16), lty = "dotted", col = "red")
 ```
 
-What this suggests is that in the actual landscape events tend to be much closer to other events in comparison the null landscape, and would therefore be suggestive of clustering.
+Notice that the empirical function is above the theoritical function. This suggests is that in the actual landscape events tend to be much closer to other events in comparison the null landscape, and would therefore be suggestive of clustering.
 
 Compare to "Pattern 2":
 ```{r}
@@ -248,6 +256,6 @@ g_pattern_rnd <- Gest(rand_ppp, correction = "none")
 plot(g_pattern_rnd)
 ```
 
-In this case, the empirical function more closely resembles the theoretical function for the null landscape.
+In this case, the empirical function more closely resembles the theoretical function for the null landscape. This suggests a random pattern. 
 
 By considering the distribution of distances to nearest neighbors, you can generate additional information on a point pattern to complement the density-based analysis of the preceding chapters.

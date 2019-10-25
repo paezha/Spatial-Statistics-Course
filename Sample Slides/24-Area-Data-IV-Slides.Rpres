@@ -13,9 +13,6 @@ Key Points
 - Understand other forms of Local Analysis of Spatial Association
 - know what Bonferroni correction does and when to use it
 
-
-Hide the slide title by writting "title: false" at the beginning of the slide
-
 Decomposing Moran's I
 ========================================================
 
@@ -44,7 +41,7 @@ Recall
 Creating Moran's Plot Manually
 ========================================================
 
-1. create a dataframe with the mean-centered variable and scaled variable, and its spatial moving average. Notice that this includes as well a factor variable `Type` to identify the type of spatial relationship
+1. create a dataframe with the mean-centered variable and scaled variable, and its spatial moving average. Notice that this includes a factor variable `Type` to identify the type of spatial relationship
 
 ```{r}
 Hamilton_CT <- mutate(Hamilton_CT,
@@ -67,7 +64,7 @@ df_msc.sd <- SharedData$new(Hamilton_CT)
 ```
 
 
-The function `bscols` (for bootstrap columns) is used to array two plotly objects; the first of these is a scatterplot, and the second is a choropleth map of population density.
+The function `bscols`  is used to array two plotly objects; the first of these is a scatterplot, and the second is a choropleth map of population density.
 
 ```{r, echo=FALSE}
 bscols(
@@ -97,7 +94,7 @@ bscols(
 
 
 
-Local Moran's I and Mapping
+Local Moran's I and Mapping Contd
 ========================================================
 For further exploration, join the local statistics to the dataframe and Map them 
 
@@ -108,7 +105,6 @@ Hamilton_CT <- left_join(Hamilton_CT,
 Hamilton_CT <- rename(Hamilton_CT, p.val = Pr.z...0.)
 ```
 
-
 ```{r echo = FALSE}
   plot_ly(Hamilton_CT) %>%
     add_sf(split = ~(p.val < 0.05), color = ~Type, colors = c("red", "khaki1", "dodgerblue", "dodgerblue4")) 
@@ -117,8 +113,7 @@ Hamilton_CT <- rename(Hamilton_CT, p.val = Pr.z...0.)
 - The map shows whether pop. density in an are is high surrounded by high densities or low surrounded by zones of low density 
 
 
-A Concentration approach for Local Analysis of Spatial Association
-
+Local Analysis of Spatial Association
 ========================================================
 -calculatng the statistic for this requires creating a binary spatial weights matrix 
 ```{r}
@@ -139,7 +134,7 @@ df1.lg <- localG(df1_simulated$z, wb10)
 ```
 
 
-A Concentration approach for Local Analysis of Spatial Association Contd. 
+Local Analysis of Spatial Association Contd. 
 ========================================================
 
 - The value (output) of the function is a 'vector `localG` object with normalized local statistics
@@ -152,7 +147,7 @@ df1.lg <- data.frame(Gstar = df1.lg, p.val = 2 * pnorm(abs(df1.lg), lower.tail =
 ```
 
 
-A Concentration approach for Local Analysis of Spatial Association Contd.
+Local Analysis of Spatial Association Contd.
 ========================================================
 -you can append the results of the analysis to the dataframe to plot the results
 

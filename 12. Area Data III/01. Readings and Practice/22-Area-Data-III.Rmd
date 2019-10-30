@@ -202,6 +202,7 @@ Hamilton_CT2$DENSITY <- data.matrix(Hamilton_CT %>% select(POP_DENSITY,
 
 Create the scatterplot of the empirical population density and its spatial moving average, and the scatterplots of the simulated variables and their spatial moving averages  for comparison (the plots include the 45 degree line):
 ```{r}
+#We are adding a geom and line (slope = 1)
 ggplot(data = Hamilton_CT2, aes(x = DENSITY, y = DENSITY_SMA, color = VAR)) +
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
@@ -332,6 +333,7 @@ Moran's $I$ is a coefficient of _spatial autocorrelation_.
 
 We can calculate Moran's $I$ as follows (notice how it is the sum of the products of $z$ by its spatial moving average, divided by the variance):
 ```{r}
+#decipher the formula. You are able to see that we are calculating the sum of the products by its spatial moving average, divided by variance
 sum(df_mean_center_scatterplot$Density_z *  df_mean_center_scatterplot$SMA_z) / sum(df_mean_center_scatterplot$Density_z^2)
 ```
 

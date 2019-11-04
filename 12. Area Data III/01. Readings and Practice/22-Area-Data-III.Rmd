@@ -171,7 +171,7 @@ Now plot:
 ```{r}
 ggplot() + 
   geom_sf(data = Hamilton_CT2, aes(fill = DENSITY_SMA), color = NA) + 
-  facet_wrap(~VAR, ncol = 3) +
+  facet_wrap(~VAR, ncol = 3) + #we are creating multiple plots for single data frame by means of the "facet_wrap" function.
   scale_fill_distiller(palette = "YlOrRd", direction = 1) + # Select palette for colors 
   labs(fill = "Pop Den SMA") + # Change the label of the legend
   theme(axis.text.x = element_blank(), axis.text.y = element_blank()) # Remove the axis labels
@@ -224,7 +224,7 @@ ggplot(data = Hamilton_CT2, aes(x = DENSITY, y = DENSITY_SMA, color = VAR)) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
   geom_smooth(method = "lm") +
   coord_equal() +
-  facet_wrap(~ VAR, ncol = 3, nrow = 3)
+  facet_wrap(~ VAR, ncol = 3, nrow = 3) 
 ```
 
 You will notice that the slope of the line tends to be flat in the simulated variables; this is to be expected, since these variables are spatially random: _the values of the variable at $i$ are independent of the values of their local means!_. In other words, the possibility of a non-random spatial pattern is low.
@@ -300,6 +300,7 @@ ggplot(data = df_mean_center_scatterplot,
   geom_point(color = "gray") +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
+  # You can also add annotations to plots by using `annotate`. The inputs are the kind of annotation; in this case "text", but it could be circles, arrows, rectangles, labels, and other things. For text, you need a label, and coordinates for the annotation.
   annotate("text", label = "Q1: Positive", x= 2000, y = 2500) +
   annotate("text", label = "Q4: Negative", x= 2000, y = -2500) +
   annotate("text", label = "Q2: Negative", x= -2000, y = 2500) +

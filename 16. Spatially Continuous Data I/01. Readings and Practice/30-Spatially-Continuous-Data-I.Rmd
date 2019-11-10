@@ -127,7 +127,8 @@ We will begin with some exploratory visualizations. The methods are very similar
 ps1 <- ggplot(data = Walker_Lake, aes (x = X, y = Y, color = V, size = V)) +
   geom_point(alpha = 0.5) + 
   scale_color_distiller(palette = "OrRd", trans = "reverse") +
-  coord_equal()
+  coord_equal() #'Coord_equal' ensures that one unit on the x-axis is the same length as one unit on the y-axis
+
 ps1
 ```
 
@@ -140,7 +141,8 @@ Before proceeding, it is worthwhile noting that the package `plotly` can be used
 plot_ly(data = Walker_Lake, x = ~X, y = ~Y, z = ~V,
          marker = list(color = ~V, colorscale = c("Orange", "Red"), 
                        showscale = TRUE)) %>% 
-  add_markers()
+  add_markers() #adding traces to a plotly visualization
+
 ```
 
 ## Tile-based methods
@@ -152,7 +154,7 @@ A widely used algorithm to do this is called Voronoi polygons, after Georgy Voro
 1. Given a set of generating points $p_g$ with coordinates $(u_g, u_g)$ (for $g = 1,...,n$) and values of a variable $z_{p_g}$:
 ```{r}
 uv_coords <- data.frame(u = c(0.7, 5.2, 3.3, 1.3, 5.4), v = c(0.5, 1.8, 2.3, 4.8, 5.5))
-p <- ggplot(data = uv_coords, aes(x = u, y = v)) + geom_point(size = 2) + coord_equal() +
+p <- ggplot(data = uv_coords, aes(x = u, y = v)) + geom_point(size = 2) + coord_equal() + 
   xlim(c(0,6)) + ylim(c(0,6))
 p
 ```
@@ -163,17 +165,19 @@ l2n <- data.frame(u = c(0.7, 5.2, 5.2, 3.3, 1.3, 1.3, 5.4),
                   uend = c(3.3, 3.3, 5.4, 5.4, 0.7, 3.3, 1.3), 
                   v = c(0.5, 1.8, 1.8, 2.3, 4.8, 4.8, 5.5),
                   vend = c(2.3, 2.3, 5.5, 5.5, 0.5, 2.3, 4.8))
-p <- p + geom_segment(data = l2n, aes(x = u, xend = uend, y = v, yend = vend), color = "gray")
+p <- p + geom_segment(data = l2n, aes(x = u, xend = uend, y = v, yend = vend), color = "gray") #we use 'geom_segment' to draw a line between points. 
 p
+
 ```
 
 3. The perpendicular bisectors of each triangle are found and extended, until they intersect. The resulting tesselation is a set of Voronoi polygons:
 ```{r message=FALSE}
 uv_coords.sp <- SpatialPointsDataFrame(coords = cbind(x = uv_coords$u, y = uv_coords$v), uv_coords)
-vor <- points2voronoi(uv_coords.sp)
+vor <- points2voronoi(uv_coords.sp) #Calculates voronoi polygons based on a set of spatial points 
 vor.t <- fortify(vor)
-p + geom_polygon(data = vor.t, aes(x = long, y = lat, group = group),
+p + geom_polygon(data = vor.t, aes(x = long, y = lat, group = group), #connects lines to turn them into a polygon
                  color = "black", fill = NA)
+
 ```
 
 Voronoi polygons have the property that any point $p_i$ inside the polygon with generating point $p_g$ in it, is closer to $p_g$ than to any other generating point $p_k$ on the plane. For this reason, Voronoi polygons are used to obtain areas of influence, among other applications.
@@ -189,6 +193,7 @@ First, if the object with the coordinates is not a `SpatialPointsDataFrame` (for
 Walker_Lake.sp <- SpatialPointsDataFrame(coords = cbind(X = Walker_Lake$X, 
                                                      Y = Walker_Lake$Y), 
                                       data = Walker_Lake)
+#We are creating an objects of a spatialpoints class by using the "spatialpointsdataframe' function. Here, we are creating this using walker lake data. 
 ```
 
 Use the function provided to obtain the voronoi polygons based on the `SpatialPointsDataFrame` (note that the coordinates must be in the @data):
@@ -201,6 +206,7 @@ The value (output) of the function is a `SpatialPolygonsDataFrame` that can be p
 Walker_Lake.voronoi.t <- fortify(Walker_Lake.voronoi)
 Walker_Lake.voronoi.t <- rename(Walker_Lake.voronoi.t, ID = id)
 Walker_Lake.voronoi.t <- left_join(Walker_Lake.voronoi.t, Walker_Lake, by = "ID")
+
 ```
 
 The value of $z$ for a tile is the same as the value of the variable for its corresponding generating point, or $z_{p_g}$. This is the plot for the current example:
@@ -209,8 +215,9 @@ vor.plot <- ggplot(data = Walker_Lake.voronoi.t, aes(x = long, y = lat, group = 
                                          fill = V)) +
   geom_polygon(color = "white") +
   scale_fill_distiller(palette = "OrRd", trans = "reverse") +
-  coord_equal()
+  coord_equal() #remember this ensures the scale is the same increment on each axes
 ggplotly(vor.plot)   # Uncomment this line for the interactive version of the plot
+
 ```
 
 As you can see, the points in the sample have been converted to a surface from which the value of $z$ can be estimated at any point as desired, from the value of $z$ of the closest point used to generate the tiles. This can be expressed as follows:
@@ -259,6 +266,7 @@ ggplot(data = data.frame(expand.grid(X= z_p.idw1$xcol, Y = z_p.idw1$yrow),
   geom_tile() +
   scale_fill_distiller(palette = "OrRd", trans = "reverse") +
   coord_equal()
+
 ```
 
 Notice the dots where the observations are - the value of the field is known there. Lets explore the effect of changing the parameter for the power, by using $\gamma = 0.5, 1, 2, \text{ and } 5$:
@@ -266,6 +274,8 @@ Notice the dots where the observations are - the value of the field is known the
 z_p.idw05 <- idw(Walker_Lake.ppp, power = 0.5)
 z_p.idw2 <- idw(Walker_Lake.ppp, power = 2)
 z_p.idw5 <- idw(Walker_Lake.ppp, power = 5)
+
+#Inverse distance weighting for walker lake using three different gamma variables 
 ```
 
 For ease of comparison, we will collect the information into a single dataframe:
@@ -327,12 +337,15 @@ If row-standardized spatial weights are used.
 Lets calculate $k$-point means using the example. For this, we need to define a set of "target" coordinates, that is, the points where we wish to interpolate. In addition, we create a matrix with the coordinates of the "source" points, the observations used for interpolation:
 ```{r}
 target_xy = expand.grid(x = seq(0.5, 259.5, 2.2), y = seq(0.5, 299.5, 2.2))
-source_xy = cbind(x = Walker_Lake$X, y = Walker_Lake$Y)
+source_xy = cbind(x = Walker_Lake$X, y = Walker_Lake$Y) #Combines columns or rows of matrix data
+
+
 ```
 
 The value (output) of the function is a dataframe with the coordinates of the target points, as well as estimated values of $\hat{z_p}$ at those points. Using the three nearest neighbors:
 ```{r cache=TRUE}
 kpoint.3 <- kpointmean(source_xy = source_xy, z = Walker_Lake$V, target_xy = target_xy, k =3)
+
 ```
 
 We can plot the interpolated field now:

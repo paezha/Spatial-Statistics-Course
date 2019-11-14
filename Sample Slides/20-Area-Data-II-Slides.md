@@ -4,7 +4,6 @@ author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
-This is the title slide
 
 Key Points
 ========================================================

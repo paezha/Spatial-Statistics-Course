@@ -112,7 +112,7 @@ When all these assumptions are met, the coefficiens are said to be _BLUE_: Best 
 
 The basic command for multivariate linear regression in R is `lm()`, for "linear model". This is the help file of this function:
 ```{r}
-?lm
+?lm #Remember that we can search the definition of a function by means of placing a question mark in front of the function itself. 
 ```
 
 Lets see how to estimate a model using this function. 
@@ -126,7 +126,7 @@ $$
 
 Lets add distance to the CBD as a covariate to your dataframe. We will use Jackson Square as the CBD of Hamilton:
 ```{r}
-xy_cbd <- c(-79.8708, 43.2584)
+xy_cbd <- c(-79.8708, 43.2584) #"c" is a function that combines it's arguments. Here, we are adding coordiates of Jackson Square as a vector to the dataframe. 
 ```
 
 Convert these coordinates to `sf`, with EPSG code 4326 for longitude and latitude:
@@ -136,11 +136,15 @@ Convert these coordinates to `sf`, with EPSG code 4326 for longitude and latitud
 
 ```{r}
 xy_ct <- coordinates(spTransform(Hamilton_CT.sp, CRSobj = "+proj=longlat +datum=WGS84 +no_defs"))
+#we need to retrieve the spatial coordinates of Hamilton_ct by using 'coordinates' 
+#we use 'spTransform' as a method for map projection by means of latitude, logitude and datum of WGS84. Remember, you can always learn more about the properties of a function by insterting a question mark before in front of the function (i.e ?coordinates)
+
 ```
 
 Given these coordinates, the function `sf::st_distance` can be used to calculate the great circle distance between the centroids of the census tracts and Hamilton's CBD. Call this `dist2cbd.sl`, i.e., straight line distance to CBD in a straight:
 ```{r}
-dist2cbd.sl <- distGeo(xy_ct, xy_cbd)
+dist2cbd.sl <- distGeo(xy_ct, xy_cbd) #You can use 'distGeo' to calculate the shortest distance between two points on a centroid 
+
 ```
 
 Add the distance to `Hamilton_CT` for analysis:
@@ -153,7 +157,7 @@ Regression analysis is implemented in `R` by means of the `lm` function. The arg
 A formula is written in the form `y ~ x1 + x2`, and more complex expressions are possible too, as we will see below. For the time being, the formula is simply `POP_DENSIT ~ dist.sl`:
 ```{r}
 model1 <- lm(formula = POP_DENSITY ~ dist.sl, data = Hamilton_CT)
-summary(model1)
+summary(model1) #'lm' is a formula we use for regression analysis in this chapter. Recall that 'dist.sl' was renamed from 'dist2cbd.sl', and is the distance from the CBD (jackson square)
 ```
 
 The value of the function is an object of class `lm` that contains the results of the estimation, including the coefficients with their significance diagnostics, and the coefficient of multiple determination, among other items.
@@ -169,10 +173,11 @@ Let quickly explore the fit of the model. The scatterplot is of the actual popul
 ```{r}
 ggplot(data = Hamilton_CT, aes(x = dist.sl, y = POP_DENSITY)) + 
   geom_point() +
-  geom_abline(slope = model1$coefficients[2], 
+  geom_abline(slope = model1$coefficients[2], #Recall that 'geom_abline' creates a reference line, here it is for the blue regression line on the plot. 
               intercept = model1$coefficients[1], 
               color = "blue", size = 1) +
   geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
+
 ```
 
 Clearly, there is a fair amount of noise (the scatter of the dots around the regression line). In this case, the regression line captures the general trend of the data, but underestimates most of the high population density areas, and overestimates most of the low population areas.
@@ -181,20 +186,21 @@ If the pattern of under- and over-estimation is random (i.e., the residuals are 
 
 Lets add the residuals of the model to your dataframes:
 ```{r}
-Hamilton_CT$model1.e <- model1$residuals
+Hamilton_CT$model1.e <- model1$residuals #We are calling the residuals from 'model1' 
 ```
 
 And now we can create a map of the residuals, with red indicating negative residuals and blue positive:
 ```{r message = FALSE}
-  plot_ly(Hamilton_CT) %>%
-    add_sf(color = ~(model1.e > 0), colors = c("red", "dodgerblue4"))
+  plot_ly(Hamilton_CT) %>% #Recall 'plot.ly' is an interactive mapping tool
+    add_sf(color = ~(model1.e > 0), colors = c("red", "dodgerblue4")) #You can add characteristics to a plotly map by means of the 'add_sf' function. This example adds colours to represent positive and negative residuals
 ```
 
 Does the distribution of residuals look random?
 
 Fortunately, we already have the tools to help us with this question. Lets create a set of spatial weights:
 ```{r}
-Hamilton_CT.w <- nb2listw(poly2nb(Hamilton_CT.sp))
+Hamilton_CT.w <- nb2listw(poly2nb(Hamilton_CT.sp)) #Recall that we can create a lsit of spatial weights of nearest neighbours using 'nb2listw' 
+#Also recall that you can use 'poly2nb' to build a list of spatial weights based on regions with continous boundaries, like the polygons of Hamilton census tracts.
 ```
 
 With this, we can calculate Moran's I:
@@ -220,12 +226,13 @@ $$
 Lets create a new covariate that is the inverse distance:
 ```{r}
 Hamilton_CT <- mutate(Hamilton_CT, invdist.sl = 1/dist.sl)
+#Recall that mutate adds to existing variables while preserving those that already exist. We are mutating Hamilton census trat information to create inverse distance
 ```
 
 Use inverse distance as the covariate in the model:
 ```{r}
 model2 <- lm(formula = POP_DENSITY ~ invdist.sl, data = Hamilton_CT)
-summary(model2)
+summary(model2) #Notce how the new 'model2' uses the inverse distance from the CBD rather than the original. This is because 'invdist.sl' is used in this model instead!
 ```
 
 As the scatterplot below shows (the model is the blue line), we can capture a non-linear relationship, which does a better job of describing the high density of tracts close to the CBD, but unfortunately is a poor description of density almost everywhere else:
@@ -258,7 +265,7 @@ $$
 
 Lets create these covariates:
 ```{r}
-Hamilton_CT <- mutate(Hamilton_CT, lnPOP_DEN = log(POP_DENSITY))
+Hamilton_CT <- mutate(Hamilton_CT, lnPOP_DEN = log(POP_DENSITY)) #We are mutating population density by taking its natural logarithm of both sides of the equation. This changes the coefficients back to a linear expression.
 ```
 
 And estimate the model:
@@ -295,7 +302,7 @@ moran.test(Hamilton_CT$model3.e, Hamilton_CT.w)
 
 Spatial autocorrelation was originally seen as a problem in regression analysis. It is not difficult to see why, after testing three models in this chapter.
 
-I prefer to view spatial autocorrelation as an opportunity for discovery. For instance, the models above all seem to struggle capturing the large variations in population density between the central parts of the city and the suburbs of Hamilton. Perhaps this could be due to a _regime change_, or in other words, the presence of an underlying process that operates somewhat differently in different parts parts of the city. The last model, for instance, suggests that Burlington might have an effect.
+I prefer to view spatial autocorrelation as an opportunity for discovery. For instance, the models above all seem to struggle capturing the large variations in population density between the central parts of the city and the suburbs of Hamilton. Perhaps this could be due to a _regime change_, or in other words, the presence of an underlying process that operates somewhat differently in different parts parts of the city. The last model, for instance, suggests that the close proximity of Burlington might have an effect.
 
 The analysis that follows is somewhat more advanced, but serves to illustrate the idea of spatial autocorrelation as a tool for discovery.
 

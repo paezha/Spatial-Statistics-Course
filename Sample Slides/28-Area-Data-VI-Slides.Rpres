@@ -8,7 +8,8 @@ autosize: true
 Key Points
 ========================================================
 
-ADD POINTS HERE 
+- Understand implications of incorrect functional form 
+- 
 
 
 
@@ -73,10 +74,9 @@ HamiltonDAs$model1.e <- model1$residuals
 - it is important to examine the residuals to verify that they are independent
 
 - A map of the residuals can help examine their spatial pattern
-```{r, echo=FALSE}
-  plot_ly(HamiltonDAs) %>%
-    add_sf(color = ~(model1.e > 0), colors = c("red", "dodgerblue4"))
-```
+
+![An Image](Area_Data_VI_Figure_1.JPG)
+
 
 Incorrect Functional Form Contd.
 ========================================================
@@ -103,8 +103,8 @@ summary(model2)
 ```
 
 - This model does not necessarily have a better goodness of fit but when we test for spatial autocorrelation you can see that the model is better at capturing underlying processes 
-- 
-```{r}
+
+```{r, echo=FALSE}
 HamiltonDAs$model2.e <- model2$residuals
 moran.test(HamiltonDAs$model2.e, HamiltonDAs.w)
 ```
@@ -120,12 +120,13 @@ HamiltonDAs$model3.e <- model3$residuals
 ```
 - Using the same example, suppose now that the functional form of the model is correctly specified, but a relevant variable is missing
 - We can plot a map of the residuals to examine their spatial pattern 
-```{r message = FALSE, warning = FALSE}
-  plot_ly(HamiltonDAs) %>%
-    add_sf(color = ~(model3.e > 0), colors = c("red", "dodgerblue4"))
-```
 - the visual inspection makes it clear that there is an issue with spatially autocorrelated residuals
 - the model with the full set of relevant variables resolves this problem
+
+***
+
+![An Image](Area_Data_VI_Figure_2.JPG)
+
 
 
 Trend Surface Analysis
@@ -152,14 +153,8 @@ z1 <- matrix(z1, nrow = 21, ncol = 21)
 ```
 
 Then plot is:
-```{r}
-plot_ly(z = ~z1) %>% add_surface() %>%
-  layout(scene = list(xaxis = list(ticktext = c("-2", "0", "2"), tickvals = c(0, 10, 20)), 
-                      yaxis = list(ticktext = c("-2", "0", "2"), tickvals = c(0, 10, 20))
-                      )
-         ) %>%
-  layout(scene = list (xaxis = list(title = "v"), yaxis = list(title = "u")))
-```
+
+![An Image](Area_Data_VI_Figure_3.JPG)
 
 - Higher order polynomials are possible however the higher the order of the polynomial, the more flexible the surface, which may lead to issues
 
@@ -179,15 +174,8 @@ Multicollinearity
 Edge effects
 ========================================================
 - Another consequence of overfitting, is that the resulting functions tend to display extreme behavior when taken outside of their estimation range, where the largest polynomial terms tend to dominate. 
-```{r, echo=FALSE}
-poly.fun <- predict(mod.of2, data.frame(x = seq(0, 11, 0.1)))
-p + 
-  geom_line(data = data.frame(x = seq(0, 11, 0.1), y = poly.fun), aes(x = x, y = y),
-                color = "blue", size = 1) + 
-  geom_point(data = df.of2, aes(x = x, y = y), shape = 0, color = "red") +
-  geom_segment(data = df.of2, aes(xend = x, yend = pred2)) + 
-  geom_point(size = 3)
-```
+
+![An Image](Area_Data_VI_Figure_4.JPG)
 
 Expansion Method
 ========================================================
@@ -236,6 +224,8 @@ Geographically Weighted Regression Contd.
 - If the window is too large the local models tend towards the global model and if the window is too small, the model tends to overfit
 - Since estimation requires the selection of a kernel bandwidth, and a kernel bandwidth requires the estimation of many times leave-one-out regressions, GWR can be computationally quite demanding, especially for large datasets.
 
+![An Image](Area_Data_VI_Figure_5.JPG)
+
 Spatial Error Model
 ========================================================
 - A model that can be used to take direct remedial action with respect to residual spatial autocorrelation
@@ -245,7 +235,7 @@ $$
 y_i = \beta_0 + \sum_{j=1}^k{\beta_kx_{ij}} + \epsilon_i
 $$
 
--it is no longer assumed that the residuals $\epsilon$ are independent, but instead display map pattern, in the shape of a moving average:
+- it is no longer assumed that the residuals $\epsilon$ are independent, but instead display map pattern, in the shape of a moving average:
 $$
 \epsilon_i = \lambda\sum_{i=1}^n{w_{ij}^{st}\epsilon_i} + \mu_i
 $$

@@ -143,7 +143,7 @@ z.p_u <- matrix(data = preds$fit[,3], nrow = 21, ncol = 21, byrow = TRUE)
 
 2. The plot is created using the coordinates used for interpolation and the matrices with the point estimates `z.p` and the upper and lower bounds.
 
-*ADD IMAGE HERE*
+![An Image](Spatially_Contigous_Data_II_Figure_1.JPG)
 
 -  we now not only have an estimate of the underlying field, but also a measure of uncertainty for our predictions, since our estimated values are bound, with 95% confidence, between the lower and upper surfaces.
 
@@ -169,7 +169,7 @@ Intrepretation of the Models
 
 - This can lead us to questions whether the point estimates are correct
 
-*ADD IMAGE*
+![An Image](Spatially_Contigous_Data_II_Figure_2.JPG)
 
 - the trend surface does a mediocre job with the point estimates as well.
 
@@ -222,10 +222,9 @@ moran.test(x = WL.trend3$residuals, listw = WL.listw)
 Accuracy and precision
 ========================================================
 
-- Accuracy refers to how close the predicted values $\hat{z}_p$ are to the true values of the field
-- Precision refers to how much uncertainty is associated with such predictions
+![An Image](Spatially_Contigous_Data_II_Figure_3.JPG)
 
-![Figure 1. Accuracy and precision](Spatially Continuous Data II - Figure 1.jpg)
+***
 
 Panel a) in the figure represents a set of accurate points
 

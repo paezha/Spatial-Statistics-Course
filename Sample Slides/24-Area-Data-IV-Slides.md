@@ -12,12 +12,11 @@ Key Points
 - Understand other forms of Local Analysis of Spatial Association
 - know what Bonferroni correction does and when to use it
 
-Decomposing Moran's I
+Recall: Decomposing Moran's I
 ========================================================
 
 
 
-Recall
 - Moran's I coefficient of spatial autocorrelation is derived based on the idea of aggregating the products of a (mean-centered) variable by its spatial moving average, and then dividing by the variance
 - when plotting Moran's scatterplot some observations are highlighted because they make a particularly large contribution to $I$.
 

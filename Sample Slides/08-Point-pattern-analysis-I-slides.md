@@ -42,7 +42,6 @@ Intensity and Density
 
 Quadrats and Density Maps
 ========================================================
-- Density can be mapped by means of the `geom_bin2d` function. This function divides two dimensional space into bins and reports the number of events in the bins
 - Quadrats allow us to see how the density varies across the region by subdividing the region into a set of smaller subregions 
 
 ![plot of chunk unnamed-chunk-3](08-Point-pattern-analysis-I-slides-figure/unnamed-chunk-3-1.png)

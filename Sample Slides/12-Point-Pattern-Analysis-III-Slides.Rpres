@@ -53,10 +53,10 @@ Motivation contd.
 plot(quadratcount(split(pp0.ppp), nx = 9, ny = 9))
 ```
 
-Kernal Density
+Recall: Kernel Density
 ========================================================
 -  Used to visualize the smoothed estimate of the density
-- Kernal density does not tell us if the density shown is higher or lower then what would be expected from a null landscape 
+- Kernel density does not tell us if the density shown is higher or lower then what would be expected from a null landscape 
 
 ```{r, echo=FALSE}
 plot(density(split(pp0.ppp), sigma = 0.075))
@@ -115,7 +115,6 @@ plot(split(pp0.ppp)$"Pattern 2" %mark% (pp0_nn2), markscale = 1, main = "Stienen
 
 Steinen Diagram contd. 
 ========================================================
--  Use the function `runifpoint` from the `spatstat` package to generate a null landscape
 - In a null landscape, the distribution of the size of the symbols would tend to be random
 
 ```{r, echo=FALSE}

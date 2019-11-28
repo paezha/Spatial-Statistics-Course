@@ -74,13 +74,9 @@ Incorrect Functional Form Contd.
 
 Incorrect Functional Form Contd.
 ========================================================
-- To test the residuals for spatial autocorrelation we first create a set of spatial weights
+- To test the residuals for spatial autocorrelation we first create a set of spatial weights and calculate Moran's I
 
-```r
-HamiltonDAs.w <- nb2listw(poly2nb(as(HamiltonDAs, "Spatial")))
-```
 
-- we can now calculate Moran's $I$:
 
 ```
 
@@ -143,33 +139,11 @@ Trend Surface Analysis
 - generates relatively flexible surfaces
 - This approach consists of using the coordinates as covariates, and transforming them into polynomials of different orders
 
+- Higher order polynomials are possible however the higher the order of the polynomial, the more flexible the surface, which may lead to issues
 
-Trend Surface Analysis Contd. 
-========================================================
-First, create a grid of coordinates for plotting:
-
-```r
-df <- expand.grid(u = seq(from = -2, to = 2, by = 0.2), v = seq(from = -2, to = 2, by = 0.2))
-```
-
-Next, select some values for the coefficients:
-
-```r
-b0 <- 0.5 #0.5
-b1 <- 1 #1
-b2 <- 2 #2
-z1 <- b0 + b1 * df$u + b2 * df$v
-z1 <- matrix(z1, nrow = 21, ncol = 21)
-```
-
-
-Trend Surface Analysis Contd.
-=======================================================
-Then plot is:
+***
 
 ![An Image](Area_Data_VI_Figure_3.JPG)
-
-- Higher order polynomials are possible however the higher the order of the polynomial, the more flexible the surface, which may lead to issues
 
 
 Multicollinearity

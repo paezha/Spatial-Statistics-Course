@@ -41,10 +41,10 @@ Motivation contd.
 
 ![plot of chunk unnamed-chunk-3](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-3-1.png)
 
-Kernal Density
+Recall: Kernel Density
 ========================================================
 -  Used to visualize the smoothed estimate of the density
-- Kernal density does not tell us if the density shown is higher or lower then what would be expected from a null landscape 
+- Kernel density does not tell us if the density shown is higher or lower then what would be expected from a null landscape 
 
 ![plot of chunk unnamed-chunk-4](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-4-1.png)
 
@@ -90,7 +90,6 @@ Stienen Diagram contd.
 
 Steinen Diagram contd. 
 ========================================================
--  Use the function `runifpoint` from the `spatstat` package to generate a null landscape
 - In a null landscape, the distribution of the size of the symbols would tend to be random
 
 ![plot of chunk unnamed-chunk-9](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-9-1.png)

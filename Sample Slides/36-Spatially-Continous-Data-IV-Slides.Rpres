@@ -39,11 +39,6 @@ Walker_Lake <- mutate(Walker_Lake,
 ```{r, echo=FALSE}
 WL.trend3 <- lm(formula = V ~ X3 + X2Y + X2 + X + XY + Y + Y2 + XY2 + Y3, 
                 data = Walker_Lake)
-summary(WL.trend3)
-```
-
-```{r, echo=FALSE}
-plot_ly(x = ~Walker_Lake$X, y = ~Walker_Lake$Y, z = ~WL.trend3$residuals, color = ~WL.trend3$residuals < 0, colors = c("blue", "red"), type = "scatter3d")
 ```
 
 ```{r, echo=FALSE}
@@ -77,7 +72,7 @@ source_xy = cbind(x = Walker_Lake$X, y = Walker_Lake$Y)
 ```
 
 2. now we use the `kpointmean` function to interpolate the residuals, for instance using $k=5$ neighbors:
-```{r}
+```{r cache = TRUE}
 kpoint.5 <- kpointmean(source_xy = source_xy, z = WL.trend3$residuals, target_xy = target_xy, k = 5)
 ```
 
@@ -88,13 +83,8 @@ z.p3 <- matrix(data = WL.preds3$fit[,1] + kpoint.5$z,
 ```
 
 4. produce an interpolated field:
-```{r}
-WL.plot3 <- plot_ly(x = ~X.p, y = ~Y.p, z = ~z.p3, 
-        type = "surface", colors = "YlOrRd") %>% 
-  layout(scene = list(
-    aspectmode = "manual", aspectratio = list(x = 1, y = 1, z = 1)))
-WL.plot3
-```
+
+![An Image](Spatially_Contigous_Data_IV_Figure_1a.JPG)
 
 
 
@@ -118,8 +108,10 @@ Walker_Lake.sp <- Walker_Lake
 coordinates(Walker_Lake.sp) <- ~X+Y
 ```
 
+***
+
 - The variogram of the residuals can be obtained by specifying a trend surface in the formula:
-```{r}
+```{r, echo=FALSE}
 variogram_v <- variogram(V ~ X3 + X2Y + X2 + X + XY + Y + Y2 + XY2 + Y3, 
                          data = Walker_Lake.sp)
 ggplot(data = variogram_v, aes(x = dist, y = gamma)) +
@@ -140,6 +132,8 @@ variogram_v.t <- fit.variogram(variogram_v, model = vgm("Exp", "Sph", "Gau"))
 variogram_v.t
 ```
 
+Kriging: a method for optimal prediction
+======================================================
 - The variogram function plots as follows:
 ```{r}
 gamma.t <- variogramLine(variogram_v.t, maxdist = 130)
@@ -149,13 +143,13 @@ ggplot(data = variogram_v, aes(x = dist, y = gamma)) +
   xlab("Distance") + ylab("Semivariance")
 ```
 
-```{r}
+```{r,echo=FALSE}
 df.sp <- df.p
 coordinates(df.sp) <- ~X+Y
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 V.kriged <- krige(V ~ X3 + X2Y + X2 + X + XY + Y + Y2 + XY2 + Y3,
               Walker_Lake.sp, df.sp, variogram_v.t)
 ```
@@ -172,7 +166,11 @@ V.sm <- matrix(data = V.kriged$var1.var,
                nrow = 119, ncol = 103, byrow = TRUE)
 ```
 
+
+***
+
 You can now plot the interpolated field:
+
 ![An Image](Spatially_Contigous_Data_IV_Figure_1.JPG)
 
 Kriging: a method for optimal prediction 

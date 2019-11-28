@@ -31,7 +31,7 @@ Incorrect Functional Form Contd.
 ========================================================
 
 -  Suppose that we estimate the model as a linear regression that does not correctly capture the non-linearity  
-- The model would be as follows:
+
 
 ```
 
@@ -67,6 +67,8 @@ Incorrect Functional Form Contd.
 
 - A map of the residuals can help examine their spatial pattern
 
+***
+
 ![An Image](Area_Data_VI_Figure_1.JPG)
 
 
@@ -79,10 +81,6 @@ HamiltonDAs.w <- nb2listw(poly2nb(as(HamiltonDAs, "Spatial")))
 ```
 
 - we can now calculate Moran's $I$:
-
-```r
-moran.test(HamiltonDAs$model1.e, HamiltonDAs.w)
-```
 
 ```
 
@@ -164,6 +162,9 @@ z1 <- b0 + b1 * df$u + b2 * df$v
 z1 <- matrix(z1, nrow = 21, ncol = 21)
 ```
 
+
+Trend Surface Analysis Contd.
+=======================================================
 Then plot is:
 
 ![An Image](Area_Data_VI_Figure_3.JPG)
@@ -235,6 +236,8 @@ Geographically Weighted Regression Contd.
 -  selecting the kernel bandwidth is important 
 - If the window is too large the local models tend towards the global model and if the window is too small, the model tends to overfit
 - Since estimation requires the selection of a kernel bandwidth, and a kernel bandwidth requires the estimation of many times leave-one-out regressions, GWR can be computationally quite demanding, especially for large datasets.
+
+***
 
 ![An Image](Area_Data_VI_Figure_5.JPG)
 

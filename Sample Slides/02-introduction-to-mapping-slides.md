@@ -49,7 +49,7 @@ Graphing in R
 
 ***
 
--Identifying different Variables 
+- Identifying different Variables 
 
 Concluding Remarks
 ========================================================

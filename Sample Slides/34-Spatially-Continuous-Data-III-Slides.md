@@ -92,7 +92,7 @@ Anatomy of a Semivariogram
 
 ***
 
-![Figure 3. Elements of a semivariogram model](semivariogram.jpg)
+![Figure 3. Elements of a semivariogram](semivariogram.jpg)
 
 Fitting a Model to a Semivariogram
 ========================================================

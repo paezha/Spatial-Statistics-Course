@@ -12,7 +12,6 @@ Key Points
 - 
 
 
-
 Incorrect Functional Form
 ========================================================
 
@@ -152,7 +151,7 @@ Multicollinearity
 - This is manifested by inflated standard errors that may depress the significance of the coefficients, and occasionally by sign reversals
 
 
- Overfitting
+Overfitting
 ========================================================
 - when a model fits too well the observations used for callibration it may fail to fit new information well
 - We can compute the _root mean square_  for multiple models to tell us the expected size of error when making a predition given a model (and to test for overfitting)

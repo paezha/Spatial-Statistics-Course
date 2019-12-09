@@ -21,40 +21,6 @@ Recall: Decomposing Moran's I
 - when plotting Moran's scatterplot some observations are highlighted because they make a particularly large contribution to $I$.
 
 
-Creating Moran's Plot Manually
-========================================================
-
-1. create a dataframe with the mean-centered variable and scaled variable, and its spatial moving average. Notice that this includes a factor variable `Type` to identify the type of spatial relationship
-
-
-```r
-Hamilton_CT <- mutate(Hamilton_CT,
-                      Z = (POP_DENSITY - mean(POP_DENSITY)) / var(POP_DENSITY), 
-                      SMA = lag.listw(Hamilton_CT.w, Z),
-                      Type = factor(ifelse(Z < 0 & SMA < 0, "LL",
-                                           ifelse(Z > 0 & SMA > 0, "HH", "HL/LH"))))
-```
-
-
-
-Creating Moran's Plot Manually
-========================================================
-
-2.  create the scatterplot and a choropleth map of the population density. First, create a `SharedData` object to link two plots. 
-
-
-```r
-#Create a shared data object for brushing
-df_msc.sd <- SharedData$new(Hamilton_CT)
-```
-
-
-The function `bscols`  is used to array two plotly objects; the first of these is a scatterplot, and the second is a choropleth map of population density.
-
-
-
-
-
 
  Local Moran's I and Mapping
 ========================================================
@@ -73,45 +39,6 @@ Local Moran's I and Mapping Contd
 - For further exploration you can join the local statistics to the dataframe and Map them 
 - The map shows whether pop. density in an are is high surrounded by high densities or low surrounded by zones of low density 
 
-
-Local Analysis of Spatial Association
-========================================================
--calculatng the statistic for this requires creating a binary spatial weights matrix 
-
-```r
-xy_coord <- cbind(df1_simulated$x, df1_simulated$y)
-dn10 <- dnearneigh(xy_coord, 0, 10)
-```
-
-- Two differences with the procedure that you used before to create spatial weights is that we include the observation at $i$ as well, and the style of the matrix is "B" (for binary)
-
-
-```r
-wb10 <- nb2listw(include.self(dn10), style = "B")
-```
-
-- now we can obtain the local statistic
-
-
-```r
-df1.lg <- localG(df1_simulated$z, wb10)
-```
-
-
-Local Analysis of Spatial Association Contd. 
-========================================================
-
-- The value (output) of the function is a 'vector `localG` object with normalized local statistics
-- Normalized means that the mean under the null hypothesis has been substracted and the result has been divided by the variance under the null. 
-- you can add p-values to this 
-
-
-```r
-df1.lg <- as.numeric(df1.lg)
-df1.lg <- data.frame(Gstar = df1.lg, p.val = 2 * pnorm(abs(df1.lg), lower.tail = FALSE))
-```
-
-- you can then append the results of the analysis to the dataframe to plot the results
 
 
 A Short Note on Hypothesis Testing

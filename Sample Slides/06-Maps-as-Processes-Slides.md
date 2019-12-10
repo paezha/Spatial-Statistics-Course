@@ -27,8 +27,8 @@ Null Landscape
 ![plot of chunk unnamed-chunk-1](06-Maps-as-Processes-Slides-figure/unnamed-chunk-1-1.png)![plot of chunk unnamed-chunk-1](06-Maps-as-Processes-Slides-figure/unnamed-chunk-1-2.png)
 
 ***
-- Cannot make predicitons of results
 - Using random variables to create random maps
+- Difficult to predict results
 - Provides a benchmark to compare statistical maps
 
 Deterministic Processes
@@ -58,7 +58,7 @@ Simulating Spatial Processes
 ***
 
 - Probability of an event increases in the "East" direction
-- Natural Process? 
+- Natural Process causing this trend? Escarpment present?  
 
 Concluding Remarks
 ========================================================

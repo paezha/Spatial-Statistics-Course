@@ -84,37 +84,10 @@ The row-standardized spatial weights matrix has the following properties:
 2. The sum of all weights over a row equals 1, or 100% of all neighbors for that zone.
 
 
-Creating Spatial Weights Matrices in R
-========================================================
-
- The first step to create a spatial weights matrix is to find the neighbors for each area. The input argument is a `SpatialPolygonDataFrame`. This means that our `sf` object needs to be converted into a `SpatialPolygonDataFrame. The value of the function is an object of class 'nb'. 
-
-```r
-Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
-```
 
 
-```r
-Hamilton_CT.nb <- poly2nb(pl = Hamilton_CT.sp, queen = TRUE)
-```
-
-The 'nb' object can be converted into a list of entries in a spatial weights matrix W by means of the function `nb2list2`
-
-```r
-Hamilton_CT.w <- nb2listw(Hamilton_CT.nb)
-```
 
 
-Creating Spatial Weights Matrices in R Contd. 
-========================================================
-We can visualize the neighbors (adjacent) areas:
-
-```r
-plot(Hamilton_CT.sp, border = "gray")
-plot(Hamilton_CT.nb, coordinates(Hamilton_CT.sp), col = "red", add = TRUE)
-```
-
-![plot of chunk unnamed-chunk-5](20-Area-Data-II-Slides-figure/unnamed-chunk-5-1.png)
 
 
 
@@ -186,22 +159,13 @@ Other Criteria for Coding Proximity
 
 Distance-based Nearest Neighbors 
 ========================================================
-1.obtain the coordinates of the centroids of the areas. These are the first two columns of the output of `st_coordinates` function:
 
-```r
-CT_centroids <- coordinates(Hamilton_CT.sp)
-```
 
-A nearest neighbors object `nb` is produced as follows (selecting a distance threshold between 0 and 5 km):
 
-```r
-Hamilton_CT.dnb <- dnearneigh(CT_centroids, d1 = 0, d2 = 5000)
-```
-***
 
-We can visualize the neighbors (adjacent) areas:
+We can visualize the neighbors (adjacent) areas using distance-based nearest neighbors analysis:
 
-![plot of chunk unnamed-chunk-9](20-Area-Data-II-Slides-figure/unnamed-chunk-9-1.png)
+![plot of chunk unnamed-chunk-8](20-Area-Data-II-Slides-figure/unnamed-chunk-8-1.png)
 
 
 
@@ -213,15 +177,8 @@ Distance Based Nearest Neighbors Contd.
 
 Distance Based Nearest Neighbors Contd.
 =======================================================
+ $k$-nearest neighbors can be obtained as visualized aswell
 
 
-In R, $k$-nearest neighbors can be obtained by means of the function `knearneigh`, and the arguments include the value of $k$:
-
-```r
-Hamilton_CT.knb <- knn2nb(knearneigh(CT_centroids, k = 3))
-```
-
-We can visualize the neighbors areas:
-
-![plot of chunk unnamed-chunk-11](20-Area-Data-II-Slides-figure/unnamed-chunk-11-1.png)
+![plot of chunk unnamed-chunk-10](20-Area-Data-II-Slides-figure/unnamed-chunk-10-1.png)
 

@@ -62,6 +62,8 @@ Generate a null landscape:
 sim1 <- rpoispp(lambda = 81, win = W)
 ```
 
+***
+
 The value of this function is a `ppp` object that can be analyzed:
 
 ```{r, echo=FALSE}
@@ -84,13 +86,14 @@ g_all <- transmute(g_pp1, G = raw, x = r, Type = factor("Empirical"))
 g_all <- rbind(g_all, transmute(g_sim1, G = raw, x = r, Type = factor("Simulation")))
 ```
 
-Create a plot:
+- the empirical function is very, very similar to the simulated null landscape, But is this purely a coincidence? When we simulate a null landscape, there is the possibility, however improbable, that it will replicate some meaningful process purely by chance.
+
+
+***
 
 ```{r,echo=FALSE}
 ggplot(data = g_all, aes(x= x, y = G, color = Type)) + geom_line()
 ```
-
-- the empirical function is very, very similar to the simulated null landscape, But is this purely a coincidence? When we simulate a null landscape, there is the possibility, however improbable, that it will replicate some meaningful process purely by chance.
 
 
 Null Landscape Contd. 
@@ -118,11 +121,15 @@ Simulation Envelopes
 env_pp1 <- envelope(pp1.ppp, Gest, nsim = 99, funargs = list(correction = "none"))
 ```
 
+- the empirical function falls within the simulation envelopes, and thus it is very unlikely to be different from the null landscapes.
+
+***
+
 ```{r, echo=FALSE}
 plot(env_pp1)
 ```
 
-- It is easy to see that in this case the empirical function falls within the simulation envelopes, and thus it is very unlikely to be different from the null landscapes.
+
 
 Simulation Envelopes Contd. 
 ========================================================
@@ -145,12 +152,14 @@ This pattern was defined for a unit-square window. Lets apply the K-function to 
 ```{r, include=FALSE}
 k_env_pp1 <- envelope(pp1.ppp, Kest, nsim = 99, funargs = list(correction = "none"))
 ```
+Based on this we would most likely conclude that the pattern is random.
+
+***
 
 ```{r, echo=FALSE}
 plot(k_env_pp1)
 ```
 
-Based on this we would most likely conclude that the pattern is random.
 
 Defining a Region Contd. 
 ========================================================

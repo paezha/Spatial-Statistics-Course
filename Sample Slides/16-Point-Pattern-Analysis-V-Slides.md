@@ -48,6 +48,8 @@ Generate a null landscape:
 sim1 <- rpoispp(lambda = 81, win = W)
 ```
 
+***
+
 The value of this function is a `ppp` object that can be analyzed:
 
 ![plot of chunk unnamed-chunk-4](16-Point-Pattern-Analysis-V-Slides-figure/unnamed-chunk-4-1.png)
@@ -62,11 +64,12 @@ Importantly, you can apply any of the techniques that you have seen so far, for 
 Lets plot the empirical functions. To plot using `ggplot2` you can stack the two dataframes as follows (after adding a factor to indicate if it is the empirical function or a simulation):
 
 
-Create a plot:
+- the empirical function is very, very similar to the simulated null landscape, But is this purely a coincidence? When we simulate a null landscape, there is the possibility, however improbable, that it will replicate some meaningful process purely by chance.
+
+
+***
 
 ![plot of chunk unnamed-chunk-7](16-Point-Pattern-Analysis-V-Slides-figure/unnamed-chunk-7-1.png)
-
-- the empirical function is very, very similar to the simulated null landscape, But is this purely a coincidence? When we simulate a null landscape, there is the possibility, however improbable, that it will replicate some meaningful process purely by chance.
 
 
 Null Landscape Contd. 
@@ -86,9 +89,13 @@ Simulation Envelopes
 - The package `spatstat` includes a function, called `envelope`, that can be used to generate simulation envelopes for several statistics used in point pattern analysis.
 
 
+- the empirical function falls within the simulation envelopes, and thus it is very unlikely to be different from the null landscapes.
+
+***
+
 ![plot of chunk unnamed-chunk-11](16-Point-Pattern-Analysis-V-Slides-figure/unnamed-chunk-11-1.png)
 
-- It is easy to see that in this case the empirical function falls within the simulation envelopes, and thus it is very unlikely to be different from the null landscapes.
+
 
 Simulation Envelopes Contd. 
 ========================================================
@@ -105,10 +112,12 @@ Defining a Region:
 
 This pattern was defined for a unit-square window. Lets apply the K-function to it:
 
+Based on this we would most likely conclude that the pattern is random.
+
+***
 
 ![plot of chunk unnamed-chunk-15](16-Point-Pattern-Analysis-V-Slides-figure/unnamed-chunk-15-1.png)
 
-Based on this we would most likely conclude that the pattern is random.
 
 Defining a Region Contd. 
 ========================================================

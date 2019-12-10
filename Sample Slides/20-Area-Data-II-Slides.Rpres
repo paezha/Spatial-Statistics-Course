@@ -4,7 +4,6 @@ author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
-This is the title slide
 
 Key Points
 ========================================================
@@ -28,18 +27,15 @@ library(geog4ga3)
 data(Hamilton_CT)
 ```
 
-- spatial proximity can be represented in many ways given the characteristics of areas
 - an area contains an infinite number of points, and measuring distance between two areas leads to many possible results, depending on which pairs of points within two zones are used to measure the distance
-
-
-```{r simple-zoning-system, fig.cap= "\\label{fig:simple-zoning-system}Simple zoning system", echo=FALSE}
-knitr::include_graphics(rep("Area-Data-II-Figure-1.jpg"))
-```
-
-
 - The criterion to define proximity is called _adjacency_. 
 - Adjacency means that two zones share a common edge, This is  called the _rook_ criterion
 - When this criterion is expanded to allow contact at a single point between zones the adjacency criterion is called _queen_
+
+***
+
+
+![An Image](Area_Data_II_Figure_1.JPG)
 
 
 Spatial Weights Matrix 
@@ -64,6 +60,8 @@ $$
 \end{array} \right).
 $$
 
+***
+
 The spatial weights matrix has the following properties:
 
 1. The main diagonal elements are all zeros (no area is its own neighbor).
@@ -84,6 +82,8 @@ $$
 0 & 1/3 & 0 & 1/3 & 1/3 & 0\\
 \end{array} \right).
 $$
+
+***
 
 The row-standardized spatial weights matrix has the following properties:
 
@@ -196,6 +196,7 @@ A nearest neighbors object `nb` is produced as follows (selecting a distance thr
 ```{r}
 Hamilton_CT.dnb <- dnearneigh(CT_centroids, d1 = 0, d2 = 5000)
 ```
+***
 
 We can visualize the neighbors (adjacent) areas:
 
@@ -211,6 +212,10 @@ Distance Based Nearest Neighbors Contd.
 - A potential disadvantage of using a distance-based criterion is that for zoning systems with areas of vastly different sizes, small areas will end up having many neighbors, whereas large areas will have few or none.
 
 - The criterion of $k$-nearest neighbors allows for some adaptation to the size of the areas. Under this criterion, all areas have the exact same number of neighbors, but the geographical extent of the neighborhood may change.
+
+Distance Based Nearest Neighbors Contd.
+=======================================================
+
 
 In R, $k$-nearest neighbors can be obtained by means of the function `knearneigh`, and the arguments include the value of $k$:
 ```{r}

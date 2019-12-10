@@ -28,8 +28,8 @@ Null Landscape
 
 ***
 - Cannot make predicitons of results
-- Using rnadom variables to create random maps
-- Prove a benchmark to compare statistical maps
+- Using random variables to create random maps
+- Provides a benchmark to compare statistical maps
 
 Deterministic Processes
 ========================================================

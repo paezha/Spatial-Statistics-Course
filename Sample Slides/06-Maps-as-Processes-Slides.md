@@ -12,7 +12,7 @@ Key Concepts
 - Null Landscapes
 - Deterministic Processes
 - Stochastic Processes 
-- Simulaitng Spatial Processes
+- Simulating Spatial Processes
 
 
 

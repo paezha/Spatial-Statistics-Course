@@ -1,0 +1,190 @@
+Area Data IV
+========================================================
+author: Megan Coad and Alexis Polidoro
+date: 
+autosize: true
+
+This is the title slide
+
+Key Points
+========================================================
+
+- Understand how to visualize Moran's I and local Moran's I
+- Understand other forms of Local Analysis of Spatial Association
+- know what Bonferroni correction does and when to use it
+
+
+Hide the slide title by writting "title: false" at the beginning of the slide
+
+Decomposing Moran's I
+========================================================
+
+```{r, echo=FALSE, include=FALSE}
+rm(list = ls())
+library(tidyverse)
+library(sf)
+library(plotly)
+library(spdep)
+library(crosstalk)
+library(geog4ga3)
+data("df1_simulated")
+data("df2_simulated")
+summary(df1_simulated)
+summary(df2_simulated)
+data(Hamilton_CT)
+Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
+Hamilton_CT.w <- nb2listw(poly2nb(pl = Hamilton_CT.sp))
+```
+
+Recall
+- Moran's I coefficient of spatial autocorrelation is derived based on the idea of aggregating the products of a (mean-centered) variable by its spatial moving average, and then dividing by the variance
+- when plotting Moran's scatterplot some observations are highlighted because they make a particularly large contribution to $I$.
+
+
+Creating Moran's Plot Manually
+========================================================
+
+1. create a dataframe with the mean-centered variable and scaled variable, and its spatial moving average. Notice that this includes as well a factor variable `Type` to identify the type of spatial relationship
+
+```{r}
+Hamilton_CT <- mutate(Hamilton_CT,
+                      Z = (POP_DENSITY - mean(POP_DENSITY)) / var(POP_DENSITY), 
+                      SMA = lag.listw(Hamilton_CT.w, Z),
+                      Type = factor(ifelse(Z < 0 & SMA < 0, "LL",
+                                           ifelse(Z > 0 & SMA > 0, "HH", "HL/LH"))))
+```
+
+
+
+Creating Moran's Plot Manually
+========================================================
+
+2.  create the scatterplot and a choropleth map of the population density. First, create a `SharedData` object to link two plots. 
+
+```{r}
+#Create a shared data object for brushing
+df_msc.sd <- SharedData$new(Hamilton_CT)
+```
+
+
+The function `bscols` (for bootstrap columns) is used to array two plotly objects; the first of these is a scatterplot, and the second is a choropleth map of population density.
+
+```{r, echo=FALSE}
+bscols(
+  plot_ly(df_msc.sd) %>% 
+    add_markers(x = ~Z, y = ~SMA, color = ~POP_DENSITY, size = ~(Z * SMA), colors = "YlOrRd") %>%
+    hide_colorbar() %>%
+    highlight("plotly_selected", persistent = TRUE),
+  plot_ly(df_msc.sd) %>%
+    add_sf(split = ~TRACT, color = ~POP_DENSITY, colors = "YlOrRd", showlegend = FALSE) %>%
+    hide_colorbar() %>%
+    highlight(dynamic = TRUE, persistent = TRUE)
+)
+```
+
+
+
+
+ Local Moran's I and Mapping
+========================================================
+- The local version of Moran's $I$ is implemented in `spdep` as `localmoran`, and can be called with a variable and a set of spatial weights as arguments
+- The value of the function is a matrix with local Moran's $I$ coefficients, and their corresponding expected values and variances
+- hypothesis testing can be conducted by comparing the empirical statistic to its distribution under the null hypothesis of spatial independence
+
+
+
+
+
+
+
+Local Moran's I and Mapping
+========================================================
+For further exploration, join the local statistics to the dataframe and Map them 
+
+```{r, echo=FALSE}
+POP_DENSITY.lm <- localmoran(Hamilton_CT$POP_DENSITY, Hamilton_CT.w)
+Hamilton_CT <- left_join(Hamilton_CT, 
+                           data.frame(TRACT = Hamilton_CT$TRACT, POP_DENSITY.lm))
+Hamilton_CT <- rename(Hamilton_CT, p.val = Pr.z...0.)
+```
+
+
+```{r echo = FALSE}
+  plot_ly(Hamilton_CT) %>%
+    add_sf(split = ~(p.val < 0.05), color = ~Type, colors = c("red", "khaki1", "dodgerblue", "dodgerblue4")) 
+```
+
+- The map shows whether pop. density in an are is high surrounded by high densities or low surrounded by zones of low density 
+
+
+A Concentration approach for Local Analysis of Spatial Association
+
+========================================================
+-calculatng the statistic for this requires creating a binary spatial weights matrix 
+```{r}
+xy_coord <- cbind(df1_simulated$x, df1_simulated$y)
+dn10 <- dnearneigh(xy_coord, 0, 10)
+```
+
+- Two differences with the procedure that you used before to create spatial weights is that we include the observation at $i$ as well, and the style of the matrix is "B" (for binary)
+
+```{r}
+wb10 <- nb2listw(include.self(dn10), style = "B")
+```
+
+- now we can obtain the local statistic
+
+```{r}
+df1.lg <- localG(df1_simulated$z, wb10)
+```
+
+
+A Concentration approach for Local Analysis of Spatial Association Contd. 
+========================================================
+
+- The value (output) of the function is a 'vector `localG` object with normalized local statistics
+- Normalized means that the mean under the null hypothesis has been substracted and the result has been divided by the variance under the null. 
+- you can add p-values to this 
+
+```{r}
+df1.lg <- as.numeric(df1.lg)
+df1.lg <- data.frame(Gstar = df1.lg, p.val = 2 * pnorm(abs(df1.lg), lower.tail = FALSE))
+```
+
+
+A Concentration approach for Local Analysis of Spatial Association Contd.
+========================================================
+-you can append the results of the analysis to the dataframe to plot the results
+
+```{r}
+df2 <- cbind(df2_simulated[,1:3],df2.lg)
+df2 <- mutate(df2, 
+              Type = factor(ifelse(Gstar < 0 & p.val <= 0.05, "Low Concentration",
+                                   ifelse(Gstar > 0 & p.val <= 0.05, "High Concentration", "Not Signicant"))))
+```
+
+```{r, echo=FALSE}
+plot_ly(df2, x = ~x, y = ~y, z = ~z, color = ~Type, colors = c("red", "blue", "gray"),
+        marker = list()) %>%
+  add_markers()
+```
+
+A Short Note on Hypothesis Testing
+========================================================
+- Local tests as introduced above are affected by an issue called _multiple testing_.
+- A risk when conducting a large number of tests is that some of them might appear significant _purely by chance!_ The more tests we conduct, the more likely that at least a few of them will be significant by chance
+- A crude rule to adjust for this is called _Bonferroni correction_.
+- If we apply this correction to the analysis above, we see that instead of 0.05, the p-value needed for significance is much lower:
+```{r, echo=FALSE}
+alpha_B <- 0.05/nrow(df1_simulated)
+alpha_B
+```
+
+- Bonferroni correction is known to be overly strict, and sharper approaches exist to correct for multiple testing. Observations that are flagged as significant with the Bonferroni correction, will also be significant under more refined corrections, so it provides a most conservative decision rule.
+
+Detection of Hot and Cold Spots
+========================================================
+
+- local statistics can be very useful in detecting what might be termed "hot" and "cold" spots. 
+- A _hot spot_ is a group of observations that are significantly high
+- A _cold spot_ is a group of observations that are significantly low

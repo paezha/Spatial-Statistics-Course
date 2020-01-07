@@ -60,9 +60,9 @@ summary(Walker_Lake)
 
 ## Using residual spatial pattern to estimate prediction errors
 
-Previously, you have seen how to interpolate a field using trend surface analysis. You have also seen how that may at least on occasions residuals that are not spatially independent. 
+Previously, you have seen how to interpolate a field using trend surface analysis. You have also seen how that may at least on occasions find residuals that are not spatially independent. 
 
-The implication of non-random residuals is that there uncaptured pattern remains. Which means that information can still be extracted from it. Lets revisit the case of Walker Lake to explore one way of doing this.
+The implication of non-random residuals is that their uncaptured pattern remains. Which means that information can still be extracted from it. Lets revisit the case of Walker Lake to explore one way of doing this.
 
 As before, we first calculate the polynomial terms of the coordinates to fit a trend surface to the data:
 ```{r}

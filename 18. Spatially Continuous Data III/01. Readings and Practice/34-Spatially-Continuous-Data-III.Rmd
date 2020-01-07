@@ -51,7 +51,7 @@ library(geog4ga3)
 
 Begin by loading the data file:
 ```{r}
-data("Walker_Lake")
+data("Walker_Lake") #Remember that we have been working with walker lake for the last few chapters now. Please review the past trends within walker lake if you feel it is necessary to do so. 
 ```
 
 You can verify the contents of the dataframe:
@@ -89,31 +89,34 @@ Walker_Lake <- mutate(Walker_Lake,
                         X3 = X^3, X2Y = X^2 * Y, X2 = X^2, 
                         XY = X * Y,
                         Y2 = Y^2, XY2 = X * Y^2, Y3 = Y^3)
+#Using the mutate function to put the coordinates into polynomial terms.
 ```
 
 And proceed to estimate the following cubic trend surface model, which provided the best fit to the data:
 ```{r}
 WL.trend3 <- lm(formula = V ~ X3 + X2Y + X2 + X + XY + Y + Y2 + XY2 + Y3, 
-                data = Walker_Lake)
+                data = Walker_Lake) #Recall use of the linear model for walker lake
 summary(WL.trend3)
 ```
 
 To examine the residuals, first we label them as "positive" or "negative":
 ```{r}
 Walker_Lake$residual3 <- ifelse(WL.trend3$residuals > 0, "Positive", "Negative")
+# We can have conditional element selection, which returns a value with the same shape depending on the results. In this case, it is dependent upon if residuals are positive or negative
 ```
 
 So that they can be plotted as follows:
 ```{r}
 ggplot(data = Walker_Lake, 
-       aes(x = X, y = Y, color = residual3)) +
+       aes(x = X, y = Y, color = residual3)) + #Note colour is only applied to results of positive or negative residials
   geom_point() +
-  coord_equal()
+  coord_equal() #Ensures equal spacing of each axes
 ```
 
 As seen before, there is considerable spatial autocorrelation as confirmed by Moran's $I$ coefficient:
 ```{r}
-WL.listw <- nb2listw(knn2nb(knearneigh(as.matrix(Walker_Lake[,2:3]), k = 5)))
+
+WL.listw <- nb2listw(knn2nb(knearneigh(as.matrix(Walker_Lake[,2:3]), k = 5))) #Supplementing spatial weights by means of 'nb2list2' 
 moran.test(x = WL.trend3$residuals, listw = WL.listw)
 ```
 
@@ -136,7 +139,7 @@ Now imagine that you are asked to guess whether the residual was positive or neg
 ggplot(data = Walker_Lake, 
        aes(x = X, y = Y)) +
   geom_point(aes(color = residual3)) +
-  geom_point(data = data.frame(x = c(160, 240, 12, 120), y = c(38, 280, 240, 180)), 
+  geom_point(data = data.frame(x = c(160, 240, 12, 120), y = c(38, 280, 240, 180)), #We are adding coordinates for the squares on the landscape
              aes(x = x, y = y), shape = 15, size = 3) +
   coord_equal()
 ```
@@ -158,18 +161,18 @@ One way of doing this is by means of a correlogram, which is simply a sequence o
 Consider for example the following sequence of coefficients, computed for k=10 neighbors to k=30 neighbors. Notice how the `for` loop calculates spatial weights using the designated number of neighbors, before calculating Moran's $I$.
 ```{r}
 k <- c(10:30)
-moranI <- numeric(length = length(k))
+moranI <- numeric(length = length(k)) 
 correlogram <- data.frame(k, moranI)
 for(i in 1:length(k)){
   listwk <- nb2listw(knn2nb(knearneigh(as.matrix(Walker_Lake[,2:3]), k = k[i])))
-  m <- moran.test(x = WL.trend3$residuals, listw = listwk)
-  correlogram$moranI[i] <- m$estimate[1]
+  m <- moran.test(x = WL.trend3$residuals, listw = listwk) #Moran test for residuals
+  correlogram$moranI[i] <- m$estimate[1] #calling moran's I values from correlogram dataframe
 }
 ```
 
 Given the values of Moran's $I$ at different scales, the correlogram can be plotted as:
 ```{r}
-ggplot(data = correlogram, aes(x = k, y = moranI)) + 
+ggplot(data = correlogram, aes(x = k, y = moranI)) + #Note the data used in this landscape is a correlogram, where coordinates are dependent upon values of Moran's I
   geom_point()
 ```
 
@@ -260,8 +263,9 @@ class(Walker_Lake.sp)
 
 The empirical variogram is calculated by means of the `gstat::variogram` function, as follows:
 ```{r}
-variogram_z <- variogram(V ~ 1, data = Walker_Lake.sp)
-ggplot(data = variogram_z, aes(x = dist, y = gamma)) +
+
+variogram_z <- variogram(V ~ 1, data = Walker_Lake.sp) # 'variogram' calculates the sample variogram from data, or in case of a linear model is given, for the residuals
+ggplot(data = variogram_z, aes(x = dist, y = gamma)) + #Note we are plotting the data of 'variogram_z'
   geom_point() + 
   geom_text(aes(label = np), nudge_y = -1500) +
   xlab("Distance") + ylab("Semivariance")
@@ -270,8 +274,9 @@ The numbers indicate the number of pairs of observations used to calculate the s
 
 Since the sample variance is: 
 ```{r}
-s2 <- var(Walker_Lake$V)
+s2 <- var(Walker_Lake$V) #We are calculating the variance of X and the covariance of X and Y by means of 'var'
 s2
+
 ```
 
 It follows that the covariogram in this case is:
@@ -288,7 +293,8 @@ The above plots are the _empirical_ semivariogram and covariogram. These plots a
 
 Since the semivariogram is the expectation of the square, the function selected for modeling the theoretical semivariogram must be non-negative. Several functions satisfy this condition, a list of which are available in `gstat` as shown below:
 ```{r}
-vgm()
+
+vgm() #this function generates a variogram mode. Here, we are able to view the lsit of possible models for a semivariogram
 ```
 
 The anatomy of a semivariogram includes a range, a sill, and possibly a nugget. These elements are shown in Figure 3.
@@ -303,7 +309,7 @@ Some theoretical functions are shown next.
 
 Exponential semivariogram:
 ```{r}
-plot(variogramLine(vgm(1, "Exp", 1), 10), type = 'l')
+plot(variogramLine(vgm(1, "Exp", 1), 10), type = 'l') #We use "exp" to denote the use of an exponential semivariogram. Refer to the list on line 297 and explore the different outcomes of the listed variogram models! 
 ```
 
 Spherical semivariogram:
@@ -320,12 +326,12 @@ These plots illustrate some differences in the behavior of the models. For inden
 
 To fit a theoretical semivariogram to the empirical one, the function `fit.variogram` is used:
 ```{r}
-variogram_z.t <- fit.variogram(variogram_z, model = vgm("Exp"))
+variogram_z.t <- fit.variogram(variogram_z, model = vgm("Exp")) #'fit_variogram' selects the type of model that will fit the empirical semivariogram best
 ```
 
 The results of which can be plotted after passing the model the the function `variogramLine`:
 ```{r}
-gamma.t <- variogramLine(variogram_z.t, maxdist = 130)
+gamma.t <- variogramLine(variogram_z.t, maxdist = 130) #Notice how 'maxdist' is 130, and the model does not exceed that value. 
 ggplot(data = variogram_z, aes(x = dist, y = gamma)) +
   geom_point(size = 3) + 
   geom_line(data = gamma.t, aes(x = dist, y = gamma)) +
@@ -334,7 +340,7 @@ ggplot(data = variogram_z, aes(x = dist, y = gamma)) +
 
 A set of models can be passed as an argument to `fit.variogram`, in which case the value (output) of the function is the model that provides the best fit to the empirical semivariogram:
 ```{r}
-variogram_z.t <- fit.variogram(variogram_z, model = vgm("Exp", "Sph", "Gau"))
+variogram_z.t <- fit.variogram(variogram_z, model = vgm("Exp", "Sph", "Gau")) #Choosing the best fit again
 variogram_z.t
 ```
 
@@ -351,28 +357,30 @@ For comparison, lets do the variographic analsysis of a simulated random dataset
 
 Generate coordinates for observations and expand on a grid:
 ```{r}
+#We are generating a regular sequence of coordinates by means of 'seq' 
 x <- seq(from = 0, to = 250, by = 10)
 y <- seq(from = 0, to = 290, by = 10)
-df <- expand.grid(x = x, y = y)
+df <- expand.grid(x = x, y = y) #df is our dataframe 
 ```
 
 Then, create a random variable for this coordinates:
 ```{r}
-set.seed(100)
+
+set.seed(100) #'set.seed' is a random number generator
 df$z <- rnorm(n = 780, mean = 500, sd = 300)
 ```
 
 Finally, convert to a `SpatialPointsDataFrame` object:
 ```{r}
-coordinates(df) <- ~x+y
+coordinates(df) <- ~x+y #Note the linear model to convert to an 'spdp' object 
 ```
 
 The empirical variogram is:
 ```{r}
-variogram_df <- variogram(z ~ 1, data = df)
-ggplot(data = variogram_df, aes(x = dist, y = gamma)) +
+variogram_df <- variogram(z ~ 1, data = df) #establishing the foundation of the variogram
+ggplot(data = variogram_df, aes(x = dist, y = gamma)) #addig labels to axes+
   geom_point() + 
-  geom_text(aes(label = np), nudge_y = -1500) +
+  geom_text(aes(label = np), nudge_y = -1500) + 
   ylim(c(0, 98100)) +
   xlab("Distance") + ylab("Semivariance")
 ```

@@ -1,0 +1,158 @@
+Area Data V
+========================================================
+author: Alexis Polidoro and Megan Coad
+date: 
+autosize: true
+
+Key Concepts
+========================================================
+
+- Estimating Regression Models in R 
+- Model Diagnostics for Autocorrelation
+- Variable Transformations
+- Autocorrelation Analysis to Improve Regression Models
+
+Linear Regression Models
+========================================================
+- Hypothesizes relationships between an outcome (dependent variable), and one or more covariates (indepdendent variables)
+- Capture statistical relationships (i.e Randomness)
+
+Example: Population Density and CBD
+========================================================
+- Negative distance coefficent: population density declines with increasing distance
+```{r, echo=FALSE}
+rm(list = ls())
+library(tidyverse)
+#library(rgdal)
+#library(geosphere)
+library(ggmap)
+library(geosphere)
+#library(gridExtra)
+library(sf)
+library(plotly)
+library(spdep)
+#library(crosstalk)
+library(geog4ga3)
+data(Hamilton_CT)
+Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
+xy_cbd <- c(-79.8708, 43.2584)
+#xy_cbd <- st_as_sf(xy_cbd, coords = c("lon", "lat"), crs = 4326)
+xy_ct <- coordinates(spTransform(Hamilton_CT.sp, CRSobj = "+proj=longlat +datum=WGS84 +no_defs"))
+dist2cbd.sl <- distGeo(xy_ct, xy_cbd)
+Hamilton_CT$dist.sl <- dist2cbd.sl
+model1 <- lm(formula = POP_DENSITY ~ dist.sl, data = Hamilton_CT)
+summary(model1)
+
+
+```
+
+Exploring the Fit of the Model
+========================================================
+
+- Noise around regression line
+- Underestimating in high-density
+- Overestimating in low-density
+
+
+***
+
+```{r, echo=FALSE}
+ggplot(data = Hamilton_CT, aes(x = dist.sl, y = POP_DENSITY)) + 
+  geom_point() +
+  geom_abline(slope = model1$coefficients[2], #Recall that 'geom_abline' creates a reference line, here it is for the blue regression line on the plot. 
+              intercept = model1$coefficients[1], 
+              color = "blue", size = 1) +
+  geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
+```
+
+Recall: Residuals
+========================================================
+
+- Distance between point and regression line
+- False/ Negative: Below regression line
+- True/ Positive: Above regression line
+
+*** 
+
+![Residuals of Distance from CBD](Area-data-5-figure-1.png)
+
+
+Autocorrelation as a Model Diagnostic
+========================================================
+- Small p-value: reject null hypothesis
+
+```{r, echo=FALSE}
+Hamilton_CT$model1.e <- model1$residuals
+Hamilton_CT.w <- nb2listw(poly2nb(Hamilton_CT.sp))
+moran.test(Hamilton_CT$model1.e, Hamilton_CT.w)
+```
+
+Autocorrelation Continued...
+========================================================
+- Autocorrelation violates the key assumption of linear regression (randomness)
+- Could be due to functional form or mission covariates
+- Explore these possibilities using variable transformations
+
+Variable Transformations
+========================================================
+- Considers non-linear relationships of covariates
+- Example: inverse-distance of population density and CBD
+
+***
+
+```{r, echo=FALSE}
+Hamilton_CT <- mutate(Hamilton_CT, invdist.sl = 1/dist.sl)
+model2 <- lm(formula = POP_DENSITY ~ invdist.sl, data = Hamilton_CT)
+ggplot(data = Hamilton_CT, aes(x = dist.sl, y = POP_DENSITY)) + 
+  geom_point() +
+  stat_function(fun=function(x)2299.6 + 2260521.5/x, geom="line", color = "blue", size = 1) +
+  geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
+```
+
+Variable Transformations Continued...
+========================================================
+- Logarithm of both sides of the equation will transform from exponential to linear
+
+```{r, include-FALSE}
+Hamilton_CT <- mutate(Hamilton_CT, lnPOP_DEN = log(POP_DENSITY))
+```
+
+
+Variable Transformations Continued...
+========================================================
+```{r, echo=FALSE}
+Hamilton_CT <- mutate(Hamilton_CT, lnPOP_DEN = log(POP_DENSITY))
+ggplot(data = Hamilton_CT, aes(x = dist.sl, y = POP_DENSITY)) + 
+  geom_point() +
+  stat_function(fun=function(x)exp(8.465 - 0.0001161 * x), 
+                geom="line", color = "blue", size = 1) +
+  geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
+```
+
+***
+
+![Residuals of Logarithm Model](Area-data-v-figure-2.png)
+
+Challenges of Using Spatial Autocorrelation
+========================================================
+- Fail to show large-scale changes between CBD and suburbs
+- Could be due to regime change: underlying process operating differently in throughout Hamilton
+- Need to use a more advanced model to explore this
+
+Exploring Regime Changes
+========================================================
+![More Advanced Model](Area-data-v-figure-3.png)
+
+***
+
+- HH (CBD)
+- LL (Suburbs)
+- L/H, H/L (Other)
+
+
+
+Concluding Remarks
+========================================================
+- Linear regression models can be used for spatial analysis
+- We can transform covariates to get better results (sometimes)
+- A more advanced model gives representative results of randomness

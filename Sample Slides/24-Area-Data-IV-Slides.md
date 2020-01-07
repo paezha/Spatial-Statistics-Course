@@ -4,26 +4,41 @@ author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
+<<<<<<< HEAD
 This is the title slide
+=======
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 Key Points
 ========================================================
 
+<<<<<<< HEAD
 ADD POINTS HERE 
 
 
 Hide the slide title by writting "title: false" at the beginning of the slide
 
 Decomposing Moran's I
+=======
+- Understand how to visualize Moran's I and local Moran's I
+- Understand other forms of Local Analysis of Spatial Association
+- know what Bonferroni correction does and when to use it
+
+Recall: Decomposing Moran's I
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 ========================================================
 
 
 
+<<<<<<< HEAD
 Recall
+=======
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 - Moran's I coefficient of spatial autocorrelation is derived based on the idea of aggregating the products of a (mean-centered) variable by its spatial moving average, and then dividing by the variance
 - when plotting Moran's scatterplot some observations are highlighted because they make a particularly large contribution to $I$.
 
 
+<<<<<<< HEAD
 Creating Moran's Plot Manually
 ========================================================
 
@@ -69,6 +84,8 @@ The function `bscols` (for bootstrap columns) is used to array two plotly object
 
 
 
+=======
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
  Local Moran's I and Mapping
 ========================================================
@@ -82,6 +99,7 @@ The function `bscols` (for bootstrap columns) is used to array two plotly object
 
 
 
+<<<<<<< HEAD
 Local Moran's I and Mapping
 ========================================================
 For further exploration, join the local statistics to the dataframe
@@ -230,3 +248,31 @@ Content Cell  | Content Cell
 ***
 
 But prettier, more sophisticated tables can be created using `R` packages such as `kable`
+=======
+Local Moran's I and Mapping Contd
+========================================================
+- For further exploration you can join the local statistics to the dataframe and Map them 
+- The map shows whether pop. density in an are is high surrounded by high densities or low surrounded by zones of low density 
+
+
+
+A Short Note on Hypothesis Testing
+========================================================
+- Local tests as introduced above are affected by an issue called _multiple testing_.
+- A risk when conducting a large number of tests is that some of them might appear significant _purely by chance!_ The more tests we conduct, the more likely that at least a few of them will be significant by chance
+- A crude rule to adjust for this is called _Bonferroni correction_.
+- If we apply this correction to the analysis above, we see that instead of 0.05, the p-value needed for significance is much lower:
+
+```
+[1] 0.0001428571
+```
+
+- Bonferroni correction is known to be overly strict, and sharper approaches exist to correct for multiple testing. Observations that are flagged as significant with the Bonferroni correction, will also be significant under more refined corrections, so it provides a most conservative decision rule.
+
+Detection of Hot and Cold Spots
+========================================================
+
+- local statistics can be very useful in detecting what might be termed "hot" and "cold" spots. 
+- A _hot spot_ is a group of observations that are significantly high
+- A _cold spot_ is a group of observations that are significantly low
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe

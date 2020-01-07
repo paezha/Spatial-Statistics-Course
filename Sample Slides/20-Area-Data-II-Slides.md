@@ -4,7 +4,10 @@ author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
+<<<<<<< HEAD
 This is the title slide
+=======
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 Key Points
 ========================================================
@@ -20,6 +23,7 @@ Proximity in Area Data
 
 
 
+<<<<<<< HEAD
 - spatial proximity can be represented in many ways given the characteristics of areas
 - an area contains an infinite number of points, and measuring distance between two areas leads to many possible results, depending on which pairs of points within two zones are used to measure the distance
 
@@ -27,10 +31,21 @@ Proximity in Area Data
 ![\label{fig:simple-zoning-system}Simple zoning system](Area-Data-II-Figure-1.jpg)
 
 
+=======
+- an area contains an infinite number of points, and measuring distance between two areas leads to many possible results, depending on which pairs of points within two zones are used to measure the distance
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 - The criterion to define proximity is called _adjacency_. 
 - Adjacency means that two zones share a common edge, This is  called the _rook_ criterion
 - When this criterion is expanded to allow contact at a single point between zones the adjacency criterion is called _queen_
 
+<<<<<<< HEAD
+=======
+***
+
+
+![An Image](Area_Data_II_Figure_1.JPG)
+
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 Spatial Weights Matrix 
 ========================================================
@@ -54,6 +69,11 @@ $$
 \end{array} \right).
 $$
 
+<<<<<<< HEAD
+=======
+***
+
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 The spatial weights matrix has the following properties:
 
 1. The main diagonal elements are all zeros (no area is its own neighbor).
@@ -75,6 +95,11 @@ $$
 \end{array} \right).
 $$
 
+<<<<<<< HEAD
+=======
+***
+
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 The row-standardized spatial weights matrix has the following properties:
 
 1. Each weight now represents the proportion of a neighbor out of the total of neighbors.
@@ -82,6 +107,7 @@ The row-standardized spatial weights matrix has the following properties:
 2. The sum of all weights over a row equals 1, or 100% of all neighbors for that zone.
 
 
+<<<<<<< HEAD
 Creating Spatial Weights Matrices in R
 ========================================================
 
@@ -113,6 +139,12 @@ plot(Hamilton_CT.nb, coordinates(Hamilton_CT.sp), col = "red", add = TRUE)
 ```
 
 ![plot of chunk unnamed-chunk-5](20-Area-Data-II-Slides-figure/unnamed-chunk-5-1.png)
+=======
+
+
+
+
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 
 
@@ -184,6 +216,7 @@ Other Criteria for Coding Proximity
 
 Distance-based Nearest Neighbors 
 ========================================================
+<<<<<<< HEAD
 1.obtain the coordinates of the centroids of the areas. These are the first two columns of the output of `st_coordinates` function:
 
 ```r
@@ -199,6 +232,15 @@ Hamilton_CT.dnb <- dnearneigh(CT_centroids, d1 = 0, d2 = 5000)
 We can visualize the neighbors (adjacent) areas:
 
 ![plot of chunk unnamed-chunk-9](20-Area-Data-II-Slides-figure/unnamed-chunk-9-1.png)
+=======
+
+
+
+
+We can visualize the neighbors (adjacent) areas using distance-based nearest neighbors analysis:
+
+![plot of chunk unnamed-chunk-8](20-Area-Data-II-Slides-figure/unnamed-chunk-8-1.png)
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 
 
@@ -208,6 +250,7 @@ Distance Based Nearest Neighbors Contd.
 
 - The criterion of $k$-nearest neighbors allows for some adaptation to the size of the areas. Under this criterion, all areas have the exact same number of neighbors, but the geographical extent of the neighborhood may change.
 
+<<<<<<< HEAD
 In R, $k$-nearest neighbors can be obtained by means of the function `knearneigh`, and the arguments include the value of $k$:
 
 ```r
@@ -217,4 +260,12 @@ Hamilton_CT.knb <- knn2nb(knearneigh(CT_centroids, k = 3))
 We can visualize the neighbors areas:
 
 ![plot of chunk unnamed-chunk-11](20-Area-Data-II-Slides-figure/unnamed-chunk-11-1.png)
+=======
+Distance Based Nearest Neighbors Contd.
+=======================================================
+ $k$-nearest neighbors can be obtained as visualized aswell
+
+
+![plot of chunk unnamed-chunk-10](20-Area-Data-II-Slides-figure/unnamed-chunk-10-1.png)
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 

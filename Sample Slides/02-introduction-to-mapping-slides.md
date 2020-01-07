@@ -12,10 +12,16 @@ Key Concepts
 - Applications in R 
 
 
-Loading Data Into R 
+What is a Map? 
+========================================================
+- Representation of a parcel of land displaying physical features, roads, elevation, etc... 
+- Earliest maps date back to 2300 B.C on Babylonian clay  tablets (Emporia State University, undated)
+- Modern mapping techniques allow users to investigate statistical relationships 
+
+Getting Started With R 
 ========================================================
 
-Necessary for Spatial Analysis 
+Key Functions Necessary for Spatial Analysis 
 
 
 ```r
@@ -33,23 +39,24 @@ data("snow_deaths")
 ```
 
 
-Graphing in R
+Why Do We Map in R? 
 ========================================================
 
 - Effective method for visualizing the contents of the dataframe
-- Example of Broad Street Pumps and Deaths from John Snow Cholera Example
+- Example of Broad Street Pumps and deaths from John Snow Cholera example
 
 ![plot of chunk unnamed-chunk-4](02-introduction-to-mapping-slides-figure/unnamed-chunk-4-1.png)
 
 
-Graphing in R
+Mapping in R
 ========================================================
 
 ![plot of chunk unnamed-chunk-5](02-introduction-to-mapping-slides-figure/unnamed-chunk-5-1.png)
 
 ***
 
--Identifying different Variables 
+- Identify different variables of interest
+- Identify locations to look for a pattern
 
 Concluding Remarks
 ========================================================
@@ -57,6 +64,6 @@ Concluding Remarks
 
 - R offers an abundance of ways to analyze information 
 - Maps communicate information about a topic 
-- We use code to visualize problems 
+- We use code in R to visualize problems 
 
 

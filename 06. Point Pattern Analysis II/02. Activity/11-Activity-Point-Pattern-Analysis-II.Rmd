@@ -53,7 +53,6 @@ library(geog4ga3)
 ```
 
 In the practice that preceded this activity, you learned about the concepts of intensity and density, about quadrats, and also how to create density maps. 
-
 Begin by loading the data that you will use in this activity:
 ```{r}
 data("bear_df")
@@ -89,34 +88,7 @@ Now that you have loaded the dataframe and converted to a `ppp` object, you are 
 
 ## Activity
 
-1. Analyze the point pattern for the movements of the bear using quadrat and kernel density methods. Experiment with different quadrat sizes and kernel bandwidths. 
-
-```{r}
-plot(bear.ppp)
-plot(split(bear.ppp))
-plot(split(bear.ppp)$"Day Time")
-plot(split(bear.ppp)$"Night Time")
-```
-
-```{r}
-q_test <- quadrat.test(split(bear.ppp)$"Day Time", nx = 2, ny = 2)
-q_test
-plot(q_test)
-q2_test <- quadrat.test(split(bear.ppp)$"Night Time", nx = 2, ny = 2)
-q2_test
-plot(q2_test)
-q3_test <- quadrat.test(split(bear.ppp), nx = 2, ny = 2)
-q3_test
-plot(q3_test)
-```
-
-```{r}
-kernel_density700 <- density(split(bear.ppp), sigma = 700)
-plot(kernel_density700)
-kernal_density500 <- density(split(bear.ppp), sigma = 500)
-plot(kernal_density500)
-```
-
+*1. Analyze the point pattern for the movements of the bear using quadrat and kernel density methods. Experiment with different quadrat sizes and kernel bandwidths. 
 
 2. Explain your choice of parameters (quadrat sizes and kernel bandwidths) to a fellow student.
 

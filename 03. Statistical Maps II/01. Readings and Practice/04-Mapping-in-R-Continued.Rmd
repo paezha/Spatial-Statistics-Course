@@ -9,11 +9,11 @@ output: html_notebook
 
 In the preceding chapters, you were introduced to the following concepts:
 
-1. Basic operations in R. These include arithmetic and logical operations, among others.
-2. Data classes in R. Data can be numeric, characters, logical values, etc.
-3. Data types in R. Ways to store data, for instance as vector, matrix, dataframes, etc.
+1. Basic operations in `R`. These include arithmetic and logical operations, among others.
+2. Data classes in `R`. Data can be numeric, characters, logical values, etc.
+3. Data types in `R`. Ways to store data, for instance as vector, matrix, dataframes, etc.
 4. Indexing. Ways to retrieve information from a data frame by referring to its location therein. 
-5. Creating simple maps in R. 
+5. Creating simple maps in `R`. 
 
 Please review the previous practices if you need a refresher on these concepts.
 
@@ -36,7 +36,7 @@ Factors are a class of data that is used for categorical data. For instance, a p
 
 Sometimes you want to work with only a subset of a dataset. This can be done using indexing with logical values, or using specialized functions.
 
-4. How to use _pipe operators_.
+4. More on the use of _pipe operators_.
 
 A pipe operator allows you to pass the results of a function to another function. It makes writing instructions more intuitive and simple. You have already seen pipe operators earlier: they look like this `%>%`.
 
@@ -50,7 +50,7 @@ A pipe operator allows you to pass the results of a function to another function
 
 ## Preliminaries
 
-As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in `R` to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 ```{r}
 rm(list = ls())
 ```
@@ -76,6 +76,7 @@ In addition, there are three variables associated with the locations (VAR1, VAR2
 
 Obtaining a set of descriptive statistics for a dataframe is very simple thanks to the function `summary`. For instance, the summary of `missing_df` is:
 ```{r}
+# `summary()` reports basic descriptive statistics of columns in a data frame
 summary(missing_df)
 ```
 
@@ -90,7 +91,7 @@ class(missing_df$Observed)
 
 Factors are an important data type because they allow us to store information that is not measured as a quantity. For example, the quality of the cut of a diamond is categorized as Fair < Good < Very Good < Premium < Ideal. Sure, we could store this information as numbers from 1 to 5. However, the quality of the cut is not a quantity, and should not be treated like one.
 
-In the dataframe `missing_df`, the variable `Observed` could have been coded as 1's (for missing) and 2's (for observed), but this does not mean that one observed is twice the amount of one missing! In this case, the numbers would not be quantities but labels. Factors in R allow us to work directly with the labels.
+In the dataframe `missing_df`, the variable `Observed` could have been coded as 1's (for missing) and 2's (for observed), but this does not mean that "observed" is twice the amount of "missing"! In this case, the numbers would not be quantities but labels. Factors in `R` allow us to work directly with the labels.
 
 Now, you may be wondering what does it mean when the status of a datum's `Observed` variable is coded as `FALSE`. If you check the summary again, there are five cases of `NA` in the variables VAR1 through VAR3. `NA` essentially means that the value is missing. Likely, the five `NA` values correspond to the five missing observations. We can check this by subsetting the data.
 
@@ -133,6 +134,7 @@ A pipe operator is written this way: `%>%`. Its objective is to pass forward the
 
 For instance, instead of nesting the subsetting instructions in the `summary` function, you could do the subsetting first, and pass the results of that to the summary for further processing. This would look like this:
 ```{r}
+# Remember, the pipe operator `%>%` takes pases the value of the left-hand side to the function on the right-hand side
 subset(missing_df, Observed == FALSE) %>% summary()
 ```
 
@@ -142,6 +144,7 @@ The code above is read as "subset `missing_df` and pass the results to `summary`
 
 Observations in the sample dataset are georeferenced, and so they can be plotted. Since they are based on false origins and are normalized, we cannot map them to the surface of the Earth. However, we can still visualize their spatial distribution. This can be done by using `ggplot2`. For instance, for `missing_df`:
 ```{r}
+# `coord_fixed()` forces the plot to use a ratio of 1:1 for the units in the x- and y-axis; in this case, since the values we are mapping to those axes are coordinates, we wish to represent them using the same scale, i.e., one unit in x looks identical to one unit in y (as an experiment, repeat the plot without fixing the coordinates) 
 ggplot() + 
   geom_point(data = missing_df, aes(x = x, y = y), shape = 17, size = 3) + 
   coord_fixed()
@@ -203,6 +206,4 @@ ggplot() +
   coord_fixed()
 ```
 
-## Other Resources
-
-These are relatively simple maps, in fact not much more than scatterplots. If you would like to see different possibilities for creating maps in R, please visit [a Shiny app](http://130.113.141.152:3838/Modules/Module2-DataType/) that illustrates maps for different types of data.
+These are examples of creating and improving the aspect of simple symbol maps, which are often used to represent observations in space.

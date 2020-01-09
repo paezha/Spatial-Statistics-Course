@@ -1,0 +1,28 @@
+* installing *source* package 'geog4ga3' ...
+** using staged installation
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Warning: replacing previous import 'plotly::filter' by 'stats::filter' when loading 'geog4ga3'
+Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading 'geog4ga3'
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+*** arch - i386
+Warning: replacing previous import 'plotly::filter' by 'stats::filter' when loading 'geog4ga3'
+Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading 'geog4ga3'
+*** arch - x64
+Warning: replacing previous import 'plotly::filter' by 'stats::filter' when loading 'geog4ga3'
+Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading 'geog4ga3'
+** testing if installed package can be loaded from final location
+*** arch - i386
+Warning: replacing previous import 'plotly::filter' by 'stats::filter' when loading 'geog4ga3'
+Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading 'geog4ga3'
+*** arch - x64
+Warning: replacing previous import 'plotly::filter' by 'stats::filter' when loading 'geog4ga3'
+Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading 'geog4ga3'
+** testing if installed package keeps a record of temporary installation path
+* DONE (geog4ga3)

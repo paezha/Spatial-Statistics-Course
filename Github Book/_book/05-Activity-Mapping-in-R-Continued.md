@@ -50,6 +50,16 @@ library(tidyverse)
 library(geog4ga3)
 ```
 
+```
+## Warning: replacing previous import 'plotly::filter' by 'stats::filter' when
+## loading 'geog4ga3'
+```
+
+```
+## Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading
+## 'geog4ga3'
+```
+
 Now that your workspace is clear, you can proceed to invoke the datasets required for this activity:
 
 ```r
@@ -75,12 +85,12 @@ The dataframes `PointPattern*` are locations of some generic events. The coordin
 
 ## Activity
 
-1. Create thematic maps for variables VAR1 through VAR3 in the dataframe `missing_df`. 
+*1. Create thematic maps for variables VAR1 through VAR3 in the dataframe `missing_df`. 
 
-2. Suppose that you were tasked with estimating the value of a variable for the locations where those were not measured. For instance, you could be a realtor, and you need to assess the value of a property, and the only information available is the published values of other properties in the region. As an alternative, you could be an environmental scientist, and you need to estimate what the concentration of a contaminant at a site, based on previous measurements at other sites in the region.
+*2. Plot all three point patterns.
+
+3. Suppose that you were tasked with estimating the value of a variable for the locations where those were not measured. For instance, you could be a realtor, and you need to assess the value of a property, and the only information available is the published values of other properties in the region. As an alternative, you could be an environmental scientist, and you need to estimate what the concentration of a contaminant at a site, based on previous measurements at other sites in the region.
 
 Propose one or more ways to guess those missing values, and explain your reasoning. The approach does not need to be the same for all variables!
-
-3. Plot all three point patterns. 
 
 4. Imagine that you are a public health official and you need to plan services to the public. If you were asked to guess where the next event would emerge, where would be your guess in each map? Explain your answer.

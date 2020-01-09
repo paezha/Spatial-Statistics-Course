@@ -13,10 +13,10 @@ data(HamiltonDAs)
 }
 \description{
 A simple feature (sf) dataframe of Hamilton Census Metropolitan Area (CMA) Dissemination Areas (DAs) with some generic variables.  The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs". The generic variables were simulated by A. Paez based Moran Eigenvectors.
- 
- The variables are as follows:
 }
 \details{
+The variables are as follows:
+
 \itemize{
    \item ID. Unique Identifier for the area
    \item GTA06. Unique Identifier for DA according to the Transportation Tomorrow Survey GTA06 geography

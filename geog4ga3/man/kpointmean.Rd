@@ -9,6 +9,8 @@ kpointmean(source_xy, z, target_xy, k, longlat = FALSE)
 \arguments{
 \item{source_xy}{A two column vector with x and y coordinates of the source points for interpolation}
 
+\item{z}{A numeric vector of variable values at points `source_xy`}
+
 \item{target_xy}{A two column vector with x and y coordinates of the target points for interpolation}
 
 \item{k}{A number that defines the number of neighbors used for interpolation}

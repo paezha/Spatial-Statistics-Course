@@ -2,6 +2,7 @@
 #'
 #' This function calculates the spatial mean based on the k-nearest neighbors of a focal point or set of focal points.
 #' @param source_xy A two column vector with x and y coordinates of the source points for interpolation
+#' @param z A numeric vector of variable values at points `source_xy`
 #' @param target_xy A two column vector with x and y coordinates of the target points for interpolation
 #' @param k A number that defines the number of neighbors used for interpolation
 #' @param longlat TRUE if coordinates are in long/lat

@@ -5,7 +5,8 @@
 #' @author Antonio Paez [cre, aut], \email{paezha@@mcmaster.ca}, Anastassios Dardas [ctb], Raj Ubhi [ctb]
 #' @name geog4ga3
 #' @docType package
-#' @import dplyr spdep plotly deldir
+#' @import deldir dplyr plotly sp spdep stats
+#'
 NULL
 
 #' John Snow's London 1854 cholera outbreak deaths
@@ -51,7 +52,7 @@ NULL
 #' Hamilton Census Metropolitan Area (CMA) Disseminations Areas (DAs)
 #'
 #' A simple feature (sf) dataframe of Hamilton Census Metropolitan Area (CMA) Dissemination Areas (DAs) with some generic variables.  The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs". The generic variables were simulated by A. Paez based Moran Eigenvectors.
-#'  
+#'
 #'  The variables are as follows:
 #'
 #' \itemize{
@@ -128,7 +129,7 @@ NULL
 #' A selection of fast food establishments in the Toronto area
 #'
 #' A simple feature (sf) dataframe containing the locations selected locations of fast food restaruants in Toronto (data are from 2008). The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
-#' 
+#'
 #' \itemize{
 #'    \item Class. Four types of food offered at fast food restaurants in Toronto (Chicken, Hamburger, Pizza, Sub)
 #' }
@@ -144,7 +145,7 @@ NULL
 #' Gas stands in the Toronto area
 #'
 #' A simple feature (sf) dataframe containing the locations of gas stands in Toronto (data are from 2008). The projection is: EPSG: 26917 proj4string: "+proj=utm +zone=17 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs".
-#' 
+#'
 #' @docType data
 #' @keywords datasets
 #' @name Gas_Stands

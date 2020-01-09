@@ -4,22 +4,28 @@
 \alias{localmoran.map}
 \title{A funcion for creating an interactive map of local Moran's I statistics}
 \usage{
-localmoran.map(sp = sp, listw = listw, VAR = VAR, by = ID)
+localmoran.map(p = p, listw = listw, VAR = VAR, by = by)
 }
 \arguments{
-\item{sp}{A SpatialPolygons object}
+\item{p}{A simple features `sf` object}
 
 \item{listw}{A listw object (see spdep)}
 
-\item{VAR}{A variable}
+\item{VAR}{The name of a variable}
 
-\item{by}{A key to join the variable to the SpatialPolygons object}
+\item{by}{The name of a key to join the local Moran's I statistics to the `sf` object}
 }
 \description{
 This function plots a map with the results of local Moran's I statistics, based on spatial polygons, a `listw` object, and a variable with an ID.
 }
 \examples{
 # Create a map of local Moran's I statistics for population density
-localmoran.map(Hamilton_CT, Hamilton_CT.w, Hamilton_CT$POP_DENSIT, Hamilton_CT$TRACT)
+#
+# Obtain a listw object for the contiguities. First obtain the neighbors:
+Hamilton_CT.nb <- spdep::poly2nb(as(Hamilton_CT, "Spatial"))
+# Based on the neighbors, obtain a listw object:
+Hamilton_CT.w <- spdep::nb2listw(Hamilton_CT.nb)
+
+localmoran.map(Hamilton_CT, Hamilton_CT.w, "POP_DENSITY", "TRACT")
 }
 \keyword{spatial}

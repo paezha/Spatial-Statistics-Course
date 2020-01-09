@@ -1,20 +1,27 @@
 #' A funcion for creating an interactive map of local Moran's I statistics
 #'
 #' This function plots a map with the results of local Moran's I statistics, based on spatial polygons, a `listw` object, and a variable with an ID.
-#' @param p A SpatialPolygons object
+#' @param p A simple features `sf` object
 #' @param listw A listw object (see spdep)
-#' @param VAR A variable
-#' @param by A key to join the variable to the SpatialPolygons object
+#' @param VAR The name of a variable
+#' @param by The name of a key to join the local Moran's I statistics to the `sf` object
 #' @keywords spatial
 #' @export
+#' @import dplyr
 #' @examples
 #' # Create a map of local Moran's I statistics for population density
-#' localmoran.map(Hamilton_CT, Hamilton_CT.w, Hamilton_CT$POP_DENSIT, Hamilton_CT$TRACT)
+#' #
+#' # Obtain a listw object for the contiguities. First obtain the neighbors:
+#' Hamilton_CT.nb <- spdep::poly2nb(as(Hamilton_CT, "Spatial"))
+#' # Based on the neighbors, obtain a listw object:
+#' Hamilton_CT.w <- spdep::nb2listw(Hamilton_CT.nb)
+#'
+#' localmoran.map(Hamilton_CT, Hamilton_CT.w, "POP_DENSITY", "TRACT")
 
 localmoran.map <- function(p = p, listw = listw, VAR = VAR, by = by){
-  require(tidyverse)
-  require(spdep)
-  require(plotly)
+  #require(tidyverse)
+  #require(spdep)
+  #require(plotly)
 
   df_msc <- transmute(p,
                       key = p[[by]],
@@ -25,7 +32,7 @@ localmoran.map <- function(p = p, listw = listw, VAR = VAR, by = by){
 
   local_I <- localmoran(p[[VAR]], listw)
 
-  df_msc <- left_join(df_msc,
+  df_msc <- dplyr::left_join(df_msc,
                       data.frame(key = p[[by]], local_I))
   df_msc <- rename(df_msc, p.val = Pr.z...0.)
 

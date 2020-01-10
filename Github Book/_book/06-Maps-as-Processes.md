@@ -80,7 +80,7 @@ rbinom(n = 1, size = 1, prob = 0.5)
 ```
 
 ```
-## [1] 0
+## [1] 1
 ```
 
 It can be noted that although there are only two outcomes, we do not have control over the result of the process, making the result random. If you tried this "experiment" repeatedly, you would find that "heads" (1s) and "tails" (0s) appear each about 50% of the time. A way to implement this is to increase `n`- think of this as recruiting more people to do coin flips at the same time:
@@ -92,7 +92,7 @@ sum(coin_flips)/n
 ```
 
 ```
-## [1] 0.53
+## [1] 0.513
 ```
 
 What happens if you change the `size` to 0, and why?
@@ -111,7 +111,7 @@ rnorm(1, mean = 0, sd = 1)
 ```
 
 ```
-## [1] 1.242477
+## [1] -0.7832016
 ```
 
 Let's say that the average height of men in Canada is 170.7 cm and the standard deviation is 7 cm. The heigh of a random person in this population would be:
@@ -121,7 +121,7 @@ rnorm(1, mean = 170.7, sd = 7)
 ```
 
 ```
-## [1] 170.4182
+## [1] 160.0517
 ```
 
 And the distribution of heights of `n` men in this population would be:

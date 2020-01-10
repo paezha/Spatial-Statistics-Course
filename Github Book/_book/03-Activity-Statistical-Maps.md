@@ -41,7 +41,7 @@ It is good practice to clear the working space to make sure that you do not have
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the workspace.
+Note that `ls()` lists all objects currently on the worspace.
 
 Load the libraries you will use in this activity:
 
@@ -49,6 +49,16 @@ Load the libraries you will use in this activity:
 library(tidyverse)
 library(sf)
 library(geog4ga3)
+```
+
+```
+## Warning: replacing previous import 'plotly::filter' by 'stats::filter' when
+## loading 'geog4ga3'
+```
+
+```
+## Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading
+## 'geog4ga3'
 ```
 
 ## Creating a simple thematic map
@@ -107,21 +117,21 @@ summary(HamiltonDAs)
 ```
 
 ```
-##        ID          GTA06          VAR1             VAR2       
-##  2299   :  1   4050   :  1   Min.   :0.0000   Min.   :0.0000  
-##  2300   :  1   4051   :  1   1st Qu.:0.3680   1st Qu.:0.3800  
-##  2301   :  1   4052   :  1   Median :0.5345   Median :0.4937  
-##  2302   :  1   4053   :  1   Mean   :0.5241   Mean   :0.4966  
-##  2303   :  1   4054   :  1   3rd Qu.:0.6938   3rd Qu.:0.6091  
-##  2304   :  1   4055   :  1   Max.   :1.0000   Max.   :1.0000  
-##  (Other):291   (Other):291                                    
-##       VAR3             VAR4             VAR5                 geometry  
-##  Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   MULTIPOLYGON :297  
-##  1st Qu.:0.3521   1st Qu.:0.2989   1st Qu.:0.2998   epsg:26917   :  0  
-##  Median :0.5699   Median :0.5476   Median :0.4810   +proj=utm ...:  0  
-##  Mean   :0.5548   Mean   :0.5325   Mean   :0.5001                      
-##  3rd Qu.:0.7378   3rd Qu.:0.7894   3rd Qu.:0.6915                      
-##  Max.   :1.0000   Max.   :1.0000   Max.   :1.0000                      
+##        ID          GTA06          VAR1             VAR2             VAR3       
+##  2299   :  1   4050   :  1   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+##  2300   :  1   4051   :  1   1st Qu.:0.3680   1st Qu.:0.3800   1st Qu.:0.3521  
+##  2301   :  1   4052   :  1   Median :0.5345   Median :0.4937   Median :0.5699  
+##  2302   :  1   4053   :  1   Mean   :0.5241   Mean   :0.4966   Mean   :0.5548  
+##  2303   :  1   4054   :  1   3rd Qu.:0.6938   3rd Qu.:0.6091   3rd Qu.:0.7378  
+##  2304   :  1   4055   :  1   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+##  (Other):291   (Other):291                                                     
+##       VAR4             VAR5                 geometry  
+##  Min.   :0.0000   Min.   :0.0000   MULTIPOLYGON :297  
+##  1st Qu.:0.2989   1st Qu.:0.2998   epsg:26917   :  0  
+##  Median :0.5476   Median :0.4810   +proj=utm ...:  0  
+##  Mean   :0.5325   Mean   :0.5001                      
+##  3rd Qu.:0.7894   3rd Qu.:0.6915                      
+##  Max.   :1.0000   Max.   :1.0000                      
 ## 
 ```
 
@@ -159,6 +169,6 @@ Now you have seen how to create a thematic map with polygons (areal data), you a
 
 ## Activity
 
-1. Create thematic maps for variables VAR1 through VAR5 in the dataframe `HamiltonDAs`. Remember that you can introduce new chunks of code.
+*1. Create thematic maps for variables VAR1 through VAR5 in the dataframe `HamiltonDAs`. Remember that you can introduce new chunks of code.
 
 2. Imagine that these maps were found, and for some reason the variables were not labeled. They may represent income, or population density, or something else. Which of the five maps you just created is more interesting? Rank the five maps from most to least interesting. Explain the reasons for your ranking.

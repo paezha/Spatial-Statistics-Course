@@ -55,6 +55,16 @@ library(sf)
 library(geog4ga3)
 ```
 
+```
+## Warning: replacing previous import 'plotly::filter' by 'stats::filter' when
+## loading 'geog4ga3'
+```
+
+```
+## Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading
+## 'geog4ga3'
+```
+
 In the practice that preceded this activity, you learned about the concepts of intensity and density, about quadrats, and also how to create density maps. For this practice, you will use the data that you first encountered in Activity 4, that is, the business locations in Toronto.
 
 Begin by reading the geospatial files, namely the city boundary of Toronto. You need the `sf` object, which will be converted into a `spatstat` window object:
@@ -126,6 +136,7 @@ summary(Fast_Food.ppp)
 ## polygon 9         36     33866.6      5.34e-05
 ## polygon 10         8     11069.2      1.75e-05
 ## enclosing rectangle: [609550.5, 651611.8] x [4826375, 4857439] units
+##                      (42060 x 31060 units)
 ## Window area = 634207000 square units
 ## Fraction of frame area: 0.485
 ```
@@ -134,12 +145,14 @@ Now that you have the data that you need in the right format, you are ready for 
 
 ## Activity
 
-1. Calculate the event-to-event distances to nearest neighbors using the function `nndist()`. Do this for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
+1.* Calculate the event-to-event distances to nearest neighbors using the function `nndist()`. Do this for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
 
-2. Create Stienen diagrams using the distance vectors obtained in Step 1. Discuss the diagrams with a fellow student.
+2.* Create Stienen diagrams using the distance vectors obtained in Step 1.
 
-3. Plot the empirical G-function for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
+3.* Plot the empirical G-function for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
 
-4. Is there evidence of clustering/regularity? 
+4. Discuss the diagrams that you created in Question 2 with a fellow student.
 
-5. How confident are you to make a decision whether the patterns are not random? What could you do to assess your confidence in making a decision whether the patterns are random? Explain.
+5. Is there evidence of clustering/regularity? 
+
+6. How confident are you to make a decision whether the patterns are not random? What could you do to assess your confidence in making a decision whether the patterns are random? Explain.

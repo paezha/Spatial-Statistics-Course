@@ -96,56 +96,16 @@ Now that you have the data that you need in the right format, you are ready for 
 
 ## Activity
 
-1. Calculate the event-to-event distances to nearest neighbors using the function `nndist()`. Do this for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
+**NOTE**: Activities include technical "how to" tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).
 
-```{r}
-tor_nn <- nndist(Fast_Food.ppp)
-ggplot() + geom_histogram(data = data.frame(dist=tor_nn), aes(dist), binwidth = 200) + 
-  ggtitle("Nearest Neighbour Distance of Fast Food Restaurants in Toronto")
-```
+1.* Calculate the event-to-event distances to nearest neighbors using the function `nndist()`. Do this for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
 
-```{r}
-plot(split(Fast_Food.ppp))
+2.* Create Stienen diagrams using the distance vectors obtained in Step 1.
 
-chicken_nn1 <- nndist(split(Fast_Food.ppp)$"Chicken")
-hamburger_nn1 <- nndist(split(Fast_Food.ppp)$"Hamburger")
-pizza_nn1 <- nndist(split(Fast_Food.ppp)$"Pizza")
-sub_nn1 <- nndist(split(Fast_Food.ppp)$"Sub")
+3.* Plot the empirical $G$-function for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
 
-ggplot() + geom_histogram(data = data.frame(dist = chicken_nn1), aes(dist), binwidth = 40) + 
-  ggtitle("Nearest Neighbour Distance of Fast Food Chicken Restaurants in Toronto")
-ggplot() + geom_histogram(data = data.frame(dist = hamburger_nn1), aes(dist), binwidth = 40) + 
-  ggtitle("Nearest Neighbour Distance of Fast Food Hamburger Restaurants in Torotno")
-ggplot() + geom_histogram(data = data.frame(dist = pizza_nn1), aes(dist), binwidth = 40) + 
-  ggtitle("Nearest Neighbour Distance of Fast Food Pizza Restaurants in Toronto")
-ggplot() + geom_histogram(data = data.frame(dist = sub_nn1), aes(dist), binwidth = 40) + 
-  ggtitle("Nearest Neighbour Distance of Fast Food Sub Restaurants in Toronto")
-```
+4. Discuss the diagrams that you created in Question 2 with a fellow student.
 
+5. Is there evidence of clustering/regularity? 
 
-2. Create Stienen diagrams using the distance vectors obtained in Step 1. Discuss the diagrams with a fellow student.
-
-```{r}
-plot(split(Fast_Food.ppp)$"Chicken" %mark% (chicken_nn1), markscale = 1, main = "Stienen diagram for Chicken")
-plot(split(Fast_Food.ppp)$"Hamburger" %mark% (hamburger_nn1), markscale = 1, main = "Stienen diagram for Hamburger")
-plot(split(Fast_Food.ppp)$"Pizza" %mark% (pizza_nn1), markscale = 1, main = "Stienen diagram for Pizza")
-plot(split(Fast_Food.ppp)$"Sub" %mark% (sub_nn1), markscale = 1, main = "Stienen diagram for Sub")
-```
-
-
-3. Plot the empirical G-function for all fast food establishments (pooled) and then for each type of establishment (i.e, "Chicken", "Hamburger", "Pizza", "Sub").
-
-```{r}
-g_chicken <- Gest(split(Fast_Food.ppp)$"Chicken", correction = "none")
-plot(g_chicken)
-g_hamburger <- Gest(split(Fast_Food.ppp)$"Hamburger", correction = "none")
-plot(g_hamburger)
-g_pizza <- Gest(split(Fast_Food.ppp)$"Pizza", correction = "none")
-plot(g_pizza)
-g_sub <- Gest(split(Fast_Food.ppp)$"Sub", correction = "none")
-plot(g_sub)
-```
-
-4. Is there evidence of clustering/regularity? 
-
-5. How confident are you to make a decision whether the patterns are not random? What could you do to assess your confidence in making a decision whether the patterns are random? Explain.
+6. How confident are you to make a decision whether the patterns are not random? What could you do to assess your confidence in making a decision whether the patterns are random? Explain.

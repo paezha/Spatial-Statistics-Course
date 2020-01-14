@@ -1,5 +1,5 @@
 ---
-title: "Activity 9: Point Pattern Analysis V"
+title: "Activity 8: Point Pattern Analysis V"
 output: html_notebook
 ---
 
@@ -75,6 +75,6 @@ summary(gorillas.ppp)
 
 2. Discuss whether the pattern is random, and how confident you are in your decision.
 
-3. The analysis of the pattern is meant to provide insights about the underlying process. Describe a hypothetical process that is consistent with your observations about the pattern. How would you go about further investigating the process?
+3. The analysis of the pattern is meant to provide insights about the underlying process. Create a hypothesis using the data generated and can you answer that hypothesis using the plots generated?
 
 4. Discuss the limitations of the analysis, for instance, choice of modeling parameters (size of region, kernel bandwidths, edge effects, etc.)

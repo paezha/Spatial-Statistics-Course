@@ -53,7 +53,9 @@ In the practice that preceded this activity, you learned how to simulate null la
 
 ## Activity
 
-*1. Simulate and plot a landscape using a random, stochastic, or deterministic process. It is your choice whether to simulate a point pattern or a continuous variable. Identify the key parameters that make a landscape more or less random. Repeat several times changing those parameters.
+**NOTE**: Activities include technical "how to" tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).
+
+1.* Simulate and plot a landscape using a random, stochastic, or deterministic process. It is your choice whether to simulate a point pattern or a continuous variable. Identify the key parameters that make a landscape more or less random. Repeat several times changing those parameters.
 
 2. Recreate any one of the maps you created and share the map with a fellow student. Ask them to guess whether the map is random or non-random.
 

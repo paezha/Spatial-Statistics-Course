@@ -190,11 +190,13 @@ Now that you have seen how to do some analysis using quadrats, you are ready for
 
 ## Activity
 
-*1. Use `Fast_Food`, `Gas_Stands`, `Paez_Mart`, and `Toronto` to create density maps for the three point patterns. Select a quadrat size that you think is appropriate. 
+**NOTE**: Activities include technical "how to" tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).
 
-*2. Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadratcount` to calculate the number of events per quadrat. Remember that you need to select the number of quadrats in the horizontal and vertical directions!
+1.* Use `Fast_Food`, `Gas_Stands`, `Paez_Mart`, and `Toronto` to create density maps for the three point patterns. Select a quadrat size that you think is appropriate. 
 
-*3 Use the function `table()` to examine the frequency of events per quadrat for each of the point patterns. 
+2.* Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadratcount` to calculate the number of events per quadrat. Remember that you need to select the number of quadrats in the horizontal and vertical directions!
+
+3.* Use the function `table()` to examine the frequency of events per quadrat for each of the point patterns. 
 
 4. Show your density maps to a fellow student. Did they select the same quadrat size? If not, what was their rationale for their size?
 

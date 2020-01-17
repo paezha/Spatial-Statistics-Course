@@ -5,6 +5,15 @@ date:
 autosize: true
 
 
+Key Points
+========================================================
+- What is a factor?
+- why do we subset data?
+- Nesting Functions
+- different visualization methods
+
+
+
 Summarizing the Dataframe
 ========================================================
 
@@ -144,3 +153,15 @@ More on Visualization Contd.
 ***
 
 ![plot of chunk unnamed-chunk-14](04-Mapping-in-R-Continued- Slides-figure/unnamed-chunk-14-1.png)
+
+Conclusion
+========================================================
+- Check your dataframe using summary to get an idea about the data you are using 
+- Subset data when you want to only work with portions of the dataset 
+- Pipe operators help clarify code when you are using many functions at one time 
+- you can manipulate the characteristics of your map to best visualize your data and trends in many ways 
+
+
+
+
+

@@ -43,7 +43,7 @@ Why Do We Map in R?
 ========================================================
 
 - Effective method for visualizing the contents of the dataframe
-- Example of Broad Street Pumps and deaths from John Snow Cholera example
+- Example of Broad Street Pumps 
 
 ![plot of chunk unnamed-chunk-4](02-introduction-to-mapping-slides-figure/unnamed-chunk-4-1.png)
 
@@ -57,6 +57,15 @@ Mapping in R
 
 - Identify different variables of interest
 - Identify locations to look for a pattern
+- Simple spatial analysis
+
+Mapping in R Continued
+========================================================
+- Heat maps: More effective spatial analysis
+
+***
+
+![An Image](Intro-figure-1.png)
 
 Concluding Remarks
 ========================================================

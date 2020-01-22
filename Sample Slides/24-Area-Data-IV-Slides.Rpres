@@ -4,6 +4,10 @@ author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
+<<<<<<< HEAD
+This is the title slide
+=======
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 Key Points
 ========================================================
@@ -12,7 +16,14 @@ Key Points
 - Understand other forms of Local Analysis of Spatial Association
 - know what Bonferroni correction does and when to use it
 
+<<<<<<< HEAD
+
+Hide the slide title by writting "title: false" at the beginning of the slide
+
+Decomposing Moran's I
+=======
 Recall: Decomposing Moran's I
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 ========================================================
 
 ```{r, echo=FALSE, include=FALSE}
@@ -32,10 +43,60 @@ Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
 Hamilton_CT.w <- nb2listw(poly2nb(pl = Hamilton_CT.sp))
 ```
 
+<<<<<<< HEAD
+Recall
+=======
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 - Moran's I coefficient of spatial autocorrelation is derived based on the idea of aggregating the products of a (mean-centered) variable by its spatial moving average, and then dividing by the variance
 - when plotting Moran's scatterplot some observations are highlighted because they make a particularly large contribution to $I$.
 
 
+<<<<<<< HEAD
+Creating Moran's Plot Manually
+========================================================
+
+1. create a dataframe with the mean-centered variable and scaled variable, and its spatial moving average. Notice that this includes as well a factor variable `Type` to identify the type of spatial relationship
+
+```{r}
+Hamilton_CT <- mutate(Hamilton_CT,
+                      Z = (POP_DENSITY - mean(POP_DENSITY)) / var(POP_DENSITY), 
+                      SMA = lag.listw(Hamilton_CT.w, Z),
+                      Type = factor(ifelse(Z < 0 & SMA < 0, "LL",
+                                           ifelse(Z > 0 & SMA > 0, "HH", "HL/LH"))))
+```
+
+
+
+Creating Moran's Plot Manually
+========================================================
+
+2.  create the scatterplot and a choropleth map of the population density. First, create a `SharedData` object to link two plots. 
+
+```{r}
+#Create a shared data object for brushing
+df_msc.sd <- SharedData$new(Hamilton_CT)
+```
+
+
+The function `bscols` (for bootstrap columns) is used to array two plotly objects; the first of these is a scatterplot, and the second is a choropleth map of population density.
+
+```{r, echo=FALSE}
+bscols(
+  plot_ly(df_msc.sd) %>% 
+    add_markers(x = ~Z, y = ~SMA, color = ~POP_DENSITY, size = ~(Z * SMA), colors = "YlOrRd") %>%
+    hide_colorbar() %>%
+    highlight("plotly_selected", persistent = TRUE),
+  plot_ly(df_msc.sd) %>%
+    add_sf(split = ~TRACT, color = ~POP_DENSITY, colors = "YlOrRd", showlegend = FALSE) %>%
+    hide_colorbar() %>%
+    highlight(dynamic = TRUE, persistent = TRUE)
+)
+```
+
+
+
+=======
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
  Local Moran's I and Mapping
 ========================================================
@@ -49,12 +110,86 @@ Hamilton_CT.w <- nb2listw(poly2nb(pl = Hamilton_CT.sp))
 
 
 
+<<<<<<< HEAD
+Local Moran's I and Mapping
+========================================================
+For further exploration, join the local statistics to the dataframe and Map them 
+
+```{r, echo=FALSE}
+POP_DENSITY.lm <- localmoran(Hamilton_CT$POP_DENSITY, Hamilton_CT.w)
+Hamilton_CT <- left_join(Hamilton_CT, 
+                           data.frame(TRACT = Hamilton_CT$TRACT, POP_DENSITY.lm))
+Hamilton_CT <- rename(Hamilton_CT, p.val = Pr.z...0.)
+```
+
+
+```{r echo = FALSE}
+  plot_ly(Hamilton_CT) %>%
+    add_sf(split = ~(p.val < 0.05), color = ~Type, colors = c("red", "khaki1", "dodgerblue", "dodgerblue4")) 
+```
+
+- The map shows whether pop. density in an are is high surrounded by high densities or low surrounded by zones of low density 
+
+
+A Concentration approach for Local Analysis of Spatial Association
+
+========================================================
+-calculatng the statistic for this requires creating a binary spatial weights matrix 
+```{r}
+xy_coord <- cbind(df1_simulated$x, df1_simulated$y)
+dn10 <- dnearneigh(xy_coord, 0, 10)
+```
+
+- Two differences with the procedure that you used before to create spatial weights is that we include the observation at $i$ as well, and the style of the matrix is "B" (for binary)
+
+```{r}
+wb10 <- nb2listw(include.self(dn10), style = "B")
+```
+
+- now we can obtain the local statistic
+
+```{r}
+df1.lg <- localG(df1_simulated$z, wb10)
+```
+
+
+A Concentration approach for Local Analysis of Spatial Association Contd. 
+========================================================
+
+- The value (output) of the function is a 'vector `localG` object with normalized local statistics
+- Normalized means that the mean under the null hypothesis has been substracted and the result has been divided by the variance under the null. 
+- you can add p-values to this 
+
+```{r}
+df1.lg <- as.numeric(df1.lg)
+df1.lg <- data.frame(Gstar = df1.lg, p.val = 2 * pnorm(abs(df1.lg), lower.tail = FALSE))
+```
+
+
+A Concentration approach for Local Analysis of Spatial Association Contd.
+========================================================
+-you can append the results of the analysis to the dataframe to plot the results
+
+```{r}
+df2 <- cbind(df2_simulated[,1:3],df2.lg)
+df2 <- mutate(df2, 
+              Type = factor(ifelse(Gstar < 0 & p.val <= 0.05, "Low Concentration",
+                                   ifelse(Gstar > 0 & p.val <= 0.05, "High Concentration", "Not Signicant"))))
+```
+
+```{r, echo=FALSE}
+plot_ly(df2, x = ~x, y = ~y, z = ~z, color = ~Type, colors = c("red", "blue", "gray"),
+        marker = list()) %>%
+  add_markers()
+```
+=======
 Local Moran's I and Mapping Contd
 ========================================================
 - For further exploration you can join the local statistics to the dataframe and Map them 
 - The map shows whether pop. density in an are is high surrounded by high densities or low surrounded by zones of low density 
 
 
+>>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 A Short Note on Hypothesis Testing
 ========================================================

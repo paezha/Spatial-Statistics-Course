@@ -1,5 +1,5 @@
 ---
-title: "Activity 9: Point Pattern Analysis V"
+title: "Activity 8: Point Pattern Analysis V"
 output: html_notebook
 ---
 
@@ -72,36 +72,6 @@ summary(gorillas.ppp)
 ## Activity
 
 1. Partner with a fellow student to analyze the chosen dataset.
-
-```{r}
-#Plot kernel denisty
-plot(gorillas.ppp)
-q_test <- quadrat.test(gorillas.ppp)
-plot(q_test)
-kernel_density <- density(gorillas.ppp, sigma = 75)
-plot(kernel_density)
-```
-
-```{r}
-#Plot G, F and K functions 
-g_gorillas <- Gest(gorillas.ppp)
-plot(g_gorillas)
-f_gorillas <- Fest(gorillas.ppp)
-plot(f_gorillas)
-k_gorillas <- Kest(gorillas.ppp)
-plot(k_gorillas)
-```
-
-```{r}
-#Plot G, F and K functions using envelopes to determine if the data is random or non-random
-env_gorillasF <- envelope(gorillas.ppp, Fest, nsim = 99, funargs = list(correction = "none"))
-plot(env_gorillasF)
-env_gorillasG <- envelope(gorillas.ppp, Gest, nsim = 99, funargs = list(correction = "none"))
-plot(env_gorillasG)
-env_gorillasK <- envelope(gorillas.ppp, Kest, nsim = 99, funargs = list(correction = "none"))
-plot(env_gorillasK)
-```
-
 
 2. Discuss whether the pattern is random, and how confident you are in your decision.
 

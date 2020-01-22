@@ -42,7 +42,7 @@ In this practice, you will learn:
 
 ## Preliminaries
 
-As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in `R` to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 ```{r}
 rm(list = ls())
 ```
@@ -62,12 +62,12 @@ data("PointPatterns")
 data("pp0_df")
 ```
 
-`PointPatterns` is a dataframe with four sets of spatial events, labeled as "Pattern 1", "Pattern 2", "Pattern 3", and "Pattern 4". Each set has $n=60$ events. You can check the class of this object by means of the function class `class()`.
+`PointPatterns` is a data frame with four sets of spatial events, labeled as "Pattern 1", "Pattern 2", "Pattern 3", and "Pattern 4". Each set has $n=60$ events. You can check the class of this object by means of the function class `class()`.
 ```{r}
 class(PointPatterns)
 ```
 
-The second dataframe (i.e., `pp0_df`) includes the coordinates `x` and `y` of two sets of spatial events, labeled as "Pattern 1" and "Pattern 2".
+The second data frame (i.e., `pp0_df`) includes the coordinates `x` and `y` of two sets of spatial events, labeled as "Pattern 1" and "Pattern 2".
 
 The summary for `PointPatterns` shows that these point patterns are located in a square-unit window (check the max and min values of x and y):
 ```{r}
@@ -79,17 +79,15 @@ The same is true for `pp0_df`:
 summary(pp0_df)
 ```
 
-As seen in the previous practice and activity, the package `spatstat` employs a type of object called `ppp` (for *p*lanar *p*oint *p*attern). Fortunately, it is relatively simple to convert a dataframe into a `ppp` object by means of `as.ppp()`. This function requires that you define a window for the point pattern, something we can do by means of the `owin` function:
+As seen in the previous practice and activity, the package `spatstat` employs a type of object called `ppp` (for *p*lanar *p*oint *p*attern). Fortunately, it is relatively simple to convert a data frame into a `ppp` object by means of `as.ppp()`. This function requires that you define a window for the point pattern, something we can do by means of the `owin` function:
 ```{r}
-#"W" will appear in your environment as a defined window with boundaries of (1,1)
-
+# "W" will appear in your environment as a defined window with boundaries of (1,1)
 W <- owin(xrange = c(0, 1), yrange = c(0, 1))
 ```
 
-Then the dataframes are converted using the `as.ppp` function: 
+Then the data frames are converted using the `as.ppp` function: 
 ```{r}
-#converts dataframe to planar point pattern using the defined window "W"
-
+# Converts the data frame to planar point pattern using the defined window "W"
 pp0.ppp <- as.ppp(pp0_df, W = W)
 PointPatterns.ppp <- as.ppp(PointPatterns, W = W)
 ```
@@ -106,23 +104,22 @@ class(PointPatterns.ppp)
 
 In the preceding activity, you used a quadrat-based spatial independence test to help you decide whether a pattern was random (the function was `quadrat.test`). We will now review the intuition of the test.
 
-Let's begin by plotting the patterns. You can use `split` to do plots for each pattern separately, instead of putting all of them in a single plot (these plots are not as responsive as `ggplot2` but are quick):
+Let's begin by plotting the patterns. You can use `split` to do plots for each pattern separately, instead of putting all of them in a single plot (this approach is not as refined as `ggplot2`, where we have greater control of the aspect of the plots; on the other hand, it is quick):
 ```{r}
-#The split functions separates without deifining a window. This is a quicker option to get relative results
+#The split functions separates without defining a window. This is a quicker option to get relative results
 
 plot(split(PointPatterns.ppp))
 ```
 
 Recall that you can also plot individual patterns by using `$` followed by the factor that identifies the desired pattern (this is a way of indexing different patterns in `ppp`-class objects):
 ```{r}
-#Using "$" acts as a call sign to retrive information from a data frame. In this case, you are calling "Pattern 4" from "PointPatterns.ppp"
+# Using "$" acts as a call sign to retrive information from a data frame. In this case, you are calling "Pattern 4" from "PointPatterns.ppp"
 plot(split(PointPatterns.ppp)$"Pattern 4")
 ```
 
 Now calculate the quadrat-based test of independence:
 ```{r}
-#"quadrat.test" generates a quadrat-based test of independence, in this case, for "Pattern 2" called from "PointPatterns.ppp", with a defined quadrat size of 3 by 3 
-
+# `quadrat.test()` generates a quadrat-based test of independence, in this case, for "Pattern 2" called from "PointPatterns.ppp", using 3 quadrats in the direction of the x-axis and 3 quadrats in the direction of the y-axis 
 q_test <- quadrat.test(split(PointPatterns.ppp)$"Pattern 2", nx = 3, ny = 3)
 q_test
 ```
@@ -132,23 +129,19 @@ Plot the results of the quadrat test:
 plot(q_test)
 ```
 
-As seen in the preceding chapter, the expected distribution of events on quadrats under the null landscape tends to be quite even. This is because each quadrat has equal probability of having the same number of events (depending on size, when the quadrats are not all the same size).
+As seen in the preceding chapter, the expected distribution of events on quadrats under the null landscape tends to be quite even. This is because each quadrat has equal probability of having the same number of events (depending on size, when the quadrats are not all the same size the number will be proportional to the size of the quadrat).
 
-If you check the plot of the quadrat test above, you will notice that the first number (top left corner) is the number of events in the quadrat. The second number (top right corner) is the _expected number of events_ for a null landscape. The third number is a _residual_, based on the difference between the observed and expected number of events.
-
-More specifically, the residual is a _Pearson residual_, defined as follows:
+If you check the plot of the quadrat test above, you will notice that the first number (top left corner) is the number of events in the quadrat. The second number (top right corner) is the _expected number of events_ for a null landscape. The third number is a _residual_, based on the difference between the observed and expected number of events. More specifically, the residual is a _Pearson residual_, defined as follows:
 $$
 r_i=\frac{O_i - E_i}{\sqrt{E_i}},
 $$
-where $O_i$ is the number of observed events in quadrat $i$ and $E_i$ is the number of expected events in quadrat $i$.
-
-When the number of observed events is similar to the number of expected events, $r_i$ will tend to be a small value. As the difference grows, the residual will also grow.
+where $O_i$ is the number of observed events in quadrat $i$ and $E_i$ is the number of expected events in quadrat $i$. When the number of observed events is similar to the number of expected events, $r_i$ will tend to be a small value. As their difference grows, the residual will also grow.
 
 The independence test is calculated from the residuals as:
 $$
-X2=\sum_{i=1}^{Q}r_i^2,
+X^2=\sum_{i=1}^{Q}r_i^2,
 $$
-where $Q$ is the number of quadrats. In other words, the test is based on the squared sum of the Pearson residuals. The smaller this number is, the more likely that it is not different from the null landscape (i.e., a random process), and the larger it is, the more likely that it is different from the null landscape. This is reflected by the p-value of the test (technically, the p-value is obtained from comparing the test to the Chi-square distribution).
+where $Q$ is the number of quadrats. In other words, the test is based on the squared sum of the Pearson residuals. The smaller this number is, the more likely that the observed pattern of events is not different from a null landscape (i.e., a random process), and the larger it is, the more likely that it is different from a null landscape. This is reflected by the $p$-value of the test (technically, the $p$-value is obtained by comparing the test to the $\chi^2$ distribution, pronounced "kay-square").
 
 Consider for instance the first pattern in the examples:
 ```{r}
@@ -157,7 +150,7 @@ plot(quadrat.test(split(PointPatterns.ppp)$"Pattern 1", nx = 3, ny = 3))
 
 You can see that the Pearson residual of the top left quadrat is indeed `r (5 - 6.7)/sqrt(6.7)`, the next to its right is `r (6 - 6.7)/sqrt(6.7)`, and so on. The value of the test statistic should be then:
 ```{r}
-#The "Paste" function creates an argumennt for a string of values for "X2", where X2" is the squared sum of the residuals
+# The "Paste" function joins together several arguments as characters. Here, this is a string of values for "X2", where X2" is the squared sum of the residuals
 
 paste("X2 = ", (-0.65)^2 + (-0.26)^2 + (0.52)^2 + (-0.26)^2 + (0.9)^2 + (0.52)^2 + (-1)^2 + (0.13)^2 + (0.13)^2)
 ```
@@ -208,7 +201,7 @@ Caution should be exercised when interpreting the results of the analysis based 
 
 ## Limitations of Quadrat Analysis: Relative Position of Events
 
-Another issue with quadrat analysis is its insensibility to the relative position of the events within the quadrats.
+Another issue with quadrat analysis is that it is not sensitive to the relative position of the events within the quadrats.
 
 Consider for instance the following two patterns in `pp0`:
 ```{r}
@@ -232,14 +225,15 @@ Imagine now that we define a window that, unlike the quadrats which are fixed, c
 
 We can define such a window by selecting a function that declines with increasing distance. We will call this function a _kernel_. An example of a function that can work as a moving window is the following. 
 ```{r}
+# Here we create a data.frame to use for plotting; it includes a single column with a variable called `dist` for distance, that varies between -3 and 3; the function `stat_function()` is used in `ggplot2` to transform an input by means of a function, which in this case is `dnorm` the normal distribution! `ylim()` sets the limits of the plot in the y-axis 
 ggplot(data = data.frame(dist = c(-3, 3)), aes(dist)) +
   stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1)) +
   ylim(c(0, 0.45))
 ```
 
-As you can see, the value of the function declines with increasing distance from the center of the window (when dist == 0; note that the value never becomes zero!). This is a _Gaussian kernel_. The shape of the Gaussian kernel depends on a variance parameter, which we will call the _kernel bandwidth_. 
+As you can see, the value of the function declines with increasing distance from the center of the window (when dist == 0; note that the value never becomes zero!). Since we used the normal distribution, this is a _Gaussian kernel_. The shape of the Gaussian kernel depends on the standard deviation, which controls how "big" the window is, or alternatively, how quickly the function decays. We will call the standard deviation the _kernel bandwidth_ of the function. 
 
-The bandwidth controls how rapidly the weight assigned to distant events decays. Change the value of the argument `sd` in the chunk above. You will see that as it becomes smaller, the slope of the kernel becomes steeper (and distant observations are downweighted rapidly). On the contrary, as it becomes larger, the slope becomes less steep (and distant events are weighted almost as highly as close events).
+Since the bandwidth controls how rapidly the weight assigned to distant events decays, if the argument changes, so will the shape of the kernel function. As an experiment, change the value of the argument `sd` in the chunk above. You will see that as it becomes smaller, the slope of the kernel becomes steeper (and distant observations are downweighted more rapidly). On the contrary, as it becomes larger, the slope becomes less steep (and distant events are weighted almost as highly as close events).
 
 Kernel density estimates are usually obtained by creating a fine grid that is superimposed on the region. The kernel function then visits each point on the grid and obtains an estimate of the density by summing the weights of all events as per the kernel function.
 
@@ -247,7 +241,7 @@ Kernel density is implemented in `spatstat` and can be used as follows.
 
 The input is a `ppp` object, and optionally a `sigma` argument that corresponds to the bandwidth of the kernel:
 ```{r}
-# The "density" function computes estimates of kernel density. Here we are creating a Kernel Density estimate using "pp0.ppp" from our dataframe by means of a bandwidth defined by "sigma"
+# The "density" function computes estimates of kernel density. Here we are creating a Kernel Density estimate using "pp0.ppp" from our data frame by means of a bandwidth defined by "sigma"
 
 kernel_density <- density(split(pp0.ppp), sigma = 0.1)
 plot(kernel_density)
@@ -257,5 +251,7 @@ Compare to the distribution of events:
 ```{r}
 plot(split(pp0.ppp))
 ```
+
+It is important to note that the gradation of colors is different in the two kernel density plots. Whereas the smallest value in the plot on the left is less than 20 and the largest is greater than 100, on the other plot the range is only between 45 to approximately 50. Thus, the intensity of the process is much higher at places in Pattern 1 that in Pattern 2.
 
 The plots above illustrate how the map of the kernel density is better able to capture the variations in density across the region. In fact, kernel density is a smooth estimate of the underlying intensity of the process, and the degree of smoothing is controlled by the bandwidth.

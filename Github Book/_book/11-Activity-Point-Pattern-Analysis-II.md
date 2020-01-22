@@ -54,8 +54,17 @@ library(spatstat)
 library(geog4ga3)
 ```
 
-In the practice that preceded this activity, you learned about the concepts of intensity and density, about quadrats, and also how to create density maps. 
+```
+## Warning: replacing previous import 'plotly::filter' by 'stats::filter' when
+## loading 'geog4ga3'
+```
 
+```
+## Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading
+## 'geog4ga3'
+```
+
+In the practice that preceded this activity, you learned about the concepts of intensity and density, about quadrats, and also how to create density maps. 
 Begin by loading the data that you will use in this activity:
 
 ```r
@@ -115,6 +124,7 @@ summary(bear.ppp)
 ## Night Time       498      0.498 5.858824e-06
 ## 
 ## Window: rectangle = [515000, 523500] x [6812000, 6822000] units
+##                     (8500 x 10000 units)
 ## Window area = 8.5e+07 square units
 ```
 
@@ -122,7 +132,7 @@ Now that you have loaded the dataframe and converted to a `ppp` object, you are 
 
 ## Activity
 
-1. Analyze the point pattern for the movements of the bear using quadrat and kernel density methods. Experiment with different quadrat sizes and kernel bandwidths. 
+*1. Analyze the point pattern for the movements of the bear using quadrat and kernel density methods. Experiment with different quadrat sizes and kernel bandwidths. 
 
 2. Explain your choice of parameters (quadrat sizes and kernel bandwidths) to a fellow student.
 

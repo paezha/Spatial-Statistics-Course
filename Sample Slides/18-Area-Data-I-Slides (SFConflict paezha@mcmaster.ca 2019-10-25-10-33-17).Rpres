@@ -1,0 +1,76 @@
+Area Data I
+========================================================
+author: Alexis Polidoro and Megan Coad 
+date: 
+autosize: true
+
+Key Concepts
+========================================================
+
+- What is area data?
+- Processes explained through area data
+- Visualizing area data
+
+```{r, echo=FALSE}
+rm(list = ls())
+library(tidyverse)
+library(sf)
+library(plotly)
+library(cartogram)
+library(gridExtra)
+library(geog4ga3)
+data("Hamilton_CT")
+```
+
+
+What is Area Data? 
+========================================================
+- Data not being allocated to a defined point, but rather an area
+- Allocate information by centroids, unique identifers/ attirbutes 
+- Centroid: Mean of X and Y coordinates in an area 
+
+
+Explaining Area Data
+========================================================
+- Can determine information about an area using points
+- Why is income higher in East? (more isolation, escartment) 
+
+***
+
+![Median Household Income by Zone](houses.png)
+
+
+
+Visualizing Area Data: Choropleth Maps
+========================================================
+- Map of the polygons that form the areas in the region, each colored in a way to represent the value of an underlying variable
+
+```{r, echo=FALSE}
+pop_den.map <- ggplot(Hamilton_CT) + 
+  geom_sf(aes(fill = cut_number(Hamilton_CT$POP_DENSITY, 5)), color = "white", size = 0.1) +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "Pop Density")
+pop_den.map
+```
+
+Visualizing Area Data: Cartograms
+========================================================
+- Map where the size of the zones is adjusted so that it is proportional to some other variable of interest (population density)
+
+```{r, echo=FALSE}
+CT_popden_cartogram <- cartogram(as(Hamilton_CT, "Spatial"), weight = "POP_DENSITY")
+CT_popden_cartogram.t <- st_as_sf(CT_popden_cartogram)
+pop_den.cartogram <- ggplot(CT_popden_cartogram.t) + 
+  geom_sf(aes(fill = cut_number(Hamilton_CT$POP_DENSITY, 5)),color = "white", size = 0.1) +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "Pop Density")
+plot(pop_den.cartogram)
+```
+
+
+Conclusions
+========================================================
+
+- Area data is comprised of a defined boundary of coordinates 
+- We can use points to tell us information about an area 
+- Choropleth Maps and Cartograms are examples of communicating area data 

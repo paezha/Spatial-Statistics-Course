@@ -1,5 +1,5 @@
 ---
-title: "Activity 9: Point Pattern Analysis V"
+title: "Activity 8: Point Pattern Analysis V"
 output: html_notebook
 ---
 
@@ -50,6 +50,16 @@ Load the libraries you will use in this activity. In addition to `tidyverse`, yo
 library(tidyverse)
 library(spatstat)
 library(geog4ga3)
+```
+
+```
+## Warning: replacing previous import 'plotly::filter' by 'stats::filter' when
+## loading 'geog4ga3'
+```
+
+```
+## Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading
+## 'geog4ga3'
 ```
 
 Load a dataset of your choice. It could be one of the datasets that we have used before (Toronto Business Points, Bear GPS Locations), or one of the datasets included with the package `spatstat`. To see what datasets are available through the package, do the following:
@@ -243,6 +253,7 @@ summary(gorillas.ppp)
 ## Window: polygonal boundary
 ## single connected closed polygon with 21 vertices
 ## enclosing rectangle: [580457.9, 585934] x [674172.8, 678739.2] metres
+##                      (5476 x 4566 metres)
 ## Window area = 19873700 square metres
 ## Unit of length: 1 metre
 ## Fraction of frame area: 0.795
@@ -254,6 +265,6 @@ summary(gorillas.ppp)
 
 2. Discuss whether the pattern is random, and how confident you are in your decision.
 
-3. The analysis of the pattern is meant to provide insights about the underlying process. Describe a hypothetical process that is consistent with your observations about the pattern. How would you go about further investigating the process?
+3. The analysis of the pattern is meant to provide insights about the underlying process. Create a hypothesis using the data generated and can you answer that hypothesis using the plots generated?
 
 4. Discuss the limitations of the analysis, for instance, choice of modeling parameters (size of region, kernel bandwidths, edge effects, etc.)

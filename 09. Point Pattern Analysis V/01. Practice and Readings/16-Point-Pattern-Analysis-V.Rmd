@@ -44,7 +44,7 @@ In this chapter, you will:
 
 ## Preliminaries
 
-As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
+As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in `R` to clear the workspace is `rm` (for "remove"), followed by a list of items to be removed. To clear the workspace from _all_ objects, do the following:
 ```{r}
 rm(list = ls())
 ```
@@ -87,7 +87,7 @@ In the previous sessions you learned about density- and distance-based technique
 
 With the exception of the test of independence for quadrats, other techniques (including kernel density, the $\hat{G}$- and $\hat{F}$-functions, and the $\hat{K}$-function), did not have a formal hypothesis testing framework.
 
-The question of "how confident are you when deciding whether a pattern is random" forms the basis of hypothesis testing. In other words, when making a decision whether the reject a null hypothesis, we would like to know what is the probability that we are making a mistake when doing so. Quantifying our uncertainty is a key feature of statistical analysis. 
+The question of "how confident are you when deciding whether a pattern is random" forms the basis of hypothesis testing. In other words, when making a decision whether the reject a null hypothesis, we would like to know what is the probability that we are making a mistake with the decision. Quantifying our uncertainty is a key feature of statistical analysis. 
 
 In statistics, tests of hypothesis are developed following these general steps:
 
@@ -114,7 +114,7 @@ plot(g_pp1)
 
 Unfortunately, the variance of the theoretical random processes is not known in the case of many spatial point pattern techniques (the quadrat-based test of independence is an exception.) For a long time, this meant that the techniques remained purely descriptive, and it was not possible to quantify uncertainty when trying to decide whether a pattern was random: the decision would remain purely subjective.
 
-Fortunately, with the growth in use of computers in statistical analysis, the lack of theoretical expressions for the variance can be circumvented by means of simulation. Simulation has many applications in statistics, and is particularly relevant in the analysis of point patterns, allowing us to generate null landscapes with ease.
+Fortunately, with the growth in use of computers in statistical analysis, the lack of theoretical expressions for the variance can be circumvented by means of simulation. Simulation has many applications in statistics, and is certainly relevant in the analysis of point patterns, allowing us to generate null landscapes with ease.
 
 ## Null Landscapes Revisited
 
@@ -129,11 +129,13 @@ You can verify that the intensity in every case is 81 points per square unit, an
 
 Lets copy the window from one of the patterns in the sample dataset:
 ```{r}
+# We can use `$` to index an item in the object `pp1.ppp`
 W <- pp1.ppp$window
 ```
 
-You can now generate a null landscape as follows:
+It is possible to generate a null landscape as follows, by means of the function `rpoisppp()`. The arguments of this function are a desired intensity ($\lambda$) and a window:
 ```{r}
+# The function `rpoisppp()` is used to generate null landscapes based on the Poisson distribution
 sim1 <- rpoispp(lambda = 81, win = W)
 ```
 
@@ -147,24 +149,24 @@ Importantly, you can apply any of the techniques that you have seen so far, for 
 g_sim1 <- Gest(sim1, correction = "none")
 ```
 
-Lets plot the empirical functions (notice that the result of `Gest` is a dataframe with the values of `r`, the distance variable, the raw or empirical function, and the theoretical function). To plot using `ggplot2` you can stack the two dataframes as follows (after adding a factor to indicate if it is the empirical function or a simulation):
+We can try plotting the empirical functions (notice that the result of `Gest` is a dataframe with the values of `r`, the distance variable, the raw or empirical function, and the theoretical function). To plot using `ggplot2` you can stack the two dataframes as follows (after adding a factor to indicate if it is the empirical function or a simulation):
 ```{r}
-g_all <- transmute(g_pp1, G = raw, x = r, Type = factor("Empirical"))
-g_all <- rbind(g_all, transmute(g_sim1, G = raw, x = r, Type = factor("Simulation")))
+# Use `transmute()` to keep only some columns from a data frame, possibly after calculating new columns; in this example we take `raw` and put it in a column called `G`, we take `r` and put it in a column called `r` and create a new variable called `Type` to indicate that these values are for the "Empirical" function. Then we use `rbind()` to bind the rows of this data frame, and the rows of a second data frame that keeps the same columns, but based on the simulated null landscape
+g_all <- transmute(g_pp1, G = raw, x = r, Type = "Pattern 1")
+g_all <- rbind(g_all, transmute(g_sim1, G = raw, x = r, Type = "Simulation"))
 ```
 
-Create a plot:
+We can use `ggplot2` to create a plot of the two functions:
 ```{r}
+# By assigning `Type` to the aesthetic of `color` in `ggplot()`, we plot lines of different types in different colors
 ggplot(data = g_all, aes(x= x, y = G, color = Type)) + geom_line()
 ```
 
-After seeing the plot above, we notice that the empirical function is very, very similar to the simulated null landscape. But is this purely a coincidence? After all, when we simulate a null landscape, there is the possibility, however improbable, that it will replicate some meaningful process purely by chance.
-
-To be sure, we can simulate and analyze a second null landscape:
+After seeing the plot above, we notice that the empirical function is very, very similar to the simulated null landscape. But is this purely a coincidence? After all, when we simulate a null landscape, there is the possibility, however improbable, that it will replicate some meaningful process purely by chance. To be sure, we can simulate and analyze a second null landscape:
 ```{r}
 sim2 <- rpoispp(lambda = 81, win = W)
 g_sim2 <- Gest(sim2, correction = "none")
-g_all <- rbind(g_all, transmute(g_sim2, G = raw, x = r, Type = factor("Simulation")))
+g_all <- rbind(g_all, transmute(g_sim2, G = raw, x = r, Type = "Simulation"))
 ```
 
 Plot again:
@@ -174,41 +176,46 @@ ggplot(data = g_all, aes(x= x, y = G, color = Type)) + geom_line()
 
 The empirical function continues to look very similar to the simulated null landscapes. We could simulate more null landscapes and increase our confidence that the empirical function indeed is similar to a null landscape (notice the use of a `for` loop to repeat the same instructions multiple times):
 ```{r}
+# Flow control functions include `for()`; this function will repeat the statements that follow a set number of times. In this example, we had already simulated 2 null landscapes above, so we want to simulate null landscapes 3 through 99
 for(i in 3:99){
   g_sim <- Gest(rpoispp(lambda = 81, win = W), correction = "none")
-  g_all <- rbind(g_all, transmute(g_sim, G = raw, x = r, Type = factor("Simulation")))
+  g_all <- rbind(g_all, transmute(g_sim, G = raw, x = r, Type = "Simulation"))
 }
 ```
 
-With this you have generated 99 distinct null landscapes. Try plotting the empirical function with the functions of all your simulated landscapes:
+With this we have generated 99 distinct null landscapes. Try plotting the empirical function with the functions of all of these simulated landscapes:
 ```{r}
 ggplot(data = g_all, aes(x= x, y = G, color = Type)) + geom_line()
 ```
 
-You can see in the plot above that the empirical function is actually not visible! It falls somewhere within the limits of the functions for the simulated patterns. 
+You can see in the plot above that the empirical function is actually not visible! It is obscured by the null landscapes, since it falls somewhere within the limits of the functions for all the simulated patterns. The interpretation of this is as follows: out of 100 patterns (the empirical pattern and 99 null landscapes), the empirical pattern is not noticeably different from the random ones. How confident would you be rejecting the null hypothesis, i.e., deciding that the empirical pattern is _not_ random?
 
-The interpretation of this is as follows: out of 100 patterns (the empirical pattern and 99 null landscapes), the empirical pattern is not noticeably different from the random ones. How confident would you be rejecting the null hypothesis, i.e., deciding that the empirical pattern is _not_ random?
-
-Let's compare now the second pattern `pp2.ppp` to the simulated null landscapes:
+We can follow the same process but now for the second pattern `pp2.ppp` to the simulated null landscapes:
 ```{r}
+# Compute the G-function for the point pattern in `pp2.ppp` and then extract the value of G, the distance, and label it as an "Empirical" function in a new data frame (by means of `transmute()`)
 g_pp2 <- Gest(pp2.ppp, correction = "none")
-g_pp2 <- transmute(g_pp2, G = raw, x = r, Type = factor("Empirical"))
-g_all[1:513,] <- g_pp2
-ggplot(data = g_all, aes(x= x, y = G, color = Type)) + geom_line()
+g_pp2 <- transmute(g_pp2, G = raw, x = r, Type = "Pattern 2")
+
+# Bind the results of the G-function for `pp2.ppp` to the data frame with the simulations, and use `mutate()` to convert `Type` into a factor
+g_all <- rbind(g_all, g_pp2)
+g_all <- mutate(g_all, Type = factor(Type,
+                              levels = c("Pattern 1", "Pattern 2", "Simulation")))
+
+# Use filter to remove all observations associated with "Pattern 1"; in this case, Type not equal (i.e., `!=`) to "Pattern 1". This way we can plot only the G-function of "Pattern 2" and the simulations
+ggplot(data = filter(g_all, Type != "Pattern 1"), aes(x= x, y = G, color = Type)) + geom_line()
 ```
 
-Now the empirical function is quite distinct from the null landscapes! How confident would you be rejecting the null hypothesis now?
+We can see that the empirical $\hat{G}$-function of `pp2.ppp` is quite distinct from the 99 null landscapes that we generated! How confident would you be rejecting the null hypothesis now?
 
 ## Simulation Envelopes
 
-Simulation, as seen above, can be quite powerful for hypothesis testing in situations where the theoretical variance is not know. Essentially, the area covered by the $\hat{G}$-functions of the simulated landscapes above are an estimate of the variance. The set of functions estimated on the null landscapes are called _simulation envelopes_.
+Simulation, as seen above, can be quite powerful for hypothesis testing in situations where the theoretical parameters, for example the variance of a function, are not know. Essentially, the area covered by the $\hat{G}$-functions of the simulated landscapes above are an estimate of the variance of the function. The set of functions estimated on the null landscapes are used to obtain what we call _simulation envelopes_.
 
-Since we lack a theoretical expression for the variance, we cannot obtain "p-values" to inform our decision to reject the null hypothesis. The simulation, however, provides a _pseudo-p-value_. If you generate 99 null landscapes, and the empirical pattern is still different, the probability that you are mistaken by rejecting the null hypothesis is at most 1% (since the next simulated landscape could expand the envelopes in such a way that it completely contains the empirical function).
+Since we lack a theoretical expression for the variance, we cannot obtain $p$-values to inform our decision to reject the null hypothesis. The simulation, however, provides a _pseudo-$p$-value_. If you generate 99 null landscapes, and the empirical pattern is still different, the probability that you are mistaken by rejecting the null hypothesis is at most 1% (since the next simulated landscape could expand the envelopes in such a way that it completely contains the empirical function).
 
-As you saw above, using simulation for hypothesis testing is, in general terms, a relatively straightforward process (assuming that the null process is properly defined, etc.)
-
-The package `spatstat` includes a function, called `envelope`, that can be used to generate simulation envelopes for several statistics used in point pattern analysis. For instance, for the $\hat{G}$-function, with 99 simulated landscapes:
+As you saw above, using simulation for hypothesis testing is, in general terms, a relatively straightforward process (assuming that the null process is properly defined, etc.) The package `spatstat` includes a function, called `envelope()`, that can be used to generate simulation envelopes for several statistics used in point pattern analysis. For instance, for the $\hat{G}$-function, with 99 simulated landscapes:
 ```{r}
+# The function `envelope()` automates what we did above, simulating null landscapes; it takes as arguments a `ppp` object for the empirical pattern, a function that we desire to test, for example the function `Gest`, as well as the number of simulations that we wish to conduct. An additional argument `funargs = ` is used to pass other arguments to the function that is evaluated, i.e., in this example `Gest`
 env_pp1 <- envelope(pp1.ppp, Gest, nsim = 99, funargs = list(correction = "none"))
 ```
 
@@ -225,7 +232,7 @@ env_pp2 <- envelope(pp2.ppp, Fest, nsim = 99, funargs = list(correction = "none"
 plot(env_pp2)
 ```
 
-Now the empirical function lies outside of the simulation envelopes, which makes it very unlikely that it is similar to the null landscapes.
+Now the empirical function lies well outside the simulation envelopes, which makes it very unlikely that it is similar to the null landscapes.
 
 And finally, the $\hat{K}$-function:
 ```{r}
@@ -233,19 +240,17 @@ env_pp3 <- envelope(pp3.ppp, Kest, nsim = 99, funargs = list(correction = "none"
 plot(env_pp3)
 ```
 
-Again, the empirical function lies mostly outside of the simulation envelopes, meaning that it is very improbable that it represents a random process.
-
-Simulation envelopes are a powerful way to test the hypothesis of null landscapes in the case of spatial point patterns.
+Again, the empirical function lies mostly outside of the simulation envelopes, meaning that it is very improbable that it represents a random process. Simulation envelopes are a powerful way to test the hypothesis of null landscapes in the case of spatial point patterns.
 
 ## Things to Keep in Mind!
 
-Before concluding the topic of point pattern analysis, here are a few caveats to keep in mind.
+Before concluding the topic of point pattern analysis, here are a few important caveats to keep in mind.
 
 ### Definition of a Region
 
 When defining the region (or window) for the analysis, care must be taken that it is reasonable from the perspective of the process under analysis. Defining the region in an inappropriate way can easily lead to misleading results.
 
-Consider for instance the first pattern in the dataset. This pattern was defined for a unit-square window. Lets apply the K-function to it:
+Consider for instance the first pattern in the dataset. This pattern was defined for a unit-square window. We can apply the $\hat{K}$-function to it:
 ```{r}
 k_env_pp1 <- envelope(pp1.ppp, Kest, nsim = 99, funargs = list(correction = "none"))
 plot(k_env_pp1)
@@ -253,7 +258,7 @@ plot(k_env_pp1)
 
 Based on this we would most likely conclude that the pattern is random.
 
-Lets now replace the unit-square window by a much larger window:
+But if we replace the unit-square window by a much larger window, as follows:
 ```{r}
 W2 <- owin(x = c(-2,4), y = c(-2, 4))
 pp1_reg2 <- as.ppp(as.data.frame(pp1.ppp), W = W2)
@@ -266,18 +271,18 @@ k_env_pp1_reg2 <- envelope(pp1_reg2, Kest, nsim = 99, funargs = list(correction 
 plot(k_env_pp1_reg2)
 ```
 
+Care must be taken when defining the window/region for analysis to avoid spurious results.
+
 ### Edge Effects
 
 As discussed above, definition of the window (region) is critical. If at all possible, the region should be selected in such a way that it is consistent with the underlying process. This is not always possible, either because the underlying process is not known, or because of limitations in data collection capabilities. 
 
-When this is the case, it is necessary to define a boundary that does not correspond necessarily with the extent of the process of interest. For example, analysis of business locations in Toronto may be limited to the city limits. This does not mean that establishments do not exist beyond those boundaries.
-
-When the extent of the process exceeds the window used in the analysis, the point pattern is observed only partially, and it is possible that the information of the location of events beyond the boundary may introduce some bias.
+When this is the case, it is necessary to define a boundary that does not correspond necessarily with the extent of the process of interest. For example, analysis of business locations in Toronto may be limited to the city limits. This does not mean that establishments do not exist beyond those boundaries. When the extent of the process exceeds the window used in the analysis, the point pattern is observed only partially, and it is possible that the omitted information regarding the location of events beyond the boundary may introduce some bias.
 
 Consider the situation illustrated in Figure \@ref(fig:edge-effects).
 
 ```{r edge-effects, fig.cap= "\\label{fig:edge-effects}Edge effects", echo=FALSE}
-knitr::include_graphics(rep("Point-Pattern-Analysis-V-Figure-1.jpg"))
+knitr::include_graphics(rep("16-Figure-1.jpg"))
 ```
 
 In the figure, the region is the rectangular window. Events are observed only inside the window, but events still exist beyond the edges of the window. It is straightforward to see how the empty space ($\hat{F}$-) function would be biased, since locations near the edge would appear the be more distant from an event than they actually are.
@@ -289,7 +294,7 @@ These corrections are variations of weighting schemes. In other words, the stati
 plot(Gest(pp2.ppp, correction = "all"))
 ```
 
-The different corrections are plotted. It can be seen in this cases that the corrections are relatively small; however, this is not always the case.
+The different corrections are plotted. It can be seen in this case that the corrections are relatively small, relative to the uncorrected empirical line; however, this is not always the case.
 
 ### Sampled Point Patterns
 
@@ -298,7 +303,7 @@ Whereas edge effects can introduce bias by censoring the observations outside of
 We have assumed so far that any point pattern under analysis consists of a _census_ of events, or in other words, that all relevant events have been recorded. A _sampled_ point pattern, on the other hand, is a pattern where not all events have been recorded (see Figure \@ref(fig:sampled-pattern)).
 
 ```{r sampled-pattern, fig.cap= "\\label{fig:sampled-pattern}Sampled point pattern", echo=FALSE}
-knitr::include_graphics(rep("Point-Pattern-Analysis-V-Figure-2.jpg"))
+knitr::include_graphics(rep("16-Figure-2.jpg"))
 ```
 
 The bias introduced by sampled point patterns can be extremely serious, because the findings depend heavily of the observations that were recorded as well as those that were not recorded! Clustered events could easily give the impression of a dispersed pattern, depending on what was observed. Imagine for instance that the events are nests of birds. If the birds tend to nest in the thickest parts of the forest that observers cannot easily access, the "observed" pattern will depend crucially on the trails and other routes of access that the researcher can use.

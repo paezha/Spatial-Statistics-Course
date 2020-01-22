@@ -13,7 +13,7 @@ Key Concepts
 - Kernel Density
 
 
-Quick Refresher: PPP Objects and Quadrat Test  
+Recall: PPP Objects and Quadrat Test  
 ========================================================
 
 ![plot of chunk unnamed-chunk-1](10-Point-Pattern-Analysis-II-Slides-figure/unnamed-chunk-1-1.png)
@@ -29,7 +29,6 @@ Intuition: Calculating Quadrat Test
 ```
 
 	Chi-squared test of CSR using quadrat counts
-	Pearson X2 statistic
 
 data:  split(PointPatterns.ppp)$"Pattern 4"
 X2 = 1.2, df = 8, p-value = 0.006716
@@ -58,7 +57,7 @@ Importance of the p-value
 - Determines if the point pattern is result of a random process
 - When p is small, this indicates it is unlikely that the point pattern reflects the theoretical random pattern, resulting in a random landscape
 
-Limitations of Quadrat Test: Size and Number of Quadrats 
+Limitations: Size and Number of Quadrats 
 ========================================================
 - Changing size of quadrat impacts the counts
 - Events will not be properly accounted for if cell is too small

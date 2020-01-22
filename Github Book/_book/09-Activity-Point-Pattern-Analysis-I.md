@@ -57,8 +57,17 @@ library(sf)
 library(geog4ga3)
 ```
 
-In the practice that preceded this activity, you learned about the concepts of intensity and density, about quadrats, and also how to create density maps. 
+```
+## Warning: replacing previous import 'plotly::filter' by 'stats::filter' when
+## loading 'geog4ga3'
+```
 
+```
+## Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading
+## 'geog4ga3'
+```
+
+In the practice that preceded this activity, you learned about the concepts of intensity and density, about quadrats, and also how to create density maps. 
 Begin by loading the data that you will use in this activity:
 
 ```r
@@ -102,10 +111,11 @@ ggplot() +
 
 <img src="09-Activity-Point-Pattern-Analysis-I_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
-As discussed in the preceding chapter, the package `spatstat` is a very rich collection of tools to do point pattern analysis. To convert the three sets of events (i.e., the fast food establishments, gas stands, and Paez Mart) into `ppp` objects we first must define a region or _window_. To do this we take the `sf` and convert to an `owin` (a window object) for use with the package `spatstat` (this is done via `SpatialPolygons`, hence `as(x, "Spatial")`:
+As discussed in the preceding chapter, the package `spatstat` offers a very rich collection of tools to do point pattern analysis. To convert the three sets of events (i.e., the fast food establishments, gas stands, and Paez Mart) into `ppp` objects we first must define a region or _window_. To do this we take the `sf` and convert to an `owin` (a window object) for use with the package `spatstat` (this is done via `SpatialPolygons`, hence `as(x, "Spatial")`:
 
 ```r
-Toronto.owin <- as.owin(as(Toronto, "Spatial")) # Requires `maptools` package
+# `as.owin()` will take a "foreign" object (foreign to `spatstat`) and convert it into an `owin` object. Here, there are two steps involved: first, we take the `sf` object with the boundaries of Toronto and convert it into a "Spatial" object, and then the "Spatial" object is passed on to `as.owin()`
+Toronto.owin <- as(Toronto, "Spatial") %>% as.owin() # Requires `maptools` package
 ```
 
 And, then convert the dataframes to `ppp` objects (this necessitates that we extract the coordinates of the events by means of `st_coordinates`): 
@@ -131,7 +141,7 @@ table(q_count)
 
 As you see from the table, there is one quadrat with zero events, one quadrat with six events, one quadrat with forty-four events, and so on.
 
-You can also plot the results of the `quadratcount`!
+You can also plot the results of the `quadratcount()` function!
 
 ```r
 plot(q_count)
@@ -148,8 +158,7 @@ q_test <- quadrat.test(Fast_Food.ppp, nx = 3, ny = 3)
 ```
 
 ```
-## Warning: Some expected counts are small; chi^2 approximation may be
-## inaccurate
+## Warning: Some expected counts are small; chi^2 approximation may be inaccurate
 ```
 
 ```r
@@ -159,7 +168,6 @@ q_test
 ```
 ## 
 ## 	Chi-squared test of CSR using quadrat counts
-## 	Pearson X2 statistic
 ## 
 ## data:  Fast_Food.ppp
 ## X2 = 213.74, df = 8, p-value < 2.2e-16
@@ -182,12 +190,16 @@ Now that you have seen how to do some analysis using quadrats, you are ready for
 
 ## Activity
 
-1. Use `Fast_Food`, `Gas_Stands`, `Paez_Mart`, and `Toronto` to create density maps for the three point patterns. Select a quadrat size that you think is appropriate. 
+**NOTE**: Activities include technical "how to" tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).
 
-2. Show your maps to a fellow student. Did they select the same quadrat size? If not, what was their rationale for their size?
+1.* Use `Fast_Food`, `Gas_Stands`, `Paez_Mart`, and `Toronto` to create density maps for the three point patterns. Select a quadrat size that you think is appropriate. 
 
-3. Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadratcount` to calculate the number of events per quadrat. Remember that you need to select the number of quadrats in the horizontal and vertical directions!
+2.* Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadratcount` to calculate the number of events per quadrat. Remember that you need to select the number of quadrats in the horizontal and vertical directions!
 
-4. Use the function `table()` to examine the frequency of events per quadrat for each of the point patterns. What are the differences among these point patterns? What would you expect the frequency of events per quadrat to be in a null landscape?
+3.* Use the function `table()` to examine the frequency of events per quadrat for each of the point patterns. 
 
-5. Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadrat.test` to calculate the test of spatial independence for these point patterns. What is your decision in each case?
+4. Show your density maps to a fellow student. Did they select the same quadrat size? If not, what was their rationale for their size?
+
+5. Again, use the function `table()` to examine the frequency of events per quadrat for each of the point patterns. What are the differences among these point patterns? What would you expect the frequency of events per quadrat to be in a null landscape?
+
+6. Use `Fast_Food.ppp`, `Gas_Stands`, and `Paez_Mart`, and the function `quadrat.test` to calculate the test of spatial independence for these point patterns. What is your decision in each case? Explain.

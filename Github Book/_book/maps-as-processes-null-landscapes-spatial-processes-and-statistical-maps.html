@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Maps as Processes: Null Landscapes, Spatial Processes, and Statistical Maps | Applied Spatial Statistics with R</title>
-  <meta name="description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Maps as Processes: Null Landscapes, Spatial Processes, and Statistical Maps | Applied Spatial Statistics with R" />
   <meta property="og:type" content="book" />
@@ -22,18 +21,18 @@
   <meta name="twitter:description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi." />
   
 
-<meta name="author" content="Antonio Paez">
+<meta name="author" content="Antonio Paez" />
 
 
-<meta name="date" content="2019-02-20">
+<meta name="date" content="2020-01-13" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="activity-2-statistical-maps-ii.html">
-<link rel="next" href="activity-3-maps-as-processes.html">
+<link rel="prev" href="activity-2-statistical-maps-ii.html"/>
+<link rel="next" href="activity-3-maps-as-processes.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -41,6 +40,7 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -48,14 +48,16 @@
 
 
 
-<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+
+
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
 <link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
 <link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
 <script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
@@ -63,56 +65,69 @@
 <script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script>
-<script src="libs/plotly-binding-4.8.0.9000/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.42.5/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.42.5/plotly-latest.min.js"></script>
-<link href="libs/colourpicker-1.1/colourpicker.min.css" rel="stylesheet" />
-<script src="libs/colourpicker-1.1/colourpicker.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.2/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.2/js/bootstrap.min.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -133,17 +148,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#plan"><i class="fa fa-check"></i>Plan</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#audience"><i class="fa fa-check"></i>Audience</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#requisites"><i class="fa fa-check"></i>Requisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#words-of-appreciation"><i class="fa fa-check"></i>Words of Appreciation</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#versioning"><i class="fa fa-check"></i>Versioning</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> Preliminaries: Installing R and RStudio</a><ul>
+<li class="chapter" data-level="1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html"><i class="fa fa-check"></i><b>1</b> Preliminaries: Installing <code>R</code> and RStudio</a><ul>
 <li class="chapter" data-level="1.1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
 <li class="chapter" data-level="1.2" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#learning-objectives"><i class="fa fa-check"></i><b>1.2</b> Learning Objectives</a></li>
-<li class="chapter" data-level="1.3" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#r-the-open-statistical-computing-project"><i class="fa fa-check"></i><b>1.3</b> R: The Open Statistical Computing Project</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>1.3.1</b> What is R?</a></li>
+<li class="chapter" data-level="1.3" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#r-the-open-statistical-computing-project"><i class="fa fa-check"></i><b>1.3</b> <code>R</code>: The Open Statistical Computing Project</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#what-is-r"><i class="fa fa-check"></i><b>1.3.1</b> What is <code>R</code>?</a></li>
 <li class="chapter" data-level="1.3.2" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#the-rstudio-ide"><i class="fa fa-check"></i><b>1.3.2</b> The RStudio IDE</a></li>
 </ul></li>
 <li class="chapter" data-level="1.4" data-path="preliminaries-installing-r-and-rstudio.html"><a href="preliminaries-installing-r-and-rstudio.html#packages-in-r"><i class="fa fa-check"></i><b>1.4</b> Packages in R</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic Operations and Data Structures in R</a><ul>
+<li class="chapter" data-level="2" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html"><i class="fa fa-check"></i><b>2</b> Basic Operations and Data Structures in <code>R</code></a><ul>
 <li class="chapter" data-level="2.1" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#learning-objectives-1"><i class="fa fa-check"></i><b>2.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="2.2" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#rstudio-ide"><i class="fa fa-check"></i><b>2.2</b> RStudio IDE</a></li>
 <li class="chapter" data-level="2.3" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#some-basic-operations"><i class="fa fa-check"></i><b>2.3</b> Some Basic Operations</a></li>
@@ -153,7 +170,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.7" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#visualization"><i class="fa fa-check"></i><b>2.7</b> Visualization</a></li>
 <li class="chapter" data-level="2.8" data-path="basic-operations-and-data-structures-in-r.html"><a href="basic-operations-and-data-structures-in-r.html#creating-a-simple-map"><i class="fa fa-check"></i><b>2.8</b> Creating a Simple Map</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html"><i class="fa fa-check"></i><b>3</b> Introduction to Mapping in R</a><ul>
+<li class="chapter" data-level="3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html"><i class="fa fa-check"></i><b>3</b> Introduction to Mapping in <code>R</code></a><ul>
 <li class="chapter" data-level="3.1" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#learning-objectives-2"><i class="fa fa-check"></i><b>3.1</b> Learning Objectives</a></li>
 <li class="chapter" data-level="3.2" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#suggested-readings"><i class="fa fa-check"></i><b>3.2</b> Suggested Readings</a></li>
 <li class="chapter" data-level="3.3" data-path="introduction-to-mapping-in-r.html"><a href="introduction-to-mapping-in-r.html#preliminaries"><i class="fa fa-check"></i><b>3.3</b> Preliminaries</a></li>
@@ -179,7 +196,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.6" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#subsetting-data"><i class="fa fa-check"></i><b>5.6</b> Subsetting Data</a></li>
 <li class="chapter" data-level="5.7" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#pipe-operator"><i class="fa fa-check"></i><b>5.7</b> Pipe Operator</a></li>
 <li class="chapter" data-level="5.8" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#more-on-visualization"><i class="fa fa-check"></i><b>5.8</b> More on Visualization</a></li>
-<li class="chapter" data-level="5.9" data-path="mapping-in-r-continued.html"><a href="mapping-in-r-continued.html#other-resources-1"><i class="fa fa-check"></i><b>5.9</b> Other Resources</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html"><i class="fa fa-check"></i><b>6</b> Activity 2: Statistical Maps II</a><ul>
 <li class="chapter" data-level="6.1" data-path="activity-2-statistical-maps-ii.html"><a href="activity-2-statistical-maps-ii.html#housekeeping-questions-1"><i class="fa fa-check"></i><b>6.1</b> Housekeeping Questions</a></li>
@@ -199,9 +215,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.8" data-path="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html"><a href="maps-as-processes-null-landscapes-spatial-processes-and-statistical-maps.html#processes-and-patterns"><i class="fa fa-check"></i><b>7.8</b> Processes and Patterns</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html"><i class="fa fa-check"></i><b>8</b> Activity 3: Maps as Processes</a><ul>
-<li class="chapter" data-level="8.1" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#practice-questions"><i class="fa fa-check"></i><b>8.1</b> Practice questions</a></li>
-<li class="chapter" data-level="8.2" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#learning-objectives-7"><i class="fa fa-check"></i><b>8.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="8.3" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#suggested-reading-1"><i class="fa fa-check"></i><b>8.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="8.1" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#practice-questions"><i class="fa fa-check"></i><b>8.1</b> Practice Questions</a></li>
+<li class="chapter" data-level="8.2" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#learning-objectives-7"><i class="fa fa-check"></i><b>8.2</b> Learning Objectives</a></li>
+<li class="chapter" data-level="8.3" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#suggested-reading-1"><i class="fa fa-check"></i><b>8.3</b> Suggested Reading</a></li>
 <li class="chapter" data-level="8.4" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#preliminaries-5"><i class="fa fa-check"></i><b>8.4</b> Preliminaries</a></li>
 <li class="chapter" data-level="8.5" data-path="activity-3-maps-as-processes.html"><a href="activity-3-maps-as-processes.html#activity-2"><i class="fa fa-check"></i><b>8.5</b> Activity</a></li>
 </ul></li>
@@ -244,7 +260,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="13.3" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#preliminaries-10"><i class="fa fa-check"></i><b>13.3</b> Preliminaries</a></li>
 <li class="chapter" data-level="13.4" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#motivation"><i class="fa fa-check"></i><b>13.4</b> Motivation</a></li>
 <li class="chapter" data-level="13.5" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#nearest-neighbors"><i class="fa fa-check"></i><b>13.5</b> Nearest Neighbors</a></li>
-<li class="chapter" data-level="13.6" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#g-function"><i class="fa fa-check"></i><b>13.6</b> G-function</a></li>
+<li class="chapter" data-level="13.6" data-path="point-pattern-analysis-iii.html"><a href="point-pattern-analysis-iii.html#g-function"><i class="fa fa-check"></i><b>13.6</b> <span class="math inline">\(G\)</span>-function</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html"><i class="fa fa-check"></i><b>14</b> Activity 6: Point Pattern Analysis III</a><ul>
 <li class="chapter" data-level="14.1" data-path="activity-6-point-pattern-analysis-iii.html"><a href="activity-6-point-pattern-analysis-iii.html#practice-questions-3"><i class="fa fa-check"></i><b>14.1</b> Practice questions</a></li>
@@ -259,7 +275,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#preliminaries-12"><i class="fa fa-check"></i><b>15.3</b> Preliminaries</a></li>
 <li class="chapter" data-level="15.4" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#motivation-1"><i class="fa fa-check"></i><b>15.4</b> Motivation</a></li>
 <li class="chapter" data-level="15.5" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#f-function"><i class="fa fa-check"></i><b>15.5</b> F-function</a></li>
-<li class="chapter" data-level="15.6" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#k-function"><i class="fa fa-check"></i><b>15.6</b> K-function</a></li>
+<li class="chapter" data-level="15.6" data-path="point-pattern-analysis-iv.html"><a href="point-pattern-analysis-iv.html#hatk-function"><i class="fa fa-check"></i><b>15.6</b> <span class="math inline">\(\hat{K}\)</span>-function</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="activity-7-point-pattern-analysis-iv.html"><a href="activity-7-point-pattern-analysis-iv.html"><i class="fa fa-check"></i><b>16</b> Activity 7: Point Pattern Analysis IV</a><ul>
 <li class="chapter" data-level="16.1" data-path="activity-7-point-pattern-analysis-iv.html"><a href="activity-7-point-pattern-analysis-iv.html#practice-questions-4"><i class="fa fa-check"></i><b>16.1</b> Practice questions</a></li>
@@ -288,149 +304,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="18.4" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#preliminaries-15"><i class="fa fa-check"></i><b>18.4</b> Preliminaries</a></li>
 <li class="chapter" data-level="18.5" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#activity-7"><i class="fa fa-check"></i><b>18.5</b> Activity</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="area-data-i.html"><a href="area-data-i.html"><i class="fa fa-check"></i><b>19</b> Area Data I</a><ul>
-<li class="chapter" data-level="19.1" data-path="area-data-i.html"><a href="area-data-i.html#learning-objectives-18"><i class="fa fa-check"></i><b>19.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="19.2" data-path="area-data-i.html"><a href="area-data-i.html#suggested-readings-8"><i class="fa fa-check"></i><b>19.2</b> Suggested Readings</a></li>
-<li class="chapter" data-level="19.3" data-path="area-data-i.html"><a href="area-data-i.html#preliminaries-16"><i class="fa fa-check"></i><b>19.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="19.4" data-path="area-data-i.html"><a href="area-data-i.html#area-data"><i class="fa fa-check"></i><b>19.4</b> Area Data</a></li>
-<li class="chapter" data-level="19.5" data-path="area-data-i.html"><a href="area-data-i.html#processes-and-area-data"><i class="fa fa-check"></i><b>19.5</b> Processes and Area Data</a></li>
-<li class="chapter" data-level="19.6" data-path="area-data-i.html"><a href="area-data-i.html#visualizing-area-data-choropleth-maps"><i class="fa fa-check"></i><b>19.6</b> Visualizing Area Data: Choropleth Maps</a></li>
-<li class="chapter" data-level="19.7" data-path="area-data-i.html"><a href="area-data-i.html#visualizing-area-data-cartograms"><i class="fa fa-check"></i><b>19.7</b> Visualizing Area Data: Cartograms</a></li>
-</ul></li>
-<li class="chapter" data-level="20" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html"><i class="fa fa-check"></i><b>20</b> Activity 9: Area Data I</a><ul>
-<li class="chapter" data-level="20.1" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#practice-questions-6"><i class="fa fa-check"></i><b>20.1</b> Practice questions</a></li>
-<li class="chapter" data-level="20.2" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#learning-objectives-19"><i class="fa fa-check"></i><b>20.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="20.3" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#suggested-reading-7"><i class="fa fa-check"></i><b>20.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="20.4" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#preliminaries-17"><i class="fa fa-check"></i><b>20.4</b> Preliminaries</a></li>
-<li class="chapter" data-level="20.5" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#activity-8"><i class="fa fa-check"></i><b>20.5</b> Activity</a></li>
-</ul></li>
-<li class="chapter" data-level="21" data-path="area-data-ii.html"><a href="area-data-ii.html"><i class="fa fa-check"></i><b>21</b> Area Data II</a><ul>
-<li class="chapter" data-level="21.1" data-path="area-data-ii.html"><a href="area-data-ii.html#learning-objectives-20"><i class="fa fa-check"></i><b>21.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="21.2" data-path="area-data-ii.html"><a href="area-data-ii.html#suggested-readings-9"><i class="fa fa-check"></i><b>21.2</b> Suggested Readings</a></li>
-<li class="chapter" data-level="21.3" data-path="area-data-ii.html"><a href="area-data-ii.html#preliminaries-18"><i class="fa fa-check"></i><b>21.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="21.4" data-path="area-data-ii.html"><a href="area-data-ii.html#proximity-in-area-data"><i class="fa fa-check"></i><b>21.4</b> Proximity in Area Data</a></li>
-<li class="chapter" data-level="21.5" data-path="area-data-ii.html"><a href="area-data-ii.html#spatial-weights-matrices"><i class="fa fa-check"></i><b>21.5</b> Spatial Weights Matrices</a></li>
-<li class="chapter" data-level="21.6" data-path="area-data-ii.html"><a href="area-data-ii.html#creating-spatial-weights-matrices-in-r"><i class="fa fa-check"></i><b>21.6</b> Creating Spatial Weights Matrices in R</a></li>
-<li class="chapter" data-level="21.7" data-path="area-data-ii.html"><a href="area-data-ii.html#spatial-moving-averages"><i class="fa fa-check"></i><b>21.7</b> Spatial Moving Averages</a></li>
-<li class="chapter" data-level="21.8" data-path="area-data-ii.html"><a href="area-data-ii.html#other-criteria-for-coding-proximity"><i class="fa fa-check"></i><b>21.8</b> Other Criteria for Coding Proximity</a></li>
-</ul></li>
-<li class="chapter" data-level="22" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html"><i class="fa fa-check"></i><b>22</b> Activity 10: Area Data II</a><ul>
-<li class="chapter" data-level="22.1" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#practice-questions-7"><i class="fa fa-check"></i><b>22.1</b> Practice questions</a></li>
-<li class="chapter" data-level="22.2" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#learning-objectives-21"><i class="fa fa-check"></i><b>22.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="22.3" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#suggested-reading-8"><i class="fa fa-check"></i><b>22.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="22.4" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#preliminaries-19"><i class="fa fa-check"></i><b>22.4</b> Preliminaries</a></li>
-<li class="chapter" data-level="22.5" data-path="activity-10-area-data-ii.html"><a href="activity-10-area-data-ii.html#activity-9"><i class="fa fa-check"></i><b>22.5</b> Activity</a></li>
-</ul></li>
-<li class="chapter" data-level="23" data-path="area-data-iii.html"><a href="area-data-iii.html"><i class="fa fa-check"></i><b>23</b> Area Data III</a><ul>
-<li class="chapter" data-level="23.1" data-path="area-data-iii.html"><a href="area-data-iii.html#learning-objectives-22"><i class="fa fa-check"></i><b>23.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="23.2" data-path="area-data-iii.html"><a href="area-data-iii.html#suggested-readings-10"><i class="fa fa-check"></i><b>23.2</b> Suggested Readings</a></li>
-<li class="chapter" data-level="23.3" data-path="area-data-iii.html"><a href="area-data-iii.html#preliminaries-20"><i class="fa fa-check"></i><b>23.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="23.4" data-path="area-data-iii.html"><a href="area-data-iii.html#spatial-moving-averages-and-simulation"><i class="fa fa-check"></i><b>23.4</b> Spatial Moving Averages and Simulation</a></li>
-<li class="chapter" data-level="23.5" data-path="area-data-iii.html"><a href="area-data-iii.html#the-spatial-moving-average-as-a-smoother"><i class="fa fa-check"></i><b>23.5</b> The Spatial Moving Average as a Smoother</a></li>
-<li class="chapter" data-level="23.6" data-path="area-data-iii.html"><a href="area-data-iii.html#spatial-moving-average-scatterplots"><i class="fa fa-check"></i><b>23.6</b> Spatial Moving Average Scatterplots</a></li>
-<li class="chapter" data-level="23.7" data-path="area-data-iii.html"><a href="area-data-iii.html#spatial-autocorrelation-and-morans-i-coefficient"><i class="fa fa-check"></i><b>23.7</b> Spatial Autocorrelation and Moran’s <span class="math inline">\(I\)</span> coefficient</a></li>
-<li class="chapter" data-level="23.8" data-path="area-data-iii.html"><a href="area-data-iii.html#morans-i-and-morans-scatterplot"><i class="fa fa-check"></i><b>23.8</b> Moran’s <span class="math inline">\(I\)</span> and Moran’s Scatterplot</a></li>
-<li class="chapter" data-level="23.9" data-path="area-data-iii.html"><a href="area-data-iii.html#hypothesis-testing-for-spatial-autocorrelation"><i class="fa fa-check"></i><b>23.9</b> Hypothesis Testing for Spatial Autocorrelation</a></li>
-</ul></li>
-<li class="chapter" data-level="24" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html"><i class="fa fa-check"></i><b>24</b> Activity 11: Area Data III</a><ul>
-<li class="chapter" data-level="24.1" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#practice-questions-8"><i class="fa fa-check"></i><b>24.1</b> Practice questions</a></li>
-<li class="chapter" data-level="24.2" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#learning-objectives-23"><i class="fa fa-check"></i><b>24.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="24.3" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#suggested-reading-9"><i class="fa fa-check"></i><b>24.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="24.4" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#preliminaries-21"><i class="fa fa-check"></i><b>24.4</b> Preliminaries</a></li>
-<li class="chapter" data-level="24.5" data-path="activity-11-area-data-iii.html"><a href="activity-11-area-data-iii.html#activity-10"><i class="fa fa-check"></i><b>24.5</b> Activity</a></li>
-</ul></li>
-<li class="chapter" data-level="25" data-path="area-data-iv.html"><a href="area-data-iv.html"><i class="fa fa-check"></i><b>25</b> Area Data IV</a><ul>
-<li class="chapter" data-level="25.1" data-path="area-data-iv.html"><a href="area-data-iv.html#learning-objectives-24"><i class="fa fa-check"></i><b>25.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="25.2" data-path="area-data-iv.html"><a href="area-data-iv.html#suggested-readings-11"><i class="fa fa-check"></i><b>25.2</b> Suggested readings</a></li>
-<li class="chapter" data-level="25.3" data-path="area-data-iv.html"><a href="area-data-iv.html#preliminaries-22"><i class="fa fa-check"></i><b>25.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="25.4" data-path="area-data-iv.html"><a href="area-data-iv.html#decomposing-morans-i"><i class="fa fa-check"></i><b>25.4</b> Decomposing Moran’s I</a></li>
-<li class="chapter" data-level="25.5" data-path="area-data-iv.html"><a href="area-data-iv.html#local-morans-i-and-mapping"><i class="fa fa-check"></i><b>25.5</b> Local Moran’s I and Mapping</a></li>
-<li class="chapter" data-level="25.6" data-path="area-data-iv.html"><a href="area-data-iv.html#a-quick-note-on-functions"><i class="fa fa-check"></i><b>25.6</b> A Quick Note on Functions</a></li>
-<li class="chapter" data-level="25.7" data-path="area-data-iv.html"><a href="area-data-iv.html#a-concentration-approach-for-local-analysis-of-spatial-association"><i class="fa fa-check"></i><b>25.7</b> A Concentration approach for Local Analysis of Spatial Association</a></li>
-<li class="chapter" data-level="25.8" data-path="area-data-iv.html"><a href="area-data-iv.html#a-short-note-on-hypothesis-testing"><i class="fa fa-check"></i><b>25.8</b> A Short Note on Hypothesis Testing</a></li>
-<li class="chapter" data-level="25.9" data-path="area-data-iv.html"><a href="area-data-iv.html#detection-of-hot-and-cold-spots"><i class="fa fa-check"></i><b>25.9</b> Detection of Hot and Cold Spots</a></li>
-<li class="chapter" data-level="25.10" data-path="area-data-iv.html"><a href="area-data-iv.html#other-resources-2"><i class="fa fa-check"></i><b>25.10</b> Other Resources</a></li>
-</ul></li>
-<li class="chapter" data-level="26" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html"><i class="fa fa-check"></i><b>26</b> Activity 13: Area Data IV</a><ul>
-<li class="chapter" data-level="26.1" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#practice-questions-9"><i class="fa fa-check"></i><b>26.1</b> Practice questions</a></li>
-<li class="chapter" data-level="26.2" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#learning-objectives-25"><i class="fa fa-check"></i><b>26.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="26.3" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#suggested-reading-10"><i class="fa fa-check"></i><b>26.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="26.4" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#preliminaries-23"><i class="fa fa-check"></i><b>26.4</b> Preliminaries</a></li>
-<li class="chapter" data-level="26.5" data-path="activity-13-area-data-iv.html"><a href="activity-13-area-data-iv.html#activity-11"><i class="fa fa-check"></i><b>26.5</b> Activity</a></li>
-</ul></li>
-<li class="chapter" data-level="27" data-path="area-data-v.html"><a href="area-data-v.html"><i class="fa fa-check"></i><b>27</b> Area Data V</a><ul>
-<li class="chapter" data-level="27.1" data-path="area-data-v.html"><a href="area-data-v.html#learning-objectives-26"><i class="fa fa-check"></i><b>27.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="27.2" data-path="area-data-v.html"><a href="area-data-v.html#suggested-readings-12"><i class="fa fa-check"></i><b>27.2</b> Suggested Readings</a></li>
-<li class="chapter" data-level="27.3" data-path="area-data-v.html"><a href="area-data-v.html#preliminaries-24"><i class="fa fa-check"></i><b>27.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="27.4" data-path="area-data-v.html"><a href="area-data-v.html#regression-analysis-in-r"><i class="fa fa-check"></i><b>27.4</b> Regression Analysis in R</a></li>
-<li class="chapter" data-level="27.5" data-path="area-data-v.html"><a href="area-data-v.html#autocorrelation-as-a-model-diagnostic"><i class="fa fa-check"></i><b>27.5</b> Autocorrelation as a Model Diagnostic</a></li>
-<li class="chapter" data-level="27.6" data-path="area-data-v.html"><a href="area-data-v.html#variable-transformations"><i class="fa fa-check"></i><b>27.6</b> Variable Transformations</a></li>
-<li class="chapter" data-level="27.7" data-path="area-data-v.html"><a href="area-data-v.html#a-note-about-spatial-autocorrelation-in-regression-analysis"><i class="fa fa-check"></i><b>27.7</b> A Note about Spatial Autocorrelation in Regression Analysis</a></li>
-</ul></li>
-<li class="chapter" data-level="28" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html"><i class="fa fa-check"></i><b>28</b> Activity 14: Area Data V</a><ul>
-<li class="chapter" data-level="28.1" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#practice-questions-10"><i class="fa fa-check"></i><b>28.1</b> Practice questions</a></li>
-<li class="chapter" data-level="28.2" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#learning-objectives-27"><i class="fa fa-check"></i><b>28.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="28.3" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#suggested-reading-11"><i class="fa fa-check"></i><b>28.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="28.4" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#preliminaries-25"><i class="fa fa-check"></i><b>28.4</b> Preliminaries</a></li>
-<li class="chapter" data-level="28.5" data-path="activity-14-area-data-v.html"><a href="activity-14-area-data-v.html#activity-12"><i class="fa fa-check"></i><b>28.5</b> Activity</a></li>
-</ul></li>
-<li class="chapter" data-level="29" data-path="area-data-vi.html"><a href="area-data-vi.html"><i class="fa fa-check"></i><b>29</b> Area Data VI</a><ul>
-<li class="chapter" data-level="29.1" data-path="area-data-vi.html"><a href="area-data-vi.html#learning-objectives-28"><i class="fa fa-check"></i><b>29.1</b> Learning Objectives</a></li>
-<li class="chapter" data-level="29.2" data-path="area-data-vi.html"><a href="area-data-vi.html#suggested-readings-13"><i class="fa fa-check"></i><b>29.2</b> Suggested Readings</a></li>
-<li class="chapter" data-level="29.3" data-path="area-data-vi.html"><a href="area-data-vi.html#preliminaries-26"><i class="fa fa-check"></i><b>29.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="29.4" data-path="area-data-vi.html"><a href="area-data-vi.html#residual-spatial-autocorrelation-revisited"><i class="fa fa-check"></i><b>29.4</b> Residual spatial autocorrelation revisited</a><ul>
-<li class="chapter" data-level="29.4.1" data-path="area-data-vi.html"><a href="area-data-vi.html#incorrect-functional-form"><i class="fa fa-check"></i><b>29.4.1</b> Incorrect Functional Form</a></li>
-<li class="chapter" data-level="29.4.2" data-path="area-data-vi.html"><a href="area-data-vi.html#omitted-variables"><i class="fa fa-check"></i><b>29.4.2</b> Omitted Variables</a></li>
-</ul></li>
-<li class="chapter" data-level="29.5" data-path="area-data-vi.html"><a href="area-data-vi.html#remedial-action"><i class="fa fa-check"></i><b>29.5</b> Remedial Action</a></li>
-<li class="chapter" data-level="29.6" data-path="area-data-vi.html"><a href="area-data-vi.html#flexible-functional-forms-and-models-with-spatially-varying-coefficients"><i class="fa fa-check"></i><b>29.6</b> Flexible Functional Forms and Models with Spatially-varying Coefficients</a><ul>
-<li class="chapter" data-level="29.6.1" data-path="area-data-vi.html"><a href="area-data-vi.html#trend-surface-analysis"><i class="fa fa-check"></i><b>29.6.1</b> Trend Surface Analysis</a></li>
-<li class="chapter" data-level="29.6.2" data-path="area-data-vi.html"><a href="area-data-vi.html#models-with-spatially-varying-coefficients"><i class="fa fa-check"></i><b>29.6.2</b> Models with Spatially-varying Coefficients</a></li>
-</ul></li>
-<li class="chapter" data-level="29.7" data-path="area-data-vi.html"><a href="area-data-vi.html#spatial-error-model-sem"><i class="fa fa-check"></i><b>29.7</b> Spatial Error Model (SEM)</a></li>
-</ul></li>
-<li class="chapter" data-level="30" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html"><i class="fa fa-check"></i><b>30</b> Activity 14: Area Data VI</a><ul>
-<li class="chapter" data-level="30.1" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#practice-questions-11"><i class="fa fa-check"></i><b>30.1</b> Practice questions</a></li>
-<li class="chapter" data-level="30.2" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#learning-objectives-29"><i class="fa fa-check"></i><b>30.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="30.3" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#suggested-reading-12"><i class="fa fa-check"></i><b>30.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="30.4" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#preliminaries-27"><i class="fa fa-check"></i><b>30.4</b> Preliminaries</a><ul>
-<li class="chapter" data-level="30.4.1" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#new-york-leukemia-data"><i class="fa fa-check"></i><b>30.4.1</b> New York leukemia data</a></li>
-<li class="chapter" data-level="30.4.2" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#pennsylvania-lung-cancer"><i class="fa fa-check"></i><b>30.4.2</b> Pennsylvania lung cancer</a></li>
-</ul></li>
-<li class="chapter" data-level="30.5" data-path="activity-14-area-data-vi.html"><a href="activity-14-area-data-vi.html#activity-13"><i class="fa fa-check"></i><b>30.5</b> Activity</a></li>
-</ul></li>
-<li class="chapter" data-level="31" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html"><i class="fa fa-check"></i><b>31</b> Spatially Continuous Data I</a><ul>
-<li class="chapter" data-level="31.1" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#learning-objectives-30"><i class="fa fa-check"></i><b>31.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="31.2" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#suggested-readings-14"><i class="fa fa-check"></i><b>31.2</b> Suggested readings</a></li>
-<li class="chapter" data-level="31.3" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#preliminaries-28"><i class="fa fa-check"></i><b>31.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="31.4" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#spatially-continuous-field-data"><i class="fa fa-check"></i><b>31.4</b> Spatially continuous (field) data</a></li>
-<li class="chapter" data-level="31.5" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#exploratory-visualization"><i class="fa fa-check"></i><b>31.5</b> Exploratory visualization</a></li>
-<li class="chapter" data-level="31.6" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#tile-based-methods"><i class="fa fa-check"></i><b>31.6</b> Tile-based methods</a></li>
-<li class="chapter" data-level="31.7" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#inverse-distance-weighting-idw"><i class="fa fa-check"></i><b>31.7</b> Inverse distance weighting (IDW)</a></li>
-<li class="chapter" data-level="31.8" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#k-point-means"><i class="fa fa-check"></i><b>31.8</b> <span class="math inline">\(k\)</span>-point means</a></li>
-</ul></li>
-<li class="chapter" data-level="32" data-path="activity-spatially-continuous-data-i.html"><a href="activity-spatially-continuous-data-i.html"><i class="fa fa-check"></i><b>32</b> Activity: Spatially Continuous Data I</a><ul>
-<li class="chapter" data-level="32.1" data-path="activity-spatially-continuous-data-i.html"><a href="activity-spatially-continuous-data-i.html#practice-questions-12"><i class="fa fa-check"></i><b>32.1</b> Practice questions</a></li>
-<li class="chapter" data-level="32.2" data-path="activity-spatially-continuous-data-i.html"><a href="activity-spatially-continuous-data-i.html#learning-objectives-31"><i class="fa fa-check"></i><b>32.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="32.3" data-path="activity-spatially-continuous-data-i.html"><a href="activity-spatially-continuous-data-i.html#suggested-reading-13"><i class="fa fa-check"></i><b>32.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="32.4" data-path="activity-spatially-continuous-data-i.html"><a href="activity-spatially-continuous-data-i.html#preliminaries-29"><i class="fa fa-check"></i><b>32.4</b> Preliminaries</a></li>
-<li class="chapter" data-level="32.5" data-path="activity-spatially-continuous-data-i.html"><a href="activity-spatially-continuous-data-i.html#activity-14"><i class="fa fa-check"></i><b>32.5</b> Activity</a></li>
-</ul></li>
-<li class="chapter" data-level="33" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>33</b> Spatially Continuous Data II</a><ul>
-<li class="chapter" data-level="33.1" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#learning-objectives-32"><i class="fa fa-check"></i><b>33.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="33.2" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#suggested-readings-15"><i class="fa fa-check"></i><b>33.2</b> Suggested readings</a></li>
-<li class="chapter" data-level="33.3" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#preliminaries-30"><i class="fa fa-check"></i><b>33.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="33.4" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#uncertainty-in-the-predictions"><i class="fa fa-check"></i><b>33.4</b> Uncertainty in the predictions</a></li>
-<li class="chapter" data-level="33.5" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#trend-surface-analysis-1"><i class="fa fa-check"></i><b>33.5</b> Trend surface analysis</a></li>
-<li class="chapter" data-level="33.6" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#accuracy-and-precision"><i class="fa fa-check"></i><b>33.6</b> Accuracy and precision</a></li>
-</ul></li>
-<li class="chapter" data-level="34" data-path="activity-spatially-continuous-data-ii.html"><a href="activity-spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>34</b> Activity: Spatially Continuous Data II</a><ul>
-<li class="chapter" data-level="34.1" data-path="activity-spatially-continuous-data-ii.html"><a href="activity-spatially-continuous-data-ii.html#practice-questions-13"><i class="fa fa-check"></i><b>34.1</b> Practice questions</a></li>
-<li class="chapter" data-level="34.2" data-path="activity-spatially-continuous-data-ii.html"><a href="activity-spatially-continuous-data-ii.html#learning-objectives-33"><i class="fa fa-check"></i><b>34.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="34.3" data-path="activity-spatially-continuous-data-ii.html"><a href="activity-spatially-continuous-data-ii.html#suggested-reading-14"><i class="fa fa-check"></i><b>34.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="34.4" data-path="activity-spatially-continuous-data-ii.html"><a href="activity-spatially-continuous-data-ii.html#preliminaries-31"><i class="fa fa-check"></i><b>34.4</b> Preliminaries</a></li>
-<li class="chapter" data-level="34.5" data-path="activity-spatially-continuous-data-ii.html"><a href="activity-spatially-continuous-data-ii.html#activity-15"><i class="fa fa-check"></i><b>34.5</b> Activity</a></li>
-</ul></li>
 </ul>
 
       </nav>
@@ -440,7 +313,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Spatial Statistics with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Applied Spatial Statistics with <code>R</code></a>
           </h1>
         </div>
 
@@ -478,193 +351,231 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="suggested-readings-2" class="section level2">
 <h2><span class="header-section-number">7.2</span> Suggested Readings</h2>
 <ul>
-<li>Bivand RS, Pebesma E, Gomez-Rubio V (2008) Applied Spatial Data Analysis with R, Analysing Spatial Data (pp. 169-171). Springer: New York.</li>
-<li>O’Sullivan D and Unwin D (2010) Geographic Information Analysis, 2nd Edition, Chapter 4. John Wiley &amp; Sons: New Jersey.</li>
+<li>Bivand RS, Pebesma E, Gomez-Rubio V <span class="citation">(<a href="#ref-Bivand2008" role="doc-biblioref">2008</a>)</span> Applied Spatial Data Analysis with R, Analysing Spatial Data (pp. 169-171). Springer: New York.</li>
+<li>O’Sullivan D and Unwin D <span class="citation">(<a href="#ref-Osullivan2010" role="doc-biblioref">2010</a>)</span> Geographic Information Analysis, 2nd Edition, Chapter 4. John Wiley &amp; Sons: New Jersey.</li>
 </ul>
 </div>
 <div id="preliminaries-4" class="section level2">
 <h2><span class="header-section-number">7.3</span> Preliminaries</h2>
-<p>As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is <code>rm</code> (for “remove”), followed by a list of items to be removed. To clear the workspace from <em>all</em> objects, do the following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</code></pre></div>
+<p>As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in <code>R</code> to clear the workspace is <code>rm</code> (for “remove”), followed by a list of items to be removed. To clear the workspace from <em>all</em> objects, do the following:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</a></code></pre></div>
 <p>Note that <code>ls()</code> lists all objects currently on the worspace.</p>
 <p>Load the libraries you will use in this activity:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
 </div>
 <div id="random-numbers" class="section level2">
 <h2><span class="header-section-number">7.4</span> Random Numbers</h2>
-<p>Colloquially, we understand <em>random</em> as something that happens in an unpredictable way. The same word in statistics has a precise meaning, as the outcome of a process that cannot be predicted with certainty.</p>
+<p>Colloquially, we understand <em>random</em> as something that happens in an unpredictable manner. The same word in statistics has a precise meaning, as the outcome of a process that cannot be predicted with any form of certainty.</p>
 <p>The question whether random processes exist is philosophically interesting. In the early stages of the invention of science, there was much optimism that humans could one day understand every aspect of the universe. This notion is well illustrated by Laplace’s Demon, a hypothetical entity that could predict the state of the universe in the future based on an all-encompassing knowledge of the state of the universe at any past point in time (see <a href="https://en.wikipedia.org/wiki/Laplace%27s_demon">here</a>).</p>
 <p>There are two important limitations to this perspective. First, there is the assumption that the mechanisms of operation of phenomena are well understood (in the case of Laplace’s Demon, it was somewhat naively assumed that classical Newtonian mechanics were sufficient). And secondly, the assumption that all relevant information is available to the observer.</p>
-<p>In reality, there are many processes that are not fully understood. Furthermore, there are often constraints in terms of how much information (and how accurately) can be collected with respect to any given phenomenon.</p>
+<p>There are many processes in reality that are not fully understood, which make Laplace’s Demon an interesting, but unreliable source on predicting the state of the universe. Furthermore, there are often constraints in terms of how much and how acurately information can be collected with respect to any given phenomenon.</p>
+<p>##Types of Processes</p>
 <p>A process can be deterministic. However, When limited knowledge/limited information prevent us from being able to make certain predictions, we assume that the process is random.</p>
-<p>It is important to note that “random” does not mean that just <em>any</em> outcome is possible. For instance, if you flip a coin, there are only two possible outcomes. If you roll a dice, there are only six possible outcomes. The concentration of a pollutant cannot be negative. The height of a human adult cannot be zero or 10 meters. And so on.</p>
+<p>It is important to note that “random” does not mean that just <em>any</em> outcome is possible. For instance, if you flip a coin, there are only two possible outcomes. If you roll a dice, there are only six possible outcomes. The concentration of a pollutant cannot be negative. The height of a human adult cannot be zero or 10 meters. And so on. It is the result of the possible outcomes that is random, as there is no process controlling the respective outcome.</p>
 <p>Over time, many formulas have been devised to describe different types of random processes. A <em>random probability distribution function</em> describes the probability of observing different outcomes.</p>
 <p>For instance, a formula for processes similar to coin flips was discovered by Bernoulli in 1713 (see <a href="https://link.springer.com/referenceworkentry/10.1007%2F978-0-387-32833-1_34">here</a>).</p>
 <p>The following function reports a random binomial variable. The number of observations <code>n</code> is how many random numbers we require. The <code>size</code> is the number of trials. For instance, if the experiment was flipping a coin, it would be how many times we get heads in <code>size</code> flips. The probability of success <code>prob</code> is the probability of getting heads in any given toss. Execute the chunk repeatedly to see what happens.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</code></pre></div>
-<pre><code>## [1] 1</code></pre>
-<p>If you tried this “experiment” repeatedly, you would find that “heads” (1s) and “tails” (0s) appear each about 50% of the time. A way to implement this is to increase <code>n</code>- think of this as recruiting more people to do coin flips at the same time:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of people tossing the coin one time.</span>
-coin_flips &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> n, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
-<span class="kw">sum</span>(coin_flips)<span class="op">/</span>n</code></pre></div>
-<pre><code>## [1] 0.486</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1"><span class="co">#This function simulates the outcome of flipping a coin. Here, we are simulating the result for flipping heads, which has a probability of 0.5. The value of `n` is the number of experiments and `size` is the number of trials in each experiment </span></a>
+<a class="sourceLine" id="cb153-2" title="2"><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>It can be noted that although there are only two outcomes, we do not have control over the result of the process, making the result random. If you tried this “experiment” repeatedly, you would find that “heads” (1s) and “tails” (0s) appear each about 50% of the time. A way to implement this is to increase <code>n</code>- think of this as recruiting more people to do coin flips at the same time:</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1">n &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of people tossing the coin one time.</span></a>
+<a class="sourceLine" id="cb155-2" title="2">coin_flips &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> n, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb155-3" title="3"><span class="kw">sum</span>(coin_flips)<span class="op">/</span>n</a></code></pre></div>
+<pre><code>## [1] 0.48</code></pre>
 <p>What happens if you change the <code>size</code> to 0, and why?</p>
-<p>The binomial function is an example of a <em>discrete</em> probability distribution function, because it can take only one of a discrete (limited) number of values (0 and 1).</p>
-<p>Other random probability distribution functions are for <em>continuous</em> variables, variables that can take any value within a predefined range. The most famous of this distributions is the <em>normal distribution</em>, which you may know also as the <em>bell curve</em>, which is attributed to Gauss (see <a href="https://link.springer.com/referenceworkentry/10.1007/978-0-387-32833-1_285">here</a>).</p>
-<p>This distribution is defined by a centering paramater (its mean) and a spread parameter (its standard deviation). In the normal distribution, 68% of values are within one standard deviation from the mean, 95% of values are within two standard deviations from the mean, and 99.7% of values are within three standard deviations from the mean.</p>
+<p>The binomial function is an example of a <em>discrete</em> probability distribution function, because it can take only one of a discrete (limited) number of values (i.e., 0 and 1).</p>
+<p>Other random probability distribution functions are for <em>continuous</em> variables, variables that can take any value within a predefined range. The most famous of this distributions is the <em>normal distribution</em>, which you may know also as the <em>bell curve</em>. This probability distribution is attributed to Gauss (see <a href="https://link.springer.com/referenceworkentry/10.1007/978-0-387-32833-1_285">here</a>).</p>
+<p>The normal distribution is defined by a centering paramater (the mean of the distribution) and a spread parameter (the standard deviation). In the normal distribution, 68% of values are within one standard deviation from the mean, 95% of values are within two standard deviations from the mean, and 99.7% of values are within three standard deviations from the mean.</p>
 <p>The following function reports a value taken at random from a normal distribution with <code>mean</code> zero and standard deviation <code>sd</code> of one. Execute this chunk repeatedly to see what happens:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</code></pre></div>
-<pre><code>## [1] 1.74405</code></pre>
-<p>Let’s say that the average height of Canadian men is 170.7 cm and the standard deviation is 7 cm. The heigh of a random person in this population would be:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="fl">170.7</span>, <span class="dt">sd =</span> <span class="dv">7</span>)</code></pre></div>
-<pre><code>## [1] 178.715</code></pre>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" title="1"><span class="co"># This function generates random numbers based on the normal distribution conditional on the given arguments, i.e., the mean and the standard deviation `sd`. </span></a>
+<a class="sourceLine" id="cb157-2" title="2"><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1] -0.1311821</code></pre>
+<p>Let’s say that the average height of men in Canada is 170.7 cm and the standard deviation is 7 cm. The heigh of a random person in this population would be:</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" title="1"><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="fl">170.7</span>, <span class="dt">sd =</span> <span class="dv">7</span>)</a></code></pre></div>
+<pre><code>## [1] 175.5149</code></pre>
 <p>And the distribution of heights of <code>n</code> men in this population would be:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">1000</span>
-height &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean =</span> <span class="fl">170.7</span>, <span class="dt">sd =</span> <span class="dv">7</span>)
-height &lt;-<span class="st"> </span><span class="kw">data.frame</span>(height)
-<span class="kw">ggplot</span>(<span class="dt">data =</span> height, <span class="kw">aes</span>(<span class="dt">x =</span> height)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1"><span class="co">#Creating a data frame using the random numbers generated from n=1000 people. The results in the data frame are then plotted using ggplot. The end result is a distribution of heights of 1000 men. You are able to see which heights are most common out of the sample.</span></a>
+<a class="sourceLine" id="cb161-2" title="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb161-3" title="3">height &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean =</span> <span class="fl">170.7</span>, <span class="dt">sd =</span> <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb161-4" title="4">height &lt;-<span class="st"> </span><span class="kw">data.frame</span>(height)</a>
+<a class="sourceLine" id="cb161-5" title="5"></a>
+<a class="sourceLine" id="cb161-6" title="6"><span class="co"># `geom_histogram()` is a geometric object in `ggplot2` that represents the frequency of values in a vector as a bar chart</span></a>
+<a class="sourceLine" id="cb161-7" title="7"><span class="kw">ggplot</span>(<span class="dt">data =</span> height, <span class="kw">aes</span>(<span class="dt">x =</span> height)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</a></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>Men shorter than 150 cm would be extremely rare, as well as men taller than 190 cm.</p>
 </div>
 <div id="null-landscapes" class="section level2">
 <h2><span class="header-section-number">7.5</span> Null Landscapes</h2>
-<p>So what have random variables have to do with maps?</p>
-<p>Random variables can be used to generate purely random maps. These are called <em>null landscapes</em> or <em>neutral landscapes</em> in spatial ecology <span class="citation">(With and King <a href="#ref-With1997use">1997</a>)</span> (<a href="http://www.jstor.org/stable/pdf/3546007.pdf">Paper is available to download</a>).</p>
-<p>The concept of null landscapes is quite useful, because they provide a benchmark to compare statistical maps. Let’s see how to generate a null landscape of events.</p>
+<p>So what do random variables have to do with maps?</p>
+<p>Random variables can be used to generate purely random maps. These are called <em>null landscapes</em> or <em>neutral landscapes</em> in spatial ecology <span class="citation">(With and King <a href="#ref-With1997use" role="doc-biblioref">1997</a>)</span> (<a href="http://www.jstor.org/stable/pdf/3546007.pdf">Paper is available to download</a>).</p>
+<p>The concept of null landscapes is quite useful. They provide a benchmark to compare the results of statistical maps. Let’s see how to generate a null landscape of events.</p>
 <p>Suppose that there is a landscape with coordinates in the unit square, that is divided in very small discrete units of land. Each of these units of land can be the location of an event. For example, a tree might be present; or a case of a disease.</p>
 <p>Let’s first create a landscape. For this, we will use the <code>expand.grid</code> function to find all combinations of two sets of coordinates in the unit interval, using small partitions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coords &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.05</span>),
-                      <span class="dt">y =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.05</span>))</code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="co"># expand.grid created a set of coordinates by obtaining all the combinations of the input variables. Here, our landscape ranges in the x-axis from 0 to 1, increasing by 0.05, and the y-axis also from 0 to 1, increasing by 0.05</span></a>
+<a class="sourceLine" id="cb163-2" title="2">coords &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.05</span>),</a>
+<a class="sourceLine" id="cb163-3" title="3">                      <span class="dt">y =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.05</span>))</a></code></pre></div>
 <p>Now, let’s generate a binomial random variable to go with these coordinates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">events &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(coords), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1"><span class="co"># `nrow()` returns the number of rows that are present in a data frame. Here, it returns the number of rows in the data frame `coords` </span></a>
+<a class="sourceLine" id="cb164-2" title="2">events &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(coords), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a></code></pre></div>
 <p>We will collect the coordinates and the random variable in a dataframe for plotting:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">null_pattern &lt;-<span class="st"> </span><span class="kw">data.frame</span>(coords, events)</code></pre></div>
-<p>This is our null landscape:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(null_pattern, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="co"># `data.frame()` collects the inputs in a data frame; they must have the same number of rows</span></a>
+<a class="sourceLine" id="cb165-2" title="2">null_pattern &lt;-<span class="st"> </span><span class="kw">data.frame</span>(coords, events)</a></code></pre></div>
+<p>We can plot the null landscape we just generated as follows:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb166-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">filter</span>(null_pattern, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb166-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>By changing the probability <code>prob</code> in the function <code>rbinom</code> you can make the event more or less frequent. If you are working with the notebook version of this document you can try changing the parameters!</p>
-<p>A continuous random variable can be used to generate a landscape with a null trend. For instance, imagine that a group of individuals are asked to stand in formation, and that they arrange themselves purely at random. What would a map of their heights look like?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">heights &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(coords), <span class="dt">mean =</span> <span class="fl">170.7</span>, <span class="dt">sd =</span> <span class="dv">7</span>)</code></pre></div>
-<p>Collecting in a dataframe for plotting:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">null_trend &lt;-<span class="st"> </span><span class="kw">data.frame</span>(coords, heights)</code></pre></div>
-<p>One possible map of heights when the individuals stand in formation at random would look like:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> null_trend, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> heights), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<p>By changing the probability <code>prob</code> in the function <code>rbinom</code> you can make the event more or less likely, i.e., frequent. If you are working with the notebook version of this document you can try changing the parameters to see what happens.</p>
+<p>A continuous random variable can also be used to generate a null landscape. For instance, imagine that a group of individuals are asked to stand in formation, and that they arrange themselves purely at random. What would a map of their heights look like? First, we will generate a random variable using the same parameters we mentioned above for the height of men in Canada:</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="co">#heights will be random numbers genreated based on the average height of men, 7 standard deviations, and the null landscape &quot;coords&quot; created previously.</span></a>
+<a class="sourceLine" id="cb167-2" title="2">heights &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(coords), <span class="dt">mean =</span> <span class="fl">170.7</span>, <span class="dt">sd =</span> <span class="dv">7</span>)</a></code></pre></div>
+<p>The random values that were generated can be collected in a dataframe with the coordinates for the purpose of plotting:</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1">null_trend &lt;-<span class="st"> </span><span class="kw">data.frame</span>(coords, heights)</a></code></pre></div>
+<p>One possible map of heights when the individuals stand in formation at random would look like this:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1"><span class="co"># Our plot is created based on the dataframe of coords and heights. The value of `x` is plotted to the x-axis, the value of `y` is plotted to the y-axis, and the color of the points depends on the values of `heights`. We can change the _scale_ of colors by means of `scale_color_distiller()`. There, palette `spectral` associates higher values of `heights` as red (taller men), while lower values of `heights` (i.e., shorter men) are appear in blue. More generally, we can control the scale of aesthetic aspects of the plot by means of scale_*something* (scale_shape, scale_size, etc.) </span></a>
+<a class="sourceLine" id="cb169-2" title="2"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb169-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> null_trend, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> heights), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb169-4" title="4"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb169-5" title="5"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<p>These are only two of many possible techniques to generate null landscapes. We will discuss other later in the course.</p>
+<p>These two examples illustrate only two of many possible techniques to generate null landscapes. We will discuss other strategies to work with null landscapes later in the course.</p>
 </div>
 <div id="stochastic-processes" class="section level2">
 <h2><span class="header-section-number">7.6</span> Stochastic Processes</h2>
 <p>Some processes are <em>random</em>, such as the ones used above to create <em>null landscapes</em>. These processes take values with some probability, but cannot be predicted with any certainty.</p>
 <p>Let’s illustrate using again a unit square:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coords &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.05</span>), <span class="dt">y =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.05</span>))</code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1"><span class="co"># Remember that `expand.grid()` will find all combinations of values in the inputs</span></a>
+<a class="sourceLine" id="cb170-2" title="2">coords &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.05</span>), <span class="dt">y =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">by =</span> <span class="fl">0.05</span>))</a></code></pre></div>
 <p>Here is an example of a random pattern of events:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">events &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(coords), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)
-null_pattern &lt;-<span class="st"> </span><span class="kw">data.frame</span>(coords, events)
-<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(null_pattern, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" title="1"><span class="co"># Create a random variable and join to the coordinates to generate a null landscape</span></a>
+<a class="sourceLine" id="cb171-2" title="2">events &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(coords), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb171-3" title="3">null_pattern &lt;-<span class="st"> </span><span class="kw">data.frame</span>(coords, events)</a>
+<a class="sourceLine" id="cb171-4" title="4"></a>
+<a class="sourceLine" id="cb171-5" title="5"><span class="co"># Plot the null landscape you just created</span></a>
+<a class="sourceLine" id="cb171-6" title="6"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb171-7" title="7"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(null_pattern, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb171-8" title="8"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>A <em>systematic</em> or <em>deterministic</em> process is one that contains no elements of randomness, and can therefore be predicted with complete certainty. For instance (note the use of <code>xlim</code> to set the extent of x axis in the plot):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">deterministic_point_pattern &lt;-<span class="st"> </span>coords
-deterministic_point_pattern &lt;-<span class="st"> </span><span class="kw">mutate</span>(deterministic_point_pattern, <span class="dt">events =</span> <span class="kw">round</span>(x))
-<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(deterministic_point_pattern, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1"><span class="co"># Copy the coordinates to a new object</span></a>
+<a class="sourceLine" id="cb172-2" title="2">deterministic_point_pattern &lt;-<span class="st"> </span>coords</a>
+<a class="sourceLine" id="cb172-3" title="3"></a>
+<a class="sourceLine" id="cb172-4" title="4"><span class="co"># `mutate()` adds new variables to a data frame while preserving esixting variables. Here, we create a new column in our data frame, called `events` that will take the value of `x` (the position of an observation along the x-axis) and will `round()` it, i.e., if it is less than 0.5 it will round it to zero, and if it is equal to or greater than 0.5 it will round to 1</span></a>
+<a class="sourceLine" id="cb172-5" title="5">deterministic_point_pattern &lt;-<span class="st"> </span><span class="kw">mutate</span>(deterministic_point_pattern, <span class="dt">events =</span> <span class="kw">round</span>(x))</a>
+<a class="sourceLine" id="cb172-6" title="6"></a>
+<a class="sourceLine" id="cb172-7" title="7"><span class="co"># Plot the new landscape: `filter()` keeps the rows in a dataframe that meet a condition (for example, that the value of `events` is 1), and discards the rest</span></a>
+<a class="sourceLine" id="cb172-8" title="8"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb172-9" title="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">filter</span>(deterministic_point_pattern, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb172-10" title="10"><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb172-11" title="11"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<p>In the process above, I used the function <code>round()</code> and the coordinate <code>x</code>. The function gives a value of one for all points with x &gt; 0.5, and a value of zero to all points with x &lt;= 0.5. The pattern is fully deterministic: if I know the value of the x coordinate I can predict whether an event will be present.</p>
+<p>In the process above, we used the function <code>round()</code> and the coordinate <code>x</code>. The function gives a value of one for all points with x &gt; 0.5, and a value of zero to all points with x &lt;= 0.5. The pattern is fully deterministic: if I know the value of the x coordinate I can predict whether an event will be present.</p>
 <p>A <em>stochastic process</em>, on the other hand, is a process that is neither fully random or deterministic, but rather a combination of the two. Let’s illustrate:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stochastic_point_pattern &lt;-<span class="st"> </span>coords
-stochastic_point_pattern &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(stochastic_point_pattern, 
-         <span class="dt">events =</span> <span class="kw">round</span>(x) <span class="op">-</span><span class="st"> </span><span class="kw">round</span>(x) <span class="op">*</span><span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(coords), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>))
-<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(stochastic_point_pattern, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1"><span class="co"># Copy the coordinates to a new object </span></a>
+<a class="sourceLine" id="cb173-2" title="2">stochastic_point_pattern &lt;-<span class="st"> </span>coords</a>
+<a class="sourceLine" id="cb173-3" title="3"></a>
+<a class="sourceLine" id="cb173-4" title="4"><span class="co"># Here, we combine the function `round()`, which does an deterministic operation, and `rbinom()` to generate a random number</span></a>
+<a class="sourceLine" id="cb173-5" title="5">stochastic_point_pattern &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb173-6" title="6"><span class="st">  </span><span class="kw">mutate</span>(stochastic_point_pattern, </a>
+<a class="sourceLine" id="cb173-7" title="7">         <span class="dt">events =</span> <span class="kw">round</span>(x) <span class="op">-</span><span class="st"> </span><span class="kw">round</span>(x) <span class="op">*</span><span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(coords), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb173-8" title="8"></a>
+<a class="sourceLine" id="cb173-9" title="9"><span class="co"># Plot the new landscape</span></a>
+<a class="sourceLine" id="cb173-10" title="10"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb173-11" title="11"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(stochastic_point_pattern, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb173-12" title="12"><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb173-13" title="13"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<p>The process above has a deterministic component (the probability of an event is zero if x &lt;= 0.5), and a random component (the probability of a coordinate being an event is 0.5 when x &gt; 0.5).</p>
+<p>The process above has a deterministic component (the probability of an event is zero if x &lt;= 0.5), and a random component (the probability of a coordinate being an event is 0.5 when x &gt; 0.5). The landscape is not fully random, but also it is not fully deterministic. Instead, it is the result of a stochastic process, a process that combines deterministic and random elements.</p>
 </div>
 <div id="simulating-spatial-processes" class="section level2">
 <h2><span class="header-section-number">7.7</span> Simulating Spatial Processes</h2>
-<p>Null landscapes are interesting as a benchmark. More interesting are landscapes that emerge as the outcome of a non-random process- either a systematic/deterministic or stochastic process. Here we will see how to introduce a systematic element into a null landscape to simulate spatial processes.</p>
+<p>Null landscapes are interesting as a benchmark. More interesting are landscapes that emerge as the outcome of a non-random process - either a systematic/deterministic or stochastic process. Here we will see more ways to introduce a systematic element into a null landscape to simulate spatial processes.</p>
 <p>Let’s begin with the point pattern, using the same landscape that we used above. We will first copy the coordinates of the landscape to a new dataframe, that we will call <code>pattern1</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pattern1 &lt;-<span class="st"> </span>coords</code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" title="1"><span class="co"># Copy the coordinates to a new object, called `pattern1`</span></a>
+<a class="sourceLine" id="cb174-2" title="2">pattern1 &lt;-<span class="st"> </span>coords</a></code></pre></div>
 <p>Next, we will use the function <code>mutate</code> from the <code>dplyr</code> package that is part of the <code>tidyverse</code>. This function adds a column to a data frame that could be calculated using a formula. For instance, we will now make the probability <code>prob</code> of the random binomial number generator a function of the coordinates:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pattern1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(pattern1, <span class="dt">events =</span> <span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> (x)))</code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb175-1" title="1"><span class="co"># Remember, mutate adds a new column to a data frame. In this example, mutate creates a new column, `events` using random binomial values; however, notice that the `prob` is not 0.5! Instead, it depends on `x` the position of the event on the x-axis </span></a>
+<a class="sourceLine" id="cb175-2" title="2">pattern1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(pattern1, <span class="dt">events =</span> <span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> (x)))</a></code></pre></div>
 <p>Plot this pattern:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(pattern1, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb176-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(pattern1, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb176-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p>Since the probability of a “success” in the binomial experiment is proportional to the value of x (the coordinate of the event), now the events are clustered to the right of the plot. The underlying process in this case can be described in simple terms as “the probability of an event increases in the east direction”, possibly as a result of wind conditions, soil fertility, or other environmental factors that follow a trend.</p>
+<p>Since the probability of a “success” in the binomial experiment is proportional to the value of x (the coordinate of the event), now the events are clustered to the right of the plot. The underlying process in this case can be described in simple terms as “the probability of an event increases in the east direction”. In a real process, this could be possibly as a result of wind conditions, soil fertility, or other environmental factors that follow a trend.</p>
 <p>Let’s see what happens when we make this probability a function of the y coordinate:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pattern1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(pattern1, <span class="dt">events =</span> <span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> (y)))
-<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(pattern1, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" title="1"><span class="co"># Overwrite the `events`, now the probability of success in the random binomial number generator is a function of `y`, the position of the event on the y-axis </span></a>
+<a class="sourceLine" id="cb177-2" title="2">pattern1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(pattern1, <span class="dt">events =</span> <span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> (y)))</a>
+<a class="sourceLine" id="cb177-3" title="3"></a>
+<a class="sourceLine" id="cb177-4" title="4"><span class="co"># Plot the new events</span></a>
+<a class="sourceLine" id="cb177-5" title="5"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb177-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(pattern1, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb177-7" title="7"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Since the probability of a “success” in the binomial experiment is proportional to the value of y (the coordinate of the event), now the events are clustered to the top. The probability could be the interaction of the two coordinates:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pattern1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(pattern1, <span class="dt">events =</span> <span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> (x <span class="op">*</span><span class="st"> </span>y)))
-<span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(pattern1, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb178-1" title="1"><span class="co"># Now the probability is the product of `x` and `y`</span></a>
+<a class="sourceLine" id="cb178-2" title="2">pattern1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(pattern1, <span class="dt">events =</span> <span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> (x <span class="op">*</span><span class="st"> </span>y)))</a>
+<a class="sourceLine" id="cb178-3" title="3"></a>
+<a class="sourceLine" id="cb178-4" title="4"><span class="co"># Plot</span></a>
+<a class="sourceLine" id="cb178-5" title="5"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb178-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(pattern1, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb178-7" title="7"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>Which of course means that the events cluster on the top-right corner.</p>
 <p>A somewhat more sophisticated example could make the probability a function of distance from the center of the region:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pattern1 &lt;-<span class="st"> </span>coords
-pattern1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(pattern1, 
-                   <span class="dt">distance =</span> <span class="kw">sqrt</span>((<span class="fl">0.5</span> <span class="op">-</span><span class="st"> </span>x)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>(<span class="fl">0.5</span> <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>), 
-                   <span class="dt">events =</span> <span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span>distance)))</code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" title="1"><span class="co"># Copy the coordinates to the object `pattern1`</span></a>
+<a class="sourceLine" id="cb179-2" title="2">pattern1 &lt;-<span class="st"> </span>coords</a>
+<a class="sourceLine" id="cb179-3" title="3"></a>
+<a class="sourceLine" id="cb179-4" title="4"><span class="co"># In this case, `mutate()` creates a new variable, `distance`, which is the straight line distance from the center of the region (at coordinates x = 0.5 and y = 0.5). Now the probability of success in the random binomial number generator depends on this `distance` </span></a>
+<a class="sourceLine" id="cb179-5" title="5">pattern1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(pattern1, </a>
+<a class="sourceLine" id="cb179-6" title="6">                   <span class="dt">distance =</span> <span class="kw">sqrt</span>((<span class="fl">0.5</span> <span class="op">-</span><span class="st"> </span>x)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>(<span class="fl">0.5</span> <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb179-7" title="7">                   <span class="dt">events =</span> <span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span>distance)))</a></code></pre></div>
 <p>Don’t worry too much about the formula that I selected to generate this process; we will see different tools to describe a spatial process. In this particular example, I selected a function that makes the probability increase with distance from the center of the region.</p>
 <p>Plot this pattern:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(pattern1, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb180-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(pattern1, events <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb180-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>As you would expect, there are few events near the center, and the number of events tends to increase away from the center.</p>
-<p>To conclude this practice, let’s revisit the example of the people standing in formation, but now their sorting is not random, since taller people tend to stand towards the back. We can simulate this by making the height a function of position.</p>
+<p>To conclude this practice, let’s revisit the example of the people standing in formation. Now, taller people are asked to stand towards the back of the formation (assuming that the back is in the positive direction of the y-axis). As a result of this instruction, now the sorting is not random, since taller people tend to stand towards the back. However, people are not able to assess the height of each other exactly, so there will be some random variation in the distribution of heights. We can simulate this by making the height a function of position.</p>
 <p>First, we copy the coordinates to a new dataframe for our trend experiment:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trend1 &lt;-<span class="st"> </span>coords</code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb181-1" title="1">trend1 &lt;-<span class="st"> </span>coords</a></code></pre></div>
 <p>Again we use <code>mutate</code> to add a column to a data frame that could be calculated using a formula. For instance, we will now make the probability <code>prob</code> of the random binomial number generator a function of the coordinates:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trend1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(trend1, <span class="dt">heights =</span> <span class="dv">160</span> <span class="op">+</span><span class="st"> </span><span class="dv">20</span> <span class="op">*</span><span class="st"> </span>y  <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">7</span>))</code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" title="1">trend1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(trend1, <span class="dt">heights =</span> <span class="dv">160</span> <span class="op">+</span><span class="st"> </span><span class="dv">20</span> <span class="op">*</span><span class="st"> </span>y  <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="kw">nrow</span>(pattern1), <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">7</span>))</a></code></pre></div>
 <p>If people have a preference for standing next to people about their same height, and shorter people have a preference for standing near the front, this is a possible map of heights in the formation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> trend1, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> heights), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_fixed</span>()</code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb183-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> trend1, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> heights), <span class="dt">shape =</span> <span class="dv">15</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb183-3" title="3"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;Spectral&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb183-4" title="4"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="06-Maps-as-Processes_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p>As expected, shorter people are towards the “front” (bottom of the plot) and taller people towards the back. It is not a uniform process, since there is still some randomness, but a trend can be clearly appreciated.</p>
 </div>
 <div id="processes-and-patterns" class="section level2">
 <h2><span class="header-section-number">7.8</span> Processes and Patterns</h2>
-<p>O’Sullivan and Unwin <span class="citation">(<a href="#ref-Osullivan2010">2010</a>)</span> make an important distinction between processes and patterns. A process is like a recipe, a sequence of events or steps, that leads to an outcome, that is, a pattern.</p>
+<p>O’Sullivan and Unwin <span class="citation">(<a href="#ref-Osullivan2010" role="doc-biblioref">2010</a>)</span> make an important distinction between processes and patterns. A process is like a recipe, a sequence of events or steps, that leads to an outcome, that is, a pattern.</p>
 <p>You can think of the simulation procedures above as having two components: the process is the formula, function, or algorithm used to simulate a pattern. For instance, a random process could be based on the binomial distribution, whereas a stochastic process would have in addition to a random component some deterministic elements. The pattern is the outcome of the process. In the case of spatial processes, the outcome is typically a statistical map.</p>
-<p>The procedures in the preceding sections illustrate just a few different ways to simulate spatial processes with the aim of generating statistical maps that display spatial patterns. There are in fact many more ways to simulate spatial processes, and articles <span class="citation">(e.g., Geyer and Møller <a href="#ref-Geyer1994simulation">1994</a>)</span> - and even books <span class="citation">(e.g., Moller and Waagepetersen <a href="#ref-Moller2003statistical">2003</a>)</span> - have been written on this topic! Simulation is a very valuable tool in spatial statistics, as we shall see in later chapters.</p>
+<p>The procedures in the preceding sections illustrate just a few different ways to simulate spatial processes with the aim of generating statistical maps that display spatial patterns. There are in fact many more ways to simulate spatial processes, and articles <span class="citation">(e.g., Geyer and Møller <a href="#ref-Geyer1994simulation" role="doc-biblioref">1994</a>)</span> - and even books <span class="citation">(e.g., Moller and Waagepetersen <a href="#ref-Moller2003statistical" role="doc-biblioref">2003</a>)</span> - have been written on this topic! Simulation is a very valuable tool in spatial statistics, as we shall see in later chapters.</p>
 <p>It is important to note, however, that in the vast majority of cases we do not actually know the process; that is precisely what we wish to infer. Understanding process generation in a statistical sense, as well as null landscapes, is a useful tool that can help us to infer processes in applications with empirical (as opposed to simulated) data. In this sense, spatial statistics is often a tool used to make decisions about spatial patterns: are they random? And, if they are not random, can we infer the underlying process?</p>
-<p>Please visit <a href="link">app</a> to explore different examples of spatial processes. Notice that some <em>look</em> more random and some <em>look</em> more systematic. At which point do you think a pattern ceases being random?</p>
 
 </div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-With1997use">
-<p>With, Kimberly A, and Anthony W King. 1997. “The Use and Misuse of Neutral Landscape Models in Ecology.” <em>Oikos</em>. JSTOR, 219–29.</p>
+<div id="ref-Bivand2008">
+<p>Bivand, R. S., E. J. Pebesma, and V. Gómez-Rubio. 2008. <em>Applied Spatial Data Analysis with R</em>. Book. New York: Springer Science+Business Media.</p>
+</div>
+<div id="ref-Geyer1994simulation">
+<p>Geyer, Charles J, and Jesper Møller. 1994. “Simulation Procedures and Likelihood Inference for Spatial Point Processes.” <em>Scandinavian Journal of Statistics</em>, 359–73.</p>
+</div>
+<div id="ref-Moller2003statistical">
+<p>Moller, Jesper, and Rasmus Plenge Waagepetersen. 2003. <em>Statistical Inference and Simulation for Spatial Point Processes</em>. Chapman; Hall/CRC.</p>
 </div>
 <div id="ref-Osullivan2010">
 <p>O’Sullivan, David, and David Unwin. 2010. <em>Geographic Information Analysis</em>. Book. 2nd. Edition. Hoboken, New Jersey: John Wiley &amp; Sons.</p>
 </div>
-<div id="ref-Geyer1994simulation">
-<p>Geyer, Charles J, and Jesper Møller. 1994. “Simulation Procedures and Likelihood Inference for Spatial Point Processes.” <em>Scandinavian Journal of Statistics</em>. JSTOR, 359–73.</p>
-</div>
-<div id="ref-Moller2003statistical">
-<p>Moller, Jesper, and Rasmus Plenge Waagepetersen. 2003. <em>Statistical Inference and Simulation for Spatial Point Processes</em>. Chapman; Hall/CRC.</p>
+<div id="ref-With1997use">
+<p>With, Kimberly A, and Anthony W King. 1997. “The Use and Misuse of Neutral Landscape Models in Ecology.” <em>Oikos</em>, 219–29.</p>
 </div>
 </div>
             </section>
@@ -678,11 +589,13 @@ pattern1 &lt;-<span class="st"> </span><span class="kw">mutate</span>(pattern1,
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -690,12 +603,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -707,6 +619,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
@@ -723,10 +639,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();

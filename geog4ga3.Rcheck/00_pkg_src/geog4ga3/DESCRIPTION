@@ -1,0 +1,16 @@
+Package: geog4ga3
+Type: Package
+Title: GEOG 4GA3 Applied Spatial Statistics
+Version: 0.1.0
+Author: c(person("Antonio", "Paez", role = c("cre", "aut"), email = "paezha@mcmaster.ca", comment=c(ORCID="0000-0001-6912-9919")))
+Maintainer: Antonio Paez <paezha@mcmaster.ca>
+Description: This package includes functions and data sets used in
+    the course GEOG 4GA3 Applied Spatial Statistics, offered by the
+    School of Geography and Earth Sciences at McMaster University.
+License: CC0
+Encoding: UTF-8
+LazyData: true
+Imports: deldir, dplyr, plotly, sp, spdep
+RoxygenNote: 7.0.2
+NeedsCompilation: no
+Packaged: 2020-01-09 17:01:28 UTC; paezha

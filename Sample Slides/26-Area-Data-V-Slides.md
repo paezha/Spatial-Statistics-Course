@@ -12,7 +12,7 @@ Key Concepts
 - Variable Transformations
 - Autocorrelation Analysis to Improve Regression Models
 
-Recall: Linear Regression Models
+Linear Regression Models
 ========================================================
 - Hypothesizes relationships between an outcome (dependent variable), and one or more covariates (indepdendent variables)
 - Capture statistical relationships (i.e Randomness)
@@ -63,7 +63,7 @@ Recall: Residuals
 
 *** 
 
-![Residuals of Distance from CBD](newplot.png)
+![Residuals of Distance from CBD](Area-data-5-figure-1.png)
 
 
 Autocorrelation as a Model Diagnostic
@@ -102,7 +102,7 @@ Variable Transformations
 
 Variable Transformations Continued...
 ========================================================
-- Logarithm of both sides of the equaiton will transform from exponential to linear
+- Logarithm of both sides of the equation will transform from exponential to linear
 
 
 ```r
@@ -116,7 +116,7 @@ Variable Transformations Continued...
 
 ***
 
-![Residuals of Logarithm Model](residuals2.png)
+![Residuals of Logarithm Model](Area-data-v-figure-2.png)
 
 Challenges of Using Spatial Autocorrelation
 ========================================================
@@ -126,7 +126,7 @@ Challenges of Using Spatial Autocorrelation
 
 Exploring Regime Changes
 ========================================================
-![More Advanced Model](residuals3.png)
+![More Advanced Model](Area-data-v-figure-3.png)
 
 ***
 
@@ -134,37 +134,7 @@ Exploring Regime Changes
 - LL (Suburbs)
 - L/H, H/L (Other)
 
-Regime Changes Continued...
-========================================================
-- Much more spatial variation 
-- Further explored in Moran's I
 
-***
-
-![Residuals of Advanced Model](residuals4.png)
-
-Regime Changes Continued...
-========================================================
-- Based on the results, we fail to reject the null hypothesis, and can be confident that the residuals are likely random
-
-
-```
-
-	Moran I test under randomisation
-
-data:  Hamilton_CT$model4.e  
-weights: Hamilton_CT.w    
-
-Moran I statistic standard deviate = 0.74498, p-value = 0.2281
-alternative hypothesis: greater
-sample estimates:
-Moran I statistic       Expectation          Variance 
-      0.024432414      -0.005347594       0.001597957 
-```
-
-Final Model
-========================================================
-![plot of chunk unnamed-chunk-7](26-Area-Data-V-Slides-figure/unnamed-chunk-7-1.png)
 
 Concluding Remarks
 ========================================================

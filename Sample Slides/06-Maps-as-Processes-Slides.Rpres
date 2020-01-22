@@ -12,7 +12,7 @@ Key Concepts
 - Null Landscapes
 - Deterministic Processes
 - Stochastic Processes 
-- Simulaitng Spatial Processes
+- Simulating Spatial Processes
 
 
 
@@ -44,9 +44,9 @@ ggplot() +
 ```
 
 ***
-- Cannot make predicitons of results
-- Using rnadom variables to create random maps
-- Prove a benchmark to compare statistical maps
+- Using random variables to create random maps
+- Difficult to predict results
+- Provides a benchmark to compare statistical maps
 
 Deterministic Processes
 ========================================================
@@ -98,7 +98,7 @@ ggplot() +
 ***
 
 - Probability of an event increases in the "East" direction
-- Natural Process? 
+- Natural Process causing this trend? Escarpment present?  
 
 Concluding Remarks
 ========================================================

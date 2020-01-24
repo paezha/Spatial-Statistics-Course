@@ -74,10 +74,51 @@ The dataframes `PointPattern*` are locations of some generic events. The coordin
 
 *1. Create thematic maps for variables VAR1 through VAR3 in the dataframe `missing_df`. 
 
+```{r}
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR1, shape = Observed), size = 3) +
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+
+
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR2, shape = Observed), size = 3) +
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+
+
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR3, shape = Observed), size = 3) +
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+```
+
+
 *2. Plot all three point patterns.
+
+```{r}
+ggplot() + 
+  geom_point(data = PointPattern1, aes(x = x, y = y), shape = 17, size = 3) + 
+  coord_fixed()
+
+
+ggplot() + 
+  geom_point(data = PointPattern2, aes(x = x, y = y), shape = 17, size = 3) + 
+  coord_fixed()
+
+
+ggplot() + 
+  geom_point(data = PointPattern3, aes(x = x, y = y), shape = 17, size = 3) + 
+  coord_fixed()
+```
+
 
 3. Suppose that you were tasked with estimating the value of a variable for the locations where those were not measured. For instance, you could be a realtor, and you need to assess the value of a property, and the only information available is the published values of other properties in the region. As an alternative, you could be an environmental scientist, and you need to estimate what the concentration of a contaminant at a site, based on previous measurements at other sites in the region.
 
 Propose one or more ways to guess those missing values, and explain your reasoning. The approach does not need to be the same for all variables!
 
+- A method to guessing missing variables is inspecting the variables and locating the missing values. A simple method to determining missing values is calculating the averages of the surrounding variables and have the missing value as the mean. However, this might not be ideal if there are outliers in the dataset surrounding the missing values.
+
 4. Imagine that you are a public health official and you need to plan services to the public. If you were asked to guess where the next event would emerge, where would be your guess in each map? Explain your answer.
+
+- For this question I am nterpreting the plots as a concentration of some contaminant, therefore I predict the next events to be where there is the largest cluster of “contaminant”. For Pointpattern1, I predeict the next plot to be in the right middle of the plot, as this is where I feel the concentration of the contaminant is the strongest. For the second plot, there are 3 promient clusters in this plot which allow for myself to predict equal likeliness of an event occuring in each region where there are clusters. Addtionally, within the last plot (PointPattern3) there is a large cluster in the upper central region of the plot, therefore I predict likeliness of an event to occur in this region. As a public health official, I will warn the public to avoid these regions as they are high risk of an event occurring.

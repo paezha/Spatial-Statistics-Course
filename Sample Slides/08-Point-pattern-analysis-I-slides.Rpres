@@ -6,10 +6,10 @@ autosize: true
 
 Key Points
 ========================================================
-- understand what point pattern analysis is 
-- intensity vs density 
-- quadrats and density maps
-- how to make a PPP object
+- Understand what point pattern analysis is 
+- Intensity vs density 
+- Quadrats and density maps
+- How to make a PPP object
 
 Point Patterns
 ========================================================
@@ -20,10 +20,10 @@ library(geog4ga3)
 data("PointPatterns")
 ``````
 
-- When only the coordinates are available for a set of data it is called a point pattern
+-  a point pattern is a statistical map where the location of the event is the outcome of a process 
 - A point pattern is given by a set of events of interest that are observed in a region $R$
 - A region has an infinite number of points (coordinates) on the plane 
-- point patterns must be a complete _enumeration_ meaning every event that happened has been recorded
+- Point patterns must be a complete _enumeration_ meaning every event that happened has been recorded
 
 Processes and Point Patterns
 ========================================================
@@ -94,7 +94,8 @@ Creating a PPP object
 ========================================================
 - `quadratcount` is a function that returns the number of events per quadrat
 - To use this function you need to convert the point patterns to a `ppp`
-1. Define the window by means of the `owin` function, and using the 0 to 1 interval for our region
+1. Define the window by means of the `owin` function, and using the x-min, y-min to x-max, y-max interval for our region
+- in this example it was set to 0,1
 ```{r, echo=FALSE}
 Wnd <- owin(c(0,1), c(0,1)) 
 ```
@@ -112,16 +113,20 @@ ppp1 <- as.ppp(PointPatterns, Wnd)
 ppp1 <- as.ppp(PointPatterns, Wnd)
 ```
 
-
 Defining the Region for Analysis
 ========================================================
 - When conducting analysis with point pattersn it is important to define a region for analysis that is consistent with the pattern of interest
-- If the region is to big or to small the data will be harder to intrepret or could be misintrepreted
+- It is critical that the window size is representative of the entire area where the underlying process could be occuring to accuratly intrepret the spatial distribution and resons for that distribution  
+
+<!---
+the window has to be represneteive of where the processes could occur. It is not just that the window could be to big or to small, but it may not represent the entire area where the process could be happening 
+--->
+
 
 Example of Different Region Sizes 
 ========================================================
 ```{r, echo=FALSE}
-Wnd2 <- owin(c(-1,2), c(-1,2)) 
+Wnd2 <- owin(c(-0.5,1.5), c(-0.5,1.5)) 
 ppp2 <- as.ppp(PointPatterns, Wnd2)
 plot(split.ppp(ppp2)$`Pattern 1`)
 ```
@@ -133,3 +138,10 @@ ppp3 <- as.ppp(PointPatterns, Wnd3)
 plot(split.ppp(ppp3)$`Pattern 1`)
 ```
 
+Conclusion
+=======================================================
+- It is important that the point pattern you are working with is a complete enumeration 
+- We calculate density to estimate intensity 
+- You can split data up into quadrats to calculate density/quadrat which allows you to see how density varies over a region 
+- To use the function required to find density per quadrat you must convert you data into a ppp object 
+- Defining the correct region size is important for accurate intrepretation of the spatial distribution 

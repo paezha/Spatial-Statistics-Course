@@ -29,6 +29,7 @@ Intuition: Calculating Quadrat Test
 ```
 
 	Chi-squared test of CSR using quadrat counts
+	Pearson X2 statistic
 
 data:  split(PointPatterns.ppp)$"Pattern 4"
 X2 = 1.2, df = 8, p-value = 0.006716
@@ -49,26 +50,37 @@ Intuition Continued: Plot Results of Quadrat Test
 Calculating X2 (Quadrat Test Value)
 ========================================================
 - Chi Square independence tests for a significant association between the categories of the two variables (events occurring and events expected)
-- X2 is alculated using squared sum of the residuals
+- X2 is calculated using squared sum of the residuals
 - The smaller this number, the more likely the event is random
 
 Importance of the p-value
 ========================================================
-- Determines if the point pattern is result of a random process
+- P-value is the probabiltiy that map is the result of a null process
 - When p is small, this indicates it is unlikely that the point pattern reflects the theoretical random pattern, resulting in a random landscape
+- 0.01 --> there is a 1% that the map is a result of a random process
+
+
 
 Limitations: Size and Number of Quadrats 
 ========================================================
 - Changing size of quadrat impacts the counts
 - Events will not be properly accounted for if cell is too small
-- General Rule: (Q=2A/N)
+- General Rule: 
+
+A = Area of the region, 
+N = Number of events
+
+$$
+Q=\frac{2A}{N}
+$$
+
 
 Limitations Continued: Relative Position of Event
 ========================================================
-- Fails to distinguish between different even distributions
+- Fails to distinguish between different event distributions (Clustering vs Regularity)
 ![plot of chunk unnamed-chunk-4](10-Point-Pattern-Analysis-II-Slides-figure/unnamed-chunk-4-1.png)![plot of chunk unnamed-chunk-4](10-Point-Pattern-Analysis-II-Slides-figure/unnamed-chunk-4-2.png)
 
-Kernel Density: A solution to Quadrat Test
+Kernel Density: A Solution to Quadrat Test
 ========================================================
 - Moving window over each grid cell
 - Assigns highest "weight" to events closest to the centre of the bandwidth

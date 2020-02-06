@@ -1,3 +1,8 @@
+<!---
+Reflection: Presentation went well. Important to really explain G-function in a clear way as it is am important concept in this course. A question was asked about choosing the X value for determining the Area you looked at to determine nearest neighbors and Dr. Paez explained the answer. Building off kernal density is important as its in the presentation before and mentioning that although it is great for visualizing it does not qunatify the spatial pattern and misses small scale variation. 
+--->
+
+
 Point Pattern Analysis III
 ========================================================
 author: Megan Coad and Alexis Polidoro
@@ -41,6 +46,11 @@ Motivation contd.
 - The smaller the quadrats are the more it resembles the actual point pattern making it increasingly less informative 
 
 ![plot of chunk unnamed-chunk-3](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-3-1.png)
+
+<!--- 
+Use an example saying "if you think about it, if the quadrats were made small enough there would only be 1 or 0 points per quadrat, which is bascially just the point pattern so its not informative at all". 
+--->
+
 
 Recall: Kernel Density
 ========================================================

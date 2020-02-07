@@ -117,18 +117,17 @@ Simulation Envelopes Contd.
 Defining a Region: 
 ========================================================
 
-- When defining the region (or window) for the analysis, care must be taken that it is reasonable from the perspective of the process under analysis
+- When defining the region (or window) for the analysis make sure it is reasonable from the perspective of the process under analysis
 - Defining the region in an inappropriate way can easily lead to misleading results
 
 
-This pattern was defined for a unit-square window. Lets apply the K-function to it:
+e.g. This pattern was defined for a unit-square window. Lets apply the K-function to it:
 
 
 
-- Based on this we would most likely conclude that the pattern is random.
 
 ***
-
+- Based on this we would most likely conclude that the pattern is random.
 ![plot of chunk unnamed-chunk-16](16-Point-Pattern-Analysis-V-Slides-figure/unnamed-chunk-16-1.png)
 
 Defining a Region Contd. 
@@ -139,7 +138,13 @@ Lets now replace the unit-square window by a much larger window:
 
 ![plot of chunk unnamed-chunk-18](16-Point-Pattern-Analysis-V-Slides-figure/unnamed-chunk-18-1.png)
 
-The point pattern now looks clustered ADD SIMULATION ENVELOPES
+***
+The point pattern now looks clustered
+
+
+
+![plot of chunk unnamed-chunk-20](16-Point-Pattern-Analysis-V-Slides-figure/unnamed-chunk-20-1.png)
+
 
 Edge Effects 
 ========================================================
@@ -154,12 +159,16 @@ Edge Effects Contd.
 - So far, we have used the argument `correction = "none"` when applying the functions. The following alternative corrections are implemented: "none", "rs", "km", "cs" and "best". Alternatively `correction = "all"` selects all options.
 - These corrections are variations of weighting schemes. In other words, the statistic is weighted to give an unbiased estimator.
 
-![plot of chunk unnamed-chunk-19](16-Point-Pattern-Analysis-V-Slides-figure/unnamed-chunk-19-1.png)
-
-
 Sample Point Patterns
 ========================================================
 - A _sampled_ point pattern, on the other hand, is a pattern where not all events have been recorded
 - The bias introduced by sampled point patterns can be extremely serious, because the findings depend heavily of the observations that were recorded as well as those that were not recorded
 - Clustered events could easily give the impression of a dispersed pattern, depending on what was observed.
 - There are no good solutions to bias introduced by sampled point patterns
+
+Concluding Remarks 
+===============================================================
+- simulation envelopes are used to confirm or reject the null hypothesis that a pattern is a result of a null landscape 
+- they provide more certainty than simply comparing point patterns to a generated null landscape 
+- edge effects and sample point patterns are limitations to point pattern analysis that can provide challenges when doing analysis
+- we have methods deal with edge effects but not sample point patterns 

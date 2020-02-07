@@ -1,3 +1,7 @@
+<!---
+I felt confident with the delivery of material in today's mini lecture presentation. It is important to note that for next time, the p-value meaning should be indicated: for example, a low p-value (less than 0.05) means that there is a 'five percent chance that you are falsely rejecting the null hypothesis', but in simpler terms, it means that tere is a 95% chance that the pattern is not random/ a result of an underlying process. This should be clarified with Dr. Paez at the week of the meeting. Additionally, it will be important to add some information regarding the units of measurement when calculating the correct number of quadrats. Dr. Paez was unsure in lecture, therefore you are able to clarify what type of units we are using, and how we know. There were few students who asked questions during the activity period, therefore I think this chapter was well understod for the most part. 
+--->
+
 Point Pattern Analysis II
 ========================================================
 author: Megan Coad and Alexis Polidoro

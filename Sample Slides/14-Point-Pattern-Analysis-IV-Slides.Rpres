@@ -7,9 +7,9 @@ autosize: true
 Key Concepts
 ========================================================
 
-- F- or Empty Space function 
+- $\hat{F}$-function
 - Identifying Patterns at Multiple Scales
-- K-function 
+- $\hat{K}$-function 
 
 ```{r, echo=FALSE}
 rm(list = ls())
@@ -29,13 +29,9 @@ pp4.ppp <- as.ppp(pp4_df, W = W)
 pp5.ppp <- as.ppp(pp5_df, W = W)
 ```
 
-
-<<<<<<< HEAD
-Quick Recap: G-function 
-=======
-Recall: G-function 
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
+Recall: G-Function
 ========================================================
+
 - Cumulative distribution of events to their nearest event
 - 40% of events have nearest neighbour at a distance less than X 
 
@@ -67,9 +63,13 @@ plot(f_pattern2)
 ```
 
 
-Patterns At Multiple Scales: Issues
+Limitations of the F and G Function
 ========================================================
+
+
 - missing patterns at different scales: clustering at small scale, regularity at larger scales
+
+***
 
 ```{r, echo=FALSE}
 plot(pp5.ppp)
@@ -77,7 +77,7 @@ plot(pp5.ppp)
 
 K-function
 ========================================================
-- Solution to the limitations of the F-function 
+- Solution to the limitations of the  $\hat{G}$-function and $\hat{F}$-function 
 - Interpreted as counting events in a given radius
 - Detects patterns at multiple scales
 
@@ -99,6 +99,6 @@ plot(k_pattern5)
 
 Concluding Remarks
 ========================================================
-- F-function determines point to their nearest event at a single scale 
+- $\hat{F}$-function determines point to their nearest event at a single scale 
 - Single scale does not detect all patterns in a null landscape 
 - K-function is a useful tool to detemermine nearest events at multiple scales

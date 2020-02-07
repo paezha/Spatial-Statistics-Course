@@ -1,3 +1,8 @@
+<!--- 
+Reflection: 
+A student made a comment about enumeration asking if it was okay if only one or two points were missing from the dataset. It was explained that the proportion of missing points is important (i.e. if its only 1 out of 100 points its okay but if its 50/100 then you can't do proper analysis). In addition to this, you often don't know how many points are missing so its always best to work with a complete enumeration not just a sample. A student also asked if changing the window size changes the spatial distribution of the points. It was explained that it simply changes how we see it visually, not the distribution of the points. In assignment, the values in the Chi-squared are residulas NOT p-values. The closer to 0 the residuals are the more confident you are that there is a random distribution.  
+--->
+
 Point Pattern Analysis I
 ========================================================
 author: Megan Coad and Alexis Polidoro
@@ -81,7 +86,8 @@ Defining the Region for Analysis
 - It is critical that the window size is representative of the entire area where the underlying process could be occuring to accuratly intrepret the spatial distribution and resons for that distribution  
 
 <!---
-the window has to be represneteive of where the processes could occur. It is not just that the window could be to big or to small, but it may not represent the entire area where the process could be happening 
+It is helpful to use an example to explain this concept. 
+the window has to be represneteive of where the processes could occur. It is not just that the window could be to big or to small, but it may not represent the entire area where the process could be happening. E.g. In the small window it is possible that the window is appropriate because that is the region where processes could occur, if this is the case it is a legitimate cluster. If the process only happens in that small region then then window should be smaller and it is actually better reprerentative of a radom distribution.  
 --->
 
 

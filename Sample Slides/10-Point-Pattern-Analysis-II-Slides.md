@@ -33,7 +33,6 @@ Intuition: Calculating Quadrat Test
 ```
 
 	Chi-squared test of CSR using quadrat counts
-	Pearson X2 statistic
 
 data:  split(PointPatterns.ppp)$"Pattern 4"
 X2 = 1.2, df = 8, p-value = 0.006716

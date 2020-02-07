@@ -1,3 +1,8 @@
+<!---
+Reflection: Presentation went well. Important to really explain G-function in a clear way as it is am important concept in this course. A question was asked about choosing the X value for determining the Area you looked at to determine nearest neighbors and Dr. Paez explained the answer. Building off kernal density is important as its in the presentation before and mentioning that although it is great for visualizing it does not qunatify the spatial pattern and misses small scale variation. 
+--->
+
+
 Point Pattern Analysis III
 ========================================================
 author: Megan Coad and Alexis Polidoro
@@ -38,8 +43,14 @@ Motivation contd.
 ========================================================
 - Changing parameters can show variation in density 
 - The quality of the test deteriorates when there are many quadrats with small counts
+- The smaller the quadrats are the more it resembles the actual point pattern making it increasingly less informative 
 
 ![plot of chunk unnamed-chunk-3](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-3-1.png)
+
+<!--- 
+Use an example saying "if you think about it, if the quadrats were made small enough there would only be 1 or 0 points per quadrat, which is bascially just the point pattern so its not informative at all". 
+--->
+
 
 Recall: Kernel Density
 ========================================================
@@ -67,17 +78,16 @@ Nearest Neighbors contd.
 ***
 
 ![plot of chunk unnamed-chunk-6](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-6-1.png)
-- Most events have a nearest neighbot at a distance of approximately 0.15
+- Most events have a nearest neighbor at a distance of approximately 0.15
 
 Stienen Diagram
 ========================================================
-
 -  A proportional symbol plot of the events 
 - Size of symbols are proportional to the distance to their nearest neighbor
 
 
 Stienen Diagram contd. 
-========================================================
+=============================================================
 ![plot of chunk unnamed-chunk-7](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-7-1.png)
 - The largest circle is not very large, events that are relatively isolated are not a long distance away from their nearest neighbor
 - This fits the definition of clustering
@@ -89,7 +99,8 @@ Stienen Diagram contd.
 - This fits the definition of dispersion
 
 Steinen Diagram contd. 
-========================================================
+==========================================================
+
 - In a null landscape, the distribution of the size of the symbols would tend to be random
 
 ![plot of chunk unnamed-chunk-9](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-9-1.png)
@@ -136,7 +147,15 @@ G-Function contd.
 ![plot of chunk unnamed-chunk-13](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-13-1.png)
 
 ***
-
 - The empirical function closely resembles the theoretical function for the null landscape
 
 ![plot of chunk unnamed-chunk-14](12-Point-Pattern-Analysis-III-Slides-figure/unnamed-chunk-14-1.png)
+
+Concluding Remarks
+==================================================================
+- Nearest Neighbors quantifies the spatial distribution of your data and allows for further analysis 
+- Steinen Diagrams, Cummulative Distribution Function and the G-function all provide different ways to analyse point pattern spatial distribution 
+
+
+
+

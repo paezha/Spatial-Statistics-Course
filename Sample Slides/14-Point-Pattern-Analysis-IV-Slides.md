@@ -69,5 +69,6 @@ K-function Continued
 Concluding Remarks
 ========================================================
 - $\hat{F}$-function determines point to their nearest event at a single scale 
+- $\hat{G}$-function determines points as "events", to their nearest event at a single scale 
 - Single scale does not detect all patterns in a null landscape 
-- K-function is a useful tool to detemermine nearest events at multiple scales
+- $\hat{K}$-function  is a useful tool to detemermine nearest events at multiple scales

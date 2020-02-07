@@ -155,11 +155,11 @@ plot(env_pp2)
 Defining a Region: 
 ========================================================
 
-- When defining the region (or window) for the analysis, care must be taken that it is reasonable from the perspective of the process under analysis
+- When defining the region (or window) for the analysis make sure it is reasonable from the perspective of the process under analysis
 - Defining the region in an inappropriate way can easily lead to misleading results
 
 
-This pattern was defined for a unit-square window. Lets apply the K-function to it:
+e.g. This pattern was defined for a unit-square window. Lets apply the K-function to it:
 ```{r, include=FALSE}
 k_env_pp1 <- envelope(pp1.ppp, Kest, nsim = 99, funargs = list(correction = "none"))
 ```
@@ -167,10 +167,9 @@ k_env_pp1 <- envelope(pp1.ppp, Kest, nsim = 99, funargs = list(correction = "non
 ```{r, include=FALSE}
 k_env_pp1 <- envelope(pp1.ppp, Kest, nsim = 99, funargs = list(correction = "none"))
 ```
-- Based on this we would most likely conclude that the pattern is random.
 
 ***
-
+- Based on this we would most likely conclude that the pattern is random.
 ```{r, echo=FALSE}
 plot(k_env_pp1)
 ```
@@ -184,11 +183,21 @@ W2 <- owin(x = c(-2,4), y = c(-2, 4))
 pp1_reg2 <- as.ppp(as.data.frame(pp1.ppp), W = W2)
 ```
 
-```{r echo=FALSE}
+```{r, echo=FALSE}
 plot(pp1_reg2)
 ```
 
-The point pattern now looks clustered ADD SIMULATION ENVELOPES
+***
+The point pattern now looks clustered
+
+```{r, include=FALSE}
+k_env_pp1_reg2 <- envelope(pp1_reg2, Kest, nsim = 99, funargs = list(correction = "none"))
+```
+
+```{r, echo=FALSE}
+plot(k_env_pp1_reg2)
+```
+
 
 Edge Effects 
 ========================================================
@@ -203,14 +212,16 @@ Edge Effects Contd.
 - So far, we have used the argument `correction = "none"` when applying the functions. The following alternative corrections are implemented: "none", "rs", "km", "cs" and "best". Alternatively `correction = "all"` selects all options.
 - These corrections are variations of weighting schemes. In other words, the statistic is weighted to give an unbiased estimator.
 
-```{r, echo=FALSE}
-plot(Gest(pp2.ppp, correction = "all"))
-```
-
-
 Sample Point Patterns
 ========================================================
 - A _sampled_ point pattern, on the other hand, is a pattern where not all events have been recorded
 - The bias introduced by sampled point patterns can be extremely serious, because the findings depend heavily of the observations that were recorded as well as those that were not recorded
 - Clustered events could easily give the impression of a dispersed pattern, depending on what was observed.
 - There are no good solutions to bias introduced by sampled point patterns
+
+Concluding Remarks 
+===============================================================
+- simulation envelopes are used to confirm or reject the null hypothesis that a pattern is a result of a null landscape 
+- they provide more certainty than simply comparing point patterns to a generated null landscape 
+- edge effects and sample point patterns are limitations to point pattern analysis that can provide challenges when doing analysis
+- we have methods deal with edge effects but not sample point patterns 

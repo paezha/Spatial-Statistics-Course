@@ -1,3 +1,12 @@
+<!---
+Refelction: 
+Presentation went well and students seemed to understand the concepts explained. A student had a question regarding why the null landscape line fell outside of the simulation envelopes and it was explained that it is likely because there wasn't that many envelopes used which meant the variance was not at its fullest extent. One key point is to show how changing the window very dramatically impacts the resulting figures and your intrepretation. This is a longer presentation (more than 5 min) so it could be condensed if necesscary. 
+---> 
+
+
+
+
+
 Point Pattern Analysis V
 ========================================================
 author: Megan Coad and Alexis Polidoro

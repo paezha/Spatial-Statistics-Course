@@ -1,14 +1,23 @@
+<!---
+REFLECTION FOR THIS WEEK (JAN 24)
+I feel like this reflection went well. I felt confident with the information and its delivery, however, there was a question asked regarding the prediction of deterministic processes. I answered the question specifying that deterministic processes predict the location of a new event, however that was only speficif to the example of the tree farm. For the future, it would be critical to add that predicting new events (of a determnistic process) is specific to the event, and it can be predicted in new ways for various landscapes (ie, prediting height of trees in a tree farm, as older, taller trees would be in a different location) During the activity, some students had questions regarding how to create different types of random landscapes, and it may be beneficial to add some code to the mini lecture slides to effectively communicate how we can create different types of random patterns in R. 
+--->
+
 Maps as Processes
 ========================================================
 author: Alexis Polidoro and Megan Coad 
 date: 
 autosize: true
 
+<!---
+In the key concepts, make sure to reflect on what we did last week
+--->
+
 Key Concepts 
 ========================================================
 
 
-- Random Processes
+- Different Degrees of Randomness
 - Null Landscapes
 - Deterministic Processes
 - Stochastic Processes 
@@ -24,12 +33,17 @@ Random Processes
 
 Null Landscape
 ========================================================
-![plot of chunk unnamed-chunk-1](06-Maps-as-Processes-Slides-figure/unnamed-chunk-1-1.png)![plot of chunk unnamed-chunk-1](06-Maps-as-Processes-Slides-figure/unnamed-chunk-1-2.png)
+![plot of chunk unnamed-chunk-1](06-Maps-as-Processes-Slides-figure/unnamed-chunk-1-1.png)
+
+<!---
+Pay attention to the examples I provided below. I used the examples of tree distribution to show how trees can be randomly distributed over a landscape (forest) and systematically distributed on a tree farm (stochastic). The divide could be a result of a fense separating tree distribution. 
+--->
 
 ***
 - Using random variables to create random maps
 - Difficult to predict results
-- Provides a benchmark to compare statistical maps
+- Example: Forests
+
 
 Deterministic Processes
 ========================================================
@@ -39,6 +53,7 @@ Deterministic Processes
 ***
 - No element of Randomness 
 - Predicted with complete certainty 
+- Ex: Tree Farm
 
 Stochastic Processes
 ========================================================
@@ -47,8 +62,7 @@ Stochastic Processes
 
 ***
 - Both random and Deterministic 
-- Deterministic Component: the probability of an event is zero if x <= 0.5
-- Random Component: the probability of a coordinate being an event is 0.5 when x > 0.5
+- Ex: Forest (Random Component), Fence (Deterministic Component)
 
 Simulating Spatial Processes
 ========================================================

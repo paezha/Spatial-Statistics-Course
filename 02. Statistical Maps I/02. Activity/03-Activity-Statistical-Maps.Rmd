@@ -103,4 +103,26 @@ Now you have seen how to create a thematic map with polygons (areal data), you a
 
 *1. Create thematic maps for variables VAR1 through VAR5 in the dataframe `HamiltonDAs`. Remember that you can introduce new chunks of code.
 
+```{r}
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR1, shape = Observed), size = 3) +
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+
+
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR2, shape = Observed), size = 3) +
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+
+
+ggplot() + 
+  geom_point(data = missing_df, aes(x = x, y = y, color = VAR3, shape = Observed), size = 3) +
+  scale_color_distiller(palette = "RdBu") +
+  coord_fixed()
+```
+
+
 2. Imagine that these maps were found, and for some reason the variables were not labeled. They may represent income, or population density, or something else. Which of the five maps you just created is more interesting? Rank the five maps from most to least interesting. Explain the reasons for your ranking.
+
+The rank of order for most interesting variables is as follows: Variable 1, variable 5, variable 2, variable 3, variable 4. For example, if this data was representing income, the strong separation of data in variable 1 makes for a strong argument of income segregation in the region. In addtion, variable 5 could communicate evidence for high values in most of the region, and this data could be used to investigate why values are so low in few regions. Addtionally, Vaiables 3 is interesting as values are lower in the outer regions and this can generate curiosity as to why variables are lower in the outer regions. Graphs of variable 2 communicates uneven distribution of “income” throughout the region, however I do not find this data interesting enough to explore regional incomes any further. Finally, variable 4 is the least interesting in my opinion as it appears to have even distribution thorughout and is not significant in my opinion.

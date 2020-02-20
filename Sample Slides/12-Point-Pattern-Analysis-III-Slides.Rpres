@@ -1,3 +1,8 @@
+<!---
+Reflection: Presentation went well. Important to really explain G-function in a clear way as it is am important concept in this course. A question was asked about choosing the X value for determining the Area you looked at to determine nearest neighbors and Dr. Paez explained the answer. Building off kernal density is important as its in the presentation before and mentioning that although it is great for visualizing it does not qunatify the spatial pattern and misses small scale variation. 
+--->
+
+
 Point Pattern Analysis III
 ========================================================
 author: Megan Coad and Alexis Polidoro
@@ -48,10 +53,16 @@ Motivation contd.
 ========================================================
 - Changing parameters can show variation in density 
 - The quality of the test deteriorates when there are many quadrats with small counts
+- The smaller the quadrats are the more it resembles the actual point pattern making it increasingly less informative 
 
 ```{r, echo=FALSE}
 plot(quadratcount(split(pp0.ppp), nx = 9, ny = 9))
 ```
+
+<!--- 
+Use an example saying "if you think about it, if the quadrats were made small enough there would only be 1 or 0 points per quadrat, which is bascially just the point pattern so its not informative at all". 
+--->
+
 
 Recall: Kernel Density
 ========================================================
@@ -88,17 +99,16 @@ ggplot() + geom_histogram(data = data.frame(dist = pp0_nn1), aes(dist), binwidth
 pp0_nn2 <- nndist(split(pp0.ppp)$"Pattern 2")
 ggplot() + geom_histogram(data = data.frame(dist = pp0_nn2), aes(dist), binwidth = 0.03)
 ```
-- Most events have a nearest neighbot at a distance of approximately 0.15
+- Most events have a nearest neighbor at a distance of approximately 0.15
 
 Stienen Diagram
 ========================================================
-
 -  A proportional symbol plot of the events 
 - Size of symbols are proportional to the distance to their nearest neighbor
 
 
 Stienen Diagram contd. 
-========================================================
+=============================================================
 ```{r, echo=FALSE}
 plot(split(pp0.ppp)$"Pattern 1" %mark% (pp0_nn1), markscale = 1, main = "Stienen diagram")
 ```
@@ -114,7 +124,8 @@ plot(split(pp0.ppp)$"Pattern 2" %mark% (pp0_nn2), markscale = 1, main = "Stienen
 - This fits the definition of dispersion
 
 Steinen Diagram contd. 
-========================================================
+==========================================================
+
 - In a null landscape, the distribution of the size of the symbols would tend to be random
 
 ```{r, echo=FALSE}
@@ -173,10 +184,18 @@ plot(g_pattern2)
 ```
 
 ***
-
 - The empirical function closely resembles the theoretical function for the null landscape
 
 ```{r, echo=FALSE}
 g_pattern_rnd <- Gest(rand_ppp, correction = "none")
 plot(g_pattern_rnd)
 ```
+
+Concluding Remarks
+==================================================================
+- Nearest Neighbors quantifies the spatial distribution of your data and allows for further analysis 
+- Steinen Diagrams, Cummulative Distribution Function and the G-function all provide different ways to analyse point pattern spatial distribution 
+
+
+
+

@@ -7,15 +7,15 @@ autosize: true
 Key Concepts
 ========================================================
 
-- F- or Empty Space function 
+- $\hat{F}$-function
 - Identifying Patterns at Multiple Scales
-- K-function 
+- $\hat{K}$-function 
 
 
 
-
-Recall: G-function 
+Recall: G-Function
 ========================================================
+
 - Cumulative distribution of events to their nearest event
 - 40% of events have nearest neighbour at a distance less than X 
 
@@ -39,15 +39,19 @@ F-function Continued...
 ![plot of chunk unnamed-chunk-4](14-Point-Pattern-Analysis-IV-Slides-figure/unnamed-chunk-4-1.png)
 
 
-Patterns At Multiple Scales: Issues
+Limitations of the F and G Function
 ========================================================
+
+
 - missing patterns at different scales: clustering at small scale, regularity at larger scales
+
+***
 
 ![plot of chunk unnamed-chunk-5](14-Point-Pattern-Analysis-IV-Slides-figure/unnamed-chunk-5-1.png)
 
 K-function
 ========================================================
-- Solution to the limitations of the F-function 
+- Solution to the limitations of the  $\hat{G}$-function and $\hat{F}$-function 
 - Interpreted as counting events in a given radius
 - Detects patterns at multiple scales
 
@@ -64,6 +68,7 @@ K-function Continued
 
 Concluding Remarks
 ========================================================
-- F-function determines point to their nearest event at a single scale 
+- $\hat{F}$-function determines point to their nearest event at a single scale 
+- $\hat{G}$-function determines points as "events", to their nearest event at a single scale 
 - Single scale does not detect all patterns in a null landscape 
-- K-function is a useful tool to detemermine nearest events at multiple scales
+- $\hat{K}$-function  is a useful tool to detemermine nearest events at multiple scales

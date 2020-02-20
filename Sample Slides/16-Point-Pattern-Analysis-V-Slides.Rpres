@@ -1,3 +1,12 @@
+<!---
+Refelction: 
+Presentation went well and students seemed to understand the concepts explained. A student had a question regarding why the null landscape line fell outside of the simulation envelopes and it was explained that it is likely because there wasn't that many envelopes used which meant the variance was not at its fullest extent. One key point is to show how changing the window very dramatically impacts the resulting figures and your intrepretation. This is a longer presentation (more than 5 min) so it could be condensed if necesscary. 
+---> 
+
+
+
+
+
 Point Pattern Analysis V
 ========================================================
 author: Megan Coad and Alexis Polidoro
@@ -42,19 +51,14 @@ pp4.ppp <- as.ppp(pp4_df, W = W)
 pp5.ppp <- as.ppp(pp5_df, W = W)
 ```
 
-<<<<<<< HEAD
+
 Null Landscapes Revisited
 ========================================================
 - A null landscape is a landscape produced by a random process
 - A useful way of generating null landscapes for point patterns is by means of a Poisson process
 - This function generates a null landscape given an intensity parameter and a window
 
-
-Creating a Null Landscape 
-=======
-
 Recall: Creating a Null Landscape 
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 ========================================================
 Create the window:
 
@@ -67,11 +71,9 @@ Generate a null landscape:
 sim1 <- rpoispp(lambda = 81, win = W)
 ```
 
-<<<<<<< HEAD
-=======
-***
+Recall: Creating a Null Landscape
+=========================================================
 
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 The value of this function is a `ppp` object that can be analyzed:
 
 ```{r, echo=FALSE}
@@ -81,45 +83,34 @@ plot(sim1)
 
 Creating a Null Landscape Contd. 
 ========================================================
-<<<<<<< HEAD
 
-Importantly, you can apply any of the techniques that you have seen so far, for instance, the $\hat{G}$-function:
-=======
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
+- Importantly, you can apply any of the techniques that you have seen so far, for instance, the $\hat{G}$-function:
+
 ```{r, echo=FALSE}
 g_pp1 <- Gest(pp1.ppp, correction = "none") 
 g_sim1 <- Gest(sim1, correction = "none")
 ```
 
-<<<<<<< HEAD
-Lets plot the empirical functions. To plot using `ggplot2` you can stack the two dataframes as follows (after adding a factor to indicate if it is the empirical function or a simulation):
-=======
-Lets plot the empirical functions.
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
+- Lets plot the empirical functions
+
 ```{r,echo=FALSE}
 g_all <- transmute(g_pp1, G = raw, x = r, Type = factor("Empirical"))
 g_all <- rbind(g_all, transmute(g_sim1, G = raw, x = r, Type = factor("Simulation")))
 ```
 
-<<<<<<< HEAD
+
 Create a plot:
 =======
 - the empirical function is very  similar to the simulated null landscape, But is this purely a coincidence? 
 - When we simulate a null landscape, there is the possibility, however improbable, that it will replicate some meaningful process purely by chance.
 
-
 ***
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 ```{r,echo=FALSE}
 ggplot(data = g_all, aes(x= x, y = G, color = Type)) + geom_line()
 ```
 
-<<<<<<< HEAD
-- the empirical function is very, very similar to the simulated null landscape, But is this purely a coincidence? When we simulate a null landscape, there is the possibility, however improbable, that it will replicate some meaningful process purely by chance.
 
-=======
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 Null Landscape Contd. 
 ========================================================
@@ -141,31 +132,23 @@ Simulation Envelopes
 ========================================================
 - the area covered by the $\hat{G}$-functions of the simulated landscapes above are an estimate of the variance. The set of functions estimated on the null landscapes are called _simulation envelopes_.
 - The simulation provides a _pseudo-p-value_. If you generate 99 null landscapes, and the empirical pattern is still different, the probability that you are mistaken by rejecting the null hypothesis is at most 1%
-<<<<<<< HEAD
-- The package `spatstat` includes a function, called `envelope`, that can be used to generate simulation envelopes for several statistics used in point pattern analysis.
-=======
 
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
+
+Simulation Envelopes Contd. 
+===========================================================
+
+- The package `spatstat` includes a function, called `envelope`, that can be used to generate simulation envelopes for several statistics used in point pattern analysis.
+
 ```{r,include=FALSE}
 env_pp1 <- envelope(pp1.ppp, Gest, nsim = 99, funargs = list(correction = "none"))
 ```
 
-<<<<<<< HEAD
-=======
 - the empirical function falls within the simulation envelopes, and thus it is very unlikely to be different from the null landscapes.
 
 ***
-
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 ```{r, echo=FALSE}
 plot(env_pp1)
 ```
-
-<<<<<<< HEAD
-- It is easy to see that in this case the empirical function falls within the simulation envelopes, and thus it is very unlikely to be different from the null landscapes.
-=======
-
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 Simulation Envelopes Contd. 
 ========================================================
@@ -181,32 +164,24 @@ plot(env_pp2)
 Defining a Region: 
 ========================================================
 
-- When defining the region (or window) for the analysis, care must be taken that it is reasonable from the perspective of the process under analysis
+- When defining the region (or window) for the analysis make sure it is reasonable from the perspective of the process under analysis
 - Defining the region in an inappropriate way can easily lead to misleading results
 
-<<<<<<< HEAD
-This pattern was defined for a unit-square window. Lets apply the K-function to it:
+
+e.g. This pattern was defined for a unit-square window. Lets apply the K-function to it:
 ```{r, include=FALSE}
 k_env_pp1 <- envelope(pp1.ppp, Kest, nsim = 99, funargs = list(correction = "none"))
 ```
-=======
 
 ```{r, include=FALSE}
 k_env_pp1 <- envelope(pp1.ppp, Kest, nsim = 99, funargs = list(correction = "none"))
 ```
-- Based on this we would most likely conclude that the pattern is random.
 
 ***
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
-
+- Based on this we would most likely conclude that the pattern is random.
 ```{r, echo=FALSE}
 plot(k_env_pp1)
 ```
-
-<<<<<<< HEAD
-Based on this we would most likely conclude that the pattern is random.
-=======
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 Defining a Region Contd. 
 ========================================================
@@ -217,36 +192,34 @@ W2 <- owin(x = c(-2,4), y = c(-2, 4))
 pp1_reg2 <- as.ppp(as.data.frame(pp1.ppp), W = W2)
 ```
 
-```{r echo=FALSE}
+```{r, echo=FALSE}
 plot(pp1_reg2)
 ```
 
+***
 The point pattern now looks clustered
+
+```{r, include=FALSE}
+k_env_pp1_reg2 <- envelope(pp1_reg2, Kest, nsim = 99, funargs = list(correction = "none"))
+```
+
+```{r, echo=FALSE}
+plot(k_env_pp1_reg2)
+```
+
 
 Edge Effects 
 ========================================================
-<<<<<<< HEAD
-- If at all possible, the region should be selected in such a way that it is consistent with the underlying process. This is not always possible, either because the underlying process is not known, or because of limitations in data collection capabilities. 
-=======
+
 - the region should be selected in such a way that it is consistent with the underlying process. This is not always possible. 
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 - When this is the case, it is necessary to define a boundary that does not correspond necessarily with the extent of the process of interest
 - When the extent of the process exceeds the window used in the analysis, the point pattern is observed only partially, and it is possible that the information of the location of events beyond the boundary may introduce some bias
 
 Edge Effects Contd. 
 ==========================================================
-<<<<<<< HEAD
-Corrections are available in `spatstat` to deal with the possibility of edge effects. So far, we have used the argument `correction = "none"` when applying the functions. The following alternative corrections are implemented: "none", "rs", "km", "cs" and "best". Alternatively `correction = "all"` selects all options.
-=======
-So far, we have used the argument `correction = "none"` when applying the functions. The following alternative corrections are implemented: "none", "rs", "km", "cs" and "best". Alternatively `correction = "all"` selects all options.
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
-
-These corrections are variations of weighting schemes. In other words, the statistic is weighted to give an unbiased estimator.
-
-```{r, echo=FALSE}
-plot(Gest(pp2.ppp, correction = "all"))
-```
-
+- Corrections are available in `spatstat` to deal with the possibility of edge effects. 
+- So far, we have used the argument `correction = "none"` when applying the functions. The following alternative corrections are implemented: "none", "rs", "km", "cs" and "best". Alternatively `correction = "all"` selects all options.
+- These corrections are variations of weighting schemes. In other words, the statistic is weighted to give an unbiased estimator.
 
 Sample Point Patterns
 ========================================================
@@ -254,3 +227,10 @@ Sample Point Patterns
 - The bias introduced by sampled point patterns can be extremely serious, because the findings depend heavily of the observations that were recorded as well as those that were not recorded
 - Clustered events could easily give the impression of a dispersed pattern, depending on what was observed.
 - There are no good solutions to bias introduced by sampled point patterns
+
+Concluding Remarks 
+===============================================================
+- simulation envelopes are used to confirm or reject the null hypothesis that a pattern is a result of a null landscape 
+- they provide more certainty than simply comparing point patterns to a generated null landscape 
+- edge effects and sample point patterns are limitations to point pattern analysis that can provide challenges when doing analysis
+- we have methods deal with edge effects but not sample point patterns 

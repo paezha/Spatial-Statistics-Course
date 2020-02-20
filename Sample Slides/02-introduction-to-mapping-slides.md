@@ -44,6 +44,7 @@ Why Do We Map in R?
 
 - Effective method for visualizing the contents of the dataframe
 - Example of Broad Street Pumps 
+- Simple example of the capeabilities of mapping: being able to plot points
 
 ![plot of chunk unnamed-chunk-4](02-introduction-to-mapping-slides-figure/unnamed-chunk-4-1.png)
 
@@ -61,7 +62,9 @@ Mapping in R
 
 Mapping in R Continued
 ========================================================
-- Heat maps: More effective spatial analysis
+- Heat maps: More advanced spatial analysis
+- Can be used for transportation analysis
+- We will investigate this further in the course
 
 ***
 

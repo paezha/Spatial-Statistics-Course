@@ -4,11 +4,6 @@ author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
 
-<<<<<<< HEAD
-This is the title slide
-=======
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
-
 Key Points
 ========================================================
 
@@ -16,15 +11,8 @@ Key Points
 - Understand other forms of Local Analysis of Spatial Association
 - know what Bonferroni correction does and when to use it
 
-<<<<<<< HEAD
-
-Hide the slide title by writting "title: false" at the beginning of the slide
-
 Decomposing Moran's I
-=======
-Recall: Decomposing Moran's I
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
-========================================================
+=============================================================
 
 ```{r, echo=FALSE, include=FALSE}
 rm(list = ls())
@@ -43,15 +31,10 @@ Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
 Hamilton_CT.w <- nb2listw(poly2nb(pl = Hamilton_CT.sp))
 ```
 
-<<<<<<< HEAD
-Recall
-=======
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 - Moran's I coefficient of spatial autocorrelation is derived based on the idea of aggregating the products of a (mean-centered) variable by its spatial moving average, and then dividing by the variance
 - when plotting Moran's scatterplot some observations are highlighted because they make a particularly large contribution to $I$.
 
 
-<<<<<<< HEAD
 Creating Moran's Plot Manually
 ========================================================
 
@@ -94,10 +77,6 @@ bscols(
 ```
 
 
-
-=======
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
-
  Local Moran's I and Mapping
 ========================================================
 - The local version of Moran's $I$ is implemented in `spdep` as `localmoran`, and can be called with a variable and a set of spatial weights as arguments
@@ -105,12 +84,6 @@ bscols(
 - hypothesis testing can be conducted by comparing the empirical statistic to its distribution under the null hypothesis of spatial independence
 
 
-
-
-
-
-
-<<<<<<< HEAD
 Local Moran's I and Mapping
 ========================================================
 For further exploration, join the local statistics to the dataframe and Map them 
@@ -132,7 +105,6 @@ Hamilton_CT <- rename(Hamilton_CT, p.val = Pr.z...0.)
 
 
 A Concentration approach for Local Analysis of Spatial Association
-
 ========================================================
 -calculatng the statistic for this requires creating a binary spatial weights matrix 
 ```{r}
@@ -182,14 +154,12 @@ plot_ly(df2, x = ~x, y = ~y, z = ~z, color = ~Type, colors = c("red", "blue", "g
         marker = list()) %>%
   add_markers()
 ```
-=======
+
 Local Moran's I and Mapping Contd
 ========================================================
 - For further exploration you can join the local statistics to the dataframe and Map them 
 - The map shows whether pop. density in an are is high surrounded by high densities or low surrounded by zones of low density 
 
-
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 A Short Note on Hypothesis Testing
 ========================================================

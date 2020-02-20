@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 18 Activity 8: Point Pattern Analysis V | Applied Spatial Statistics with R</title>
   <meta name="description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 18 Activity 8: Point Pattern Analysis V | Applied Spatial Statistics with R" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Antonio Paez" />
 
 
-<meta name="date" content="2020-01-13" />
+<meta name="date" content="2020-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="point-pattern-analysis-v.html"/>
-
+<link rel="next" href="area-data-i.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -65,6 +65,12 @@
 <script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script>
+<script src="libs/plotly-binding-4.9.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.49.4/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.49.4/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -303,6 +309,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.3" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#suggested-reading-6"><i class="fa fa-check"></i><b>18.3</b> Suggested reading</a></li>
 <li class="chapter" data-level="18.4" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#preliminaries-15"><i class="fa fa-check"></i><b>18.4</b> Preliminaries</a></li>
 <li class="chapter" data-level="18.5" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#activity-7"><i class="fa fa-check"></i><b>18.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="area-data-i.html"><a href="area-data-i.html"><i class="fa fa-check"></i><b>19</b> Area Data I</a><ul>
+<li class="chapter" data-level="19.1" data-path="area-data-i.html"><a href="area-data-i.html#learning-objectives-18"><i class="fa fa-check"></i><b>19.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="19.2" data-path="area-data-i.html"><a href="area-data-i.html#suggested-readings-8"><i class="fa fa-check"></i><b>19.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="19.3" data-path="area-data-i.html"><a href="area-data-i.html#preliminaries-16"><i class="fa fa-check"></i><b>19.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="19.4" data-path="area-data-i.html"><a href="area-data-i.html#area-data"><i class="fa fa-check"></i><b>19.4</b> Area Data</a></li>
+<li class="chapter" data-level="19.5" data-path="area-data-i.html"><a href="area-data-i.html#processes-and-area-data"><i class="fa fa-check"></i><b>19.5</b> Processes and Area Data</a></li>
+<li class="chapter" data-level="19.6" data-path="area-data-i.html"><a href="area-data-i.html#visualizing-area-data-choropleth-maps"><i class="fa fa-check"></i><b>19.6</b> Visualizing Area Data: Choropleth Maps</a></li>
+<li class="chapter" data-level="19.7" data-path="area-data-i.html"><a href="area-data-i.html#visualizing-area-data-cartograms"><i class="fa fa-check"></i><b>19.7</b> Visualizing Area Data: Cartograms</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html"><i class="fa fa-check"></i><b>20</b> Activity 9: Area Data I</a><ul>
+<li class="chapter" data-level="20.1" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#practice-questions-6"><i class="fa fa-check"></i><b>20.1</b> Practice questions</a></li>
+<li class="chapter" data-level="20.2" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#learning-objectives-19"><i class="fa fa-check"></i><b>20.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="20.3" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#suggested-reading-7"><i class="fa fa-check"></i><b>20.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="20.4" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#preliminaries-17"><i class="fa fa-check"></i><b>20.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="20.5" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#activity-8"><i class="fa fa-check"></i><b>20.5</b> Activity</a></li>
 </ul></li>
 </ul>
 
@@ -552,96 +574,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Discuss the limitations of the analysis, for instance, choice of modeling parameters (size of region, kernel bandwidths, edge effects, etc.)</p></li>
 </ol>
 
-<div id="refs" class="references">
-<div>
-<p>Anselin, Luc. 1988. <em>Spatial Econometrics: Methods and Models</em>. Book. Dordrecht: Kluwer.</p>
-</div>
-<div>
-<p>———. 1995. “Local Indicators of Spatial Association - Lisa.” Journal Article. <em>Geographical Analysis</em> 27: 93–115.</p>
-</div>
-<div>
-<p>Baddeley, Adrian, Ege Rubak, and Rolf Turner. 2016. <em>Spatial Point Patterns: Methodology and Applications with R</em>. Book. Chapman; Hall/CRC.</p>
-</div>
-<div>
-<p>Bailey, T. C., and A. C. Gatrell. 1995. <em>Interactive Spatial Data Analysis</em>. Book. Essex: Addison Wesley Longman.</p>
-</div>
-<div>
-<p>Bivand, R. S., E. J. Pebesma, and V. Gómez-Rubio. 2008. <em>Applied Spatial Data Analysis with R</em>. Book. New York: Springer Science+Business Media.</p>
-</div>
-<div>
-<p>Brunsdon, C., A. S. Fotheringham, and M. E. Charlton. 1996. “Geographically Weighted Regression: A Method for Exploring Spatial Nonstationarity.” Journal Article. <em>Geographical Analysis</em> 28 (4): 281–98. <a href="ISI:A1996VL03500001">ISI:A1996VL03500001</a>.</p>
-</div>
-<div>
-<p>Brunsdon, Chris, and Lex Comber. 2015. <em>An Introduction to R for Spatial Analysis and Mapping</em>. Book. Sage.</p>
-</div>
-<div>
-<p>Cressie, N. A. C. 1993. <em>Statistics for Spatial Data</em>. Book. Wiley Series in Probability and Mathematical Statistics. New York: John Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Fotheringham, A. S., and C. Brunsdon. 1999. “Local Forms of Spatial Analysis.” Journal Article. <em>Geographical Analysis</em> 31 (4): 340–58.</p>
-</div>
-<div>
-<p>Getis, A., and J. K. Ord. 1992. “The Analysis of Spatial Association by Use of Distance Statistics.” Journal Article. <em>Geographical Analysis</em> 24 (3): 189–206. <a href="ISI:A1992JF93400001%0AC:/Papers/Geographical%20Analysis/Geographical%20Analysis%20(1992)%2024%20(3)%20189-206.pdf">ISI:A1992JF93400001
-C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf</a>.</p>
-</div>
-<div>
-<p>Geyer, Charles J, and Jesper Møller. 1994. “Simulation Procedures and Likelihood Inference for Spatial Point Processes.” <em>Scandinavian Journal of Statistics</em>, 359–73.</p>
-</div>
-<div>
-<p>Griffith, D. A. 1988. <em>Advanced Spatial Statistics: Special Topics in the Exploration of Quantitative Spatial Data Series</em>. Book. Dordrecht: Kluwer.</p>
-</div>
-<div>
-<p>Haase, P. 1995. “Spatial Pattern Analysis in Ecology Based on Ripley’s K-Function: Introduction and Methods of Edge Correction.” <em>Journal of Vegetation Science</em> 6 (4): 575–82.</p>
-</div>
-<div>
-<p>Haining, R. 1990. <em>Spatial Data Analysis in the Social and Environmental Sciences</em>. Book. Cambridge: Cambridge University Press.</p>
-</div>
-<div>
-<p>Lloyd, Christopher D. 2010. <em>Local Models for Spatial Analysis</em>. CRC press.</p>
-</div>
-<div>
-<p>Lovelace, Robin, Jacub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with R</em>. Book. CRC Press.</p>
-</div>
-<div>
-<p>McElreath, Richard. 2016. <em>Statistical Rethinking: A Bayesian Course with Examples in R and Stan</em>. Book. Vol. 122. CRC Press.</p>
-</div>
-<div>
-<p>McGrew Jr, J Chapman, and Charles B Monroe. 2009. <em>An Introduction to Statistical Problem Solving in Geography</em>. Book. 2nd. Edition. Long Grove, Illinois: Waveland Press.</p>
-</div>
-<div>
-<p>Moller, Jesper, and Rasmus Plenge Waagepetersen. 2003. <em>Statistical Inference and Simulation for Spatial Point Processes</em>. Chapman; Hall/CRC.</p>
-</div>
-<div>
-<p>O’Sullivan, David, and David Unwin. 2010. <em>Geographic Information Analysis</em>. Book. 2nd. Edition. Hoboken, New Jersey: John Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Plant, Richard E. 2012. <em>Spatial Data Analysis in Ecology and Agriculture Using R</em>. Book. cRc Press.</p>
-</div>
-<div>
-<p>Rey, S. J. 2009. “Show Me the Code: Spatial Analysis and Open Source.” Journal Article. <em>Journal of Geographical Systems</em> 11 (2): 191–207. <a href="ISI:000266249500007">ISI:000266249500007</a>.</p>
-</div>
-<div>
-<p>Ripley, B. D. 1976. “2nd-Order Analysis of Stationary Point Processes.” Journal Article. <em>Journal of Applied Probability</em> 13 (2): 255–66. <a href="ISI:A1976CA37400007">ISI:A1976CA37400007</a>.</p>
-</div>
-<div>
-<p>Tomlin, C Dana. 1990. <em>A Map Algebra</em>. Harvard Graduate School of Design Cambridge, MA.</p>
-</div>
-<div>
-<p>Tong, Daoqin, and Alan T. Murray. 2012. “Spatial Optimization in Geography.” Journal Article. <em>Annals of the Association of American Geographers</em> 102 (6): 1290–1309. <a href="https://doi.org/10.1080/00045608.2012.685044">https://doi.org/10.1080/00045608.2012.685044</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley. 2015. <em>R Packages: Organize, Test, Document, and Share Your Code</em>. " O’Reilly Media, Inc.".</p>
-</div>
-<div>
-<p>———. 2017. <em>Tidyverse: Easily Install and Load the ’Tidyverse’</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. " O’Reilly Media, Inc.".</p>
-</div>
-<div>
-<p>With, Kimberly A, and Anthony W King. 1997. “The Use and Misuse of Neutral Landscape Models in Ecology.” <em>Oikos</em>, 219–29.</p>
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -649,8 +581,8 @@ C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf<
           </div>
         </div>
       </div>
-<a href="point-pattern-analysis-v.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="point-pattern-analysis-v.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="area-data-i.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

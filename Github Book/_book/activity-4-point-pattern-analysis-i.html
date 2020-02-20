@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 Activity 4: Point Pattern Analysis I | Applied Spatial Statistics with R</title>
   <meta name="description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi." />
-  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 Activity 4: Point Pattern Analysis I | Applied Spatial Statistics with R" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Antonio Paez" />
 
 
-<meta name="date" content="2020-01-13" />
+<meta name="date" content="2020-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -65,6 +65,12 @@
 <script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script>
+<script src="libs/plotly-binding-4.9.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.49.4/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.49.4/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -303,6 +309,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.3" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#suggested-reading-6"><i class="fa fa-check"></i><b>18.3</b> Suggested reading</a></li>
 <li class="chapter" data-level="18.4" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#preliminaries-15"><i class="fa fa-check"></i><b>18.4</b> Preliminaries</a></li>
 <li class="chapter" data-level="18.5" data-path="activity-8-point-pattern-analysis-v.html"><a href="activity-8-point-pattern-analysis-v.html#activity-7"><i class="fa fa-check"></i><b>18.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="area-data-i.html"><a href="area-data-i.html"><i class="fa fa-check"></i><b>19</b> Area Data I</a><ul>
+<li class="chapter" data-level="19.1" data-path="area-data-i.html"><a href="area-data-i.html#learning-objectives-18"><i class="fa fa-check"></i><b>19.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="19.2" data-path="area-data-i.html"><a href="area-data-i.html#suggested-readings-8"><i class="fa fa-check"></i><b>19.2</b> Suggested Readings</a></li>
+<li class="chapter" data-level="19.3" data-path="area-data-i.html"><a href="area-data-i.html#preliminaries-16"><i class="fa fa-check"></i><b>19.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="19.4" data-path="area-data-i.html"><a href="area-data-i.html#area-data"><i class="fa fa-check"></i><b>19.4</b> Area Data</a></li>
+<li class="chapter" data-level="19.5" data-path="area-data-i.html"><a href="area-data-i.html#processes-and-area-data"><i class="fa fa-check"></i><b>19.5</b> Processes and Area Data</a></li>
+<li class="chapter" data-level="19.6" data-path="area-data-i.html"><a href="area-data-i.html#visualizing-area-data-choropleth-maps"><i class="fa fa-check"></i><b>19.6</b> Visualizing Area Data: Choropleth Maps</a></li>
+<li class="chapter" data-level="19.7" data-path="area-data-i.html"><a href="area-data-i.html#visualizing-area-data-cartograms"><i class="fa fa-check"></i><b>19.7</b> Visualizing Area Data: Cartograms</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html"><i class="fa fa-check"></i><b>20</b> Activity 9: Area Data I</a><ul>
+<li class="chapter" data-level="20.1" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#practice-questions-6"><i class="fa fa-check"></i><b>20.1</b> Practice questions</a></li>
+<li class="chapter" data-level="20.2" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#learning-objectives-19"><i class="fa fa-check"></i><b>20.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="20.3" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#suggested-reading-7"><i class="fa fa-check"></i><b>20.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="20.4" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#preliminaries-17"><i class="fa fa-check"></i><b>20.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="20.5" data-path="activity-9-area-data-i.html"><a href="activity-9-area-data-i.html#activity-8"><i class="fa fa-check"></i><b>20.5</b> Activity</a></li>
 </ul></li>
 </ul>
 

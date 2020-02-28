@@ -1,3 +1,7 @@
+<!--- Reflection: No questions were aksed after the presentation. Eveyrone seemed to understand the concept of adjacency and the various ways that we can assess if two zones are adjacent to one another or not. It was expanded on that it is useful to know if zones of the same values are adjacent to one another or not to further assess underlying patterns. Compared this to the previous lecture slides where there was a red zone and a blue zone. You would want to know if the red and blue zones are adjacent to one another or not to know more about underlyng processes. 
+--->
+
+
 Area Data II
 ========================================================
 author: Megan Coad and Alexis Polidoro

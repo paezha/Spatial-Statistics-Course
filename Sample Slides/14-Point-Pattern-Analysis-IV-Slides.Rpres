@@ -1,3 +1,8 @@
+<!---
+Reflection: I am happy with this weeks presentation delivery. Students seemed to grasp the differenence between the K and F-functions, and how K acts as a viable solution to the limitations of single-scale functions. However, after the mini lecture presentation and students were working on their activity, there was a great deal of confusion with students in terms of interpreting the difference between F, G, and K. (for exmample, G and K are the same interpretation, F is different). It would be great if an example from the activity could be added into the mini lecture presentation so students will have a better understanding of the functions prior to answering the questions with their peers. It should be clarified in the future that there are similarities between functions and differences as well.
+Additionally, it should be clarified how F and G are different, through nearest neighbour or empty space analysis. 
+--->
+
 Point Pattern Analysis IV
 ========================================================
 author: Alexis Polidoro and Megan Coad 
@@ -46,6 +51,7 @@ F-function
 ========================================================
 - Another useful tool for point patterns
 - Distribution of "point to nearest event" 
+- Points are explained as a coordinate pair in space
 - Single scale 
 
 F-function Continued...

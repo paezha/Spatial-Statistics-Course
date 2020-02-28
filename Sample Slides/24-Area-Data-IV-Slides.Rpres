@@ -53,7 +53,7 @@ Hamilton_CT <- mutate(Hamilton_CT,
 Creating Moran's Plot Manually
 ========================================================
 
-2.  create the scatterplot and a choropleth map of the population density. First, create a `SharedData` object to link two plots. 
+2.create the scatterplot and a choropleth map of the population density. First, create a `SharedData` object to link two plots. 
 
 ```{r}
 #Create a shared data object for brushing

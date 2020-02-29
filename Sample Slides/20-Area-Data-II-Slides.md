@@ -1,13 +1,12 @@
+<!--- Reflection: No questions were aksed after the presentation. Eveyrone seemed to understand the concept of adjacency and the various ways that we can assess if two zones are adjacent to one another or not. It was expanded on that it is useful to know if zones of the same values are adjacent to one another or not to further assess underlying patterns. Compared this to the previous lecture slides where there was a red zone and a blue zone. You would want to know if the red and blue zones are adjacent to one another or not to know more about underlyng processes. 
+--->
+
+
 Area Data II
 ========================================================
 author: Megan Coad and Alexis Polidoro
 date: 
 autosize: true
-
-<<<<<<< HEAD
-This is the title slide
-=======
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 Key Points
 ========================================================
@@ -23,29 +22,15 @@ Proximity in Area Data
 
 
 
-<<<<<<< HEAD
-- spatial proximity can be represented in many ways given the characteristics of areas
+
 - an area contains an infinite number of points, and measuring distance between two areas leads to many possible results, depending on which pairs of points within two zones are used to measure the distance
-
-
-![\label{fig:simple-zoning-system}Simple zoning system](Area-Data-II-Figure-1.jpg)
-
-
-=======
-- an area contains an infinite number of points, and measuring distance between two areas leads to many possible results, depending on which pairs of points within two zones are used to measure the distance
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 - The criterion to define proximity is called _adjacency_. 
 - Adjacency means that two zones share a common edge, This is  called the _rook_ criterion
 - When this criterion is expanded to allow contact at a single point between zones the adjacency criterion is called _queen_
 
-<<<<<<< HEAD
-=======
 ***
 
-
 ![An Image](Area_Data_II_Figure_1.JPG)
-
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 
 Spatial Weights Matrix 
 ========================================================
@@ -68,12 +53,8 @@ $$
 0 & 1 & 0 & 1 & 1 & 0\\
 \end{array} \right).
 $$
-
-<<<<<<< HEAD
-=======
 ***
 
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 The spatial weights matrix has the following properties:
 
 1. The main diagonal elements are all zeros (no area is its own neighbor).
@@ -95,23 +76,18 @@ $$
 \end{array} \right).
 $$
 
-<<<<<<< HEAD
-=======
 ***
 
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
 The row-standardized spatial weights matrix has the following properties:
 
 1. Each weight now represents the proportion of a neighbor out of the total of neighbors.
 
 2. The sum of all weights over a row equals 1, or 100% of all neighbors for that zone.
 
-
-<<<<<<< HEAD
 Creating Spatial Weights Matrices in R
 ========================================================
 
- The first step to create a spatial weights matrix is to find the neighbors for each area. The input argument is a `SpatialPolygonDataFrame`. This means that our `sf` object needs to be converted into a `SpatialPolygonDataFrame. The value of the function is an object of class 'nb'. 
+  The first step to create a spatial weights matrix is to find the neighbors for each area. The input argument is a `SpatialPolygonDataFrame`. This means that our `sf` object needs to be converted into a `SpatialPolygonDataFrame. The value of the function is an object of class 'nb'. 
 
 ```r
 Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
@@ -124,28 +100,18 @@ Hamilton_CT.nb <- poly2nb(pl = Hamilton_CT.sp, queen = TRUE)
 
 The 'nb' object can be converted into a list of entries in a spatial weights matrix W by means of the function `nb2list2`
 
-```r
-Hamilton_CT.w <- nb2listw(Hamilton_CT.nb)
-```
+
+
+
+
+
 
 
 Creating Spatial Weights Matrices in R Contd. 
 ========================================================
 We can visualize the neighbors (adjacent) areas:
 
-```r
-plot(Hamilton_CT.sp, border = "gray")
-plot(Hamilton_CT.nb, coordinates(Hamilton_CT.sp), col = "red", add = TRUE)
-```
-
-![plot of chunk unnamed-chunk-5](20-Area-Data-II-Slides-figure/unnamed-chunk-5-1.png)
-=======
-
-
-
-
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
-
+![plot of chunk unnamed-chunk-7](20-Area-Data-II-Slides-figure/unnamed-chunk-7-1.png)
 
 
 Spatial Moving Averages
@@ -202,7 +168,6 @@ POP_DENSITY.sma <- lag.listw(x = Hamilton_CT.w, Hamilton_CT$POP_DENSITY)
 ```
 
 
-
 Other Criteria for Coding Proximity
 ========================================================
 
@@ -216,7 +181,6 @@ Other Criteria for Coding Proximity
 
 Distance-based Nearest Neighbors 
 ========================================================
-<<<<<<< HEAD
 1.obtain the coordinates of the centroids of the areas. These are the first two columns of the output of `st_coordinates` function:
 
 ```r
@@ -229,20 +193,10 @@ A nearest neighbors object `nb` is produced as follows (selecting a distance thr
 Hamilton_CT.dnb <- dnearneigh(CT_centroids, d1 = 0, d2 = 5000)
 ```
 
-We can visualize the neighbors (adjacent) areas:
-
-![plot of chunk unnamed-chunk-9](20-Area-Data-II-Slides-figure/unnamed-chunk-9-1.png)
-=======
-
-
-
-
 We can visualize the neighbors (adjacent) areas using distance-based nearest neighbors analysis:
 
-![plot of chunk unnamed-chunk-8](20-Area-Data-II-Slides-figure/unnamed-chunk-8-1.png)
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
-
-
+***
+![plot of chunk unnamed-chunk-11](20-Area-Data-II-Slides-figure/unnamed-chunk-11-1.png)
 
 Distance Based Nearest Neighbors Contd. 
 ========================================================
@@ -250,22 +204,16 @@ Distance Based Nearest Neighbors Contd.
 
 - The criterion of $k$-nearest neighbors allows for some adaptation to the size of the areas. Under this criterion, all areas have the exact same number of neighbors, but the geographical extent of the neighborhood may change.
 
-<<<<<<< HEAD
-In R, $k$-nearest neighbors can be obtained by means of the function `knearneigh`, and the arguments include the value of $k$:
 
-```r
-Hamilton_CT.knb <- knn2nb(knearneigh(CT_centroids, k = 3))
-```
-
-We can visualize the neighbors areas:
-
-![plot of chunk unnamed-chunk-11](20-Area-Data-II-Slides-figure/unnamed-chunk-11-1.png)
-=======
 Distance Based Nearest Neighbors Contd.
 =======================================================
  $k$-nearest neighbors can be obtained as visualized aswell
 
 
-![plot of chunk unnamed-chunk-10](20-Area-Data-II-Slides-figure/unnamed-chunk-10-1.png)
->>>>>>> 0b233e5f9ff92fd3559e4c4aa39ba26d715bb9fe
+![plot of chunk unnamed-chunk-13](20-Area-Data-II-Slides-figure/unnamed-chunk-13-1.png)
 
+Concluding Remarks: 
+=========================================================
+- spatial weights matrix helps you visualize neighbours based on defined adjacency 
+- you use the spatial weights matrix to calculate the spatial moving average 
+- you can also used distance based neighbors to visualize nearest neighbors using various distances 

@@ -16,15 +16,37 @@ Key Concepts
 
 What is Area Data? 
 ========================================================
-- Data not being allocated to a defined point, but rather an area
-- Allocate information by centroids, unique identifers/ attirbutes 
+Point Pattern Analaysis: have a 'Unit of Support' containing information, while the location itself is considered random
+
+Area Data Analysis: Do not have a 'Unit of Support' to store information, but rather some sort of geometrry (like an area)
+- Ex: Dissemenation Areas, Postal Codes
+
+Allocating Information
+========================================================
+Allocate information by centroids, unique identifers/ attributes 
 - Centroid: Mean of X and Y coordinates in an area 
+- Unique Identifer: Assigning value to a region based on a specific attribute
+
+Creating a Surface for Area Data Analysis
+========================================================
+Create dataframe with locations of households and income
+
+```r
+df <- data.frame(x = c(0.3, 0.4, 0.5, 0.6, 0.7), y = c(0.1, 0.4, 0.2, 0.5, 0.3), Income = c(30000, 30000, 100000, 100000, 100000))
+```
+
+Create Dataframe with zones
+
+```r
+zones1 <- data.frame(x1=c(0.2, 0.45), x2=c(0.45, 0.80), y1=c(0.0, 0.0), y2=c(0.6, 0.6), Zone_ID = c('1','2'))
+```
 
 
 Explaining Area Data
 ========================================================
 - Can determine information about an area using points
 - Why is income higher in East? (more isolation, escartment) 
+- Trends to explain similar values? 
 
 ***
 
@@ -36,13 +58,13 @@ Visualizing Area Data: Choropleth Maps
 ========================================================
 - Map of the polygons that form the areas in the region, each colored in a way to represent the value of an underlying variable
 
-![plot of chunk unnamed-chunk-2](18-Area-Data-I-Slides-figure/unnamed-chunk-2-1.png)
+![plot of chunk unnamed-chunk-4](18-Area-Data-I-Slides-figure/unnamed-chunk-4-1.png)
 
 Visualizing Area Data: Cartograms
 ========================================================
 - Map where the size of the zones is adjusted so that it is proportional to some other variable of interest (population density)
 
-![plot of chunk unnamed-chunk-3](18-Area-Data-I-Slides-figure/unnamed-chunk-3-1.png)
+![plot of chunk unnamed-chunk-5](18-Area-Data-I-Slides-figure/unnamed-chunk-5-1.png)
 
 
 Conclusions

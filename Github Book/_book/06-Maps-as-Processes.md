@@ -92,7 +92,7 @@ sum(coin_flips)/n
 ```
 
 ```
-## [1] 0.499
+## [1] 0.482
 ```
 
 What happens if you change the `size` to 0, and why?
@@ -111,7 +111,7 @@ rnorm(1, mean = 0, sd = 1)
 ```
 
 ```
-## [1] 1.519459
+## [1] -0.6603681
 ```
 
 Let's say that the average height of men in Canada is 170.7 cm and the standard deviation is 7 cm. The heigh of a random person in this population would be:
@@ -121,7 +121,7 @@ rnorm(1, mean = 170.7, sd = 7)
 ```
 
 ```
-## [1] 169.5291
+## [1] 170.0583
 ```
 
 And the distribution of heights of `n` men in this population would be:

@@ -1,16 +1,16 @@
 ---
-title: "Activity: Area Data V"
+title: "Activity 13: Area Data V"
 output: html_notebook
 ---
 
-# Activity: Area Data V
+# Activity 13: Area Data V
 
 ## Practice questions
 
 Answer the following questions:
 
 1. Explain the main assumptions for linear regression models.
-2. How is Moran's I used as a diagnostic in regression analysis?
+2. How is Moran's $I$ used as a diagnostic in regression analysis?
 3. Residual spatial autocorrelation is symptomatic of what issues in regression analysis?
 4. What does it mean for a model to be linear in the coefficients?
 5. What is the purpose of transforming variables for regression analysis?
@@ -44,7 +44,7 @@ rm(list = ls())
 Note that `ls()` lists all objects currently on the worspace.
 
 Load the libraries you will use in this activity. In addition to `tidyverse`, you will need `sf` and `geog4ga3`:
-```{r}
+```{r message = FALSE, warning=FALSE}
 library(tidyverse)
 library(sf)
 library(spdep)
@@ -58,9 +58,7 @@ data("trips_by_mode")
 data("travel_time_car")
 ```
 
-`HamiltonDAs` are the Dissemination Areas for Hamilton CMA, which coincide with the Traffic Analysis Zones (TAZ) of the Transportation Tomorrow Survey of 2011. The dataframe `trips_by_mode`
-includes the number of trips by mode of transportation by TAZ (equivalently DA), as well as other useful information from the 2011 census for Hamilton CMA. Finally, the dataframe `travel_time_car`
-includes the travel distance/time from TAZ/DA centroids to Jackson Square in downtown Hamilton.
+`HamiltonDAs` are the Dissemination Areas for Hamilton CMA, which coincide with the Traffic Analysis Zones (TAZ) of the Transportation Tomorrow Survey of 2011. The dataframe `trips_by_mode` includes the number of trips by mode of transportation by TAZ (equivalently DA), as well as other useful information from the 2011 census for Hamilton CMA. Finally, the dataframe `travel_time_car` includes the travel distance/time from TAZ/DA centroids to Jackson Square in downtown Hamilton.
 
 The data for this activity were retrieved from the 2011 Transportation Tomorrow Survey [TTS](http://www.transportationtomorrow.on.ca/), the periodic travel survey of the Greater Toronto and Hamilton Area, as well as data from the 2011 Canadian Census [Census Program](http://www12.statcan.gc.ca/census-recensement/index-eng.cfm).
 
@@ -83,65 +81,14 @@ Note that the proportion of people who travelled by car as passengers are not in
 
 ## Activity
 
-1. Examine your dataframe. What variables are included? Are there any missing values?
+1.* Examine your dataframe. What variables are included? Are there any missing values?
 
-```{r}
-summary(HamiltonDAs)
-```
+2.* Map the variable `Auto_driver.prop`, and use Moran's I to test for spatial autocorrelation. 
 
+3.* Estimate regression model using the variables `Pop_Density` and travel time in `minutes`.
 
-2. Map the variable `Auto_driver.prop`, and use Moran's I to test for spatial autocorrelation. What do you find? Is autocorrelation in this variable a sign that autocorrelation will be an issue in regression analysis?
+4. What does the analysis of autocorrelation in point 2* tell you about `Auto_driver.prop`? Would you say that autocorrelation in this variable is a sign that autocorrelation will be an issue in regression analysis? Why or why not?
 
-```{r}
-ggplot(data = HamiltonDAs) + 
-  geom_sf(aes(fill = Auto_driver.prop)) +
-  scale_fill_distiller(direction = 1)
-```
+5. Discuss the model you estimated in point 3. Next, examine its residuals. Would you say that they are spatially random/independent?
 
-Create listw
-```{r}
-HamiltonDAs.w <- nb2listw(poly2nb(pl = as(HamiltonDAs, "Spatial")))
-```
-
-Moran's I:
-```{r}
-moran.test(HamiltonDAs$Auto_driver.prop, HamiltonDAs.w)
-```
-
-```{r}
-localmoran.map(HamiltonDAs, HamiltonDAs.w, "Auto_driver.prop", by = "GTA06")
-```
-
-
-
-3. Estimate regression model using the variables `Pop_Density` and travel time in `minutes`. Discuss this model.
-
-```{r}
-model1 <- lm(formula = Pop_Density ~ minutes, data = HamiltonDAs)
-summary (model1)
-
-ggplot(data = HamiltonDAs, aes(x = minutes, y = Pop_Density))+
-  geom_point() +
-  stat_function(fun = function(x)(5441.82 - 187.19 * x), 
-                geom ="line", color = "blue", size = 1) +
-  geom_vline(xintercept = 0) + geom_hline(yintercept = 0) 
-#The values 5441.82 and 187.19 are taken from the summary of model 1 under coefficients. This is one exmaple of a model, other models can also be made depending on the function that you want to fit to the data. 
-```
-
-4. Examine residuals of the model. Are they spatially independent?
-```{r}
-HamiltonDAs <- mutate(HamiltonDAs, Pop_Density.log = log(Pop_Density))
-model2 <- lm(formula = Pop_Density.log ~ minutes, data = HamiltonDAs)
-summary (model2)
-```
-```{r}
-moran.test(model1$residuals, HamiltonDAs.w)
-```
-
-```{r}
-moran.test(model2$residuals, HamiltonDAs.w)
-```
-
-
-
-5. Propose ways to improve your model.
+6. Propose ways to improve your model.

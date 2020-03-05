@@ -8,7 +8,7 @@ Key Concepts
 ========================================================
 
 - Spatial Moving Averages as a Smoother
-- Spatial Moivng Averages via Moran's scatterplot
+- Spatial Moving Averages via Moran's scatterplot
 - Hypothesis Testing for Spatial Autocorrelation 
 
 
@@ -17,13 +17,15 @@ Key Concepts
 Spatial Moving Averages as a Smoother
 ========================================================
 - SMA can reduce variability in patterns 
-- Randomize existing observations and reassign to random areas
-- Calculate SMA of empirical observations, simulate for other landscapes
+- Randomize existing observations and reassign to random areas 
+- Determined by calculating SMA of empirical observations, simulate for other landscapes
 
 
 Spatial Moving Averages as a Smoother
 ========================================================
 - Simulations do not mean similar results
+- Bottom Right: Empirical observations are more clustered (orange) in the downtown
+- All other observations: 8 null landscapes using data from empiricam observations; more orange throughout 
 
 ***
 
@@ -31,9 +33,9 @@ Spatial Moving Averages as a Smoother
 
 Spatial Moving Average Scatterplots 
 ========================================================
-- Simulated regression line is flat suggesting randomness
-- Values of variable are independent of their local means
+- First 8 plots: Simulated regression line is flat suggesting randomness
 - Low possibility for non-random spatial pattern 
+- Bottom Right: empirical observation is close to 45 degree line (Neighbors of an event are of similar or equal value)
 
 ***
 
@@ -42,9 +44,8 @@ Spatial Moving Average Scatterplots
 
 Spatial Moving Average Scatterplots 
 ========================================================
-- Empirical values of variable are not independent of their local means 
-- High probability for non-random pattern
-- Evidence for Spatial Autocorrelation: feature similarity (variable is correlated to 45-degree line)
+- Empirical values of variable are dependent of their local means 
+- Evidence for Spatial Autocorrelation: feature similarity with neighbours (variable is correlated to 45-degree line)
 
 ***
 
@@ -87,14 +88,17 @@ Interpreting Moran's I: Moran's Scatterplot
 ***
 
 - Non-random spatial pattern of similar values
-- clustering 
-- supporting evidence from Moran's I coefficient
+- Follows 45-degree line
+- Clustering 
+- Supporting evidence from Moran's I coefficient
 
 
 Hypothesis Testing for Spatial Autocorrelation
 ========================================================
+
 - Determine if pattern is random 
-- p value is very small; reject null hypothesis with high level of confidence 
+- P-value is very small; reject null hypothesis with high level of confidence 
+
 
 ```
 

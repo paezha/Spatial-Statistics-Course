@@ -1,9 +1,9 @@
 ---
-title: "Activity: Spatially Continuous Data I"
+title: "Activity 15: Spatially Continuous Data I"
 output: html_notebook
 ---
 
-# Activity: Spatially Continuous Data I
+# Activity 15: Spatially Continuous Data I
 
 ## Practice questions
 
@@ -47,7 +47,7 @@ rm(list = ls())
 Note that `ls()` lists all objects currently on the worspace.
 
 Load the libraries you will use in this activity (load other packages as appropriate). 
-```{r}
+```{r message=FALSE}
 library(tidyverse)
 library(spatstat)
 library(spdep)
@@ -65,73 +65,25 @@ These data were collected to evaluate potential flow of contamination related to
 
 The data set consists of 85 georeferenced measurements of piezometric head. Possible applications of interpolation are to determine sites at risk and to quantify uncertainty of the interpolated surface, to evaluate the best locations for monitoring stations.
 
+Create an a unique identifier variable:
 ```{r}
 aquifer$ID <- factor(c(1:nrow(aquifer)))
 ```
 
 ## Activity
-1. Map the Wolfcamp Aquifer data.
-```{r}
-plot_wolfpack <- ggplot(data = aquifer, aes (x = X, y = Y, color = H)) +
-  geom_point(alpha = 0.5) + 
-  scale_color_distiller(palette = "OrRd", trans = "reverse") +
-  coord_equal()
-plot_wolfpack
-```
-```{r}
-plot_ly(data = aquifer, x = ~X, y = ~Y, z = ~H,
-         marker = list(color = ~H, colorscale = c("Orange", "Red"), 
-                       showscale = TRUE)) %>% 
-  add_markers()
-```
 
-2. Create a surface using Voronoi polygons.
+**NOTE**: Activities include technical "how to" tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).
 
-```{r}
+1.* Map the Wolfcamp Aquifer data.
 
-```
+2.* Create a surface using Voronoi polygons.
 
+3.* Create a surface using IDW.
 
-3. Create a surface using IDW. What is the effect of changing the power of the inverse distance function?
+4.* Create a surface using k-point means. 
 
-```{r}
-W <- owin(xrange = c(0, 200), yrange = c(0, 200))
-aquifer.ppp <- as.ppp(X = aquifer, W = W)
+5. What is the effect of changing the power of the inverse distance function?
 
-z_p.idw10 <- idw(aquifer.ppp, power = 10)
-z_p.idw2 <- idw(aquifer.ppp, power = 2)
-z_p.idw5 <- idw(aquifer.ppp, power = 5)
+6. What is the effect of changing the number of points used in this algorithm?
 
-plot(z_p.idw10)
-plot(z_p.idw5)
-plot(z_p.idw2)
-```
-
-4. Create a surface using k-point means. What is the effect of changing the number of points used in this algorithm?
-
-```{r}
-target_xy = expand.grid(x = seq(0.5, 100, 2.2), y = seq(0.5, 100, 2.2))
-source_xy = cbind(x = aquifer$X, y = aquifer$Y)
-
-kpoint.10 <- kpointmean(source_xy = source_xy, z = aquifer$H, target_xy = target_xy, k =10)
-kpoint.1 <- kpointmean(source_xy = source_xy, z = aquifer$H, target_xy = target_xy, k =1)
-kpoint.5 <- kpointmean(source_xy = source_xy, z = aquifer$H, target_xy = target_xy, k =5)
-
-ggplot(data = kpoint.10, aes(x = x, y = y, fill = z)) +
-  geom_tile() +
-  scale_fill_distiller(palette = "OrRd", trans = "reverse") +
-  coord_equal()
-
-ggplot(data = kpoint.5, aes(x = x, y = y, fill = z)) +
-  geom_tile() +
-  scale_fill_distiller(palette = "OrRd", trans = "reverse") +
-  coord_equal()
-
-ggplot(data = kpoint.1, aes(x = x, y = y, fill = z)) +
-  geom_tile() +
-  scale_fill_distiller(palette = "OrRd", trans = "reverse") +
-  coord_equal()
-
-```
-
-5. Discuss the limitations of these approaches. How can you calculate the uncertainty in the predictions?
+7. Discuss the limitations of these approaches. How can you calculate the uncertainty in the predictions?

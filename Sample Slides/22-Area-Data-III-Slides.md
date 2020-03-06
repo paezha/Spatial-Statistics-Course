@@ -66,11 +66,13 @@ $$
 
 Interpreting Moran's I: Moran Coefficient
 ========================================================
-
-
-
+- Perfect Disperson (1), Randomness (0), Perfect Clustering (+1)
 - Positive and relatively high value
 - Suggest non-random spatial pattern of similar values 
+
+
+
+
 
 ```r
 sum(df_mean_center_scatterplot$Density_z * df_mean_center_scatterplot$SMA_z) / sum(df_mean_center_scatterplot$Density_z^2)

@@ -7,8 +7,6 @@ output: html_notebook
 
 *NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes. 
 
-In last few practices/sessions, you learned about spatial point patterns. The next few sessions will concentrate on _area data_.
-
 If you wish to work interactively with this chapter you will need the following:
 
 * An `R` markdown notebook version of this document (the source file).
@@ -16,6 +14,8 @@ If you wish to work interactively with this chapter you will need the following:
 * A package called `geog4ga3`.
 
 ## Learning Objectives
+
+In last few practices/sessions, you learned about spatial point patterns. The next few sessions will concentrate on _area data_.
 
 In this practice, you will learn:
 

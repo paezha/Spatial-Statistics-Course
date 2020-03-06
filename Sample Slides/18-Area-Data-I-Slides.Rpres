@@ -1,3 +1,9 @@
+<!---
+Reflection: My mini lecture presentation today was a good introduction to area data. I wish that I was able to input Plotly graphs as photos for each step in creating area data (EX: create coordinates, zones, add coordinates and zones to map) but I did not have enough time. There was minor confusion regarding what the Y coordinates meant in slide 4 (they represent tbe extent of the zone and the corresponding points that are located within the zone). In the future, it would be ideal if the student partner took the time to emphasize what the values in the code means so  the confusion is eliminated. 
+On a positive note, this was a simple introduction into a new topic. There is lots of content in this chapter (such as touching upon spatial autocorrelation and reasining for zone use), which was not added. If desired, one could add information about the caution that not all zones are made with a specific meaning, and sometimes just made for privacy purposes. Additionally, I did not include spatial autocorrelation in this chapter as we will touch upon this in due time. 
+--->
+
+
 Area Data I
 ========================================================
 author: Alexis Polidoro and Megan Coad 

@@ -111,6 +111,6 @@ Conclusion:
 ==================================================================
 - Morans Plot can be very useful in visualizing spatial distribution of area data 
 - Local Moran's I provides more insight about the local variations and how one area differs from areas surrounding 
-- Concentration approach is another form of Local Statistics of Spatial Association that also allows you to assess neighbouring areas and their relation to a focal ponint. 
+- Concentration approach is another form of Local Statistics of Spatial Association that also allows you to assess neighbouring areas and their relation to a focal point. 
 - The issue of multiple testing can be solved using the Bonferroni correction 
 - local statistics can help us identify hot and cold spots 

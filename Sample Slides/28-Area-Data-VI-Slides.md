@@ -9,8 +9,9 @@ Key Points
 ========================================================
 
 - Understand implications of incorrect functional form 
-- 
-
+- what happens with omitted variables 
+- What is Multicollinearity, overfitting and Edge Effects 
+- what is geographically weighted regression
 
 Incorrect Functional Form
 ========================================================

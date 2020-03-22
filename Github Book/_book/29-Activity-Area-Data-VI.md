@@ -59,6 +59,13 @@ library(geog4ga3)
 
 ```r
 library(sf)
+```
+
+```
+## Warning: package 'sf' was built under R version 3.6.3
+```
+
+```r
 library(spatstat)
 library(spdep)
 library(tidyverse)

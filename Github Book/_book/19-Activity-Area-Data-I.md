@@ -51,6 +51,13 @@ In addition to `tidyverse`, you will need `sf`, a package that implements simple
 ```r
 library(tidyverse)
 library(sf)
+```
+
+```
+## Warning: package 'sf' was built under R version 3.6.3
+```
+
+```r
 library(cartogram)
 library(geog4ga3)
 ```

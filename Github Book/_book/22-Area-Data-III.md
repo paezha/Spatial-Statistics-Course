@@ -46,6 +46,13 @@ Load the libraries you will use in this activity:
 ```r
 library(tidyverse)
 library(spdep)
+```
+
+```
+## Warning: package 'sf' was built under R version 3.6.3
+```
+
+```r
 library(sf)
 library(geog4ga3)
 ```

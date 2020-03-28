@@ -3,7 +3,7 @@ title: "Spatially Continuous Data II"
 output: html_notebook
 ---
 
-# Spatially Continuous Data II
+# Spatially Continuous Data II {#spatially-continuous-data-ii}
 
 *NOTE*: You can download the source files for this book from [here](https://github.com/paezha/Spatial-Statistics-Course). The source files are in the format of R Notebooks. Notebooks are pretty neat, because the allow you execute code within the notebook, so that you can work interactively with the notes.
 
@@ -18,7 +18,7 @@ If you wish to work interactively with this chapter you will need the following:
 
 ## Learning objectives
 
-In the previous practice you were introduced to the concept of fields/spatially continuous data. Three different approaches were discussed that can be used to convert a set of observations of a field at discrete locations into a surface, namely tile-based approaches, inverse distance weighting (IDW), and $k$-point means. In this practice, you will learn:
+In Chapter \@ref(spatially-continuous-data-i) we were introduced to the concept of fields/spatially continuous data. Three different approaches were discussed that can be used to convert a set of observations of a field at discrete locations into a surface, namely tile-based approaches, inverse distance weighting (IDW), and $k$-point means. In this practice, you will learn:
 
 1. About intervals of confidence for predictions.
 2. Using trend surface analysis as an interpolation tool.
@@ -384,11 +384,10 @@ ggplot(data = Walker_Lake,
 Visual inspection of the distribution of the residuals strongly suggests that they are not random. We can check this by means of Moran's $I$ coefficient, if we create a list of spatial weights as follows:
 ```{r}
 # Create a set of spatial weights with the 5 nearest neighbors.
-WL.listw <- Walker_Lake[,2:3] %>% 
-  as.matrix() %>%
-  knearneigh(k = 5) %>%
-  knn2nb() %>%
-  nb2listw()
+WL.listw <- as.matrix(Walker_Lake[,2:3]) %>% # Take the coordinates of Walker Lake and convert to matrix.
+  knearneigh(k = 5) %>% # Find the 5 nearest neighbors of each observations.
+  knn2nb() %>% # Convert the nearest neighbors to `nb` object.
+  nb2listw() # Convert the `nb` object into spatial weights. 
 ```
 
 The results of the autocorrelation analysis of the residuals are:

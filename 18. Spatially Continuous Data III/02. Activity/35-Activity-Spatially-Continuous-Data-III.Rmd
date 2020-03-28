@@ -1,9 +1,9 @@
 ---
-title: "Activity: Spatially Continuous Data III"
+title: "Activity 17: Spatially Continuous Data III"
 output: html_notebook
 ---
 
-# Activity: Spatially Continuous Data III
+# Activity 17: Spatially Continuous Data III
 
 ## Practice questions
 
@@ -46,11 +46,12 @@ rm(list = ls())
 Note that `ls()` lists all objects currently on the worspace.
 
 Load the libraries you will use in this activity (load other packages as appropriate). 
-```{r}
-library(tidyverse)
-library(gstat)
-library(spdep)
+```{r message=FALSE}
 library(geog4ga3)
+library(gstat)
+library(sf)
+library(spdep)
+library(tidyverse)
 ```
 
 Load dataset:
@@ -58,10 +59,9 @@ Load dataset:
 data("aquifer")
 ```
 
-Convert to a `SpatialPointsDataFrame`:
+Convert to a simple features object:
 ```{r}
-aquifer.sp <- aquifer
-coordinates(aquifer.sp) <- ~X+Y
+aquifer.sf <- st_as_sf(aquifer, coords = c("X", "Y"))
 ```
 
 The data is a set of piezometric head (watertable pressure) observations of the Wolfcamp Aquifer in Texas (https://en.wikipedia.org/wiki/Hydraulic_head). Measures of pressure can be used to infer the flow of underground water, since water flows from high to low pressure areas.
@@ -72,51 +72,14 @@ The data set consists of 85 georeferenced measurements of piezometric head. Poss
 
 ## Activity
 
-1. Obtain and plot the empirical semivariogram for the head in the Walker Lake dataset. How would you interpret this semivariogram?
+**NOTE**: Activities include technical "how to" tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).
 
-```{r}
-variogram_z <- variogram(H ~ 1, data = aquifer.sp)
-ggplot(data = variogram_z, aes(x = dist, y = gamma)) +
-  geom_point() + 
-  geom_text(aes(label = np), nudge_y = -1500) +
-  xlab("Distance") + ylab("Semivariance")
-```
+1.* Obtain and plot the empirical semivariogram for the head in the Walker Lake dataset.
 
-2. Estimate trend surface of your choice, and obtain and plot an empirical semivariogram using the residuals. How would you interpret this semivariogram?
+2.* Estimate a trend surface of your choice, and obtain and plot an empirical semivariogram using the residuals. How would you interpret this semivariogram?
 
-```{r}
-trend.l <- lm(formula = H ~ X + Y, data = aquifer)
-summary(trend.l)
+3.* Estimate and plot a theoretical semivariogram model for the residual variogram. 
 
-u.p <- seq(from = 0.0, to = 1.0, by = 0.05)
-v.p <- seq(from = 0.0, to = 1.0, by = 0.05)
+4. What is your interpretation of the semivariograms above?
 
-preds <- predict(trend.l, newdata = aquifer, se.fit = TRUE, interval = "prediction", level = 0.95)
-
-z.p <- matrix(data = preds$fit[,1], nrow = 21, ncol = 21, byrow = TRUE)
-z.p_l <- matrix(data = preds$fit[,2], nrow = 21, ncol = 21, byrow = TRUE)
-z.p_u <- matrix(data = preds$fit[,3], nrow = 21, ncol = 21, byrow = TRUE)
-
-trend.plot <- plot_ly(x = ~u.p, y = ~v.p, z = ~z.p, 
-        type = "surface", colors = "YlOrRd") %>% 
-  add_surface(x = ~u.p, y = ~v.p, z = ~z.p_l, 
-              opacity = 0.5, showscale = FALSE) %>%
-  add_surface(x = ~u.p, y = ~v.p, z = ~z.p_u, 
-              opacity = 0.5, showscale = FALSE) %>% 
-  layout(scene = list(
-    aspectmode = "manual", aspectratio = list(x = 1, y = 1, z = 1)))
-trend.plot #%>% add_markers(data = df, x = ~x, y = ~y, z = ~z, color = ~residual)
-```
-
-
-3. Estimate and plot a theoretical semivariogram model for the residual variogram. 
-
-```{r}
-aquifer$residual1 <- ifelse(trend.l$residuals > 0, "Positive", "Negative")
-ggplot(data = aquifer, 
-       aes(x = X, y = Y, color = residual1)) +
-  geom_point() +
-  coord_equal()
-```
-
-4. How would you use the information provided by the variographic analysis above to improve your predictions of the field?
+5. How would you use the information provided by the variographic analysis above to improve your predictions (spatially interpolated values) of the field?

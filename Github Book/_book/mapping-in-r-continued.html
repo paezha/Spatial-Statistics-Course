@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Mapping in R: Continued | Applied Spatial Statistics with R</title>
   <meta name="description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Mapping in R: Continued | Applied Spatial Statistics with R" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Antonio Paez" />
 
 
-<meta name="date" content="2020-03-22" />
+<meta name="date" content="2020-03-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -65,12 +65,12 @@
 <script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script>
-<script src="libs/plotly-binding-4.9.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.49.4/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.49.4/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 <link href="libs/colourpicker-1.1/colourpicker.min.css" rel="stylesheet" />
 <script src="libs/colourpicker-1.1/colourpicker.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -437,20 +437,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="31.7" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#inverse-distance-weighting-idw"><i class="fa fa-check"></i><b>31.7</b> Inverse distance weighting (IDW)</a></li>
 <li class="chapter" data-level="31.8" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#k-point-means"><i class="fa fa-check"></i><b>31.8</b> <span class="math inline">\(k\)</span>-point means</a></li>
 </ul></li>
-<li class="chapter" data-level="32" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>32</b> Spatially Continuous Data II</a><ul>
-<li class="chapter" data-level="32.1" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#learning-objectives-31"><i class="fa fa-check"></i><b>32.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="32.2" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#suggested-readings-15"><i class="fa fa-check"></i><b>32.2</b> Suggested readings</a></li>
-<li class="chapter" data-level="32.3" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#preliminaries-29"><i class="fa fa-check"></i><b>32.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="32.4" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#uncertainty-in-the-predictions"><i class="fa fa-check"></i><b>32.4</b> Uncertainty in the predictions</a></li>
-<li class="chapter" data-level="32.5" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#trend-surface-analysis-1"><i class="fa fa-check"></i><b>32.5</b> Trend surface analysis</a></li>
-<li class="chapter" data-level="32.6" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#accuracy-and-precision"><i class="fa fa-check"></i><b>32.6</b> Accuracy and precision</a></li>
+<li class="chapter" data-level="32" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html"><i class="fa fa-check"></i><b>32</b> Activity 15: Spatially Continuous Data I</a><ul>
+<li class="chapter" data-level="32.1" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#practice-questions-12"><i class="fa fa-check"></i><b>32.1</b> Practice questions</a></li>
+<li class="chapter" data-level="32.2" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#learning-objectives-31"><i class="fa fa-check"></i><b>32.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="32.3" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#suggested-reading-13"><i class="fa fa-check"></i><b>32.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="32.4" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#preliminaries-29"><i class="fa fa-check"></i><b>32.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="32.5" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#activity-14"><i class="fa fa-check"></i><b>32.5</b> Activity</a></li>
 </ul></li>
-<li class="chapter" data-level="33" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>33</b> Activity 16: Spatially Continuous Data II</a><ul>
-<li class="chapter" data-level="33.1" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#practice-questions-12"><i class="fa fa-check"></i><b>33.1</b> Practice questions</a></li>
-<li class="chapter" data-level="33.2" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#learning-objectives-32"><i class="fa fa-check"></i><b>33.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="33.3" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#suggested-reading-13"><i class="fa fa-check"></i><b>33.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="33.4" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#preliminaries-30"><i class="fa fa-check"></i><b>33.4</b> Preliminaries</a></li>
-<li class="chapter" data-level="33.5" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#activity-14"><i class="fa fa-check"></i><b>33.5</b> Activity</a></li>
+<li class="chapter" data-level="33" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>33</b> Spatially Continuous Data II</a><ul>
+<li class="chapter" data-level="33.1" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#learning-objectives-32"><i class="fa fa-check"></i><b>33.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="33.2" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#suggested-readings-15"><i class="fa fa-check"></i><b>33.2</b> Suggested readings</a></li>
+<li class="chapter" data-level="33.3" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#preliminaries-30"><i class="fa fa-check"></i><b>33.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="33.4" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#uncertainty-in-the-predictions"><i class="fa fa-check"></i><b>33.4</b> Uncertainty in the predictions</a></li>
+<li class="chapter" data-level="33.5" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#trend-surface-analysis-1"><i class="fa fa-check"></i><b>33.5</b> Trend surface analysis</a></li>
+<li class="chapter" data-level="33.6" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#accuracy-and-precision"><i class="fa fa-check"></i><b>33.6</b> Accuracy and precision</a></li>
+</ul></li>
+<li class="chapter" data-level="34" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>34</b> Activity 16: Spatially Continuous Data II</a><ul>
+<li class="chapter" data-level="34.1" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#practice-questions-13"><i class="fa fa-check"></i><b>34.1</b> Practice questions</a></li>
+<li class="chapter" data-level="34.2" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#learning-objectives-33"><i class="fa fa-check"></i><b>34.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="34.3" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#suggested-reading-14"><i class="fa fa-check"></i><b>34.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="34.4" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#preliminaries-31"><i class="fa fa-check"></i><b>34.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="34.5" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#activity-15"><i class="fa fa-check"></i><b>34.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="35" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html"><i class="fa fa-check"></i><b>35</b> Spatially Continuous Data III</a><ul>
+<li class="chapter" data-level="35.1" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#learning-objectives-34"><i class="fa fa-check"></i><b>35.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="35.2" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#suggested-reading-15"><i class="fa fa-check"></i><b>35.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="35.3" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#preliminaries-32"><i class="fa fa-check"></i><b>35.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="35.4" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#residual-spatial-pattern"><i class="fa fa-check"></i><b>35.4</b> Residual spatial pattern</a></li>
+<li class="chapter" data-level="35.5" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#measuring-spatial-dependence-in-spatially-continuous-data"><i class="fa fa-check"></i><b>35.5</b> Measuring spatial dependence in spatially continuous data</a></li>
+<li class="chapter" data-level="35.6" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#variographic-analyisis"><i class="fa fa-check"></i><b>35.6</b> Variographic analyisis</a></li>
+</ul></li>
+<li class="chapter" data-level="36" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html"><i class="fa fa-check"></i><b>36</b> Activity 17: Spatially Continuous Data III</a><ul>
+<li class="chapter" data-level="36.1" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#practice-questions-14"><i class="fa fa-check"></i><b>36.1</b> Practice questions</a></li>
+<li class="chapter" data-level="36.2" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#learning-objectives-35"><i class="fa fa-check"></i><b>36.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="36.3" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#suggested-reading-16"><i class="fa fa-check"></i><b>36.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="36.4" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#preliminaries-33"><i class="fa fa-check"></i><b>36.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="36.5" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#activity-16"><i class="fa fa-check"></i><b>36.5</b> Activity</a></li>
 </ul></li>
 </ul>
 
@@ -517,25 +539,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="preliminaries-2" class="section level2">
 <h2><span class="header-section-number">5.3</span> Preliminaries</h2>
 <p>As usual, it is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in <code>R</code> to clear the workspace is <code>rm</code> (for “remove”), followed by a list of items to be removed. To clear the workspace from <em>all</em> objects, do the following:</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</a></code></pre></div>
 <p>Note that <code>ls()</code> lists all objects currently on the worspace.</p>
 <p>Load the libraries you will use in this activity:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb120-2" title="2"><span class="kw">library</span>(geog4ga3)</a></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb119-2" title="2"><span class="kw">library</span>(geog4ga3)</a></code></pre></div>
 <pre><code>## Warning: replacing previous import &#39;plotly::filter&#39; by &#39;stats::filter&#39; when
 ## loading &#39;geog4ga3&#39;</code></pre>
 <pre><code>## Warning: replacing previous import &#39;dplyr::lag&#39; by &#39;stats::lag&#39; when loading
 ## &#39;geog4ga3&#39;</code></pre>
 <p>Now that your workspace is clear, you can proceed to invoke the sample dataset. You can do this by means of the function <code>data</code>.</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" title="1"><span class="kw">data</span>(<span class="st">&quot;missing_df&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1"><span class="kw">data</span>(<span class="st">&quot;missing_df&quot;</span>)</a></code></pre></div>
 <p>The dataframe <code>missing_df</code> includes <span class="math inline">\(n = 65\)</span> observations (Note: text between $ characters is mathematical notation in LaTeX). These observations are geocoded using a false origin and coordinates normalized to the unit-square (the extent of their values is between zero and one). The coordinates are <code>x</code> and <code>y</code>.</p>
 <p>In addition, there are three variables associated with the locations (VAR1, VAR2, VAR3). The variables are generic. Feel free to think of them as housing prices, concentrations in ppb of some contaminant or any other variable that will help clarify your understading. Finally, a factor variable states whether the variables were measured for a location: if the status is “FALSE”, the values of the variables are missing.</p>
 </div>
 <div id="summarizing-a-dataframe" class="section level2">
 <h2><span class="header-section-number">5.4</span> Summarizing a Dataframe</h2>
 <p>Obtaining a set of descriptive statistics for a dataframe is very simple thanks to the function <code>summary</code>. For instance, the summary of <code>missing_df</code> is:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1"><span class="co"># `summary()` reports basic descriptive statistics of columns in a data frame</span></a>
-<a class="sourceLine" id="cb124-2" title="2"><span class="kw">summary</span>(missing_df)</a></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" title="1"><span class="co"># `summary()` reports basic descriptive statistics of columns in a data frame</span></a>
+<a class="sourceLine" id="cb123-2" title="2"><span class="kw">summary</span>(missing_df)</a></code></pre></div>
 <pre><code>##        x                 y                VAR1             VAR2       
 ##  Min.   :0.01699   Min.   :0.01004   Min.   :  50.0   Min.   :  50.0  
 ##  1st Qu.:0.22899   1st Qu.:0.19650   1st Qu.: 453.3   1st Qu.: 570.1  
@@ -557,7 +579,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="factors" class="section level2">
 <h2><span class="header-section-number">5.5</span> Factors</h2>
 <p>A factor describes a category. You can examine the class of a variable by means of the function <code>class</code>. From the summary, it is clear that several variables are numeric. However, for <code>Observed</code>, it is not evident if the variable is a <code>character</code> or <code>factor</code>. Use of <code>class</code> reveals that it is indeed a factor:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1"><span class="kw">class</span>(missing_df<span class="op">$</span>Observed)</a></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" title="1"><span class="kw">class</span>(missing_df<span class="op">$</span>Observed)</a></code></pre></div>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
 <p>Factors are an important data type because they allow us to store information that is not measured as a quantity. For example, the quality of the cut of a diamond is categorized as Fair &lt; Good &lt; Very Good &lt; Premium &lt; Ideal. Sure, we could store this information as numbers from 1 to 5. However, the quality of the cut is not a quantity, and should not be treated like one.</p>
 <p>In the dataframe <code>missing_df</code>, the variable <code>Observed</code> could have been coded as 1’s (for missing) and 2’s (for observed), but this does not mean that “observed” is twice the amount of “missing”! In this case, the numbers would not be quantities but labels. Factors in <code>R</code> allow us to work directly with the labels.</p>
@@ -566,7 +588,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="subsetting-data" class="section level2">
 <h2><span class="header-section-number">5.6</span> Subsetting Data</h2>
 <p>We subset data when we wish to work only with parts of a dataset. We can do this by indexing. For example, we could retrieve the part of the dataframe that corresponds to the <code>FALSE</code> values in the <code>Observed</code> variable:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1">missing_df[missing_df<span class="op">$</span>Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>,]</a></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" title="1">missing_df[missing_df<span class="op">$</span>Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>,]</a></code></pre></div>
 <pre><code>##       x    y VAR1 VAR2 VAR3 Observed
 ## 61 0.34 0.83   NA   NA   NA    FALSE
 ## 62 0.29 0.52   NA   NA   NA    FALSE
@@ -576,7 +598,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Data are indexed by means of the square brackets <code>[</code> and <code>]</code>. The indices correspond to the rows and columns. The logical statement <code>missing_df$Observed == False</code> selects the rows that meet the condition, whereas leaving a blank for the columns simply means “all columns”.</p>
 <p>As you can see, the five <code>NA</code> values correspond, as anticipated, to the locations where <code>Observed</code> is <code>FALSE</code>.</p>
 <p>Using indices is only one of many ways of subsetting data. Base R also has a subset command, that is implemented as follows:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1"><span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1"><span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>##       x    y VAR1 VAR2 VAR3 Observed
 ## 61 0.34 0.83   NA   NA   NA    FALSE
 ## 62 0.29 0.52   NA   NA   NA    FALSE
@@ -584,7 +606,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 64 0.62 0.10   NA   NA   NA    FALSE
 ## 65 0.88 0.85   NA   NA   NA    FALSE</code></pre>
 <p>And the package <code>dplyr</code> (part of the <code>tidyverse</code>) has a function called <code>filter</code>:</p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1"><span class="kw">filter</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" title="1"><span class="kw">filter</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>##      x    y VAR1 VAR2 VAR3 Observed
 ## 1 0.34 0.83   NA   NA   NA    FALSE
 ## 2 0.29 0.52   NA   NA   NA    FALSE
@@ -592,7 +614,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 0.62 0.10   NA   NA   NA    FALSE
 ## 5 0.88 0.85   NA   NA   NA    FALSE</code></pre>
 <p>The three approaches give the same result, but <code>subset</code> and <code>filter</code> are somewhat easier to write. You could nest any of the above approaches as part of another function. For instance, if you wanted to do a summary of the selected subset of the data, you would:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1"><span class="kw">summary</span>(<span class="kw">filter</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" title="1"><span class="kw">summary</span>(<span class="kw">filter</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>))</a></code></pre></div>
 <pre><code>##        x               y              VAR1          VAR2          VAR3    
 ##  Min.   :0.130   Min.   :0.100   Min.   : NA   Min.   : NA   Min.   : NA  
 ##  1st Qu.:0.290   1st Qu.:0.320   1st Qu.: NA   1st Qu.: NA   1st Qu.: NA  
@@ -610,7 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##           
 ## </code></pre>
 <p>Or:</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb136-1" title="1"><span class="kw">summary</span>(missing_df[missing_df<span class="op">$</span>Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>,])</a></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" title="1"><span class="kw">summary</span>(missing_df[missing_df<span class="op">$</span>Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>,])</a></code></pre></div>
 <pre><code>##        x               y              VAR1          VAR2          VAR3    
 ##  Min.   :0.130   Min.   :0.100   Min.   : NA   Min.   : NA   Min.   : NA  
 ##  1st Qu.:0.290   1st Qu.:0.320   1st Qu.: NA   1st Qu.: NA   1st Qu.: NA  
@@ -633,8 +655,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.7</span> Pipe Operator</h2>
 <p>A pipe operator is written this way: <code>%&gt;%</code>. Its objective is to pass forward the output of a function to a second function, so that they can be chained to create more complex instructions that are still relatively easy to read.</p>
 <p>For instance, instead of nesting the subsetting instructions in the <code>summary</code> function, you could do the subsetting first, and pass the results of that to the summary for further processing. This would look like this:</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1"><span class="co"># Remember, the pipe operator `%&gt;%` takes pases the value of the left-hand side to the function on the right-hand side</span></a>
-<a class="sourceLine" id="cb138-2" title="2"><span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" title="1"><span class="co"># Remember, the pipe operator `%&gt;%` takes pases the value of the left-hand side to the function on the right-hand side</span></a>
+<a class="sourceLine" id="cb137-2" title="2"><span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</a></code></pre></div>
 <pre><code>##        x               y              VAR1          VAR2          VAR3    
 ##  Min.   :0.130   Min.   :0.100   Min.   : NA   Min.   : NA   Min.   : NA  
 ##  1st Qu.:0.290   1st Qu.:0.320   1st Qu.: NA   1st Qu.: NA   1st Qu.: NA  
@@ -656,53 +678,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="more-on-visualization" class="section level2">
 <h2><span class="header-section-number">5.8</span> More on Visualization</h2>
 <p>Observations in the sample dataset are georeferenced, and so they can be plotted. Since they are based on false origins and are normalized, we cannot map them to the surface of the Earth. However, we can still visualize their spatial distribution. This can be done by using <code>ggplot2</code>. For instance, for <code>missing_df</code>:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1"><span class="co"># `coord_fixed()` forces the plot to use a ratio of 1:1 for the units in the x- and y-axis; in this case, since the values we are mapping to those axes are coordinates, we wish to represent them using the same scale, i.e., one unit in x looks identical to one unit in y (as an experiment, repeat the plot without fixing the coordinates) </span></a>
-<a class="sourceLine" id="cb140-2" title="2"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb140-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">17</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb140-4" title="4"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" title="1"><span class="co"># `coord_fixed()` forces the plot to use a ratio of 1:1 for the units in the x- and y-axis; in this case, since the values we are mapping to those axes are coordinates, we wish to represent them using the same scale, i.e., one unit in x looks identical to one unit in y (as an experiment, repeat the plot without fixing the coordinates) </span></a>
+<a class="sourceLine" id="cb139-2" title="2"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb139-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">17</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb139-4" title="4"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="04-Mapping-in-R-Continued_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>The above simply plots the coordinates, so that we can see the spatial distribution of the observations. (Notice the use of <code>coord_fixed</code> to maintain the aspect ratio of the plot to 1, i.e. the relationship between width and height). You have control of the <code>shape</code> of the markers, as well as their <code>size</code>. You can consult the shapes available <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/shape">here</a>. Experiment with different shapes and sizes if you wish.</p>
 <p>The dataframe <code>missing_df</code> includes more attributes that could be used in the plot. For instance, if you wished to create a thematic map showing <code>VAR1</code> you would do the following:</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb141-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1), <span class="dt">shape =</span> <span class="dv">17</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb141-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb140-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1), <span class="dt">shape =</span> <span class="dv">17</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb140-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="04-Mapping-in-R-Continued_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>The <code>shape</code> and <code>size</code> assignments happen outside of <code>aes</code>, and so are applied equally to all observations. In some cases, you might want to let other aesthetic attributes vary with the values of a variable in the dataframe. For instance, if we let the sizes change with the value of the variable:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb142-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1, <span class="dt">size =</span> VAR1), <span class="dt">shape =</span> <span class="dv">17</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb142-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb141-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1, <span class="dt">size =</span> VAR1), <span class="dt">shape =</span> <span class="dv">17</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb141-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <pre><code>## Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
 <p><img src="04-Mapping-in-R-Continued_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Note how there is a warning, saying that five observations were removed because data were missing! These are likely the five locations where <code>Observed == FALSE</code>!</p>
 <p>To make it more clear which observations are these, you could set the <code>shape</code> to vary according to the value of <code>Observed</code>, as follows:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb144-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1, <span class="dt">shape =</span> Observed), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb144-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb143-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1, <span class="dt">shape =</span> Observed), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb143-3" title="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="04-Mapping-in-R-Continued_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 Now it is easy to see the locations of the five observations that were <code>Observed == FALSE</code>!, which are labeled with grey circles.</p>
 <p>You can change the coloring scheme by means of <code>scale_color_distiller</code> (you can can check the different color palettes available <a href="http://ggplot2.tidyverse.org/reference/scale_brewer.html">here</a>):</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb145-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1, <span class="dt">shape =</span> Observed), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb145-3" title="3"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb145-4" title="4"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb144-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1, <span class="dt">shape =</span> Observed), <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb144-3" title="3"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb144-4" title="4"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="04-Mapping-in-R-Continued_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>You will notice maybe that with this coloring scheme some observations become very light and difficult to distinguish from the background. This can be solved in many different ways (for instance, by changing the color of the background!). A simple fix is to add a layer with hollow symbols, as follows:</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb146-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1), <span class="dt">shape =</span> <span class="dv">17</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb146-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb146-4" title="4"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb146-5" title="5"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb145-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">color =</span> VAR1), <span class="dt">shape =</span> <span class="dv">17</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> missing_df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y), <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-4" title="4"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb145-5" title="5"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="04-Mapping-in-R-Continued_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Finally, you could try subsetting the data to have greater control of the appareance of your plot, for instance:</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb147-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb147-3" title="3">             <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y, <span class="dt">color =</span> VAR1), <span class="dt">shape =</span> <span class="dv">17</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb147-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb147-5" title="5">             <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y), <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb147-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>),</a>
-<a class="sourceLine" id="cb147-7" title="7">             <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y), <span class="dt">shape =</span> <span class="dv">18</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb147-8" title="8"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb147-9" title="9"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1"><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb146-2" title="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb146-3" title="3">             <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y, <span class="dt">color =</span> VAR1), <span class="dt">shape =</span> <span class="dv">17</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb146-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb146-5" title="5">             <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y), <span class="dt">shape =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb146-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> <span class="kw">subset</span>(missing_df, Observed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb146-7" title="7">             <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y=</span> y), <span class="dt">shape =</span> <span class="dv">18</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb146-8" title="8"><span class="st">  </span><span class="kw">scale_color_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;RdBu&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb146-9" title="9"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="04-Mapping-in-R-Continued_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>These are examples of creating and improving the aspect of simple symbol maps, which are often used to represent observations in space.</p>
 

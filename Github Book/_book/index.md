@@ -1,7 +1,7 @@
 --- 
 title: "Applied Spatial Statistics with `R`"
 author: "Antonio Paez"
-date: "2020-03-22"
+date: "2020-03-28"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -126,13 +126,13 @@ These notes were developed using the following version of `R`:
 ## system         x86_64, mingw32             
 ## status                                     
 ## major          3                           
-## minor          6.2                         
-## year           2019                        
-## month          12                          
-## day            12                          
-## svn rev        77560                       
+## minor          6.3                         
+## year           2020                        
+## month          02                          
+## day            29                          
+## svn rev        77875                       
 ## language       R                           
-## version.string R version 3.6.2 (2019-12-12)
-## nickname       Dark and Stormy Night
+## version.string R version 3.6.3 (2020-02-29)
+## nickname       Holding the Windsock
 ```
 

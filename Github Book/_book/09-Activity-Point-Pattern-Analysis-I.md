@@ -54,13 +54,6 @@ library(tidyverse)
 library(spatstat)
 library(maptools) # Needed to convert a `Spatial Polygons` object into an `owin` object
 library(sf)
-```
-
-```
-## Warning: package 'sf' was built under R version 3.6.3
-```
-
-```r
 library(geog4ga3)
 ```
 

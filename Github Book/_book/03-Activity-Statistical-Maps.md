@@ -48,13 +48,6 @@ Load the libraries you will use in this activity:
 ```r
 library(tidyverse)
 library(sf)
-```
-
-```
-## Warning: package 'sf' was built under R version 3.6.3
-```
-
-```r
 library(geog4ga3)
 ```
 
@@ -168,6 +161,10 @@ ggplot(HamiltonDAs) +
   scale_fill_brewer(palette = "Reds") +
   coord_sf() +
   labs(fill = "Variable")
+```
+
+```
+## Warning: Use of `HamiltonDAs$VAR1` is discouraged. Use `VAR1` instead.
 ```
 
 <img src="03-Activity-Statistical-Maps_files/figure-html/unnamed-chunk-8-1.png" width="672" />

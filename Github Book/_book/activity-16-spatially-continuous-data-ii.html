@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 33 Activity 16: Spatially Continuous Data II | Applied Spatial Statistics with R</title>
+  <title>Chapter 34 Activity 16: Spatially Continuous Data II | Applied Spatial Statistics with R</title>
   <meta name="description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi." />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 33 Activity 16: Spatially Continuous Data II | Applied Spatial Statistics with R" />
+  <meta property="og:title" content="Chapter 34 Activity 16: Spatially Continuous Data II | Applied Spatial Statistics with R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="paezha.github.io/applied_spatial_statistics" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 33 Activity 16: Spatially Continuous Data II | Applied Spatial Statistics with R" />
+  <meta name="twitter:title" content="Chapter 34 Activity 16: Spatially Continuous Data II | Applied Spatial Statistics with R" />
   
   <meta name="twitter:description" content="This book was created as a resource for teaching applied spatial statistics at McMaster University by Antonio Paez, with support from Anastassios Dardas and Rajveer Ubhi." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Antonio Paez" />
 
 
-<meta name="date" content="2020-03-22" />
+<meta name="date" content="2020-03-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="spatially-continuous-data-ii.html"/>
-
+<link rel="next" href="spatially-continuous-data-iii.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -65,12 +65,12 @@
 <script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-prod.js"></script>
 <script src="libs/lfx-heat-0.1.0/lfx-heat-bindings.js"></script>
-<script src="libs/plotly-binding-4.9.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.2/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.49.4/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.49.4/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 <link href="libs/colourpicker-1.1/colourpicker.min.css" rel="stylesheet" />
 <script src="libs/colourpicker-1.1/colourpicker.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -437,20 +437,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="31.7" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#inverse-distance-weighting-idw"><i class="fa fa-check"></i><b>31.7</b> Inverse distance weighting (IDW)</a></li>
 <li class="chapter" data-level="31.8" data-path="spatially-continuous-data-i.html"><a href="spatially-continuous-data-i.html#k-point-means"><i class="fa fa-check"></i><b>31.8</b> <span class="math inline">\(k\)</span>-point means</a></li>
 </ul></li>
-<li class="chapter" data-level="32" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>32</b> Spatially Continuous Data II</a><ul>
-<li class="chapter" data-level="32.1" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#learning-objectives-31"><i class="fa fa-check"></i><b>32.1</b> Learning objectives</a></li>
-<li class="chapter" data-level="32.2" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#suggested-readings-15"><i class="fa fa-check"></i><b>32.2</b> Suggested readings</a></li>
-<li class="chapter" data-level="32.3" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#preliminaries-29"><i class="fa fa-check"></i><b>32.3</b> Preliminaries</a></li>
-<li class="chapter" data-level="32.4" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#uncertainty-in-the-predictions"><i class="fa fa-check"></i><b>32.4</b> Uncertainty in the predictions</a></li>
-<li class="chapter" data-level="32.5" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#trend-surface-analysis-1"><i class="fa fa-check"></i><b>32.5</b> Trend surface analysis</a></li>
-<li class="chapter" data-level="32.6" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#accuracy-and-precision"><i class="fa fa-check"></i><b>32.6</b> Accuracy and precision</a></li>
+<li class="chapter" data-level="32" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html"><i class="fa fa-check"></i><b>32</b> Activity 15: Spatially Continuous Data I</a><ul>
+<li class="chapter" data-level="32.1" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#practice-questions-12"><i class="fa fa-check"></i><b>32.1</b> Practice questions</a></li>
+<li class="chapter" data-level="32.2" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#learning-objectives-31"><i class="fa fa-check"></i><b>32.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="32.3" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#suggested-reading-13"><i class="fa fa-check"></i><b>32.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="32.4" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#preliminaries-29"><i class="fa fa-check"></i><b>32.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="32.5" data-path="activity-15-spatially-continuous-data-i.html"><a href="activity-15-spatially-continuous-data-i.html#activity-14"><i class="fa fa-check"></i><b>32.5</b> Activity</a></li>
 </ul></li>
-<li class="chapter" data-level="33" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>33</b> Activity 16: Spatially Continuous Data II</a><ul>
-<li class="chapter" data-level="33.1" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#practice-questions-12"><i class="fa fa-check"></i><b>33.1</b> Practice questions</a></li>
-<li class="chapter" data-level="33.2" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#learning-objectives-32"><i class="fa fa-check"></i><b>33.2</b> Learning objectives</a></li>
-<li class="chapter" data-level="33.3" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#suggested-reading-13"><i class="fa fa-check"></i><b>33.3</b> Suggested reading</a></li>
-<li class="chapter" data-level="33.4" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#preliminaries-30"><i class="fa fa-check"></i><b>33.4</b> Preliminaries</a></li>
-<li class="chapter" data-level="33.5" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#activity-14"><i class="fa fa-check"></i><b>33.5</b> Activity</a></li>
+<li class="chapter" data-level="33" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>33</b> Spatially Continuous Data II</a><ul>
+<li class="chapter" data-level="33.1" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#learning-objectives-32"><i class="fa fa-check"></i><b>33.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="33.2" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#suggested-readings-15"><i class="fa fa-check"></i><b>33.2</b> Suggested readings</a></li>
+<li class="chapter" data-level="33.3" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#preliminaries-30"><i class="fa fa-check"></i><b>33.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="33.4" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#uncertainty-in-the-predictions"><i class="fa fa-check"></i><b>33.4</b> Uncertainty in the predictions</a></li>
+<li class="chapter" data-level="33.5" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#trend-surface-analysis-1"><i class="fa fa-check"></i><b>33.5</b> Trend surface analysis</a></li>
+<li class="chapter" data-level="33.6" data-path="spatially-continuous-data-ii.html"><a href="spatially-continuous-data-ii.html#accuracy-and-precision"><i class="fa fa-check"></i><b>33.6</b> Accuracy and precision</a></li>
+</ul></li>
+<li class="chapter" data-level="34" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html"><i class="fa fa-check"></i><b>34</b> Activity 16: Spatially Continuous Data II</a><ul>
+<li class="chapter" data-level="34.1" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#practice-questions-13"><i class="fa fa-check"></i><b>34.1</b> Practice questions</a></li>
+<li class="chapter" data-level="34.2" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#learning-objectives-33"><i class="fa fa-check"></i><b>34.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="34.3" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#suggested-reading-14"><i class="fa fa-check"></i><b>34.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="34.4" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#preliminaries-31"><i class="fa fa-check"></i><b>34.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="34.5" data-path="activity-16-spatially-continuous-data-ii.html"><a href="activity-16-spatially-continuous-data-ii.html#activity-15"><i class="fa fa-check"></i><b>34.5</b> Activity</a></li>
+</ul></li>
+<li class="chapter" data-level="35" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html"><i class="fa fa-check"></i><b>35</b> Spatially Continuous Data III</a><ul>
+<li class="chapter" data-level="35.1" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#learning-objectives-34"><i class="fa fa-check"></i><b>35.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="35.2" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#suggested-reading-15"><i class="fa fa-check"></i><b>35.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="35.3" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#preliminaries-32"><i class="fa fa-check"></i><b>35.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="35.4" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#residual-spatial-pattern"><i class="fa fa-check"></i><b>35.4</b> Residual spatial pattern</a></li>
+<li class="chapter" data-level="35.5" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#measuring-spatial-dependence-in-spatially-continuous-data"><i class="fa fa-check"></i><b>35.5</b> Measuring spatial dependence in spatially continuous data</a></li>
+<li class="chapter" data-level="35.6" data-path="spatially-continuous-data-iii.html"><a href="spatially-continuous-data-iii.html#variographic-analyisis"><i class="fa fa-check"></i><b>35.6</b> Variographic analyisis</a></li>
+</ul></li>
+<li class="chapter" data-level="36" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html"><i class="fa fa-check"></i><b>36</b> Activity 17: Spatially Continuous Data III</a><ul>
+<li class="chapter" data-level="36.1" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#practice-questions-14"><i class="fa fa-check"></i><b>36.1</b> Practice questions</a></li>
+<li class="chapter" data-level="36.2" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#learning-objectives-35"><i class="fa fa-check"></i><b>36.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="36.3" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#suggested-reading-16"><i class="fa fa-check"></i><b>36.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="36.4" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#preliminaries-33"><i class="fa fa-check"></i><b>36.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="36.5" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#activity-16"><i class="fa fa-check"></i><b>36.5</b> Activity</a></li>
 </ul></li>
 </ul>
 
@@ -470,9 +492,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="activity-16-spatially-continuous-data-ii" class="section level1">
-<h1><span class="header-section-number">Chapter 33</span> Activity 16: Spatially Continuous Data II</h1>
-<div id="practice-questions-12" class="section level2">
-<h2><span class="header-section-number">33.1</span> Practice questions</h2>
+<h1><span class="header-section-number">Chapter 34</span> Activity 16: Spatially Continuous Data II</h1>
+<div id="practice-questions-13" class="section level2">
+<h2><span class="header-section-number">34.1</span> Practice questions</h2>
 <p>Answer the following questions:</p>
 <ol style="list-style-type: decimal">
 <li>What is a confidence interval?</li>
@@ -482,8 +504,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>In your own words describe the concepts of accuracy and precision in spatial interpolation.</li>
 </ol>
 </div>
-<div id="learning-objectives-32" class="section level2">
-<h2><span class="header-section-number">33.2</span> Learning objectives</h2>
+<div id="learning-objectives-33" class="section level2">
+<h2><span class="header-section-number">34.2</span> Learning objectives</h2>
 <p>In this activity, you will:</p>
 <ol style="list-style-type: decimal">
 <li>Use trend surface analysis to interpolate a field.</li>
@@ -491,8 +513,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Think about the role of residual autocorrelation in interpolation.</li>
 </ol>
 </div>
-<div id="suggested-reading-13" class="section level2">
-<h2><span class="header-section-number">33.3</span> Suggested reading</h2>
+<div id="suggested-reading-14" class="section level2">
+<h2><span class="header-section-number">34.3</span> Suggested reading</h2>
 <ul>
 <li>Bailey TC and Gatrell AC <span class="citation">(<a href="#ref-Bailey1995" role="doc-biblioref">1995</a>)</span> Interactive Spatial Data Analysis, Chapters 5 and 6. Longman: Essex.</li>
 <li>Bivand RS, Pebesma E, and Gomez-Rubio V <span class="citation">(<a href="#ref-Bivand2008" role="doc-biblioref">2008</a>)</span> Applied Spatial Data Analysis with R, Chapter 8. Springer: New York.</li>
@@ -501,27 +523,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>O’Sullivan D and Unwin D <span class="citation">(<a href="#ref-Osullivan2010" role="doc-biblioref">2010</a>)</span> Geographic Information Analysis, 2nd Edition, Chapters 9 and 10. John Wiley &amp; Sons: New Jersey.</li>
 </ul>
 </div>
-<div id="preliminaries-30" class="section level2">
-<h2><span class="header-section-number">33.4</span> Preliminaries</h2>
+<div id="preliminaries-31" class="section level2">
+<h2><span class="header-section-number">34.4</span> Preliminaries</h2>
 <p>For this activity you will need the following:</p>
 <ul>
 <li><p>An R markdown notebook version of this document (the source file).</p></li>
 <li><p>A package called <code>geog4ga3</code>.</p></li>
 </ul>
 <p>It is good practice to clear the working space to make sure that you do not have extraneous items there when you begin your work. The command in R to clear the workspace is <code>rm</code> (for “remove”), followed by a list of items to be removed. To clear the workspace from <em>all</em> objects, do the following:</p>
-<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb832-1" title="1"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb825-1" title="1"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>())</a></code></pre></div>
 <p>Note that <code>ls()</code> lists all objects currently on the worspace.</p>
 <p>Load the libraries you will use in this activity (load other packages as appropriate).</p>
-<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb833-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
-<pre><code>## v ggplot2 3.2.1     v purrr   0.3.3
-## v tibble  2.1.3     v dplyr   0.8.3
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb826-1" title="1"><span class="kw">library</span>(tidyverse)</a></code></pre></div>
+<pre><code>## -- Attaching packages ------------------------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.0     v purrr   0.3.3
+## v tibble  2.1.3     v dplyr   0.8.5
 ## v tidyr   1.0.2     v stringr 1.4.0
-## v readr   1.3.1     v forcats 0.4.0</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## v readr   1.3.1     v forcats 0.5.0</code></pre>
+<pre><code>## -- Conflicts ---------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
-<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb837-1" title="1"><span class="kw">library</span>(spatstat)</a></code></pre></div>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb830-1" title="1"><span class="kw">library</span>(spatstat)</a></code></pre></div>
 <pre><code>## Loading required package: spatstat.data</code></pre>
 <pre><code>## Loading required package: nlme</code></pre>
 <pre><code>## 
@@ -534,30 +556,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   method     from
 ##   print.boxx cli</code></pre>
 <pre><code>## 
-## spatstat 1.63-0       (nickname: &#39;Space camouflage&#39;) 
+## spatstat 1.63-3       (nickname: &#39;Wet paint&#39;) 
 ## For an introduction to spatstat, type &#39;beginner&#39;</code></pre>
-<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb845-1" title="1"><span class="kw">library</span>(spdep)</a></code></pre></div>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb838-1" title="1"><span class="kw">library</span>(spdep)</a></code></pre></div>
 <pre><code>## Loading required package: sp</code></pre>
 <pre><code>## Loading required package: spData</code></pre>
 <pre><code>## To access larger datasets in this package, install the spDataLarge
 ## package with: `install.packages(&#39;spDataLarge&#39;,
 ## repos=&#39;https://nowosad.github.io/drat/&#39;, type=&#39;source&#39;)`</code></pre>
 <pre><code>## Loading required package: sf</code></pre>
-<pre><code>## Warning: package &#39;sf&#39; was built under R version 3.6.3</code></pre>
 <pre><code>## Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3</code></pre>
-<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb852-1" title="1"><span class="kw">library</span>(geog4ga3)</a></code></pre></div>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb844-1" title="1"><span class="kw">library</span>(geog4ga3)</a></code></pre></div>
 <pre><code>## Warning: replacing previous import &#39;plotly::filter&#39; by &#39;stats::filter&#39; when
 ## loading &#39;geog4ga3&#39;</code></pre>
 <pre><code>## Warning: replacing previous import &#39;dplyr::lag&#39; by &#39;stats::lag&#39; when loading
 ## &#39;geog4ga3&#39;</code></pre>
 <p>Load the data that you will use in this activity:</p>
-<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb855-1" title="1"><span class="kw">data</span>(<span class="st">&quot;aquifer&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb847-1" title="1"><span class="kw">data</span>(<span class="st">&quot;aquifer&quot;</span>)</a></code></pre></div>
 <p>The data is a set of piezometric head (watertable pressure) observations of the Wolfcamp Aquifer in Texas (<a href="https://en.wikipedia.org/wiki/Hydraulic_head" class="uri">https://en.wikipedia.org/wiki/Hydraulic_head</a>). Measures of pressure can be used to infer the flow of underground water, since water flows from high to low pressure areas.</p>
 <p>These data were collected to evaluate potential flow of contamination related to a high level toxic waste repository in Texas. The Deaf Smith county site in Texas was one of three potential sites proposed for this repository. Beneath the site is a deep brine aquifer known as the Wolfcamp aquifer that may serve as a conduit of contamination leaking from the repository.</p>
 <p>The data set consists of 85 georeferenced measurements of piezometric head. Possible applications of interpolation are to determine sites at risk and to quantify uncertainty of the interpolated surface, to evaluate the best locations for monitoring stations.</p>
 </div>
-<div id="activity-14" class="section level2">
-<h2><span class="header-section-number">33.5</span> Activity</h2>
+<div id="activity-15" class="section level2">
+<h2><span class="header-section-number">34.5</span> Activity</h2>
 <p><strong>NOTE</strong>: Activities include technical “how to” tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).</p>
 <p>1.* Estimate a trend surface for the dataset experimenting with different polynomials.</p>
 <p>2.* Create an interpolation grid, and use the function <code>predict</code> to interpolate the field using your chosen model. Plot the interpolated field using a method of your choice (e.g., <code>ggplot2</code>, <code>plot_ly()</code> for 3D plotting, etc.)</p>
@@ -567,112 +588,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Inspect the residuals of the model. Are they spatially random? If not, what would be the implications for spatial interpolation?</p></li>
 </ol>
 
-<div id="refs" class="references">
-<div>
-<p>Anselin, Luc. 1988. <em>Spatial Econometrics: Methods and Models</em>. Book. Dordrecht: Kluwer.</p>
-</div>
-<div>
-<p>———. 1995. “Local Indicators of Spatial Association - Lisa.” Journal Article. <em>Geographical Analysis</em> 27: 93–115.</p>
-</div>
-<div>
-<p>Baddeley, Adrian, Ege Rubak, and Rolf Turner. 2016. <em>Spatial Point Patterns: Methodology and Applications with R</em>. Book. Chapman; Hall/CRC.</p>
-</div>
-<div>
-<p>Bailey, T. C., and A. C. Gatrell. 1995. <em>Interactive Spatial Data Analysis</em>. Book. Essex: Addison Wesley Longman.</p>
-</div>
-<div>
-<p>Bivand, R. S., E. J. Pebesma, and V. Gómez-Rubio. 2008. <em>Applied Spatial Data Analysis with R</em>. Book. New York: Springer Science+Business Media.</p>
-</div>
-<div>
-<p>Brunsdon, C., A. S. Fotheringham, and M. E. Charlton. 1996. “Geographically Weighted Regression: A Method for Exploring Spatial Nonstationarity.” Journal Article. <em>Geographical Analysis</em> 28 (4): 281–98. <a href="ISI:A1996VL03500001">ISI:A1996VL03500001</a>.</p>
-</div>
-<div>
-<p>Brunsdon, Chris, and Lex Comber. 2015. <em>An Introduction to R for Spatial Analysis and Mapping</em>. Book. Sage.</p>
-</div>
-<div>
-<p>Cressie, N. A. C. 1993. <em>Statistics for Spatial Data</em>. Book. Wiley Series in Probability and Mathematical Statistics. New York: John Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Farber, S., and A. Páez. 2007. “A Systematic Investigation of Cross-Validation in Gwr Model Estimation: Empirical Analysis and Monte Carlo Simulations.” Journal Article. <em>Journal of Geographical Systems</em> 9 (4): 371–96. <a href="C:/Papers/Journal%20of%20Geographical%20Systems/Journal%20of%20Geographical%20Systems%20(2007)%209%20(4)%20371-396.pdf">C:/Papers/Journal of Geographical Systems/Journal of Geographical Systems (2007) 9 (4) 371-396.pdf</a>.</p>
-</div>
-<div>
-<p>Fotheringham, A. S., and C. Brunsdon. 1999. “Local Forms of Spatial Analysis.” Journal Article. <em>Geographical Analysis</em> 31 (4): 340–58.</p>
-</div>
-<div>
-<p>Getis, A., and J. K. Ord. 1992. “The Analysis of Spatial Association by Use of Distance Statistics.” Journal Article. <em>Geographical Analysis</em> 24 (3): 189–206. <a href="ISI:A1992JF93400001%0AC:/Papers/Geographical%20Analysis/Geographical%20Analysis%20(1992)%2024%20(3)%20189-206.pdf">ISI:A1992JF93400001
-C:/Papers/Geographical Analysis/Geographical Analysis (1992) 24 (3) 189-206.pdf</a>.</p>
-</div>
-<div>
-<p>Geyer, Charles J, and Jesper Møller. 1994. “Simulation Procedures and Likelihood Inference for Spatial Point Processes.” <em>Scandinavian Journal of Statistics</em>, 359–73.</p>
-</div>
-<div>
-<p>Griffith, D. A. 1988. <em>Advanced Spatial Statistics: Special Topics in the Exploration of Quantitative Spatial Data Series</em>. Book. Dordrecht: Kluwer.</p>
-</div>
-<div>
-<p>Haase, P. 1995. “Spatial Pattern Analysis in Ecology Based on Ripley’s K-Function: Introduction and Methods of Edge Correction.” <em>Journal of Vegetation Science</em> 6 (4): 575–82.</p>
-</div>
-<div>
-<p>Haining, R. 1990. <em>Spatial Data Analysis in the Social and Environmental Sciences</em>. Book. Cambridge: Cambridge University Press.</p>
-</div>
-<div>
-<p>Isaaks, E. H., and R. M. Srivastava. 1989. <em>Applied Geostatistics</em>. Book. New York: Oxford University Press.</p>
-</div>
-<div>
-<p>Lloyd, Christopher D. 2010. <em>Local Models for Spatial Analysis</em>. CRC press.</p>
-</div>
-<div>
-<p>Lovelace, Robin, Jacub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with R</em>. Book. CRC Press.</p>
-</div>
-<div>
-<p>McElreath, Richard. 2016. <em>Statistical Rethinking: A Bayesian Course with Examples in R and Stan</em>. Book. Vol. 122. CRC Press.</p>
-</div>
-<div>
-<p>McGrew Jr, J Chapman, and Charles B Monroe. 2009. <em>An Introduction to Statistical Problem Solving in Geography</em>. Book. 2nd. Edition. Long Grove, Illinois: Waveland Press.</p>
-</div>
-<div>
-<p>McMillen, D. P. 2003. “Spatial Autocorrelation or Model Misspecification?” Journal Article. <em>International Regional Science Review</em> 26 (2): 208–17. <a href="ISI:000181958400007%0AC:/Papers/International%20Regional%20Science%20Review/International%20Regional%20Science%20Review%20(2003)%2026%20(2)%20208-217.pdf">ISI:000181958400007
-C:/Papers/International Regional Science Review/International Regional Science Review (2003) 26 (2) 208-217.pdf</a>.</p>
-</div>
-<div>
-<p>Moller, Jesper, and Rasmus Plenge Waagepetersen. 2003. <em>Statistical Inference and Simulation for Spatial Point Processes</em>. Chapman; Hall/CRC.</p>
-</div>
-<div>
-<p>O’Sullivan, David, and David Unwin. 2010. <em>Geographic Information Analysis</em>. Book. 2nd. Edition. Hoboken, New Jersey: John Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Paez, A., S. Farber, and D. Wheeler. 2011. “A Simulation-Based Study of Geographically Weighted Regression as a Method for Investigating Spatially Varying Relationships.” Journal Article. <em>Environment and Planning A</em> 43 (12): 2992–3010. <a href="https://doi.org/10.1068/a44111">https://doi.org/10.1068/a44111</a>.</p>
-</div>
-<div>
-<p>Paez, A., F. Long, and S. Farber. 2008. “Moving Window Approaches for Hedonic Price Estimation: An Empirical Comparison of Modelling Techniques.” Journal Article. <em>Urban Studies</em> 45 (8): 1565–81. <a href="https://doi.org/10.1177/0042098008091491">https://doi.org/10.1177/0042098008091491</a>.</p>
-</div>
-<div>
-<p>Plant, Richard E. 2012. <em>Spatial Data Analysis in Ecology and Agriculture Using R</em>. Book. cRc Press.</p>
-</div>
-<div>
-<p>Rey, S. J. 2009. “Show Me the Code: Spatial Analysis and Open Source.” Journal Article. <em>Journal of Geographical Systems</em> 11 (2): 191–207. <a href="ISI:000266249500007">ISI:000266249500007</a>.</p>
-</div>
-<div>
-<p>Ripley, B. D. 1976. “2nd-Order Analysis of Stationary Point Processes.” Journal Article. <em>Journal of Applied Probability</em> 13 (2): 255–66. <a href="ISI:A1976CA37400007">ISI:A1976CA37400007</a>.</p>
-</div>
-<div>
-<p>Tomlin, C Dana. 1990. <em>A Map Algebra</em>. Harvard Graduate School of Design Cambridge, MA.</p>
-</div>
-<div>
-<p>Tong, Daoqin, and Alan T. Murray. 2012. “Spatial Optimization in Geography.” Journal Article. <em>Annals of the Association of American Geographers</em> 102 (6): 1290–1309. <a href="https://doi.org/10.1080/00045608.2012.685044">https://doi.org/10.1080/00045608.2012.685044</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley. 2015. <em>R Packages: Organize, Test, Document, and Share Your Code</em>. " O’Reilly Media, Inc.".</p>
-</div>
-<div>
-<p>———. 2017. <em>Tidyverse: Easily Install and Load the ’Tidyverse’</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. " O’Reilly Media, Inc.".</p>
-</div>
-<div>
-<p>With, Kimberly A, and Anthony W King. 1997. “The Use and Misuse of Neutral Landscape Models in Ecology.” <em>Oikos</em>, 219–29.</p>
-</div>
-</div>
 </div>
 </div>
 <h3>References</h3>
@@ -698,8 +613,8 @@ C:/Papers/International Regional Science Review/International Regional Science R
           </div>
         </div>
       </div>
-<a href="spatially-continuous-data-ii.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="spatially-continuous-data-ii.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="spatially-continuous-data-iii.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -46,13 +46,6 @@ Load the libraries you will use in this activity:
 ```r
 library(tidyverse)
 library(spdep)
-```
-
-```
-## Warning: package 'sf' was built under R version 3.6.3
-```
-
-```r
 library(sf)
 library(geog4ga3)
 ```
@@ -333,6 +326,10 @@ ggplot(data = Hamilton_CT2, aes(x = DENSITY, y = DENSITY_SMA, color = VAR)) +
   facet_wrap(~ VAR, ncol = 3) 
 ```
 
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
 <img src="22-Area-Data-III_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 You will notice that the slope of the line tends to be flat in the simulated variables; this is to be expected, since these variables are spatially random: _the values of the variable at $i$ are independent of the values of their local means!_. In other words, the probability that the map is random is pretty high (in fact, since these 8 of these maps are null landscapes, we know for a fact that they are random).
@@ -381,6 +378,10 @@ sc2 <- ggplot(data = df_mean_center_scatterplot,
 
 # Use `grid.arrange()` to place the two plots in a single figure 
 grid.arrange(sc1, sc2, ncol = 1)
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
 ```
 
 <img src="22-Area-Data-III_files/figure-html/unnamed-chunk-19-1.png" width="672" />

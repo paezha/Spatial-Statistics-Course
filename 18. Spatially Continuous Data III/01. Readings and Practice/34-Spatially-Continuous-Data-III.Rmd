@@ -62,7 +62,7 @@ summary(Walker_Lake)
 
 ## Residual spatial pattern
 
-In Chapter \@ref{spatially-continuous-data-i} we used trend surface analysis for spatial interpolation. Trend surface analysis improves on methods such as Voronoi polygons, IDW, and $k$-point means by providing a built-in mechanism for estimating the uncertainty in the predictions. Let us quickly revisit this idea.
+In Chapter \@ref{spatially-continuous-data-ii} we used trend surface analysis for spatial interpolation. Trend surface analysis improves on methods such as Voronoi polygons, IDW, and $k$-point means by providing a built-in mechanism for estimating the uncertainty in the predictions. Let us quickly revisit this idea.
 
 The objective of interpolation is to provide the following estimates:
 $$

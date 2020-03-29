@@ -24,7 +24,7 @@
 <meta name="author" content="Antonio Paez" />
 
 
-<meta name="date" content="2020-03-28" />
+<meta name="date" content="2020-03-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -474,6 +474,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="36.4" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#preliminaries-33"><i class="fa fa-check"></i><b>36.4</b> Preliminaries</a></li>
 <li class="chapter" data-level="36.5" data-path="activity-17-spatially-continuous-data-iii.html"><a href="activity-17-spatially-continuous-data-iii.html#activity-16"><i class="fa fa-check"></i><b>36.5</b> Activity</a></li>
 </ul></li>
+<li class="chapter" data-level="37" data-path="spatially-continuous-data-iv.html"><a href="spatially-continuous-data-iv.html"><i class="fa fa-check"></i><b>37</b> Spatially Continuous Data IV</a><ul>
+<li class="chapter" data-level="37.1" data-path="spatially-continuous-data-iv.html"><a href="spatially-continuous-data-iv.html#learning-objectives-36"><i class="fa fa-check"></i><b>37.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="37.2" data-path="spatially-continuous-data-iv.html"><a href="spatially-continuous-data-iv.html#suggested-reading-17"><i class="fa fa-check"></i><b>37.2</b> Suggested reading</a></li>
+<li class="chapter" data-level="37.3" data-path="spatially-continuous-data-iv.html"><a href="spatially-continuous-data-iv.html#preliminaries-34"><i class="fa fa-check"></i><b>37.3</b> Preliminaries</a></li>
+<li class="chapter" data-level="37.4" data-path="spatially-continuous-data-iv.html"><a href="spatially-continuous-data-iv.html#using-residual-spatial-pattern-to-estimate-prediction-errors"><i class="fa fa-check"></i><b>37.4</b> Using residual spatial pattern to estimate prediction errors</a></li>
+<li class="chapter" data-level="37.5" data-path="spatially-continuous-data-iv.html"><a href="spatially-continuous-data-iv.html#kriging-a-method-for-optimal-prediction."><i class="fa fa-check"></i><b>37.5</b> Kriging: a method for optimal prediction.</a></li>
+</ul></li>
+<li class="chapter" data-level="38" data-path="activity-18-spatially-continuous-data-iv.html"><a href="activity-18-spatially-continuous-data-iv.html"><i class="fa fa-check"></i><b>38</b> Activity 18: Spatially Continuous Data IV</a><ul>
+<li class="chapter" data-level="38.1" data-path="activity-18-spatially-continuous-data-iv.html"><a href="activity-18-spatially-continuous-data-iv.html#practice-questions-15"><i class="fa fa-check"></i><b>38.1</b> Practice questions</a></li>
+<li class="chapter" data-level="38.2" data-path="activity-18-spatially-continuous-data-iv.html"><a href="activity-18-spatially-continuous-data-iv.html#learning-objectives-37"><i class="fa fa-check"></i><b>38.2</b> Learning objectives</a></li>
+<li class="chapter" data-level="38.3" data-path="activity-18-spatially-continuous-data-iv.html"><a href="activity-18-spatially-continuous-data-iv.html#suggested-reading-18"><i class="fa fa-check"></i><b>38.3</b> Suggested reading</a></li>
+<li class="chapter" data-level="38.4" data-path="activity-18-spatially-continuous-data-iv.html"><a href="activity-18-spatially-continuous-data-iv.html#preliminaries-35"><i class="fa fa-check"></i><b>38.4</b> Preliminaries</a></li>
+<li class="chapter" data-level="38.5" data-path="activity-18-spatially-continuous-data-iv.html"><a href="activity-18-spatially-continuous-data-iv.html#activity-17"><i class="fa fa-check"></i><b>38.5</b> Activity</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -547,12 +561,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The following function reports a random binomial variable. The number of observations <code>n</code> is how many random numbers we require. The <code>size</code> is the number of trials. For instance, if the experiment was flipping a coin, it would be how many times we get heads in <code>size</code> flips. The probability of success <code>prob</code> is the probability of getting heads in any given toss. Execute the chunk repeatedly to see what happens.</p>
 <div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" title="1"><span class="co">#This function simulates the outcome of flipping a coin. Here, we are simulating the result for flipping heads, which has a probability of 0.5. The value of `n` is the number of experiments and `size` is the number of trials in each experiment </span></a>
 <a class="sourceLine" id="cb154-2" title="2"><span class="kw">rbinom</span>(<span class="dt">n =</span> <span class="dv">1</span>, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a></code></pre></div>
-<pre><code>## [1] 1</code></pre>
+<pre><code>## [1] 0</code></pre>
 <p>It can be noted that although there are only two outcomes, we do not have control over the result of the process, making the result random. If you tried this “experiment” repeatedly, you would find that “heads” (1s) and “tails” (0s) appear each about 50% of the time. A way to implement this is to increase <code>n</code>- think of this as recruiting more people to do coin flips at the same time:</p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1">n &lt;-<span class="st"> </span><span class="dv">1000</span> <span class="co"># Number of people tossing the coin one time.</span></a>
 <a class="sourceLine" id="cb156-2" title="2">coin_flips &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n =</span> n, <span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">prob =</span> <span class="fl">0.5</span>)</a>
 <a class="sourceLine" id="cb156-3" title="3"><span class="kw">sum</span>(coin_flips)<span class="op">/</span>n</a></code></pre></div>
-<pre><code>## [1] 0.508</code></pre>
+<pre><code>## [1] 0.49</code></pre>
 <p>What happens if you change the <code>size</code> to 0, and why?</p>
 <p>The binomial function is an example of a <em>discrete</em> probability distribution function, because it can take only one of a discrete (limited) number of values (i.e., 0 and 1).</p>
 <p>Other random probability distribution functions are for <em>continuous</em> variables, variables that can take any value within a predefined range. The most famous of this distributions is the <em>normal distribution</em>, which you may know also as the <em>bell curve</em>. This probability distribution is attributed to Gauss (see <a href="https://link.springer.com/referenceworkentry/10.1007/978-0-387-32833-1_285">here</a>).</p>
@@ -560,10 +574,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The following function reports a value taken at random from a normal distribution with <code>mean</code> zero and standard deviation <code>sd</code> of one. Execute this chunk repeatedly to see what happens:</p>
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1"><span class="co"># This function generates random numbers based on the normal distribution conditional on the given arguments, i.e., the mean and the standard deviation `sd`. </span></a>
 <a class="sourceLine" id="cb158-2" title="2"><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</a></code></pre></div>
-<pre><code>## [1] 1.99713</code></pre>
+<pre><code>## [1] 1.981506</code></pre>
 <p>Let’s say that the average height of men in Canada is 170.7 cm and the standard deviation is 7 cm. The heigh of a random person in this population would be:</p>
 <div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1"><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="fl">170.7</span>, <span class="dt">sd =</span> <span class="dv">7</span>)</a></code></pre></div>
-<pre><code>## [1] 161.4685</code></pre>
+<pre><code>## [1] 178.8763</code></pre>
 <p>And the distribution of heights of <code>n</code> men in this population would be:</p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" title="1"><span class="co">#Creating a data frame using the random numbers generated from n=1000 people. The results in the data frame are then plotted using ggplot. The end result is a distribution of heights of 1000 men. You are able to see which heights are most common out of the sample.</span></a>
 <a class="sourceLine" id="cb162-2" title="2">n &lt;-<span class="st"> </span><span class="dv">1000</span></a>

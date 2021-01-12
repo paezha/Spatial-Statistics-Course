@@ -4,7 +4,9 @@
 \name{snow_deaths}
 \alias{snow_deaths}
 \title{John Snow's London 1854 cholera outbreak deaths}
-\format{A data frame with 250 rows and 5 variables}
+\format{
+A data frame with 250 rows and 5 variables
+}
 \source{
 \url{http://blog.rtwilson.com/?s=snow}
 }

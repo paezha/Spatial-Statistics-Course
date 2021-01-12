@@ -39,7 +39,7 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
 ```{r message=FALSE, warning=FALSE}
@@ -51,7 +51,7 @@ library(crosstalk)
 library(geog4ga3)
 ```
 
-Load the datasets, first the .RData and then the shape file.
+Load the datasets:
 ```{r}
 data("df1_simulated")
 data("df2_simulated")
@@ -104,7 +104,7 @@ Hamilton_CT <- Hamilton_CT %>% # Use the pipe operator to pass the dataframe as 
                           TRUE ~ "HL/LH"))
 ```
 
-Next, we will create the scatterplot and a choropleth map of the population density. The package `plotly` is used to create interactive plots. Read more about how to visualize geospatial information with plotly [here](#https://moderndata.plot.ly/visualizing-geo-spatial-data-with-sf-and-plotly/). The package `crosstalk` allows us to link two plots for _brushing_ (brushing is a visualization technique that links several plots in a dynamic way to highlight some elements of interest).
+Next, we will create the scatterplot and a choropleth map of the population density. The package `plotly` is used to create interactive plots. Read more about how to visualize geospatial information with `plotly` [here](#https://moderndata.plot.ly/visualizing-geo-spatial-data-with-sf-and-plotly/). The package `crosstalk` allows us to link two plots for _brushing_ (brushing is a visualization technique that links several plots in a dynamic way to highlight some elements of interest).
 
 To create an interactive plot for linking and brushing we first, create a `SharedData` object to link two plots:
 ```{r}
@@ -175,7 +175,7 @@ Now it is possible to map the local statistics. Since we added the $p$-value of 
     add_sf(split = ~(p.val < 0.05), color = ~Type, colors = c("red", "khaki1", "dodgerblue", "dodgerblue4")) 
 ```
 
-The map above shows whether population density in a zone is high, surrounded by other zones with high population densities (HH), or low, surrounded by zones that also have low population density (LL). Other zones have either low population densities and are surrounded by zones with high population density, or viceversa (HL/LH). 
+The map above shows whether population density in a zone is high, surrounded by other zones with high population densities (HH), or low, surrounded by zones that also have low population density (LL). Other zones have either low population densities and are surrounded by zones with high population density, or vice-versa (HL/LH). 
 
 Click on the legend to filter by category of TRUE-FALSE and HH-LL-HL/LH.
 
@@ -258,7 +258,7 @@ Imagine that you stand at coordinates x = 53 and y = 34 (we will call this locat
 xy0 <- c(53, 34)
 # Select a radius
 r <- 10
-# Extract observations that are within a radius of `r` from focal point `xy0` (note that sqrt((x - xy0)^2 + (x - xy0)^2) is Pythagora's formula for calculating the distance between two points; if this distance is less than `r`, the point is kept)
+# Extract observations that are within a radius of `r` from focal point `xy0` (note that sqrt((x - xy0)^2 + (x - xy0)^2) is Pythagoras's formula for calculating the distance between two points; if this distance is less than `r`, the point is kept)
 df1_simulated %>% 
   subset(sqrt((x - xy0[1])^2 + (y - xy0[2])^2) < r) %>%
   select(z) %>% 
@@ -283,7 +283,7 @@ Imagine that you stand at the focal point with coordinates x = 53 and y = 34. Ca
 xy0 <- c(53, 34)
 # Select a radius
 r <- 10
-# Extract observations that are within a radius of `r` from focal point `xy0` (note that sqrt((x - xy0)^2 + (x - xy0)^2) is Pythagora's formula for calculating the distance between two points; if this distance is less than `r`, the point is kept)
+# Extract observations that are within a radius of `r` from focal point `xy0` (note that sqrt((x - xy0)^2 + (x - xy0)^2) is Pythagoras's formula for calculating the distance between two points; if this distance is less than `r`, the point is kept)
 df2_simulated %>% 
   subset(sqrt((x - xy0[1])^2 + (y - xy0[2])^2) < r) %>%
   select(z) %>% 
@@ -338,7 +338,7 @@ The local statistics can be obtained as follows:
 df1.lg <- localG(df1_simulated$z, wb10)
 ```
 
-The value (output) of the function is a 'vector `localG` object with normalized local statistics. Normalized means that the mean under the null hypothesis has been substracted and the result has been divided by the variance under the null. Normalized statistics can be compared to the standard normal distribution for hypothesis testing. You can check the summary to verify the contents:
+The value (output) of the function is a 'vector `localG` object with normalized local statistics. Normalized means that the mean under the null hypothesis has been subtracted and the result has been divided by the variance under the null. Normalized statistics can be compared to the standard normal distribution for hypothesis testing. You can check the summary to verify the contents:
 ```{r}
 summary(df1.lg)
 ```

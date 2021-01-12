@@ -4,7 +4,9 @@
 \name{Walker_Lake}
 \alias{Walker_Lake}
 \title{Walker_Lake}
-\format{A dataset with 470 rows and 6 variables}
+\format{
+A dataset with 470 rows and 6 variables
+}
 \source{
 \url{https://books.google.ca/books?id=vC2dcXFLI3YC&dq=introduction+to+applied+geostatistics+isaaks+and+srivastava&hl=en&sa=X&ved=0ahUKEwiKg6_iyrXZAhUjp1kKHd_jAVcQ6AEIKTAA}
 }

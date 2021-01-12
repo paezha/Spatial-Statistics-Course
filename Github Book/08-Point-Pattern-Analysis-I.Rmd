@@ -47,10 +47,10 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(spatstat)
 library(geog4ga3)
@@ -107,11 +107,11 @@ ggplot() +
 
 As you can see, faceting is a convenient way to simultaneously plot different parts of a dataframe (in the present case, the different `Pattern`s).
 
-In the preceding activity, you were asked to generate ideas regarding possible ways of deciding whether a map of events (i.e., a point pattern) is random. In this chaper we will formalize a specific way to do so, by considering the _intensity_ of the process.
+In the preceding activity, you were asked to generate ideas regarding possible ways of deciding whether a map of events (i.e., a point pattern) is random. In this chapter we will formalize a specific way to do so, by considering the _intensity_ of the process.
 
 ## Intensity and Density
 
-The _intensity_ of a spatial point process is the expected number of events per unit area. This is conventionally denoted by the greek letter $\lambda$.
+The _intensity_ of a spatial point process is the expected number of events per unit area. This is conventionally denoted by the Greek letter $\lambda$.
 
 In most cases the process is not know, so its intensity cannot be directly measured. In its place, the _density_ of the point pattern is taken as the empirical estimate of the _intensity_ of the underlying process. The density of the point pattern is calculated very simply as the number of events divided by the area of the region, that is:
 $$
@@ -135,7 +135,7 @@ This is the _overall density_ of the point pattern.
 
 The overall density of a point process (calculated above) can be mapped by means of the `geom_bin2d` function of the `ggplot2` package. This function divides two dimensional space into bins and reports the number of events or the density of the events in the bins. Let's give this a try:
 ```{r}
-# `geom_bin2d()` creates a tessellation and counts the number of events in each of the "tiles" in the tesselation. It then assigns colors based on the count of events. The `binwidth` determines the size of the squaes in the tessellation, in this case squares of size 1 by 1...which corresponds to the size of the region!
+# `geom_bin2d()` creates a tessellation and counts the number of events in each of the "tiles" in the tessellation. It then assigns colors based on the count of events. The `binwidth` determines the size of the squares in the tessellation, in this case squares of size 1 by 1...which corresponds to the size of the region!
 ggplot() +
   geom_bin2d(data = subset(PointPatterns, Pattern == "Pattern 1"),
              aes(x = x, y = y),

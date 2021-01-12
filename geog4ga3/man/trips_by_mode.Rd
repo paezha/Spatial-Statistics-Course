@@ -4,7 +4,9 @@
 \name{trips_by_mode}
 \alias{trips_by_mode}
 \title{trips_by_mode}
-\format{An excel file with 270 rows and 20 variables}
+\format{
+An excel file with 270 rows and 20 variables
+}
 \source{
 \url{http://www.transportationtomorrow.on.ca/}
 

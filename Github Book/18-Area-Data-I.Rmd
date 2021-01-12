@@ -38,10 +38,10 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(sf)
 library(plotly)
@@ -74,7 +74,7 @@ Census data, for example, are reported at different levels of geography. In Cana
 
 At the highest level of aggregation, national level statistics are reported, such as Gross Domestic Product, or GDP. Economic production is not evenly distributed across space; however, the national GDP does not distinguish regional variations in this process.
 
-Ideally, a data analyst would work with data in its most fundamental support. This is not alway possible, and therefore many techniques have been developed to work with data that have been agregated to zones.
+Ideally, a data analyst would work with data in its most fundamental support. This is not always possible, and therefore many techniques have been developed to work with data that have been aggregated to zones.
 
 When working with areas, it is less practical to identify the area with the coordinates (as we did with points). After all, areas will be composed of lines and reporting all the relevant coordinates is impractical. Sometimes the geometric centroids of the areas are used instead.
 
@@ -114,7 +114,7 @@ ggplotly(p)
 
 The underlying process is one of income sorting, with lower incomes to the west, and higher incomes to the east. This could be due to a geographical feature of the landscape (for instance, an escarpment), or the distribution of the housing stock (with a neighborhood that has more expensive houses). These are examples of a variable that responds to a common environmental factor. As an alternative, people may display a preference towards being near others that are similar to them (this is called homophily). When this happens, the variable responds to itself in space.
 
-The quality of similarity or disimilarity between neighboring observations of the same variable in space is called _spatial autocorrelation_. You will learn more about this later on.
+The quality of similarity or dissimilarity between neighboring observations of the same variable in space is called _spatial autocorrelation_. You will learn more about this later on.
 
 Another reason why variables reported for areas could display similarities in space is as an consequence of the zoning system.
 
@@ -166,7 +166,7 @@ Lets use `ggplot2` to create a choropleth map of population in Hamilton. Notice 
 # Geographical information can also be plotted using `ggplot2` when it is in the form of simple features or `sf`. Here, we create a plot with function `ggplot()`. We also have available the census tracts for Hamilton in an `sf` dataframe. To plot the distribution of the population in five equal segments (or quintiles), we apply the function `cut_number()` to the variable `POPULATION` from the `Hamilton_CT` census tract dataframe. The aesthetic value for `fill` will color the zones according to the population quintiles.  
 
 ggplot(Hamilton_CT) + 
-  geom_sf(aes(fill = cut_number(Hamilton_CT$POPULATION, 5)), color = NA, size = 0.1) +
+  geom_sf(aes(fill = cut_number(POPULATION, 5)), color = NA, size = 0.1) +
   scale_fill_brewer(palette = "YlOrRd") +
   coord_sf() +
   labs(fill = "Population")
@@ -179,7 +179,7 @@ Often, creating a choropleth map using the absolute value of a variable can be s
 # Note how the `cut_number()` is applied to population density rather than population like the figure above. This gives a more different, and perhaps more informative, of the distribution of population, by measuring population against area.
 
 pop_den.map <- ggplot(Hamilton_CT) + 
-  geom_sf(aes(fill = cut_number(Hamilton_CT$POP_DENSITY, 5)), color = "white", size = 0.1) +
+  geom_sf(aes(fill = cut_number(POP_DENSITY, 5)), color = "white", size = 0.1) +
   scale_fill_brewer(palette = "YlOrRd") +
   labs(fill = "Pop Density")
 pop_den.map
@@ -192,11 +192,11 @@ Other times, it is appropriate to standardize instead of by area, by what might 
 #The "HAMILTON_CT" dataframe portions ages by category. For this choropleth map, we sum all age categories over 65, and then divide by total population. This measures the population of older adults against total population, to give a proportion (the rate out of a total). 
 
 ggplot(Hamilton_CT) + 
-  geom_sf(aes(fill = cut_number((Hamilton_CT$AGE_65_TO_69 +
-                                   Hamilton_CT$AGE_70_TO_74 +
-                                   Hamilton_CT$AGE_75_TO_79 +
-                                   Hamilton_CT$AGE_80_TO_84 +
-                                   Hamilton_CT$AGE_MORE_85) / Hamilton_CT$POPULATION, 5)),
+  geom_sf(aes(fill = cut_number((AGE_65_TO_69 +
+                                 AGE_70_TO_74 +
+                                 AGE_75_TO_79 +
+                                 AGE_80_TO_84 +
+                                 AGE_MORE_85) / POPULATION, 5)),
           color = NA, 
           size = 0.1) +
   scale_fill_brewer(palette = "YlOrRd") +
@@ -237,7 +237,7 @@ Plotting the cartogram:
 ```{r}
 #We are using "ggplot" to create a cartogram for populations by census tact in Hamilton. Census tracts with a larger value are distorted to visually represent their population size. The number "5" after calling the population variable states that there will be 5 categories dividing population quantities.
 ggplot(CT_pop_cartogram) + 
-  geom_sf(aes(fill = cut_number(Hamilton_CT$POPULATION, 5)), color = "white", size = 0.1) +
+  geom_sf(aes(fill = cut_number(POPULATION, 5)), color = "white", size = 0.1) +
   scale_fill_brewer(palette = "YlOrRd") +
   labs(fill = "Population")
 ```
@@ -246,13 +246,13 @@ Notice how the size of the zones has been adjusted.
 
 The cartogram can be combined with coloring schemes, as in choropleth maps:
 ```{r}
-CT_popden_cartogram <- cartogram(Hamilton_CT, weight = "POP_DENSITY")
+CT_popden_cartogram <- cartogram_cont(Hamilton_CT, weight = "POP_DENSITY")
 ```
 
 Plot the cartogram:
 ```{r}
 pop_den.cartogram <- ggplot(CT_popden_cartogram) + 
-  geom_sf(aes(fill = cut_number(Hamilton_CT$POP_DENSITY, 5)),color = "white", size = 0.1) +
+  geom_sf(aes(fill = cut_number(POP_DENSITY, 5)),color = "white", size = 0.1) +
   scale_fill_brewer(palette = "YlOrRd") +
   labs(fill = "Pop Density")
 pop_den.cartogram

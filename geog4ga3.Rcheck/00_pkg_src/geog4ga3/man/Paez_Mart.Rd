@@ -4,7 +4,9 @@
 \name{Paez_Mart}
 \alias{Paez_Mart}
 \title{A set of points with proposed Paez Mart locations}
-\format{A data frame with 395 rows and 3 variables}
+\format{
+A data frame with 395 rows and 3 variables
+}
 \source{
 Locations proposed by A. Paez
 }

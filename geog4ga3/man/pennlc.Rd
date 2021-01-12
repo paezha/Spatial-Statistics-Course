@@ -4,7 +4,9 @@
 \name{pennlc}
 \alias{pennlc}
 \title{pennlc}
-\format{A spatial polygon data frame with 67 rows and 7 variables}
+\format{
+A spatial polygon data frame with 67 rows and 7 variables
+}
 \source{
 \url{https://www.rdocumentation.org/packages/RgoogleMaps/versions/1.4.2/topics/pennLC}
 }

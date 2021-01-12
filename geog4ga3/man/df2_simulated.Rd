@@ -4,7 +4,9 @@
 \name{df2_simulated}
 \alias{df2_simulated}
 \title{df2_simulated}
-\format{A data frame with 350 rows and 3 variables}
+\format{
+A data frame with 350 rows and 3 variables
+}
 \source{
 Data simulated by A. Paez
 }

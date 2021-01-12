@@ -4,7 +4,9 @@
 \name{snow_pumps}
 \alias{snow_pumps}
 \title{John Snow's London 1854 cholera outbreak pumps}
-\format{A data frame with 5 rows and 4 variables}
+\format{
+A data frame with 5 rows and 4 variables
+}
 \source{
 \url{http://blog.rtwilson.com/?s=snow}
 }

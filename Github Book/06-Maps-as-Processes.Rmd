@@ -43,7 +43,7 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
 ```{r message=FALSE}
@@ -58,7 +58,7 @@ The question whether random processes exist is philosophically interesting. In t
 
 There are two important limitations to this perspective. First, there is the assumption that the mechanisms of operation of phenomena are well understood (in the case of Laplace's Demon, it was somewhat naively assumed that classical Newtonian mechanics were sufficient). And secondly, the assumption that all relevant information is available to the observer.
 
-There are many processes in reality that are not fully understood, which make Laplace's Demon an interesting, but unreliable source on predicting the state of the universe. Furthermore, there are often constraints in terms of how much and how acurately information can be collected with respect to any given phenomenon.
+There are many processes in reality that are not fully understood, which make Laplace's Demon an interesting, but unreliable source on predicting the state of the universe. Furthermore, there are often constraints in terms of how much and how accurately information can be collected with respect to any given phenomenon.
 
 ##Types of Processes
 
@@ -89,7 +89,7 @@ The binomial function is an example of a _discrete_ probability distribution fun
 
 Other random probability distribution functions are for _continuous_ variables, variables that can take any value within a predefined range. The most famous of this distributions is the _normal distribution_, which you may know also as the _bell curve_. This probability distribution is attributed to Gauss (see [here](https://link.springer.com/referenceworkentry/10.1007/978-0-387-32833-1_285)).
 
-The normal distribution is defined by a centering paramater (the mean of the distribution) and a spread parameter (the standard deviation). In the normal distribution, 68% of values are within one standard deviation from the mean, 95% of values are within two standard deviations from the mean, and 99.7% of values are within three standard deviations from the mean.
+The normal distribution is defined by a centering parameter (the mean of the distribution) and a spread parameter (the standard deviation). In the normal distribution, 68% of values are within one standard deviation from the mean, 95% of values are within two standard deviations from the mean, and 99.7% of values are within three standard deviations from the mean.
 
 The following function reports a value taken at random from a normal distribution with `mean` zero and standard deviation `sd` of one. Execute this chunk repeatedly to see what happens:
 ```{r}
@@ -97,7 +97,7 @@ The following function reports a value taken at random from a normal distributio
 rnorm(1, mean = 0, sd = 1)
 ```
 
-Let's say that the average height of men in Canada is 170.7 cm and the standard deviation is 7 cm. The heigh of a random person in this population would be:
+Let's say that the average height of men in Canada is 170.7 cm and the standard deviation is 7 cm. The height of a random person in this population would be:
 ```{r}
 rnorm(1, mean = 170.7, sd = 7)
 ```
@@ -155,7 +155,7 @@ By changing the probability `prob` in the function `rbinom` you can make the eve
 
 A continuous random variable can also be used to generate a null landscape. For instance, imagine that a group of individuals are asked to stand in formation, and that they arrange themselves purely at random. What would a map of their heights look like? First, we will generate a random variable using the same parameters we mentioned above for the height of men in Canada:
 ```{r}
-#heights will be random numbers genreated based on the average height of men, 7 standard deviations, and the null landscape "coords" created previously.
+#heights will be random numbers generated based on the average height of men, 7 standard deviations, and the null landscape "coords" created previously.
 heights <- rnorm(n = nrow(coords), mean = 170.7, sd = 7)
 ```
 
@@ -202,7 +202,7 @@ A _systematic_ or _deterministic_ process is one that contains no elements of ra
 # Copy the coordinates to a new object
 deterministic_point_pattern <- coords
 
-# `mutate()` adds new variables to a data frame while preserving esixting variables. Here, we create a new column in our data frame, called `events` that will take the value of `x` (the position of an observation along the x-axis) and will `round()` it, i.e., if it is less than 0.5 it will round it to zero, and if it is equal to or greater than 0.5 it will round to 1
+# `mutate()` adds new variables to a data frame while preserving existing variables. Here, we create a new column in our data frame, called `events` that will take the value of `x` (the position of an observation along the x-axis) and will `round()` it, i.e., if it is less than 0.5 it will round it to zero, and if it is equal to or greater than 0.5 it will round to 1
 deterministic_point_pattern <- mutate(deterministic_point_pattern, events = round(x))
 
 # Plot the new landscape: `filter()` keeps the rows in a dataframe that meet a condition (for example, that the value of `events` is 1), and discards the rest

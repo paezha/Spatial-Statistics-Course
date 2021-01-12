@@ -4,7 +4,9 @@
 \name{Hamilton_CT}
 \alias{Hamilton_CT}
 \title{Hamilton Census Tracts with select demographic information from the 2011 Census of Canada.}
-\format{A SpatialPolygonsDataDrame with 188 rows and 20 variables}
+\format{
+A SpatialPolygonsDataDrame with 188 rows and 20 variables
+}
 \source{
 \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 }

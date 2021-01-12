@@ -4,7 +4,9 @@
 \name{PointPatterns}
 \alias{PointPatterns}
 \title{PointPatterns}
-\format{A data frame with 140 rows and 3 variables}
+\format{
+A data frame with 140 rows and 3 variables
+}
 \source{
 Data simulated by A. Paez
 }

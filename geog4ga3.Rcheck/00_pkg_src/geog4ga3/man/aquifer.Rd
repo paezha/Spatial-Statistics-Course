@@ -4,7 +4,9 @@
 \name{aquifer}
 \alias{aquifer}
 \title{aquifer}
-\format{A dataset with 85 rows and 3 variables}
+\format{
+A dataset with 85 rows and 3 variables
+}
 \source{
 \url{https://rubenfcasal.github.io/npsp/reference/aquifer.html}
 }

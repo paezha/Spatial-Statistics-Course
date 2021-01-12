@@ -4,7 +4,9 @@
 \name{Gas_Stands}
 \alias{Gas_Stands}
 \title{Gas stands in the Toronto area}
-\format{A data frame with 345 rows ad 2 variables}
+\format{
+A data frame with 345 rows ad 2 variables
+}
 \source{
 Extracted from Toronto Business Points.RData
 }

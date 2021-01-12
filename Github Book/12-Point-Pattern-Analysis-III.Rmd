@@ -46,10 +46,10 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(spatstat)
 library(geog4ga3)
@@ -118,7 +118,7 @@ In this practice you will learn about a family of techniques that instead of mea
 
 Let us begin by introducing the concept of a nearest neighbor.
 
-The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidian distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks.(see Figure \@ref(fig:distance-metrics)).
+The nearest neighbor of a location is the event that is closest to said location given some metric. This metric is usually Euclidean distance on the plane, that is, distance as measured using a straight line between the location and the event. In principle, the metric can be selected according to the characteristics of a dataset: this could be Euclidean distance, great circle distance, or network distance, for events on networks.(see Figure \@ref(fig:distance-metrics)).
 
 ```{r distance-metrics, fig.cap= "\\label{fig:distance-metrics}Examples of distance metrics", echo=FALSE}
 knitr::include_graphics(rep("12-Figure-1.png"))
@@ -168,7 +168,7 @@ ggplot(data = data.frame(dist = pp0_nn2), aes(dist)) +
 
 In this case, most events (more than 30 out of 36) have a nearest neighbor at a distance of approximately 0.15. What does this mean?
 
-The two histograms above are interesting in that they reveal, for "Point Pattern 1" that most events are only a short distance away from another event (indicative of clustering), whereas for "Point Pattern 2" the suggestion is that almost all events have a nearest neighbor at a distance that is constant (indicative of regularity). However, the histograms do not convey more spatial information. Another useful tool to explore the distribution of distances to nearest neighbors is a _Stienen diagram_. A Steinen diagram is essentially a proportional symbol plot of the events. The sizes of symbols are proportional to the distance to their nearest neighbor. For example, for "Pattern 1" in `pp0.ppp` (Notice the use of %mark% to add an attribute to the `ppp` object; the attribute is the distance to the nearest neighbor):
+The two histograms above are interesting in that they reveal, for "Point Pattern 1" that most events are only a short distance away from another event (indicative of clustering), whereas for "Point Pattern 2" the suggestion is that almost all events have a nearest neighbor at a distance that is constant (indicative of regularity). However, the histograms do not convey more spatial information. Another useful tool to explore the distribution of distances to nearest neighbors is a _Stienen diagram_. A Stienen diagram is essentially a proportional symbol plot of the events. The sizes of symbols are proportional to the distance to their nearest neighbor. For example, for "Pattern 1" in `pp0.ppp` (Notice the use of %mark% to add an attribute to the `ppp` object; the attribute is the distance to the nearest neighbor):
 ```{r}
 # The function %mark% is used to add a variable (a "mark") to a `ppp` object. In this example, the variable we are adding to "Pattern 1" is the distance from the event to its nearest neighbor, as calculated above
 split(pp0.ppp)$"Pattern 1" %mark% (pp0_nn1) %>%
@@ -265,7 +265,7 @@ lines(x = c(-0.1, 0.04), y = c(0.5, 0.5), lty = "dotted")
 lines(x = c(-0.1, 0.04), y = c(0.16, 0.16), lty = "dotted", col = "red")
 ```
 
-Notice that the empirical function is above the theoritical function. This suggests is that in the actual landscape events tend to be much closer to other events in comparison the null landscape, and would therefore be suggestive of clustering.
+Notice that the empirical function is above the theoretical function. This suggests is that in the actual landscape events tend to be much closer to other events in comparison the null landscape, and would therefore be suggestive of clustering.
 
 Compare to "Pattern 2":
 ```{r}

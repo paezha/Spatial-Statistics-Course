@@ -4,7 +4,9 @@
 \name{Toronto}
 \alias{Toronto}
 \title{Toronto}
-\format{sf object with 1 observation of 1 variable (only geometry)}
+\format{
+sf object with 1 observation of 1 variable (only geometry)
+}
 \source{
 \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 }

@@ -46,7 +46,7 @@ rm(list = ls())
 Note that `ls()` lists all objects currently on the worspace.
 
 Load the libraries you will use in this activity. In addition to `tidyverse`, you will need `spatstat`, a package designed for the analysis of point patterns (you can learn about `spatstat` [here](https://cran.r-project.org/web/packages/spatstat/vignettes/getstart.pdf) and [here](http://spatstat.org/resources/spatstatJSSpaper.pdf)):
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(spatstat)
 library(geog4ga3)
@@ -88,7 +88,9 @@ Now that you have loaded the dataframe and converted to a `ppp` object, you are 
 
 ## Activity
 
-*1. Analyze the point pattern for the movements of the bear using quadrat and kernel density methods. Experiment with different quadrat sizes and kernel bandwidths. 
+**NOTE**: Activities include technical "how to" tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).
+
+1. (*)Analyze the point pattern for the movements of the bear using quadrat and kernel density methods. Experiment with different quadrat sizes and kernel bandwidths. 
 
 2. Explain your choice of parameters (quadrat sizes and kernel bandwidths) to a fellow student.
 

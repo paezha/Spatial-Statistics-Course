@@ -4,7 +4,9 @@
 \name{HamiltonDAs}
 \alias{HamiltonDAs}
 \title{Hamilton Census Metropolitan Area (CMA) Disseminations Areas (DAs)}
-\format{A data frame with 297 rows and 8 variables}
+\format{
+A data frame with 297 rows and 8 variables
+}
 \source{
 \url{https://www12.statcan.gc.ca/census-recensement/2011/geo/bound-limit/bound-limit-2011-eng.cfm}
 }

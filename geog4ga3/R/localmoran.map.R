@@ -23,6 +23,8 @@ localmoran.map <- function(p = p, listw = listw, VAR = VAR, by = by){
   #require(spdep)
   #require(plotly)
 
+  Z <- SMA <- Pr.z...0. <- NULL
+
   df_msc <- transmute(p,
                       key = p[[by]],
                       Z = (p[[VAR]] - mean(p[[VAR]])) / var(p[[VAR]]),

@@ -39,10 +39,10 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(sf)
 library(plotly)
@@ -320,7 +320,7 @@ Manually calculate the spatial moving average for tract 5370142.02 (with the red
 (48 + 55 + 125)/3
 ```
 
-Spatial moving averages can be calculated in a straighforward way by means of the function `lag.listw()` function of the `spdep` package. This function uses a spatial weights matrix and automatically selects the row-standardized weights.
+Spatial moving averages can be calculated in a straightforward way by means of the function `lag.listw()` function of the `spdep` package. This function uses a spatial weights matrix and automatically selects the row-standardized weights.
 
 Here, we calculate the spatial moving average of population density:
 ```{r}
@@ -368,9 +368,9 @@ Verify that your manual calculations for the two tracts above are correct. What 
 
 ## Other Criteria for Coding Proximity
 
-Adjacenty is not the only criterion that can be used for coding proximity.
+Adjacency is not the only criterion that can be used for coding proximity.
 
-Occasionally, the distance between areas is calculated by using the _centroids_ of the areas as their representative points. A centroid is simply the mean of the coordinates of the edges of an area, and in this way represent the "centre of gravity" of the area.
+Occasionally, the distance between areas is calculated by using the _centroids_ of the areas as their representative points. A centroid is simply the mean of the coordinates of the edges of an area, and in this way represent the "center of gravity" of the area.
 
 The inter-centroid distance allows us to define additional criteria for proximity, including neighbors within a certain distance threshold, and $k$-nearest neighbors.
 

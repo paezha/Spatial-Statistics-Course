@@ -4,7 +4,9 @@
 \name{pp2_df}
 \alias{pp2_df}
 \title{pp2_df}
-\format{A data frame with 81 rows and 2 variables}
+\format{
+A data frame with 81 rows and 2 variables
+}
 \source{
 Data simulated by A. Paez
 }

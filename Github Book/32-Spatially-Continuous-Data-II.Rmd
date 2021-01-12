@@ -39,10 +39,10 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
-```{r message = FALSE}
+```{r message = FALSE, warning=FALSE}
 library(tidyverse)
 library(spdep)
 library(plotly)
@@ -194,7 +194,7 @@ trend.l <- lm(formula = z ~ u + v, data = df)
 summary(trend.l)
 ```
 
-Given a trend surface model, we can estimate the value of the variable $z$ at locations where it was not measured. Typically this is done by interpolating on a fine grid that can be used for vizualization or further analysis, as shown next.
+Given a trend surface model, we can estimate the value of the variable $z$ at locations where it was not measured. Typically this is done by interpolating on a fine grid that can be used for visualization or further analysis, as shown next.
 
 We will begin by creating a grid for interpolation. We will call the coordinates `x.p` and `y.p`. We generate these by creating a sequence of values in the domain of the data, for instance in the [0,1] interval:
 ```{r}
@@ -315,7 +315,7 @@ Whereas the interpolated cubic surface is obtained as:
 WL.preds3 <- predict(WL.trend3, newdata = df.p, se.fit = TRUE, interval = "prediction", level = 0.95)
 ```
 
-The predictions are transformed into matrices for ploting.
+The predictions are transformed into matrices for plotting.
 
 Quadratic trend surface and lower and upper bounds of the predictions:
 ```{r}

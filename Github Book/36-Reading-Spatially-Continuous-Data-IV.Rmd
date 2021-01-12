@@ -35,7 +35,7 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
 ```{r message=FALSE, warning=FALSE}
@@ -167,7 +167,7 @@ A question is how to decide the number of neighbors to use in the calculation of
 
 A second question concerns the way the average is calculated. As variographic analysis demonstrates, it is possible to estimate the way in which spatial dependence weakens with distance. Why should more distant points be weighted equally? The answer is, there is no reason why they should, and in fact, variographic analysis elegantly solves this, as well the question of how many points to use: all of them, with varying weights.
 
-Next, we will introduce kriging, a method for optimal prediction that is based on the use of variographic analyisis.
+Next, we will introduce kriging, a method for optimal prediction that is based on the use of variographic analysis.
 
 ## Kriging: a method for optimal prediction.
 
@@ -202,7 +202,7 @@ $$
 \sigma_{\epsilon}^2 = E[\hat{\epsilon}_p] + E[\epsilon_i] - 2E[\hat{\epsilon_i\epsilon}_p]
 $$
 
-It turns out (we will not show de detailed derivation, but it can be consulted [here](https://msu.edu/~ashton/classes/866/papers/gatrell_ordkrige.pdf)), that the expresion for the prediction variance depends on the weights:
+It turns out (we will not show the detailed derivation, but it can be consulted [here](https://msu.edu/~ashton/classes/866/papers/gatrell_ordkrige.pdf)), that the expression for the prediction variance depends on the weights:
 $$
 \sigma_{\epsilon}^2 = \sum_{i=1}^n \sum_{j=1}^n{\lambda_{ip}\lambda_{jp}C_{ij}} + \sigma^2 + 2\sum_{i=1}^{n}{\lambda_{ip}C_{ip}}
 $$

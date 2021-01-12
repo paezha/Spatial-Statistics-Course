@@ -4,7 +4,9 @@
 \name{travel_time_car}
 \alias{travel_time_car}
 \title{"travel_time_car"}
-\format{An excel file with 270 rows and 10 variables}
+\format{
+An excel file with 270 rows and 10 variables
+}
 \source{
 Calculated by A. Paez
 }

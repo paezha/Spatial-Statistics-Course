@@ -36,7 +36,7 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
 ```{r message=FALSE, warning=FALSE}
@@ -79,7 +79,7 @@ $$
 \epsilon_i = y_i - \bigg(\beta_0 + \sum_{j=1}^k{\beta_jx_{ij}}\bigg)
 $$
 
-Estimation of a linear regression model is the procedure used to obtain values for the coefficients. This typically involves defining a _loss function_ that needs to be minimized. In the case of linear regression, a widely used estimation procedure is _least squares_. This procedure allows a modeller to find the coefficients that minimize the _sum of squared residuals_, which become the loss function for the procedure. In very simple terms, the protocol is as follows:
+Estimation of a linear regression model is the procedure used to obtain values for the coefficients. This typically involves defining a _loss function_ that needs to be minimized. In the case of linear regression, a widely used estimation procedure is _least squares_. This procedure allows a modeler to find the coefficients that minimize the _sum of squared residuals_, which become the loss function for the procedure. In very simple terms, the protocol is as follows:
 $$
 \text{Find the values of }\beta\text{ that minimize }\sum_{i=1}^n{\epsilon_i^2}
 $$
@@ -107,7 +107,7 @@ $$
 
 The last three assumptions ensure that the residuals are _random_. Violation of these assumptions is often a consequence of a failure in the first two (i.e., the model was not properly specified, and/or the residuals are not exogenous).
 
-When all these assumptions are met, the coefficiens are said to be _BLUE_: Best Linear Unbiased Estimates - a desirable property because we wish to be able to quantify the relationships between covariates without bias.
+When all these assumptions are met, the coefficients are said to be _BLUE_: Best Linear Unbiased Estimates - a desirable property because we wish to be able to quantify the relationships between covariates without bias.
 
 This section provides a refresher on linear regression, before reviewing the estimation of regression models in `R`. The basic command for multivariate linear regression in R is `lm()`, for "linear model". This is the help file of this function:
 ```{r}
@@ -131,7 +131,7 @@ xy_cbd <- c(-79.8708, 43.2584)
 To calculate the distance from the census tracts to the CBD, we retrieve the coordinates of the centroids:
 ```{r}
 # We need to retrieve the spatial coordinates of Hamilton_ct by using 'coordinates' 
-# We use 'spTransform' as a method for map projection by means of latitude, logitude and datum of WGS84. Remember, you can always learn more about the properties of a function by insterting a question mark before in front of the function (i.e ?coordinates)
+# We use 'spTransform' as a method for map projection by means of latitude, longitude and datum of WGS84. Remember, you can always learn more about the properties of a function by inserting a question mark before in front of the function (i.e ?coordinates)
 
 xy_ct <- coordinates(spTransform(Hamilton_CT.sp, CRSobj = "+proj=longlat +datum=WGS84 +no_defs"))
 ```
@@ -142,7 +142,7 @@ Given these coordinates, the function `geosphere::distGeo` can be used to calcul
 dist.sl <- distGeo(xy_ct, xy_cbd)
 ```
 
-Mext. we add our new variable distance to CBD to our dataframe `Hamilton_CT` for analysis:
+Next. we add our new variable distance to CBD to our dataframe `Hamilton_CT` for analysis:
 ```{r}
 Hamilton_CT$dist.sl <- dist.sl
 ```
@@ -189,7 +189,7 @@ Since we are interested in statistical maps, we will create a map of the residua
 ```{r message = FALSE}
 # Recall that 'plot_ly()' is a function used to create interactive plots
   plot_ly(Hamilton_CT) %>% 
-  # Recal that `add_sf()` is similar to `geom_sf()` and it draws a simple features object on a `plotly` plot. This example adds colours to represent positive (blue) and negative residuals (red).
+  # Recall that `add_sf()` is similar to `geom_sf()` and it draws a simple features object on a `plotly` plot. This example adds colors to represent positive (blue) and negative residuals (red).
     add_sf(color = ~(model1.e > 0), colors = c("red", "dodgerblue4")) 
 ```
 
@@ -372,7 +372,7 @@ summary(model4)
 
 This model provides a much better fit than the preceding models (see the the coefficient of multiple determination).
 
-We can visaully examine the spatial distribution of the residuals by means of the following map:
+We can visually examine the spatial distribution of the residuals by means of the following map:
 ```{r message = FALSE, warning = FALSE}
 Hamilton_CT$model4.e <- model4$residuals
 plot_ly(Hamilton_CT) %>%
@@ -397,7 +397,7 @@ ggplot(data = Hamilton_CT, aes(x = dist.sl, y = POP_DENSITY)) +
   geom_point() +
   geom_point(data = filter(Hamilton_CT, CBD == 1), color = "Red") +
   geom_point(data = filter(Hamilton_CT, Suburb == 1), color = "Blue") +
-  # `stat_fuction()` draws custom functions on a `ggplot2` plot.
+  # `stat_function()` draws custom functions on a `ggplot2` plot.
   stat_function(fun= fun.1, 
                 geom="line", size = 1, aes(color = "CBD")) +
   stat_function(fun=fun.2, 

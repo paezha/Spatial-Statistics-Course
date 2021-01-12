@@ -47,10 +47,10 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(spatstat)
 library(geog4ga3)
@@ -113,7 +113,7 @@ plot(split(PointPatterns.ppp))
 
 Recall that you can also plot individual patterns by using `$` followed by the factor that identifies the desired pattern (this is a way of indexing different patterns in `ppp`-class objects):
 ```{r}
-# Using "$" acts as a call sign to retrive information from a data frame. In this case, you are calling "Pattern 4" from "PointPatterns.ppp"
+# Using "$" acts as a call sign to retrieve information from a data frame. In this case, you are calling "Pattern 4" from "PointPatterns.ppp"
 plot(split(PointPatterns.ppp)$"Pattern 4")
 ```
 

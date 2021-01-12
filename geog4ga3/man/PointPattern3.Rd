@@ -4,7 +4,9 @@
 \name{PointPattern3}
 \alias{PointPattern3}
 \title{PointPattern3}
-\format{A data frame with 60 rows and 2 variables}
+\format{
+A data frame with 60 rows and 2 variables
+}
 \source{
 Extracted from Data2.RData file
 }

@@ -45,7 +45,7 @@ As usual, it is good practice to clear the working space to make sure that you d
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
 ```{r message=FALSE, warning=FALSE}
@@ -142,7 +142,7 @@ plot_ly(data = Walker_Lake, x = ~X, y = ~Y, z = ~V,
 
 ## Tile-based methods
 
-Another common approach to visualize fields is by means of tile-based methods. These methods take a set of points and convert them into a tesselation, thus giving them the aspect of "tiles". 
+Another common approach to visualize fields is by means of tile-based methods. These methods take a set of points and convert them into a tessellation, thus giving them the aspect of "tiles". 
 
 A widely used algorithm to convert points into tiles is called Voronoi polygons, after [Georgy Voronoi](https://en.wikipedia.org/wiki/Georgy_Voronoy), the mathematician that discovered it. To illustrate how Voronoi polygons are created, we will use a simple example.
 
@@ -168,7 +168,7 @@ p
 # Create a triangulation that connect each point to its two nearest neighbors. The function `st_triangulate()` from the `sf` package does this. The output can be polygons (triangles) or lines only. We set bOnlyEdges = TRUE to obtain only the lines.
 l2n <- st_triangulate(uv_coords, bOnlyEdges = TRUE)
 
-# Plot the triangylation, i.e., the lines between nearest neighbors
+# Plot the triangulation, i.e., the lines between nearest neighbors
 ggplot(data = uv_coords) + 
   geom_sf(size = 2) +
   geom_sf(data = box, 
@@ -180,7 +180,7 @@ ggplot(data = uv_coords) +
 
 Notice that the plot above is already a tessellation, with the points at the vertices of the triangles. 
 
-3. The perpendicular bisectors of each triangle are found and extended, until they intersect. The resulting tesselation is a set of Voronoi polygons:
+3. The perpendicular bisectors of each triangle are found and extended, until they intersect. The resulting tessellation is a set of Voronoi polygons:
 ```{r message=FALSE}
 # The function `st_voronoi()` from the `sf` package is used to create Voronoi polygons
 vor <- st_voronoi(uv_coords) #Calculates voronoi polygons based on a set of spatial points.
@@ -194,7 +194,7 @@ ggplot(data = uv_coords) +
   coord_sf(xlim = c(0, 6), y = c(0, 6))
 ```
 
-The triangulation was used to generate a second tesselation, i.e., the Voronoi polygons. These polygons have the property that any point $p_i$ inside the polygon with generating point $p_g$ in it, is closer to $p_g$ than to any other generating point $p_k$ on the plane. For this reason, Voronoi polygons are used to obtain areas of influence, among other applications.
+The triangulation was used to generate a second tessellation, i.e., the Voronoi polygons. These polygons have the property that any point $p_i$ inside the polygon with generating point $p_g$ in it, is closer to $p_g$ than to any other generating point $p_k$ on the plane. For this reason, Voronoi polygons are used to obtain areas of influence, among other applications.
 
 There are other ways of obtaining Voronoi polygons, as Figure 1 below illustrates. Voronoi polygons in the figure are created by radial growth. The basic concept is the same, but implemented in a different way: find every point that is closest to $p_g$. When two circles touch, they become the boundary between all points that are closer to $p_g$ and $p_k$ respectively. Continue growing until the plane is fully covered.
 
@@ -246,7 +246,7 @@ ggplot(Walker_Lake.v) +
   scale_fill_distiller(palette = "OrRd", direction = 1)
 ```
 
-We can see that the Voronoi polygons extend well beyond the extent of the original points, and in the plot add a large amount of unecessary area. We can improve the plot in two ways, by limiting the extent for plotting, or by clipping the polygons. Here we will try the latter, with a bounding box that covers the region of interest:
+We can see that the Voronoi polygons extend well beyond the extent of the original points, and in the plot add a large amount of unnecessary area. We can improve the plot in two ways, by limiting the extent for plotting, or by clipping the polygons. Here we will try the latter, with a bounding box that covers the region of interest:
 ```{r}
 # Function `st_polygon()` creates an `sf` object with a polygon or polygons. In this case, we create a single polygon, a rectangle with corners given by the coordinates in the function. 
 W.bbox <- st_polygon(list(rbind(c(0,0),c(259,0),c(259, 299),c(0, 299),c(0,0))))
@@ -357,7 +357,7 @@ ggplot() +
   scale_fill_distiller(palette = "OrRd", direction =  1)
 ```
 
-Clearly, selection of a value for $\gamma$ is an important modelling decision when using IDW.
+Clearly, selection of a value for $\gamma$ is an important modeling decision when using IDW.
 
 ## $k$-point means
 
@@ -410,7 +410,7 @@ kpoint.1 <- kpointmean(source_xy = source_xy, z = Walker_Lake$V, target_xy = tar
 
 This is the plot with the Voronoi polygons:
 ```{r}
-# Plot and overaly the Voronoi polygons
+# Plot and overlay the Voronoi polygons
 ggplot() + 
   geom_tile(data = kpoint.1, aes(x = X, y = Y, fill = V)) +
   geom_sf(data = Walker_Lake.v, 

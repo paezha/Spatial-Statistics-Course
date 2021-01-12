@@ -4,7 +4,9 @@
 \name{bear_df}
 \alias{bear_df}
 \title{bear_df}
-\format{A data frame with 1000 rows and 3 variables}
+\format{
+A data frame with 1000 rows and 3 variables
+}
 \source{
 \url{(http://bearproject.info/about-the-project/)}
 }

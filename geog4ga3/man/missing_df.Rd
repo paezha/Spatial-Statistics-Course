@@ -4,7 +4,9 @@
 \name{missing_df}
 \alias{missing_df}
 \title{missing_df}
-\format{A data frame with 65 rows and 6 variables}
+\format{
+A data frame with 65 rows and 6 variables
+}
 \source{
 Data simulated by A. Paez
 }

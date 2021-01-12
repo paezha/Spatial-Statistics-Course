@@ -44,10 +44,10 @@ It is good practice to clear the working space to make sure that you do not have
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity (load other packages as appropriate). 
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(spatstat)
 library(spdep)
@@ -74,13 +74,13 @@ aquifer$ID <- factor(c(1:nrow(aquifer)))
 
 **NOTE**: Activities include technical "how to" tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).
 
-1.* Map the Wolfcamp Aquifer data.
+1. (*)Map the Wolfcamp Aquifer data.
 
-2.* Create a surface using Voronoi polygons.
+2. (*)Create a surface using Voronoi polygons.
 
-3.* Create a surface using IDW.
+3. (*)Create a surface using IDW.
 
-4.* Create a surface using k-point means. 
+4. (*)Create a surface using k-point means. 
 
 5. What is the effect of changing the power of the inverse distance function?
 

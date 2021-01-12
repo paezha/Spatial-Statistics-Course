@@ -4,7 +4,9 @@
 \name{nyleukemia}
 \alias{nyleukemia}
 \title{nyleukemia}
-\format{A spatial polygon data frame with 281 rows and 17 variables}
+\format{
+A spatial polygon data frame with 281 rows and 17 variables
+}
 \source{
 \url{https://www.rdocumentation.org/packages/SpatialEpi/versions/1.2.3/topics/NYleukemia}
 }

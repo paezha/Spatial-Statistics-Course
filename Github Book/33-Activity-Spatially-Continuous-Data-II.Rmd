@@ -44,10 +44,10 @@ It is good practice to clear the working space to make sure that you do not have
 rm(list = ls())
 ```
 
-Note that `ls()` lists all objects currently on the worspace.
+Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity (load other packages as appropriate). 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(spatstat)
 library(spdep)
@@ -69,9 +69,9 @@ The data set consists of 85 georeferenced measurements of piezometric head. Poss
 
 **NOTE**: Activities include technical "how to" tasks/questions. Usually, these ask you to organize data, create a plot, and so on in support of analysis and interpretation. These tasks are indicated by a star (*).
 
-1.* Estimate a trend surface for the dataset experimenting with different polynomials.
+1. (*)Estimate a trend surface for the dataset experimenting with different polynomials.
 
-2.* Create an interpolation grid, and use the function `predict` to interpolate the field using your chosen model. Plot the interpolated field using a method of your choice (e.g., `ggplot2`, `plot_ly()` for 3D plotting, etc.)
+2. (*)Create an interpolation grid, and use the function `predict` to interpolate the field using your chosen model. Plot the interpolated field using a method of your choice (e.g., `ggplot2`, `plot_ly()` for 3D plotting, etc.)
 
 3. Which polynomial in your experiments provides the best fit (hint: consider the coefficient of multiple determination $R^2$ and the standard error, in addition to the significance of the parameters). Justify your choice of a polynomial.
 

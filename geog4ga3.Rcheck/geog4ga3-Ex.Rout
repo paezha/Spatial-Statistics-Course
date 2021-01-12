@@ -1,6 +1,6 @@
 
-R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
-Copyright (C) 2019 The R Foundation for Statistical Computing
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
+Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-w64-mingw32/x64 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -85,10 +85,9 @@ Warning: replacing previous import 'dplyr::lag' by 'stats::lag' when loading 'ge
 > 
 > localmoran.map(Hamilton_CT, Hamilton_CT.w, "POP_DENSITY", "TRACT")
 Joining, by = "key"
-Warning: Column `key` joining character vector and factor, coercing into character vector
 No trace type specified:
   Based on info supplied, a 'scatter' trace seems appropriate.
-  Read more about this trace type -> https://plot.ly/r/reference/#scatter
+  Read more about this trace type -> https://plotly.com/r/reference/#scatter
 > 
 > 
 > 
@@ -99,7 +98,7 @@ No trace type specified:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.13 0.5 7.83 NA NA 
+Time elapsed:  2.74 0.25 3.8 NA NA 
 > grDevices::dev.off()
 null device 
           1 

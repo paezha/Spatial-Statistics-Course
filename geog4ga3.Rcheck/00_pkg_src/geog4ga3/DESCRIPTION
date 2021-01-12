@@ -13,5 +13,5 @@ LazyData: true
 Imports: deldir, dplyr, plotly, sp, spdep
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2021-01-12 20:00:34 UTC; paezha
+Packaged: 2021-01-12 22:23:57 UTC; paezha
 Depends: R (>= 3.5.0)

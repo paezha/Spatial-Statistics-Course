@@ -98,7 +98,7 @@ No trace type specified:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.74 0.25 3.8 NA NA 
+Time elapsed:  3.13 0.25 4.24 NA NA 
 > grDevices::dev.off()
 null device 
           1 

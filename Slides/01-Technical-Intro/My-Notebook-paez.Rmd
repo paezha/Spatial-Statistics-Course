@@ -1,0 +1,164 @@
+---
+title: "My-Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. This is simply text, in natural language, meant to communicate with fellow humans.
+
+It is an example of [literate programming](https://en.wikipedia.org/wiki/Literate_programming).
+
+Notebooks are text documents that include code. The text is meant to communicate with humans, the code with a computer. The code resides in *chunks*. 
+
+The text file uses [Markdown](https://en.wikipedia.org/wiki/Markdown). Markdown provides lightweight text formatting functions. Markdown can be used to make:
+
+# First level headers
+
+## Second level headers
+
+### Third level headers
+
+1. Numbered lists
+2. With items
+3. Like this
+4. More items
+
+Or:
+
+- Unnumbered lists
+- With items 
+- Like this
+
+> Block quotes
+>> This is a nested block quote
+
+Horizontal rules
+
+---
+
+(This is below a horizontal rule)
+
+You can use *italics* or _italics_ for emphasis.
+
+Or **bold text**, also __bold text__.
+
+If you want maximum emphasis, ***this is bolded italics***.
+
+![Insert images](mcmaster_logo.png)
+Or [hyperlinks](https://en.wikipedia.org/wiki/Hyperlink).
+
+We can also write mathematical notation using LaTeX. Inline math expressions are written this way: $x^2 + y^2 = z^2$. Or mathematical expressions can be written this way:
+$$
+x^2 + y^2 = z^2
+$$
+
+Markdown can do [many more things](https://rmarkdown.rstudio.com/index.html), but this is sufficient to begin.
+
+Chunks of code can be inserted by clicking the *Insert Chunk* button on the toolbar, by pressing *Ctrl+Alt+I*, or simply by writing the chunk delimiters (three back-ticks, followed by the letter "r" in curly brackets, like this "```{r}". Three back-ticks end the chunk.
+
+Chunks of code is where we speak to the computer. Like this:
+```{r}
+library(geog4ga3)
+```
+
+In this chunk of code above, I loaded a package by using the function `library()`.
+
+Once I loaded `geog4ga3` I want to know what it does. I can ask the computer to tell me if the package is documented:
+```{r}
+?geog4ga3
+```
+
+Here I used Ctrl-Alt-I to introduce a new chunk of code:
+```{r}
+data("Fast_Food")
+```
+
+Or you can just type the chunk delimiters:
+```{r}
+summary(Paez_Mart)
+```
+
+Try inserting a new chunk.
+```{r eval=FALSE}
+install.packages("cancensus")
+```
+
+Load `cancensus` and also `tidyverse` (a package for data manipulation and analysis that includes `ggplot2`):
+```{r}
+library(cancensus)
+library(tidyverse)
+```
+
+Is this documented?
+```{r}
+?cancensus
+```
+
+No. But there is information [here](https://cran.r-project.org/web/packages/cancensus/vignettes/cancensus.html)
+
+Store API key obtained from [CensusMapper](https://censusmapper.ca/):
+```{r eval=FALSE}
+set_api_key("your-key", install = TRUE)
+```
+
+Use `cancensus` to check and download census data. Check the regions:
+```{r}
+list_census_regions('CA16') %>% 
+  filter(level == "CMA", name %in% c("Toronto"))
+```
+Retrieve data:
+```{r eval=FALSE}
+census_data <- get_census(dataset='CA16', 
+                          regions=list(CMA=c("35535")),
+                          vectors=c("v_CA16_408","v_CA16_409","v_CA16_410"),
+                          level='CSD', use_cache = FALSE)
+```
+
+Install package for Toronto Open Data:
+```{r eval=FALSE}
+install.packages("opendatatoronto")
+```
+
+Load the package:
+```{r}
+library(opendatatoronto)
+```
+
+What can I do with this package? I will run one of the examples in the vignette:
+```{r}
+bike_parking_racks <- search_packages("Bicycle Parking Racks") %>%
+  list_package_resources() %>%
+  filter(name == "bicycle-parking-racks-wgs84") %>%
+  get_resource()
+```
+
+What kind of object is this?
+```{r}
+class(bike_parking_racks)
+```
+
+Map this information:
+```{r}
+ggplot(data = bike_parking_racks) +
+  geom_sf(aes(color = CAPACITY,
+              size = CAPACITY))
+```
+
+To improve my map I am going to retrieve the neighborhoods in Toronto:
+```{r}
+neighbourhoods <- list_package_resources("https://open.toronto.ca/dataset/neighbourhoods/") %>%
+  get_resource()
+```
+
+```{r}
+ggplot(data = bike_parking_racks) +
+  geom_sf(aes(color = CAPACITY,
+              size = CAPACITY)) +
+  geom_sf(data = neighbourhoods,
+          fill = NA) +
+  scale_color_fermenter(palette = "YlOrRd", 
+                        direction = 1)
+```
+
+Packages.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).

@@ -1,0 +1,60 @@
+---
+title: "My-Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. 
+
+It is an example of [literate programming](https://en.wikipedia.org/wiki/Literate_programming).
+
+Notebooks are text documents that include code. The text is meant to communicate with humans, the code with a computer. The code resides in *chunks*. 
+
+The text file uses [Markdown](https://en.wikipedia.org/wiki/Markdown). Markdown provides lightweight text formatting functions. Markdown can be used to make:
+
+# First level headers
+
+## Second level headers
+
+### Third level headers
+
+1. Numbered lists
+2. With items
+3. Like this
+
+Or:
+
+- Unnumbered lists
+- With items 
+- Like this
+
+> Block quotes
+
+Horizontal rules
+
+---
+
+(This is below a horizontal rule)
+
+You can use *italics* or _italics_ for emphasis.
+
+Or **bold text**, also __bold text__.
+
+If you want maximum emphasis, ***this is bolded italics***.
+
+![Insert images](mcmaster_logo.png)
+Or [hyperlinks](https://en.wikipedia.org/wiki/Hyperlink).
+
+We can also write mathematical notation using LaTeX. Inline math expressions are written this way: $x^2 + y^2 = z^2$. Or mathematical expressions can be written this way:
+$$
+x^2 + y^2 = z^2
+$$
+
+Markdown can do [many more things](https://rmarkdown.rstudio.com/index.html), but this is sufficient to begin.
+
+Chunks of code can be inserted by clicking the *Insert Chunk* button on the toolbar, by pressing *Ctrl+Alt+I*, or simply by writing the chunk delimiters (three back-ticks, followed by the letter "r" in curly brackets, like this "```{r}". Three back-ticks end the chunk.
+
+Try inserting a new chunk.
+
+Packages.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).

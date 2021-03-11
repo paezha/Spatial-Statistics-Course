@@ -43,12 +43,12 @@ Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-library(sf)
-library(plotly)
-library(spdep)
 library(crosstalk)
 library(geog4ga3)
+library(plotly)
+library(sf)
+library(spdep)
+library(tidyverse)
 ```
 
 Load the datasets:
@@ -70,7 +70,7 @@ data(Hamilton_CT)
 
 The `sf` object can be converted into a `SpatialPolygonsDataFrame` object for use with the `spdedp` package:
 ```{r}
-Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
+#Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
 ```
 
 ## Decomposing Moran's $I$
@@ -82,7 +82,7 @@ $$
 
 Also, remember that when plotting Moran's scatterplot using `moran.plot()` some observations were highlighted. To see this, we will recreate the plot, for which we need a set of spatial weights:
 ```{r}
-Hamilton_CT.w <- nb2listw(poly2nb(pl = Hamilton_CT.sp))
+Hamilton_CT.w <- nb2listw(poly2nb(pl = Hamilton_CT))
 ```
 
 And here is the scatterplot of population density again:

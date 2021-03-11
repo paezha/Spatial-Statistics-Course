@@ -42,11 +42,12 @@ Note that `ls()` lists all objects currently on the workspace.
 
 Load the libraries you will use in this activity:
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
-library(spdep)
-library(sf)
 library(geog4ga3)
 library(gridExtra)
+library(patchwork)
+library(spdep)
+library(sf)
+library(tidyverse)
 ```
 
 Read the data used in this chapter. This is an object of class `sf` (simple feature) with the census tracts of Hamilton CMA and some selected population variables from the 2011 Census of Canada:
@@ -59,22 +60,17 @@ You can quickly verify the contents of the dataframe by means of `summary`:
 summary(Hamilton_CT)
 ```
 
-The `sf` object can be converted into a `SpatialPolygonsDataFrame` object for use with the `spdedp` package:
-```{r}
-Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
-```
-
 ## Spatial Moving Averages and Simulation
 
 In the preceding chapter and activity you learned about different criteria to define proximity for the analysis of area data, and how spatial weights matrices can be used to code patterns of proximity among zones in a spatial system. Furthermore, you also saw how spatial weights matrices can be used to calculate spatial moving averages, which in turn can be used to explore spatial patterns in area data.
 
 We will begin this chapter by briefly revisiting some of these notions. In the following chunk, we create a spatial weights matrix for Hamilton CMA census tracts based on the adjacency criterion:
 ```{r}
-# Function `poly2nb()` builds a list of neighbors based on contiguous boundaries. The argument for this function is an object of class "Spatial", which was obtained from the `sf` object previously. `Hamilton_CT.sp` is an object containiing multi-polygon objects. 
+# Function `poly2nb()` builds a list of neighbors based on contiguous boundaries. The argument for this function is an object of class "sf", which contains multi-polygon objects. 
 
 # Function `nb2listw()` takes a list of neighbors and creates a matrix of spatial weights in the form of a list. Together, these two functions create a spatial weights matrix for the Census Tracts in Hamilton.
 
-Hamilton_CT.nb <- poly2nb(pl = Hamilton_CT.sp)
+Hamilton_CT.nb <- poly2nb(pl = Hamilton_CT)
 Hamilton_CT.w <- nb2listw(Hamilton_CT.nb)
 ```
 
@@ -85,10 +81,9 @@ Once that you have a matrix of spatial weights, it can be used to calculate the 
 POP_DENSITY.sma <- lag.listw(Hamilton_CT.w, Hamilton_CT$POP_DENSITY)
 ```
 
-After calculating the spatial moving average of population density, we can join this new variable to both the `sf` and `SpatialPolygonsDataFrame` objects:
+After calculating the spatial moving average of population density, we can join this new variable to the `sf` object:
 ```{r}
 Hamilton_CT$POP_DENSITY.sma <- POP_DENSITY.sma
-Hamilton_CT.sp$POP_DENSITY.sma <- POP_DENSITY.sma
 ```
 
 As you saw in your last activity, the spatial moving average can be used in two ways to explore the spatial pattern of an area variable: as a smoother and by means of a scatterplot, combined with the original variable.
@@ -296,8 +291,8 @@ sc2 <- ggplot(data = df_mean_center_scatterplot,
   ggtitle("Mean-Centered Population Density") +
   coord_equal()
 
-# Use `grid.arrange()` to place the two plots in a single figure 
-grid.arrange(sc1, sc2, ncol = 1)
+# Use patchwork to place the two plots in a single figure 
+sc1 + sc2
 ```
 
 How is it useful to displace the origin of the axes to the mean values of $x$ and its spatial moving average? To explain this, notice that the values on the top scatterplot are all positive. The values on the bottom scatterplot are positive or negative, depending if they are _above_ or _below_ the mean. This sign is interesting. Notice what happens when the variable $z_i$ multiplies its spatial moving average:

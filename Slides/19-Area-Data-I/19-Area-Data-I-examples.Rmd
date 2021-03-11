@@ -1,0 +1,54 @@
+---
+title: "19-Area-Data-examples"
+output: html_notebook
+---
+
+Examples for slides. 
+
+```{r}
+library(cartogram)
+library(geog4ga3)
+library(sf)
+library(tidyverse)
+```
+
+Choropleth map:
+```{r}
+ggplot(Hamilton_CT) + 
+  geom_sf(aes(fill = cut_number(POP_DENSITY, 5)), color = "white", size = 0.1) +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "Pop Density") +
+  theme(plot.background = element_rect(fill = "black"),
+        legend.background = element_rect(fill = "black"),
+        legend.text = element_text(color = "white"),
+        legend.title = element_text(color = "white"),
+        axis.text = element_blank(),
+        panel.background = element_rect(fill = "black"),
+        panel.grid = element_blank())
+
+ggsave("choropleth.png")
+```
+
+Cartogram:
+```{r}
+CT_popden_cartogram <- cartogram_cont(Hamilton_CT, weight = "POP_DENSITY")
+```
+
+Plot:
+```{r}
+ ggplot(CT_popden_cartogram) + 
+  geom_sf(aes(fill = cut_number(POP_DENSITY, 5)),color = "white", size = 0.1) +
+  scale_fill_brewer(palette = "YlOrRd") +
+  labs(fill = "Pop Density") +
+  theme(plot.background = element_rect(fill = "black"),
+        legend.background = element_rect(fill = "black"),
+        legend.text = element_text(color = "white"),
+        legend.title = element_text(color = "white"),
+        axis.text = element_blank(),
+        panel.background = element_rect(fill = "black"),
+        panel.grid = element_blank())
+
+ggsave("cartogram.png")
+```
+
+

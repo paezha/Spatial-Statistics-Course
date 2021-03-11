@@ -1,0 +1,129 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+library(spatstat)
+library(tidyverse)
+```
+
+Create a random pattern:
+```{r}
+set.seed(34987)
+Xr <- rpoint(75)
+plot(Xr)
+```
+
+```{r}
+set.seed(34987)
+Xs1 <-  rMatClust(10, 0.05, 4.236)
+plot(Xs1)
+```
+
+```{r}
+set.seed(34987)
+Xs2 <-  rMatClust(10, 1, 6.2)
+plot(Xs2)
+```
+
+
+
+```{r}
+set.seed(34987)
+Xs3 <-  rMatClust(10, 0.15, 6.03)
+plot(Xs3)
+```
+
+Collect coordinates:
+```{r}
+Xrc <- data.frame(x = Xr$x, y = Xr$y, style = "random")
+Xs1c <- data.frame(x = Xs1$x, y = Xs1$y, style = "stochastic 1")
+Xs2c <- data.frame(x = Xs2$x, y = Xs2$y, style = "stochastic 2")
+Xs3c <- data.frame(x = Xs3$x, y = Xs3$y, style = "stochastic 3")
+Xdc <- expand.grid(x = seq(0, 1, 1/sqrt(75)), y = seq(0, 1, 1/sqrt(63)), style = "deterministic")
+```
+
+```{r}
+Xc <- rbind(Xrc, Xs1c, Xs2c, Xs3c, Xdc)
+```
+
+Plot:
+```{r}
+ggplot(data = Xc %>% 
+         filter(style == "random"),
+       aes(x = x, y = y)) +
+  geom_point(shape = 1, size = 2, color = "white") +
+  coord_equal() + 
+  theme(plot.background = element_rect(color = "black", fill = "black"),
+        panel.background = element_rect(color = "white", fill = "black"),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        text = element_blank())
+
+ggsave("random.png")
+```
+
+```{r}
+ggplot(data = Xc %>% 
+         filter(style == "deterministic"),
+       aes(x = x, y = y)) +
+  geom_point(shape = 1, size = 2, color = "white") +
+  coord_equal() + 
+  theme(plot.background = element_rect(color = "black", fill = "black"),
+        panel.background = element_rect(color = "white", fill = "black"),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        text = element_blank())
+
+ggsave("deterministic.png")
+```
+
+```{r}
+ggplot(data = Xc %>% 
+         filter(style == "stochastic 1"),
+       aes(x = x, y = y)) +
+  geom_point(shape = 1, size = 2, color = "white") +
+  coord_equal() + 
+  theme(plot.background = element_rect(color = "black", fill = "black"),
+        panel.background = element_rect(color = "white", fill = "black"),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        text = element_blank())
+
+ggsave("stochastic-1.png")
+```
+
+```{r}
+ggplot(data = Xc %>% 
+         filter(style == "stochastic 2"),
+       aes(x = x, y = y)) +
+  geom_point(shape = 1, size = 2, color = "white") +
+  coord_equal() + 
+  theme(plot.background = element_rect(color = "black", fill = "black"),
+        panel.background = element_rect(color = "white", fill = "black"),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        text = element_blank())
+
+ggsave("stochastic-2.png")
+```
+
+```{r}
+ggplot(data = Xc %>% 
+         filter(style == "stochastic 3"),
+       aes(x = x, y = y)) +
+  geom_point(shape = 1, size = 2, color = "white") +
+  coord_equal() + 
+  theme(plot.background = element_rect(color = "black", fill = "black"),
+        panel.background = element_rect(color = "white", fill = "black"),
+        panel.grid = element_blank(),
+        axis.ticks = element_blank(),
+        text = element_blank())
+
+ggsave("stochastic-3.png")
+```

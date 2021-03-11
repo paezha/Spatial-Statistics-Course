@@ -48,10 +48,10 @@ Load the libraries you will use in this activity.
 
 In addition to `tidyverse`, you will need `sf`, a package that implements simple features in R (you can learn about `sf` [here](https://cran.r-project.org/web/packages/sf/vignettes/sf1.html)) and `spdep`, a package that implements several spatial statistical methods (you can learn more about it [here](https://cran.r-project.org/web/packages/spdep/index.html)):
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
+library(geog4ga3)
 library(sf)
 library(spdep)
-library(geog4ga3)
+library(tidyverse)
 ```
 
 Begin by loading the data that you will use in this activity:
@@ -64,11 +64,6 @@ This is a `sf` object with census tracts and selected demographic variables for 
 You can obtain new (calculated) variables as follows. For instance, to obtain the proportion of residents who are between 20 and 34 years old, and between 35 and 49:
 ```{r}
 Hamilton_CT <- mutate(Hamilton_CT, Prop20to34 = (AGE_20_TO_24 + AGE_25_TO_29 + AGE_30_TO_34)/POPULATION, Prop35to49 = (AGE_35_TO_39 + AGE_40_TO_44 + AGE_45_TO_49)/POPULATION)
-```
-
-You can also convert the `sf` object into a `SpatialPolygonsDataFrame` object for use with the `spdedp` package:
-```{r}
-Hamilton_CT.sp <- as(Hamilton_CT, "Spatial")
 ```
 
 You are now ready for the next activity.
